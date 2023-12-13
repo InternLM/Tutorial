@@ -41,7 +41,7 @@
 进入`conda`环境之后，使用以下命令从本地克隆一个已有的`pytorch 2.0.1` 的环境
 
 ```shell
-bash
+bash # 请每次使用 jupyter lab 打开终端时务必先执行 bash 命令进入 bash 中
 conda create --name internLM-demo --clone=/root/share/conda_envs/internlm-base
 ```
 
@@ -145,7 +145,7 @@ python /root/code/InternLM/cli_demo.py
 
 ### 2.5 web demo运行
 
-我们切换到`VScode`中，运行`/root/code/InternLM`目录下的`web_demo.py`文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](./hello%20world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。
+我们切换到`VScode`中，运行`/root/code/InternLM`目录下的`web_demo.py`文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。
 
 ```shell
 bash
@@ -445,7 +445,7 @@ if __name__ == '__main__':
 streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-用同样的方法我们依然切换到`VScode`页面，运行成功后，[**查看本教程5.2配置本地端口后**](./hello%20world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。
+用同样的方法我们依然切换到`VScode`页面，运行成功后，[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。
 
 我们在 `Web` 页面选择 `InternLM` 模型，等待模型加载完毕后，输入数学问题 已知 `2x+3=10`，求`x` ,此时 `InternLM-Chat-7B` 模型理解题意生成解此题的 `Python`代码，`Lagent` 调度送入 `Python` 代码解释器求出该问题的解。
 
@@ -528,7 +528,7 @@ python examples/web_demo.py  \
 
 > 这里`num_gpus 1`是因为InternStudio平台对于`A100(1/4)*2`识别仍为一张显卡。但如果有小伙伴课后使用两张3090来运行此demo，仍需将`num_gpus`设置为 `2` 。
 
-[**查看本教程5.2配置本地端口后**](./hello%20world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。我们以`又见敦煌`为提示词，体验图文创作的功能，如下图所示：
+[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。我们以`又见敦煌`为提示词，体验图文创作的功能，如下图所示：
 
 ![Alt text](images/image-9.png)
 
@@ -636,7 +636,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 33090
 
 #### 5.3.1 Hugging Face
 
-使用`huggingface`官方提供的`huggingface-cli`命令行工具。安装依赖:
+使用 Hugging Face 官方提供的`huggingface-cli`命令行工具。安装依赖:
 
 ```shell
 pip install -U huggingface_hub
@@ -678,7 +678,7 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_d
 
 #### 5.3.3 OpenXlab
 
-Openxlab 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件。
+OpenXLab 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件。
 
 使用python脚本下载模型首先要安装依赖，安装代码如下：`pip install -U openxlab` 安装完成后使用 download 函数导入模型中心的模型。
 
