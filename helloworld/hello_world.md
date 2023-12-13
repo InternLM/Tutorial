@@ -634,7 +634,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 33090
 
 ### 5.3 模型下载
 
-#### 5.3.1 hugging face
+#### 5.3.1 Hugging Face
 
 使用`huggingface`官方提供的`huggingface-cli`命令行工具。安装依赖:
 
@@ -642,7 +642,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 33090
 pip install -U huggingface_hub
 ```
 
-然后新建python文件，填入以下代码，运行即可。
+然后新建 python 文件，填入以下代码，运行即可。
 
 - resume-download：断点续下
 - local-dir：本地存储路径。（linux环境下需要填写绝对路径）
@@ -654,7 +654,7 @@ import os
 os.system('huggingface-cli download --resume-download internlm/internlm-chat-7b --local-dir your_path')
 ```
 
-#### 5.3.2 modelscope
+#### 5.3.2 Modelscope
 
 使用`modelscope`中的`snapshot_download`函数下载模型，第一个参数为模型名称，参数`cache_dir`为模型的下载路径。
 
@@ -676,7 +676,7 @@ import os
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_dir='your path', revision='master')
 ```
 
-#### 5.3.3 Openxlab
+#### 5.3.3 OpenXlab
 
 Openxlab 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件。
 
