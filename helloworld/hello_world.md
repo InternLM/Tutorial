@@ -654,7 +654,7 @@ import os
 os.system('huggingface-cli download --resume-download internlm/internlm-chat-7b --local-dir your_path')
 ```
 
-#### 5.3.2 Modelscope
+#### 5.3.2 ModelScope
 
 使用`modelscope`中的`snapshot_download`函数下载模型，第一个参数为模型名称，参数`cache_dir`为模型的下载路径。
 
