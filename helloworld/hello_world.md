@@ -14,7 +14,7 @@
 
 &emsp;&emsp;基于 `InternLM` 训练框架，上海人工智能实验室已经发布了两个开源的预训练模型：`InternLM-7B` 和 `InternLM-20B`。
 
-&emsp;&emsp;`Lagent` 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。通过 `Lagent` 框架可以更好的发挥 `InternLM` 的全部性能。`Lagent` 框架已经发布了两个开源的智能体：`Lagent-7B` 和 `Lagent-20B`。`Lagent` 框架图如下所示：
+&emsp;&emsp;`Lagent` 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。通过 `Lagent` 框架可以更好的发挥 `InternLM` 的全部性能。
 
 ![Lagent 框架图](./images/Lagent.png)
 
@@ -42,13 +42,13 @@
 
 ```shell
 bash # 请每次使用 jupyter lab 打开终端时务必先执行 bash 命令进入 bash 中
-conda create --name internLM-demo --clone=/root/share/conda_envs/internlm-base
+conda create --name internlm-demo --clone=/root/share/conda_envs/internlm-base
 ```
 
 然后使用以下命令激活环境
 
 ```shell
-conda activate internLM-demo
+conda activate internlm-demo
 ```
 
 并在环境中安装运行demo所需要的依赖。
@@ -65,7 +65,7 @@ pip install accelerate==0.24.1
 ```
 ### 2.2 模型下载
 
-[InternStudio](https://studio.intern-ai.org.cn/)平台的`share`目录下已经为我们准备了全系列的`internLM`模型，所以我们可以直接复制即可。使用如下命令复制：
+[InternStudio](https://studio.intern-ai.org.cn/)平台的`share`目录下已经为我们准备了全系列的`InternLM`模型，所以我们可以直接复制即可。使用如下命令复制：
 
 ```shell
 mkdir -p /root/model/Shanghai_AI_Laboratory
@@ -149,7 +149,7 @@ python /root/code/InternLM/cli_demo.py
 
 ```shell
 bash
-conda activate internLM-demo  # 首次进入vscode会默认是base环境，所以首先切换环境
+conda activate internlm-demo  # 首次进入vscode会默认是base环境，所以首先切换环境
 cd /root/code/InternLM
 streamlit run web_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
@@ -480,7 +480,7 @@ pip install transformers==4.33.1 timm==0.4.12 sentencepiece==0.1.99 gradio==3.44
 ```
 ### 4.2 模型下载
 
-[InternStudio](https://studio.intern-ai.org.cn/)平台的`share`目录下已经为我们准备了全系列的`internLM`模型，所以我们可以直接复制即可。使用如下命令复制：
+[InternStudio](https://studio.intern-ai.org.cn/)平台的`share`目录下已经为我们准备了全系列的`InternLM`模型，所以我们可以直接复制即可。使用如下命令复制：
 
 ```shell
 mkdir -p /root/model/Shanghai_AI_Laboratory
