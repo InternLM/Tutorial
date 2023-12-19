@@ -15,13 +15,13 @@
 
 |课程时间|课程内容|讲师|资料|
 |:-----|:----|:----|:-----|
-|第 1 节|大语言模型综述及书生·浦语大模型工具链介绍|陈恺 </br>上海人工智能实验室青年科学家|[文档](./helloworld/hello_world.md)、[视频]() | 
-|第 2 节|大模型 Hello World——体验对话、工具调用、模型|宋志学</br>d2l-ai-solutions-manual 开源项目负责人| [文档]()、[视频]()  | 
-|第 3 节|基于 InternLM 和 Langchain 搭建领域知识库|邹雨衡</br>prompt-engineering-for-developers 开源项目负责人| [文档]()、[视频]()  | 
-|第 4 节|基于 XTuner 单卡低成本微调领域大模型|汪周谦</br>XTuner 社区贡献者| [文档](./xtuner/README.md)、[视频]()  | 
-|第 5 节|LMDeploy 大模型量化部署实战|长琴</br>HuggingLLM开源项目负责人| [文档](./lmdeploy/lmdeploy.md)、[视频]()  | 
-|第 6 节|OpenCompass 大模型评测实战|刘宏伟</br>OpenCompass 核心开发者</br></br>王努</br>OpenCompass 社区贡献者| [文档]()、[视频]()  | 
-|第 7 节|彩蛋环节| 神秘嘉宾 | [文档]()、[视频]()  | 
+|第 1 节|大语言模型综述及书生·浦语大模型工具链介绍|陈恺 </br>上海人工智能实验室青年科学家|[文档](./helloworld/hello_world.md)、视频 | 
+|第 2 节|大模型 Hello World——体验对话、工具调用、模型|宋志学</br>d2l-ai-solutions-manual 开源项目负责人| 文档、视频 | 
+|第 3 节|基于 InternLM 和 Langchain 搭建领域知识库|邹雨衡</br>prompt-engineering-for-developers 开源项目负责人| 文档、视频| 
+|第 4 节|基于 XTuner 单卡低成本微调领域大模型|汪周谦</br>XTuner 社区贡献者| [文档](./xtuner/README.md)、视频  | 
+|第 5 节|LMDeploy 大模型量化部署实战|长琴</br>HuggingLLM开源项目负责人| [文档](./lmdeploy/lmdeploy.md)、视频 | 
+|第 6 节|OpenCompass 大模型评测实战|刘宏伟</br>OpenCompass 核心开发者</br></br>王努</br>OpenCompass 社区贡献者| 文档、视频  | 
+|第 7 节|彩蛋环节| 神秘嘉宾 | 文档、视频  | 
 
 
 ## 作业
