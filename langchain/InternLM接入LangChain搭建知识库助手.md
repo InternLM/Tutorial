@@ -178,8 +178,8 @@ unzip averaged_perceptron_tagger.zip
 我们选择由上海人工智能实验室开源的一系列大模型工具开源仓库作为语料库来源，包括：
 
 - [OpenCompass](https://gitee.com/open-compass/opencompass)：面向大模型评测的一站式平台
-- [Imdeploy](https://gitee.com/InternLM/lmdeploy)：涵盖了 LLM 任务的全套轻量化、部署和服务解决方案的高效推理工具箱
-- [Xtuner](https://gitee.com/InternLM/xtuner)：轻量级微调大语言模型的工具库
+- [IMDeploy](https://gitee.com/InternLM/lmdeploy)：涵盖了 LLM 任务的全套轻量化、部署和服务解决方案的高效推理工具箱
+- [XTuner](https://gitee.com/InternLM/xtuner)：轻量级微调大语言模型的工具库
 - [InternLM-XComposer](https://gitee.com/InternLM/InternLM-XComposer)：浦语·灵笔，基于书生·浦语大语言模型研发的视觉-语言大模型
 - [Lagent](https://gitee.com/InternLM/lagent)：一个轻量级、开源的基于大语言模型的智能体（agent）框架
 - [InternLM](https://gitee.com/InternLM/InternLM)：一个开源的轻量级训练框架，旨在支持大模型训练而无需大量的依赖
