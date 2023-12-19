@@ -625,7 +625,9 @@ xtuner chat ./internlm-chat-7b --adapter internlm-7b-qlora-msagent-react --lagen
 xtuner chat  增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust renote code"```	
 
 注释掉已安装包中的代码：
+
 ![NfHAV1b4zqYv5kR.png](https://s2.loli.net/2023/12/19/NfHAV1b4zqYv5kR.png)
+
 ![YTpz1qemiojk5Bg.png](https://s2.loli.net/2023/12/19/YTpz1qemiojk5Bg.png)
 
 
