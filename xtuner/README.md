@@ -1,4 +1,4 @@
-![m3qx](head.png)
+![m3qx](imgs/head.png)
 
 > 怎么硕呢，祝大家炼丹愉快吧~ 😙
 
@@ -36,7 +36,7 @@
 - **[LoRA](http://arxiv.org/abs/2106.09685)** :     😳 → 🛵
 - **[QLoRA](http://arxiv.org/abs/2305.14314)** :   😳 → 🏍
 
-![WOZJXUtaKlEk9S4.png](https://s2.loli.net/2023/12/08/WOZJXUtaKlEk9S4.png)
+![WOZJXUtaKlEk9S4.png](imgs/cat_fly.png)
 
 
 ## 2 快速上手
@@ -91,7 +91,7 @@ XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令�
 xtuner list-cfg
 ```
 
-![QCgmlv1VpU3fZPk.png](https://s2.loli.net/2023/12/08/QCgmlv1VpU3fZPk.png)
+![QCgmlv1VpU3fZPk.png](imgs/cfgs.png)
 
 拷贝一个配置文件到当前目录：
 `# xtuner copy-cfg ${CONFIG_NAME} ${SAVE_PATH}`
@@ -297,7 +297,7 @@ xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/
 
 > 可以简单理解：LoRA模型文件 = Adapter
 
----
+
 
 ### 2.4 部署与测试
 > 使用InternStudio的同学换至少A100*1的机器
@@ -315,7 +315,7 @@ xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
 **效果：**
 | 微调前 | 微调后 |
 | --- | --- |
-| ![O23QD48iFSZMfbr.png](https://s2.loli.net/2023/12/16/O23QD48iFSZMfbr.png) | ![L1sqmGgE6h2exWP.png](https://s2.loli.net/2023/12/16/L1sqmGgE6h2exWP.png) |
+| ![O23QD48iFSZMfbr.png](imgs/beforeFT.png) | ![L1sqmGgE6h2exWP.png](imgs/afterFT.png) |
 
 
 **`xtuner chat`** **的启动参数**
@@ -363,7 +363,7 @@ xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
 
 **原格式：(.xlsx)**
 
-![gjKLFUNWAx2dZDS.png](https://s2.loli.net/2023/12/08/gjKLFUNWAx2dZDS.png)
+![gjKLFUNWAx2dZDS.png](imgs/medqa2019samples.png)
 
 | **问题** | 药物类型 | 问题类型 | **回答** | 主题 | URL  |
 | -------- | -------- | -------- | -------- | ---- | ---- |
@@ -433,7 +433,7 @@ python xlsx2jsonl.py
 ```
 
 **格式化后的数据集长这样：**
-![uOCJXwbfzKRWSBE.png](https://s2.loli.net/2023/11/27/uOCJXwbfzKRWSBE.png)
+![uOCJXwbfzKRWSBE.png](imgs/dataProcessed.png)
 
 此时，当然也可以对数据进行训练集和测试集的分割，同样可以让ChatGPT写py代码。当然如果你没有严格的科研需求、不在乎“训练集泄露”的问题，也可以不做训练集与测试集的分割。
 
@@ -523,7 +523,7 @@ train_dataset = dict(
 ```
 #### 3.3.2 **XTuner！启动！**
 
-![tH8udZzECYl5are.png](https://s2.loli.net/2023/11/28/tH8udZzECYl5are.png)
+![tH8udZzECYl5are.png](imgs/ysqd.png)
 
 ```bash
 xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
@@ -538,10 +538,6 @@ xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
 同前述。[部署与测试](#24-部署与测试)
 
 
----
----
-
-
 ## 4【补充】用MS-Agent数据集 赋予LLM以Agent能力
 ### 4.1 概述
 MSAgent 数据集每条样本包含一个对话列表（conversations），其里面包含了 system、user、assistant 三种字段。其中：
@@ -553,7 +549,7 @@ MSAgent 数据集每条样本包含一个对话列表（conversations），其�
 - assistant: 为模型的回复。其中会包括插件调用代码和执行代码，调用代码是要 LLM 生成的，而执行代码是调用服务来生成结果的
 
 一条调用网页搜索插件查询“上海明天天气”的数据样本示例如下图所示：
-![BlgfEqpiRFO5G6L.png](https://s2.loli.net/2023/11/28/BlgfEqpiRFO5G6L.png)
+![BlgfEqpiRFO5G6L.png](imgs/msagent_data.png)
 
 ### 4.2 微调步骤
 > xtuner是从国内的ModelScope平台下载MS-Agent数据集，因此不用提前手动下载数据集文件。
@@ -604,7 +600,7 @@ OK，现在目录应该长这样：
 > 
 > 去serper.dev免费注册一个账号，生成自己的api key。这个东西是用来给lagent去获取google搜索的结果的。等于是serper.dev帮你去访问google，而不是从你自己本地去访问google了。
 
-![kDSdpQrhHfTWYsc.png](https://s2.loli.net/2023/12/06/kDSdpQrhHfTWYsc.png)
+![kDSdpQrhHfTWYsc.png](imgs/serper.png)
 
 添加serper api key到环境变量：
 
@@ -618,7 +614,6 @@ xtuner + agent，启动！
 xtuner chat ./internlm-chat-7b --adapter internlm-7b-qlora-msagent-react --lagent
 ```
 
----
 
 **报错处理：**
 
@@ -626,9 +621,9 @@ xtuner chat  增加 --lagent 参数后，报错 ```TypeError: transfomers.models
 
 注释掉已安装包中的代码：
 
-![NfHAV1b4zqYv5kR.png](https://s2.loli.net/2023/12/19/NfHAV1b4zqYv5kR.png)
+![NfHAV1b4zqYv5kR.png](imgs/bugfix1.png)
 
-![YTpz1qemiojk5Bg.png](https://s2.loli.net/2023/12/19/YTpz1qemiojk5Bg.png)
+![YTpz1qemiojk5Bg.png](imgs/bugfix2.png)
 
 
 其他已知问题和解决方案：
@@ -639,14 +634,14 @@ https://docs.qq.com/doc/DY1d2ZVFlbXlrUERj
 Have fun!
 
 
----
+
 
 ## 注意事项
 
 本教程使用 xtuner 0.1.9 版本
 若需要跟着本教程一步一步完成，建议严格遵循本教程的步骤！
 
----
+
 
 若出现莫名其妙报错，请尝试更换为以下包的版本：（如果有报错再检查，没报错不用看）
 ```
@@ -669,4 +664,3 @@ nvidia-cuda-cupti-cu12        12.1.105
 nvidia-cuda-nvrtc-cu12        12.1.105
 nvidia-cuda-runtime-cu12      12.1.105
 ```
----
