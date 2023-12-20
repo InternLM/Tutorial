@@ -4,20 +4,16 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [1 环境配置](#1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)
-  - [1.1 基础环境](#11-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83)
 - [2 服务部署](#2-%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2)
   - [2.1 模型转换](#21-%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2)
     - [2.1.1 在线转换](#211-%E5%9C%A8%E7%BA%BF%E8%BD%AC%E6%8D%A2)
     - [2.1.2 离线转换](#212-%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)
-  - [2.2 命令行本地对话](#22-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9C%AC%E5%9C%B0%E5%AF%B9%E8%AF%9D)
-    - [2.2.1 TurboMind推理作为后端](#221-turbomind%E6%8E%A8%E7%90%86%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
-  - [2.3 模型服务](#23-%E6%A8%A1%E5%9E%8B%E6%9C%8D%E5%8A%A1)
-    - [2.3.1 TurboMind推理+API服务](#231-turbomind%E6%8E%A8%E7%90%86api%E6%9C%8D%E5%8A%A1)
+  - [2.2  TurboMind推理+命令行本地对话](#22--turbomind%E6%8E%A8%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9C%AC%E5%9C%B0%E5%AF%B9%E8%AF%9D)
+  - [2.3 TurboMind推理+API服务](#23-turbomind%E6%8E%A8%E7%90%86api%E6%9C%8D%E5%8A%A1)
   - [2.4 网页Demo演示](#24-%E7%BD%91%E9%A1%B5demo%E6%BC%94%E7%A4%BA)
     - [2.4.1 TurboMind服务作为后端](#241-turbomind%E6%9C%8D%E5%8A%A1%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
     - [2.4.2 TurboMind推理作为后端](#242-turbomind%E6%8E%A8%E7%90%86%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
-  - [2.5 代码集成](#25-%E4%BB%A3%E7%A0%81%E9%9B%86%E6%88%90)
-    - [2.5.1 TurboMind推理+Python](#251-turbomind%E6%8E%A8%E7%90%86python)
+  - [2.5 TurboMind推理+Python代码集成](#25-turbomind%E6%8E%A8%E7%90%86python%E4%BB%A3%E7%A0%81%E9%9B%86%E6%88%90)
   - [2.6 这么多，头凸，有没有最佳实践](#26-%E8%BF%99%E4%B9%88%E5%A4%9A%E5%A4%B4%E5%87%B8%E6%9C%89%E6%B2%A1%E6%9C%89%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
     - [2.6.1 方案实践](#261-%E6%96%B9%E6%A1%88%E5%AE%9E%E8%B7%B5)
     - [2.6.2 模型配置实践](#262-%E6%A8%A1%E5%9E%8B%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5)
@@ -42,8 +38,6 @@
 本文档主要涉及LMDeploy的量化和部署相关内容。
 
 ## 1 环境配置
-
-### 1.1 基础环境
 
 首先我们可以使用 `vgpu-smi ` 查看显卡资源使用情况。
 
@@ -202,7 +196,7 @@ Tensor并行一般分为行并行或列并行，原理如下图所示。
 
 简单来说，就是把一个大的张量（参数）分到多张卡上，分别计算各部分的结果，然后再同步汇总。
 
-### 2.2 命令行本地对话
+### 2.2  TurboMind推理+命令行本地对话
 
 模型转换完成后，我们就具备了使用模型推理的条件，接下来就可以进行真正的模型推理环节。
 
@@ -210,12 +204,10 @@ Tensor并行一般分为行并行或列并行，原理如下图所示。
 
 这里支持多种方式运行，比如Turbomind、PyTorch、DeepSpeed。但 PyTorch 和 DeepSpeed 调用的其实都是 Huggingface 的 Transformers 包，PyTorch表示原生的 Transformer 包，DeepSpeed 表示使用了 DeepSpeed 作为推理框架。Pytorch/DeepSpeed 目前功能都比较弱，不具备生产能力，不推荐使用。
 
-#### 2.2.1 TurboMind推理作为后端
-
-我们先执行 TurboMind+Local Chat，这也是我们推荐的方式。
+执行命令如下。
 
 ```bash
-# Turbomind + Local Chat
+# Turbomind + Bash Local Chat
 lmdeploy chat turbomind ./workspace
 ```
 
@@ -225,15 +217,13 @@ lmdeploy chat turbomind ./workspace
 
 输入后两次回车，退出时输入`exit` 回车两次即可。此时，Server就是本地跑起来的模型（TurboMind），命令行可以看作是前端。
 
-### 2.3 模型服务
+### 2.3 TurboMind推理+API服务
 
 在上面的部分我们尝试了直接用命令行启动 Client，接下来我们尝试如何运用 lmdepoy 进行服务化。
 
 ”模型推理/服务“目前提供了Turbomind和TritonServer两种服务化方式。此时，Server是TurboMind或TritonServer，API Server 可以提供对外的 API 服务。我们推荐使用 TurboMind，TritonServer 使用方式详见《附录1》。
 
-#### 2.3.1 TurboMind推理+API服务
-
-首先，还是还是使用 TurboMind，通过下面命令启动服务。
+首先，通过下面命令启动服务。
 
 
 ```bash
@@ -337,9 +327,7 @@ lmdeploy serve gradio ./workspace
 
 ![](img/19.png)
 
-### 2.5 代码集成
-
-#### 2.5.1 TurboMind推理+Python
+### 2.5 TurboMind推理+Python代码集成
 
 前面介绍的都是通过 API 或某种前端与”模型推理/服务“进行交互，lmdeploy 还支持Python直接与 TurboMind 进行交互，如下所示。
 
@@ -421,9 +409,9 @@ LMDeploy应该是Transformers的3-5倍左右。
 
 后面的 API 服务和 Client 就得分场景了。
 
-- 我想对外提供类似 OpenAI 那样的 HTTP 接口服务。推荐使用 TurboMind推理 + API 服务（2.3.1）。
+- 我想对外提供类似 OpenAI 那样的 HTTP 接口服务。推荐使用 TurboMind推理 + API 服务（2.3）。
 - 我想做一个演示 Demo，Gradio 无疑是比 Local Chat 更友好的。推荐使用 TurboMind推理作为后端的Gradio进行演示（2.4.2）。
-- 我想直接在自己的 Python 项目中使用大模型功能。推荐使用 TurboMind推理 + Python（2.5.1）。
+- 我想直接在自己的 Python 项目中使用大模型功能。推荐使用 TurboMind推理 + Python（2.5）。
 - 我想在自己的其他非 Python 项目中使用大模型功能。推荐直接通过 HTTP 接口调用服务。也就是用本列表第一条先启动一个 HTTP API 服务，然后在项目中直接调用接口。
 - 我的项目是 C++ 写的，为什么不能直接用 TurboMind 的 C++ 接口？！必须可以！大佬可以右上角叉掉这个窗口啦。
 
