@@ -146,14 +146,20 @@ lmdeploy 支持直接读取 Huggingface 模型权重，目前共支持三种类�
 示例如下：
 
 ```bash
+# 需要能访问 Huggingface 的网络环境
 lmdeploy chat turbomind internlm/internlm-chat-20b-4bit --model-name internlm-chat-20b
-
 lmdeploy chat turbomind Qwen/Qwen-7B-Chat --model-name qwen-7b
 ```
 
 上面两行命令分别展示了如何直接加载 Huggingface 的模型，第一条命令是加载使用 lmdeploy 量化的版本，第二条命令是加载其他 LLM 模型。
 
-以上命令会启动一个本地对话界面，通过 Bash 可以与 LLM 进行对话。
+我们也可以直接启动本地的 Huggingface 模型，如下所示。
+
+```bash
+lmdeploy chat turbomind /share/temp/model_repos/internlm-chat-7b/  --model-name internlm-chat-7b
+```
+
+以上命令都会启动一个本地对话界面，通过 Bash 可以与 LLM 进行对话。
 
 #### 2.1.2 离线转换
 
