@@ -1,4 +1,4 @@
-# 大模型领域的Hello World
+# 轻松玩转书生·浦语大模型趣味 Demo
 
 ![](./images/head.png)
 
