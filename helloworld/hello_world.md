@@ -1,4 +1,4 @@
-# 大模型领域的Hello World
+# 轻松玩转书生·浦语大模型趣味 Demo
 
 ![](./images/head.png)
 
@@ -24,7 +24,7 @@
 
 &emsp;&emsp;上述提到的所有模型，都会带领大家一起体验哦！欢迎大家来给`InternLM`: https://github.com/internLM/internLM/ 点点 star 哦！
 
-## 2. 单卡InternLM-Chat-7B对话模型web部署
+## 2. InternLM-Chat-7B 智能对话 Demo
 
 ### 2.1 环境准备
 
@@ -166,7 +166,7 @@ streamlit run web_demo.py --server.address 127.0.0.1 --server.port 6006
 
 ![Alt text](images/image-6.png)
 
-## 3. Lagent+InternLM-Chat-7B模型web部署
+## 3. Lagent 智能体工具调用 Demo
 
 Lagent 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。通过 Lagent 框架可以更好的发挥 InternLM 的全部性能。
 
@@ -453,7 +453,7 @@ streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.
 
 ![Alt text](images/image-7.png)
 
-## 4. 双卡InternLM-XComposer-7B图文模型web部署
+## 4. 浦语·灵笔图文理解创作 Demo
 
 ### 4.1 环境准备
 
