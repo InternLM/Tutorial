@@ -1,6 +1,6 @@
 ![](figures/image-0.png)
 
-# 基于 InternLM 和 LangChain 搭建知识库助手
+# 基于 InternLM 和 LangChain 搭建你的知识库
 
 ## 一、环境配置
 
