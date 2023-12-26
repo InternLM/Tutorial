@@ -26,6 +26,8 @@
 
 ## 2. InternLM-Chat-7B 智能对话 Demo
 
+本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) 机器和`InternLM-Chat-7B`模型部署一个智能对话 Demo。
+
 ### 2.1 环境准备
 
 在[InternStudio](https://studio.intern-ai.org.cn/)平台中选择 A100(1/4) 的配置，如下图所示镜像选择`Cuda11.7-conda`，如下图所示：
@@ -167,6 +169,8 @@ streamlit run web_demo.py --server.address 127.0.0.1 --server.port 6006
 ![Alt text](images/image-6.png)
 
 ## 3. Lagent 智能体工具调用 Demo
+
+本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) 机器、`InternLM-Chat-7B`模型和`Lagent`框架部署一个智能工具调用 Demo。
 
 Lagent 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。通过 Lagent 框架可以更好的发挥 InternLM 的全部性能。
 
@@ -454,6 +458,8 @@ streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.
 ![Alt text](images/image-7.png)
 
 ## 4. 浦语·灵笔图文理解创作 Demo
+
+本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) * 2 机器和`internlm-xcomposer-7b`模型部署一个图文理解创作 Demo 。
 
 ### 4.1 环境准备
 
