@@ -1,4 +1,4 @@
-![m3qx](imgs/head.png)
+![m3qx](imgs/head2.png)
 
 > 怎么硕呢，祝大家炼丹愉快吧~ 😙
 
