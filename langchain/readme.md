@@ -171,6 +171,19 @@ unzip averaged_perceptron_tagger.zip
 
 之后使用时服务器即会自动使用已有资源，无需再次下载。
 
+### 1.5 下载本项目代码
+
+我们在仓库中同步提供了所有脚本，可以查看该教程文件的同级目录的 `demo` 文件夹。
+
+建议通过以下目录将仓库 clone 到本地，可以直接在本地运行相关代码：
+
+```bahs
+cd /root/data
+git clone https://github.com/InternLM/tutorial
+```
+
+通过上述命令，可以将本仓库 clone 到本地 `root/data/tutorial` 目录下，在之后的过程中可以对照仓库中的脚本来完成自己的代码，也可以直接使用仓库中的脚本。
+
 ## 二、知识库搭建
 
 ### 2.1 数据收集
