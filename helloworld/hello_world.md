@@ -684,7 +684,7 @@ import os
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_dir='your path', revision='master')
 ```
 
-#### 5.3.3 OpenXlab
+#### 5.3.3 OpenXLab
 
 OpenXLab 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件。
 
