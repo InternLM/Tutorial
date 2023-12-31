@@ -2,7 +2,7 @@
 
 ![](./images/head.png)
 
-## 1. 大模型及InternLM模型简介
+## 1 大模型及 InternLM 模型简介
 
 ### 1.1 什么是大模型？
 
@@ -22,27 +22,27 @@
 
 &emsp;&emsp;浦语·灵笔是基于书生·浦语大语言模型研发的视觉-语言大模型，提供出色的图文理解和创作能力，结合了视觉和语言的先进技术，能够实现图像到文本、文本到图像的双向转换。使用浦语·灵笔大模型可以轻松的创作一篇图文推文，也能够轻松识别一张图片中的物体，并生成对应的文本描述。
 
-&emsp;&emsp;上述提到的所有模型，都会带领大家一起体验哦！欢迎大家来给`InternLM`: https://github.com/internLM/internLM/ 点点 star 哦！
+&emsp;&emsp;上述提到的所有模型，都会带领大家一起体验哦！欢迎大家来给 `InternLM`: https://github.com/InternLM/InternLM/ 点点 star 哦！
 
-## 2. InternLM-Chat-7B 智能对话 Demo
+## 2 InternLM-Chat-7B 智能对话 Demo
 
 本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) 机器和`InternLM-Chat-7B`模型部署一个智能对话 Demo。
 
 ### 2.1 环境准备
 
-在[InternStudio](https://studio.intern-ai.org.cn/)平台中选择 A100(1/4) 的配置，如下图所示镜像选择`Cuda11.7-conda`，如下图所示：
+在[InternStudio](https://studio.intern-ai.org.cn/)平台中选择 A100(1/4) 的配置，如下图所示镜像选择 `Cuda11.7-conda`，如下图所示：
 
 ![Alt text](images/image.png)
 
-接下来打开刚刚租用服务器的`进入开发机`，并且打开其中的终端开始环境配置、模型下载和运行`demo`。
+接下来打开刚刚租用服务器的`进入开发机`，并且打开其中的终端开始环境配置、模型下载和运行 `demo`。
 
 ![Alt text](images/image-1.png)
 
-进入开发机后，在页面的左上角可以切换`JupyterLab`、`终端`和`VScode`，并在终端输入`bash`命令，进入`conda`环境。如下图所示：
+进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端`和 `VScode`，并在终端输入 `bash 命令，进入 `conda` 环境。如下图所示：
 
 ![Alt text](images/image-11.png)
 
-进入`conda`环境之后，使用以下命令从本地克隆一个已有的`pytorch 2.0.1` 的环境
+进入 `conda` 环境之后，使用以下命令从本地克隆一个已有的 `pytorch 2.0.1` 的环境
 
 ```shell
 bash # 请每次使用 jupyter lab 打开终端时务必先执行 bash 命令进入 bash 中
@@ -55,7 +55,7 @@ conda create --name internlm-demo --clone=/root/share/conda_envs/internlm-base
 conda activate internlm-demo
 ```
 
-并在环境中安装运行demo所需要的依赖。
+并在环境中安装运行 demo 所需要的依赖。
 
 ```shell
 # 升级pip
@@ -69,7 +69,7 @@ pip install accelerate==0.24.1
 ```
 ### 2.2 模型下载
 
-[InternStudio](https://studio.intern-ai.org.cn/)平台的`share`目录下已经为我们准备了全系列的`InternLM`模型，所以我们可以直接复制即可。使用如下命令复制：
+[InternStudio](https://studio.intern-ai.org.cn/)平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，所以我们可以直接复制即可。使用如下命令复制：
 
 ```shell
 mkdir -p /root/model/Shanghai_AI_Laboratory
@@ -77,9 +77,9 @@ cp -r /root/share/temp/model_repos/internlm-chat-7b /root/model/Shanghai_AI_Labo
 ```
 > -r 选项表示递归地复制目录及其内容
 
-也可以使用 `modelscope` 中的`snapshot_download`函数下载模型，第一个参数为模型名称，参数`cache_dir`为模型的下载路径。
+也可以使用 `modelscope` 中的 `snapshot_download` 函数下载模型，第一个参数为模型名称，参数 `cache_dir` 为模型的下载路径。
 
-在 `/root` 路径下新建目录`model`，在目录下新建 `download.py` 文件并在其中输入以下内容，粘贴代码后记得保存文件，如下图所示。并运行 `python /root/model/download.py`执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
+在 `/root` 路径下新建目录`model`，在目录下新建 `download.py` 文件并在其中输入以下内容，粘贴代码后记得保存文件，如下图所示。并运行 `python /root/model/download.py` 执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
 
 ```python
 import torch
@@ -88,33 +88,33 @@ import os
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_dir='/root/model', revision='v1.0.3')
 ```
 
-> 注意：使用`pwd`命令可以查看当前的路径，`JupyterLab`左侧目录栏显示为`/root/`下的路径。
+> 注意：使用 `pwd` 命令可以查看当前的路径，`JupyterLab` 左侧目录栏显示为 `/root/` 下的路径。
 
 ![image](images/image-2.png)
 
 ### 2.3 代码准备
 
-首先`clone`代码，在`/root`路径下新建`code`目录，然后切换路径, clone代码.
+首先 `clone` 代码，在 `/root` 路径下新建 `code` 目录，然后切换路径, clone 代码.
 
 ```shell
 cd /root/code
 git clone https://gitee.com/internlm/InternLM.git
 ```
 
-切换commit版本，与教程commit版本保持一致，可以让大家更好的复现。
+切换 commit 版本，与教程 commit 版本保持一致，可以让大家更好的复现。
 
 ```shell
 cd InternLM
 git checkout 3028f07cb79e5b1d7342f4ad8d11efad3fd13d17
 ```
 
-将 `/root/code/InternLM/web_demo.py`中 29 行和 33 行的模型更换为本地的`/root/model/Shanghai_AI_Laboratory/internlm-chat-7b`。
+将 `/root/code/InternLM/web_demo.py`中 29 行和 33 行的模型更换为本地的 `/root/model/Shanghai_AI_Laboratory/internlm-chat-7b`。
 
 ![image-3](images/image-3.png)
 
 ### 2.4 终端运行
 
-我们可以在`/root/code/InternLM`目录下新建一个`cli_demo.py`文件，将以下代码填入其中：
+我们可以在 `/root/code/InternLM` 目录下新建一个 `cli_demo.py` 文件，将以下代码填入其中：
 
 ```python
 import torch
@@ -140,20 +140,20 @@ while True:
     print(f"robot >>> {response}")
 ```
 
-然后在终端运行以下命令，即可体验`InternLM-Chat-7B`模型的对话能力。对话效果如下所示：
+然后在终端运行以下命令，即可体验 `InternLM-Chat-7B` 模型的对话能力。对话效果如下所示：
 
 ```shell
 python /root/code/InternLM/cli_demo.py
 ```
 ![Alt text](images/image-18.png)
 
-### 2.5 web demo运行
+### 2.5 web demo 运行
 
-我们切换到`VScode`中，运行`/root/code/InternLM`目录下的`web_demo.py`文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。
+我们切换到 `VScode` 中，运行 `/root/code/InternLM` 目录下的 `web_demo.py` 文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
 
 ```shell
 bash
-conda activate internlm-demo  # 首次进入vscode会默认是base环境，所以首先切换环境
+conda activate internlm-demo  # 首次进入 vscode 会默认是 base 环境，所以首先切换环境
 cd /root/code/InternLM
 streamlit run web_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
@@ -164,13 +164,13 @@ streamlit run web_demo.py --server.address 127.0.0.1 --server.port 6006
 
 ![Alt text](images/image-5.png)
 
-在加载完模型之后，就可以与InternLM-Chat-7B进行对话了，如下图所示：
+在加载完模型之后，就可以与 InternLM-Chat-7B 进行对话了，如下图所示：
 
 ![Alt text](images/image-6.png)
 
-## 3. Lagent 智能体工具调用 Demo
+## 3 Lagent 智能体工具调用 Demo
 
-本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) 机器、`InternLM-Chat-7B`模型和`Lagent`框架部署一个智能工具调用 Demo。
+本小节我们将使用 [InternStudio](https://studio.intern-ai.org.cn/) 中的 A100(1/4) 机器、`InternLM-Chat-7B` 模型和 `Lagent` 框架部署一个智能工具调用 Demo。
 
 Lagent 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。通过 Lagent 框架可以更好的发挥 InternLM 的全部性能。
 
@@ -193,7 +193,7 @@ pip install accelerate==0.24.1
 
 ### 3.2 模型下载
 
-[InternStudio](https://studio.intern-ai.org.cn/)平台的`share`目录下已经为我们准备了全系列的`internLM`模型，所以我们可以直接复制即可。使用如下命令复制：
+[InternStudio](https://studio.intern-ai.org.cn/) 平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，所以我们可以直接复制即可。使用如下命令复制：
 
 ```shell
 mkdir -p /root/model/Shanghai_AI_Laboratory
@@ -212,7 +212,7 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_d
 
 ### 3.3 Lagent 安装
 
-首先切换路径到`/root/code` 克隆 `lagent`仓库，并通过 `pip install -e .`源码安装 `Lagent`
+首先切换路径到 `/root/code` 克隆 `lagent` 仓库，并通过 `pip install -e .` 源码安装 `Lagent`
 
 ```shell
 cd /root/code
@@ -224,7 +224,7 @@ pip install -e . # 源码安装
 
 ### 3.4 修改代码
 
-由于代码修改的地方比较多，大家直接将`/root/code/lagent/examples/react_web_demo.py` 内容替换为以下代码
+由于代码修改的地方比较多，大家直接将 `/root/code/lagent/examples/react_web_demo.py` 内容替换为以下代码
 
 ```python
 import copy
@@ -451,25 +451,25 @@ if __name__ == '__main__':
 streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-用同样的方法我们依然切换到`VScode`页面，运行成功后，[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。
+用同样的方法我们依然切换到 `VScode` 页面，运行成功后，[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
 
-我们在 `Web` 页面选择 `InternLM` 模型，等待模型加载完毕后，输入数学问题 已知 `2x+3=10`，求`x` ,此时 `InternLM-Chat-7B` 模型理解题意生成解此题的 `Python`代码，`Lagent` 调度送入 `Python` 代码解释器求出该问题的解。
+我们在 `Web` 页面选择 `InternLM` 模型，等待模型加载完毕后，输入数学问题 已知 `2x+3=10`，求`x` ,此时 `InternLM-Chat-7B` 模型理解题意生成解此题的 `Python` 代码，`Lagent` 调度送入 `Python` 代码解释器求出该问题的解。
 
 ![Alt text](images/image-7.png)
 
 ## 4. 浦语·灵笔图文理解创作 Demo
 
-本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) * 2 机器和`internlm-xcomposer-7b`模型部署一个图文理解创作 Demo 。
+本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) * 2 机器和 `internlm-xcomposer-7b` 模型部署一个图文理解创作 Demo 。
 
 ### 4.1 环境准备
 
-首先在 [InternStudio](https://studio.intern-ai.org.cn/) 上选择A100(1/4)*2的配置。如下图所示：
+首先在 [InternStudio](https://studio.intern-ai.org.cn/) 上选择 A100(1/4)*2 的配置。如下图所示：
 
 ![Alt text](images/image-8.png)
 
-接下来打开刚刚租用服务器的`进入开发机`，并在终端输入`bash`命令，进入`conda`环境，接下来就是安装依赖。
+接下来打开刚刚租用服务器的`进入开发机`，并在终端输入 `bash` 命令，进入 `conda` 环境，接下来就是安装依赖。
 
-进入`conda`环境之后，使用以下命令从本地克隆一个已有的`pytorch 2.0.1` 的环境
+进入 `conda` 环境之后，使用以下命令从本地克隆一个已有的`pytorch 2.0.1` 的环境
 
 ```shell
 conda create --name xcomposer-demo --clone=/root/share/conda_envs/internlm-base
@@ -488,7 +488,7 @@ pip install transformers==4.33.1 timm==0.4.12 sentencepiece==0.1.99 gradio==3.44
 ```
 ### 4.2 模型下载
 
-[InternStudio](https://studio.intern-ai.org.cn/)平台的`share`目录下已经为我们准备了全系列的`InternLM`模型，所以我们可以直接复制即可。使用如下命令复制：
+[InternStudio](https://studio.intern-ai.org.cn/)平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，所以我们可以直接复制即可。使用如下命令复制：
 
 ```shell
 mkdir -p /root/model/Shanghai_AI_Laboratory
@@ -496,13 +496,13 @@ cp -r /root/share/temp/model_repos/internlm-xcomposer-7b /root/model/Shanghai_AI
 ```
 > -r 选项表示递归地复制目录及其内容
 
-也可以安装`modelscope`，下载模型的老朋友了
+也可以安装 `modelscope`，下载模型的老朋友了
 
 ```shell
 pip install modelscope==1.9.5
 ```
 
-在 `/root/model` 路径下新建 `download.py` 文件并在其中输入以下内容，并运行 `python /root/model/download.py`执行下载
+在 `/root/model` 路径下新建 `download.py` 文件并在其中输入以下内容，并运行 `python /root/model/download.py` 执行下载
 
 ```python
 import torch
@@ -519,7 +519,7 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-xcomposer-7b', ca
 cd /root/code
 git clone https://gitee.com/internlm/InternLM-XComposer.git
 cd /root/code/InternLM-XComposer
-git checkout 3e8c79051a1356b9c388a6447867355c0634932d  # 最好保证和教程的commit版本一致
+git checkout 3e8c79051a1356b9c388a6447867355c0634932d  # 最好保证和教程的 commit 版本一致
 ```
 
 ### 4.4 Demo 运行
@@ -534,9 +534,9 @@ python examples/web_demo.py  \
     --port 6006
 ```
 
-> 这里`num_gpus 1`是因为InternStudio平台对于`A100(1/4)*2`识别仍为一张显卡。但如果有小伙伴课后使用两张3090来运行此demo，仍需将`num_gpus`设置为 `2` 。
+> 这里 `num_gpus 1` 是因为InternStudio平台对于 `A100(1/4)*2` 识别仍为一张显卡。但如果有小伙伴课后使用两张 3090 来运行此 demo，仍需将 `num_gpus` 设置为 `2` 。
 
-[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入`http://127.0.0.1:6006`即可。我们以`又见敦煌`为提示词，体验图文创作的功能，如下图所示：
+[**查看本教程5.2配置本地端口后**](./hello_world.md#52-配置本地端口)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。我们以`又见敦煌`为提示词，体验图文创作的功能，如下图所示：
 
 ![Alt text](images/image-9.png)
 
@@ -548,7 +548,7 @@ python examples/web_demo.py  \
 
 ### 5.1 pip、conda 换源
 
-更多详细内容可移步至[MirrorZ Help](https://help.mirrors.cernet.edu.cn/)查看。
+更多详细内容可移步至 [MirrorZ Help](https://help.mirrors.cernet.edu.cn/) 查看。
 
 #### 5.1.1 pip 换源
 
@@ -573,9 +573,9 @@ python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade
 
 #### 5.1.2 conda 换源
 
-镜像站提供了 Anaconda 仓库与第三方源（conda-forge、msys2、pytorch 等，各系统都可以通过修改用户目录下的 .condarc 文件来使用镜像站。
+镜像站提供了 Anaconda 仓库与第三方源（conda-forge、msys2、pytorch 等），各系统都可以通过修改用户目录下的 `.condarc` 文件来使用镜像站。
 
-不同系统下的.condarc目录如下：
+不同系统下的 `.condarc` 目录如下：
 
 - `Linux`: `${HOME}/.condarc`
 - `macOS`: `${HOME}/.condarc`
@@ -604,17 +604,17 @@ EOF
 
 ### 5.2 配置本地端口
 
-在本地配置端口，可以通过`ssh`连接到服务器，然后将服务器的端口映射到本地，这样就可以在本地浏览器中访问服务器的端口了。
+在本地配置端口，可以通过 `ssh` 连接到服务器，然后将服务器的端口映射到本地，这样就可以在本地浏览器中访问服务器的端口了。
 
-首先我们需要配置一下本地的 `SSH Key` ，我们这里以`Windows`为例。
+首先我们需要配置一下本地的 `SSH Key` ，我们这里以 `Windows` 为例。
 
-步骤①：在本地机器上打开`Power Shell`终端。在终端中，运行以下命令来生成SSH密钥对：（如下图所示）
+步骤①：在本地机器上打开 `Power Shell` 终端。在终端中，运行以下命令来生成 SSH 密钥对：（如下图所示）
 ```shell
 ssh-keygen -t rsa
 ```
 ![Alt text](images/image-13.png)
 
-步骤②： 您将被提示选择密钥文件的保存位置，默认情况下是在`~/.ssh/`目录中。按`Enter`键接受默认值或输入自定义路径。
+步骤②： 您将被提示选择密钥文件的保存位置，默认情况下是在 `~/.ssh/` 目录中。按 `Enter` 键接受默认值或输入自定义路径。
 
 步骤③：公钥默认存储在 `~/.ssh/id_rsa.pub`，可以通过系统自带的 `cat` 工具查看文件内容：（如下图所示）
 
@@ -622,11 +622,11 @@ ssh-keygen -t rsa
 cat ~\.ssh\id_rsa.pub
 ```
 
-> `~` 是用户主目录的简写，`.ssh` 是SSH配置文件的默认存储目录，`id_rsa.pub` 是SSH公钥文件的默认名称。所以，`cat ~\.ssh\id_rsa.pub` 的意思是查看用户主目录下的 `.ssh` 目录中的 id_rsa.pub 文件的内容。
+> `~` 是用户主目录的简写，`.ssh` 是SSH配置文件的默认存储目录，`id_rsa.pub` 是 SSH 公钥文件的默认名称。所以，`cat ~\.ssh\id_rsa.pub` 的意思是查看用户主目录下的 `.ssh` 目录中的 `id_rsa.pub` 文件的内容。
 
 ![Alt text](images/image-14.png)
 
-步骤④：将公钥复制到剪贴板中，然后回到 `InternStudio` 控制台，点击配置SSH Key。如下图所示：
+步骤④：将公钥复制到剪贴板中，然后回到 `InternStudio` 控制台，点击配置 SSH Key。如下图所示：
 
 ![Alt text](images/image-15.png)
 
@@ -634,7 +634,7 @@ cat ~\.ssh\id_rsa.pub
 
 ![Alt text](images/image-16.png)
 
-步骤⑥：在本地终端输入以下指令.6006是在服务器中打开的端口，而33090是根据开发机的端口进行更改。如下图所示：
+步骤⑥：在本地终端输入以下指令 `.6006` 是在服务器中打开的端口，而 `33090` 是根据开发机的端口进行更改。如下图所示：
 
 ```shell
 ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 33090
@@ -646,7 +646,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 33090
 
 #### 5.3.1 Hugging Face
 
-使用 Hugging Face 官方提供的`huggingface-cli`命令行工具。安装依赖:
+使用 Hugging Face 官方提供的 `huggingface-cli` 命令行工具。安装依赖:
 
 ```shell
 pip install -U huggingface_hub
@@ -655,7 +655,7 @@ pip install -U huggingface_hub
 然后新建 python 文件，填入以下代码，运行即可。
 
 - resume-download：断点续下
-- local-dir：本地存储路径。（linux环境下需要填写绝对路径）
+- local-dir：本地存储路径。（linux 环境下需要填写绝对路径）
 
 ```python
 import os
@@ -666,9 +666,9 @@ os.system('huggingface-cli download --resume-download internlm/internlm-chat-7b 
 
 #### 5.3.2 ModelScope
 
-使用`modelscope`中的`snapshot_download`函数下载模型，第一个参数为模型名称，参数`cache_dir`为模型的下载路径。
+使用 `modelscope` 中的 `snapshot_download` 函数下载模型，第一个参数为模型名称，参数 `cache_dir` 为模型的下载路径。
 
-注意：`cache_dir`最好为绝对路径。
+注意：`cache_dir` 最好为绝对路径。
 
 安装依赖：
 
@@ -677,7 +677,7 @@ pip install modelscope==1.9.5
 pip install transformers==4.35.2
 ```
 
-在当前目录下新建python文件，填入以下代码，运行即可。
+在当前目录下新建 python 文件，填入以下代码，运行即可。
 
 ```python
 import torch
