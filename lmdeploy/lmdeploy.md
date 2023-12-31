@@ -1,5 +1,7 @@
 ![](cover.jpg)
 
+# LMDeploy 的量化和部署
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -33,9 +35,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-
-
-本文档主要涉及LMDeploy的量化和部署相关内容。
 
 ## 1 环境配置
 
@@ -86,7 +85,7 @@ lmdeploy                 /root/.conda/envs/lmdeploy
 $ conda activate lmdeploy
 ```
 
-注意，环境激活后，左边会显示当前（也就是`lmdeploy`）的环境名称，如下图所示。
+注意，环境激活后，左边会显示当前（也就是 `lmdeploy`）的环境名称，如下图所示。
 
 ![](img/1.png)
 
@@ -186,7 +185,7 @@ lmdeploy convert internlm-chat-7b  /root/share/temp/model_repos/internlm-chat-7b
 
 ![](img/5.png)
 
-每一份参数第一个0表示“层”的索引，后面的那个0表示 Tensor 并行的索引，因为我们只有一张卡，所以被拆分成1份。如果有两张卡可以用来推理，则会生成0和1两份，也就是说，会把同一个参数拆成两份。比如 `layers.0.attention.w_qkv.0.weight` 会变成 `layers.0.attention.w_qkv.0.weight` 和 `layers.0.attention.w_qkv.1.weight`。执行 `lmdeploy convert` 命令时，可以通过 `--tp` 指定（tp 表示 tensor parallel），该参数默认值为1（也就是一张卡）。
+每一份参数第一个 0 表示“层”的索引，后面的那个0表示 Tensor 并行的索引，因为我们只有一张卡，所以被拆分成 1 份。如果有两张卡可以用来推理，则会生成0和1两份，也就是说，会把同一个参数拆成两份。比如 `layers.0.attention.w_qkv.0.weight` 会变成 `layers.0.attention.w_qkv.0.weight` 和 `layers.0.attention.w_qkv.1.weight`。执行 `lmdeploy convert` 命令时，可以通过 `--tp` 指定（tp 表示 tensor parallel），该参数默认值为1（也就是一张卡）。
 
 **关于Tensor并行**
 
@@ -202,11 +201,11 @@ Tensor并行一般分为行并行或列并行，原理如下图所示。
 
 简单来说，就是把一个大的张量（参数）分到多张卡上，分别计算各部分的结果，然后再同步汇总。
 
-### 2.2  TurboMind推理+命令行本地对话
+### 2.2  TurboMind 推理+命令行本地对话
 
 模型转换完成后，我们就具备了使用模型推理的条件，接下来就可以进行真正的模型推理环节。
 
-我们先尝试本地对话（`Bash Local Chat`），下面用（Local Chat 表示）在这里其实是跳过 API Server 直接调用 TurboMind。简单来说，就是命令行代码直接执行TurboMind。所以说，实际和前面的架构图是有区别的。
+我们先尝试本地对话（`Bash Local Chat`），下面用（Local Chat 表示）在这里其实是跳过 API Server 直接调用 TurboMind。简单来说，就是命令行代码直接执行 TurboMind。所以说，实际和前面的架构图是有区别的。
 
 这里支持多种方式运行，比如Turbomind、PyTorch、DeepSpeed。但 PyTorch 和 DeepSpeed 调用的其实都是 Huggingface 的 Transformers 包，PyTorch表示原生的 Transformer 包，DeepSpeed 表示使用了 DeepSpeed 作为推理框架。Pytorch/DeepSpeed 目前功能都比较弱，不具备生产能力，不推荐使用。
 
@@ -221,13 +220,13 @@ lmdeploy chat turbomind ./workspace
 
 ![](img/8.png)
 
-输入后两次回车，退出时输入`exit` 回车两次即可。此时，Server就是本地跑起来的模型（TurboMind），命令行可以看作是前端。
+输入后两次回车，退出时输入`exit` 回车两次即可。此时，Server 就是本地跑起来的模型（TurboMind），命令行可以看作是前端。
 
 ### 2.3 TurboMind推理+API服务
 
 在上面的部分我们尝试了直接用命令行启动 Client，接下来我们尝试如何运用 lmdepoy 进行服务化。
 
-”模型推理/服务“目前提供了Turbomind和TritonServer两种服务化方式。此时，Server是TurboMind或TritonServer，API Server 可以提供对外的 API 服务。我们推荐使用 TurboMind，TritonServer 使用方式详见《附录1》。
+”模型推理/服务“目前提供了 Turbomind 和 TritonServer 两种服务化方式。此时，Server 是 TurboMind 或 TritonServer，API Server 可以提供对外的 API 服务。我们推荐使用 TurboMind，TritonServer 使用方式详见《附录1》。
 
 首先，通过下面命令启动服务。
 
@@ -241,7 +240,7 @@ lmdeploy serve api_server ./workspace \
 	--tp 1
 ```
 
-上面的参数中`server_name` 和 `server_port` 分别表示服务地址和端口，`tp` 参数我们之前已经提到过了，表示 Tensor 并行。还剩下一个 `instance_num` 参数，表示实例数，可以理解成 Batch 的大小。执行后如下图所示。
+上面的参数中 `server_name` 和 `server_port` 分别表示服务地址和端口，`tp` 参数我们之前已经提到过了，表示 Tensor 并行。还剩下一个 `instance_num` 参数，表示实例数，可以理解成 Batch 的大小。执行后如下图所示。
 
 ![](img/11.png)
 
@@ -260,7 +259,7 @@ lmdeploy serve api_client http://localhost:23333
 
 ![](img/13.png)
 
-> 注意，这一步由于Server在远程服务器上，所以本地需要做一下 ssh 转发才能直接访问（与第一部分操作一样），命令如下：
+> 注意，这一步由于 Server 在远程服务器上，所以本地需要做一下 ssh 转发才能直接访问（与第一部分操作一样），命令如下：
 >
 > ssh -CNg -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p <你的ssh端口号>
 >
@@ -268,7 +267,7 @@ lmdeploy serve api_client http://localhost:23333
 >
 > ![](img/20.png)
 
-这里一共提供了4个 HTTP 的接口，任何语言都可以对其进行调用，我们以 `v1/chat/completions` 接口为例，简单试一下。
+这里一共提供了 4 个 HTTP 的接口，任何语言都可以对其进行调用，我们以 `v1/chat/completions` 接口为例，简单试一下。
 
 接口请求参数如下：
 
@@ -295,20 +294,20 @@ lmdeploy serve api_client http://localhost:23333
 
 ![](img/16.png)
 
-### 2.4 网页Demo演示
+### 2.4 网页 Demo 演示
 
 这一部分主要是将 Gradio 作为前端 Demo 演示。在上一节的基础上，我们不执行后面的 `api_client` 或 `triton_client`，而是执行 `gradio`。
 
 > 由于 Gradio 需要本地访问展示界面，因此也需要通过 ssh 将数据转发到本地。命令如下：
 >
-> ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p <你的ssh端口号>
+> ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p <你的 ssh 端口号>
 
-#### 2.4.1 TurboMind服务作为后端
+#### 2.4.1 TurboMind 服务作为后端
 
 API Server 的启动和上一节一样，这里直接启动作为前端的 Gradio。
 
 ```bash
-# Gradio+ApiServer。必须先开启Server，此时Gradio为Client
+# Gradio+ApiServer。必须先开启 Server，此时 Gradio 为 Client
 lmdeploy serve gradio http://0.0.0.0:23333 \
 	--server_name 0.0.0.0 \
 	--server_port 6006 \
@@ -320,7 +319,7 @@ lmdeploy serve gradio http://0.0.0.0:23333 \
 ![](img/17.png)
 
 
-#### 2.4.2 TurboMind推理作为后端
+#### 2.4.2 TurboMind 推理作为后端
 
 当然，Gradio 也可以直接和 TurboMind 连接，如下所示。
 
@@ -333,9 +332,9 @@ lmdeploy serve gradio ./workspace
 
 ![](img/19.png)
 
-### 2.5 TurboMind推理+Python代码集成
+### 2.5 TurboMind 推理 + Python 代码集成
 
-前面介绍的都是通过 API 或某种前端与”模型推理/服务“进行交互，lmdeploy 还支持Python直接与 TurboMind 进行交互，如下所示。
+前面介绍的都是通过 API 或某种前端与”模型推理/服务“进行交互，lmdeploy 还支持 Python 直接与 TurboMind 进行交互，如下所示。
 
 ```python
 from lmdeploy import turbomind as tm
@@ -364,7 +363,7 @@ print(response)
 
 加载模型可以显式指定模型路径，也可以直接指定 Huggingface 的 repo_id，还可以使用上面生成过的 `workspace`。这里的 `tm.TurboMind` 其实是对 C++ TurboMind 的封装。
 
-构造输入这里主要是把用户的 query 构造成 InternLLM 支持的输入格式，比如上面的例子中， `query` 是“你好啊兄嘚”，构造好的Prompt 如下所示。
+构造输入这里主要是把用户的 query 构造成 InternLLM 支持的输入格式，比如上面的例子中， `query` 是“你好啊兄嘚”，构造好的 Prompt 如下所示。
 
 ```python
 """
@@ -405,7 +404,7 @@ Prompt 其实就是增加了 `<|System|>` 消息和 `<|User|>` 消息（即用�
 大家不妨亲自使用本地对话（Local Chat）感受一下性能差别（2.2 节），也可以执行我们提供的 `infer_compare.py` 脚本，示例如下。
 
 ```bash
-# 执行Huggingface的Transformer
+# 执行 Huggingface 的 Transformer
 python infer_compare.py hf
 # 执行LMDeploy
 python infer_compare.py lmdeploy
@@ -416,7 +415,7 @@ LMDeploy应该是Transformers的3-5倍左右。
 后面的 API 服务和 Client 就得分场景了。
 
 - 我想对外提供类似 OpenAI 那样的 HTTP 接口服务。推荐使用 TurboMind推理 + API 服务（2.3）。
-- 我想做一个演示 Demo，Gradio 无疑是比 Local Chat 更友好的。推荐使用 TurboMind推理作为后端的Gradio进行演示（2.4.2）。
+- 我想做一个演示 Demo，Gradio 无疑是比 Local Chat 更友好的。推荐使用 TurboMind 推理作为后端的Gradio进行演示（2.4.2）。
 - 我想直接在自己的 Python 项目中使用大模型功能。推荐使用 TurboMind推理 + Python（2.5）。
 - 我想在自己的其他非 Python 项目中使用大模型功能。推荐直接通过 HTTP 接口调用服务。也就是用本列表第一条先启动一个 HTTP API 服务，然后在项目中直接调用接口。
 - 我的项目是 C++ 写的，为什么不能直接用 TurboMind 的 C++ 接口？！必须可以！大佬可以右上角叉掉这个窗口啦。
@@ -538,7 +537,7 @@ KV Cache 量化是将已经生成序列的 KV 变成 Int8，使用过程一共�
 
 第一步：计算 minmax。主要思路是通过计算给定输入样本在每一层不同位置处计算结果的统计情况。
 
-- 对于Attention 的 K 和 V：取每个 Head 各自维度在所有Token的最大、最小和绝对值最大值。对每一层来说，上面三组值都是 `(num_heads, head_dim)` 的矩阵。这里的统计结果将用于本小节的 KV Cache。
+- 对于 Attention 的 K 和 V：取每个 Head 各自维度在所有Token的最大、最小和绝对值最大值。对每一层来说，上面三组值都是 `(num_heads, head_dim)` 的矩阵。这里的统计结果将用于本小节的 KV Cache。
 - 对于模型每层的输入：取对应维度的最大、最小、均值、绝对值最大和绝对值均值。每一层每个位置的输入都有对应的统计值，它们大多是 `(hidden_dim, )` 的一维向量，当然在 FFN 层由于结构是先变宽后恢复，因此恢复的位置维度并不相同。这里的统计结果用于下个小节的模型参数量化，主要用在缩放环节（回顾PPT内容）。
 
 第一步执行命令如下：
@@ -623,7 +622,7 @@ lmdeploy lite kv_qparams \
 
 #### 3.2.1 量化步骤
 
-W4A16中的A是指Activation，保持FP16，其余参数进行4bit量化。使用过程也可以看作是三步。
+W4A16 中的 A 是指 Activation，保持 FP16，其余参数进行 4bit 量化。使用过程也可以看作是三步。
 
 > 在深度学习中，W（Weight）一般用于定义不同层神经元之间的连接强度。Bias 是在通过激活函数之前添加到输入的加权总和中的附加数值。它们有助于控制神经元的输出，并为模型的学习过程提供灵活性。Bias 可以被认为是一种将激活函数向左或向右移动的方法，允许模型在输入数据中学习更复杂的模式和关系。所以此处的 A 是指 Bias 参数。
 
@@ -631,7 +630,7 @@ W4A16中的A是指Activation，保持FP16，其余参数进行4bit量化。使�
 
 第二步：量化权重模型。利用第一步得到的统计值对参数进行量化，具体又包括两小步：
 
-- 缩放参数。主要是性能上的考虑（回顾PPT）。
+- 缩放参数。主要是性能上的考虑（回顾 PPT）。
 - 整体量化。
 
 第二步的执行命令如下：
@@ -729,7 +728,7 @@ lmdeploy convert  internlm-chat-7b ./quant_output \
 以上是针对项目开发情况，如果是自己尝试（玩儿）的话：
 
 - 如果资源足够（有GPU卡很重要），那就用非量化的正常版本。
-- 如果没有GPU卡，只有CPU（不管什么芯片），那还是尝试量化版本。
+- 如果没有 GPU 卡，只有 CPU（不管什么芯片），那还是尝试量化版本。
 - 如果生成文本长度很长，显存不够，就开启 KV Cache。
 
 建议大家根据实际情况灵活选择方案。
@@ -739,7 +738,7 @@ lmdeploy convert  internlm-chat-7b ./quant_output \
 - [InternLM/lmdeploy: LMDeploy is a toolkit for compressing, deploying, and serving LLMs.](https://github.com/InternLM/lmdeploy/)
 - [仅需一块 3090 显卡，高效部署 InternLM-20B 模型 - 知乎](https://zhuanlan.zhihu.com/p/665725861)
 
-## 附录1：TritonServer作为推理引擎
+## 附录1：TritonServer 作为推理引擎
 
 
 ### TritonServer环境配置
@@ -814,7 +813,7 @@ lmdeploy serve triton_client  localhost:33337
 ![](img/15.png)
 
 
-### TritonServer服务作为后端
+### TritonServer 服务作为后端
 
 使用过程同 2.4.1 小节。
 

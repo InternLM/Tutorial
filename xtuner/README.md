@@ -48,7 +48,7 @@ Ubuntu + Anaconda + CUDA/CUDNN + 8GB nvidia显卡
 ### 2.2 安装
 
 ```bash
-# 如果你是在InternStudio平台，则从本地clone一个已有 pytorch 2.0.1 的环境：
+# 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 2.0.1 的环境：
 conda create --name xtuner0.1.9 --clone=/root/share/conda_envs/internlm-base
 # 如果你是在其他平台：
 conda create --name xtuner0.1.9 python=3.10 -y
@@ -61,10 +61,10 @@ cd ~
 mkdir xtuner019 && cd xtuner019
 
 
-# 拉取0.1.9的版本源码
-git clone -b v0.1.9  https://github.com/internLM/xtuner
-# 无法访问github的用户请从gitee拉取:
-# git clone -b v0.1.9 https://gitee.com/internlm/xtuner
+# 拉取 0.1.9 的版本源码
+git clone -b v0.1.9  https://github.com/InternLM/xtuner
+# 无法访问github的用户请从 gitee 拉取:
+# git clone -b v0.1.9 https://gitee.com/Internlm/xtuner
 
 # 进入源码目录
 cd xtuner
@@ -73,10 +73,10 @@ cd xtuner
 pip install -e '.[all]'
 ```
 
-安装完后，就开始搞搞准备工作了。（准备在oasst1数据集上微调internlm-7b-chat）
+安装完后，就开始搞搞准备工作了。（准备在 oasst1 数据集上微调 internlm-7b-chat）
 
 ```bash
-# 创建一个微调oasst1数据集的工作路径，进入
+# 创建一个微调 oasst1 数据集的工作路径，进入
 mkdir ~/ft-oasst1 && cd ~/ft-oasst1
 ```
 
@@ -117,7 +117,7 @@ xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 
 #### 2.3.2 模型下载
 
-不用xtuner默认的`从huggingface拉取模型`，而是提前从 ~~OpenXLab~~ ModelScope下载模型到本地
+不用 xtuner 默认的`从 huggingface 拉取模型`，而是提前从 ~~OpenXLab~~ ModelScope 下载模型到本地
 
 ```Bash
 # 创建一个目录，放模型文件，防止散落一地
@@ -126,7 +126,7 @@ mkdir ~/ft-oasst1/internlm-chat-7b
 # 装一下拉取模型文件要用的库
 pip install modelscope
 
-# 从modelscope下载下载模型文件
+# 从 modelscope 下载下载模型文件
 cd ~/ft-oasst1
 apt install git git-lfs -y
 git lfs install
@@ -136,11 +136,11 @@ git lfs clone https://modelscope.cn/Shanghai_AI_Laboratory/internlm-chat-7b.git 
 #### 2.3.3 数据集下载
 > https://huggingface.co/datasets/timdettmers/openassistant-guanaco/tree/main
 
-由于huggingface网络问题，咱们已经给大家提前下载好了，复制到正确位置即可：
+由于 huggingface 网络问题，咱们已经给大家提前下载好了，复制到正确位置即可：
 
 ```bash
 cd ~/ft-oasst1
-# ...-guanaco后面有个空格和英文句号啊
+# ...-guanaco 后面有个空格和英文句号啊
 cp -r /root/share/temp/datasets/openassistant-guanaco .
 ```
 
@@ -205,15 +205,15 @@ vim internlm_chat_7b_qlora_oasst1_e3_copy.py
 | evaluation_freq     | Evaluation 的评测间隔 iter 数                          |
 | ...... | ...... |
 
-> 如果想把显卡的现存吃满，充分利用显卡资源，可以将max_length和batch_size这两个参数调大。
+> 如果想把显卡的现存吃满，充分利用显卡资源，可以将 `max_length` 和 `batch_size` 这两个参数调大。
 
-#### 2.3.5  开始微调
+#### 2.3.5 开始微调
 
 **训练：**
 
 xtuner train ${CONFIG_NAME_OR_PATH}
 
-**也可以增加deepspeed进行训练加速：**
+**也可以增加 deepspeed 进行训练加速：**
 
 xtuner train ${CONFIG_NAME_OR_PATH} --deepspeed deepspeed_zero2
 
@@ -228,10 +228,10 @@ xtuner train ./internlm_chat_7b_qlora_oasst1_e3_copy.py
 # 多卡
 NPROC_PER_NODE=${GPU_NUM} xtuner train ./internlm_chat_7b_qlora_oasst1_e3_copy.py
 
-# 若要开启deepspeed加速，增加 --deepspeed deepspeed_zero2 即可
+# 若要开启 deepspeed 加速，增加 --deepspeed deepspeed_zero2 即可
 ```
 
-> 微调得到的PTH模型文件和其他杂七杂八的文件都默认在当前的 `./work_dirs` 中。
+> 微调得到的 PTH 模型文件和其他杂七杂八的文件都默认在当前的 `./work_dirs` 中。
 
 跑完训练后，当前路径应该长这样：
 ```Bash
@@ -255,7 +255,7 @@ NPROC_PER_NODE=${GPU_NUM} xtuner train ./internlm_chat_7b_qlora_oasst1_e3_copy.p
         `-- last_checkpoint
 ```
 
-#### 2.3.6 将得到的 PTH 模型转换为 HuggingFace 模型，**即：生成Adapter文件夹**
+#### 2.3.6 将得到的 PTH 模型转换为 HuggingFace 模型，**即：生成 Adapter 文件夹**
 
 `xtuner convert pth_to_hf ${CONFIG_NAME_OR_PATH} ${PTH_file_dir} ${SAVE_PATH}`
 
@@ -267,6 +267,7 @@ export MKL_SERVICE_FORCE_INTEL=1
 xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_3.pth ./hf
 ```
 此时，路径中应该长这样：
+
 ```Bash
 |-- internlm-chat-7b
 |-- internlm_chat_7b_qlora_oasst1_e3_copy.py
@@ -293,14 +294,14 @@ xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/
         `-- last_checkpoint
 ```
 
-<span style="color: red;">**此时，hf文件夹即为我们平时所理解的所谓 “LoRA模型文件”**</span>
+<span style="color: red;">**此时，hf 文件夹即为我们平时所理解的所谓 “LoRA 模型文件”**</span>
 
-> 可以简单理解：LoRA模型文件 = Adapter
+> 可以简单理解：LoRA 模型文件 = Adapter
 
 
 
 ### 2.4 部署与测试
-> 使用InternStudio的同学换至少A100*1的机器
+> 使用 InternStudio 的同学换至少 `A100*1` 的机器
 ```Bash
 # 加载 Adapter 模型对话
 xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
@@ -333,10 +334,10 @@ xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
 | --command-stop-word   | 命令停止词                                                   |
 | --answer-stop-word    | 回答停止词                                                   |
 | --offload-folder      | 存放模型权重的文件夹（或者已经卸载模型权重的文件夹）         |
-| --max-new-tokens      | 生成文本中允许的最大token数量                                |
+| --max-new-tokens      | 生成文本中允许的最大 `token` 数量                                |
 | **--temperature**     | 温度值                                                       |
 | --top-k               | 保留用于顶k筛选的最高概率词汇标记数                          |
-| --top-p               | 如果设置为小于1的浮点数，仅保留概率相加高于top_p的最小一组最有可能的标记 |
+| --top-p               | 如果设置为小于1的浮点数，仅保留概率相加高于 `top_p` 的最小一组最有可能的标记 |
 | --seed                | 用于可重现文本生成的随机种子                                 |
 
 
@@ -348,7 +349,7 @@ xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
 
 #### 3.1.1 **场景需求**
 
-   基于 InternLM-chat-7B模型，用MedQA数据集进行微调，将其往`医学问答`领域对齐。
+   基于 InternLM-chat-7B 模型，用 MedQA 数据集进行微调，将其往`医学问答`领域对齐。
 
 #### 3.1.2 **真实数据预览**
 
@@ -394,9 +395,9 @@ xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
 }]
 ```
 
-🧠通过python脚本：将.xlsx中的 问题 和 回答 两列 提取出来，再放入.jsonL文件的每个conversation的input和output中。
+🧠通过 pytho n脚本：将 `.xlsx` 中的 问题 和 回答 两列 提取出来，再放入 `.jsonL` 文件的每个 conversation 的 input 和 output 中。
 
-> 这一步的python脚本可以请ChatGPT来完成。
+> 这一步的 python 脚本可以请 ChatGPT 来完成。
 
 ```text
 Write a python file for me. using openpyxl. input file name is MedQA2019.xlsx
@@ -424,10 +425,10 @@ Step3: The output file is .jsonL. It looks like:
 Step4: All "system" value changes to "You are a professional, highly experienced doctor professor. You always provide accurate, comprehensive, and detailed answers based on the patients' questions."
 ```
 
-> chatGPT生成的python代码见本仓库的 [xlsx2jsonl.py](./xlsx2jsonl.py)
+> ChatGPT 生成的 python 代码见本仓库的 [xlsx2jsonl.py](./xlsx2jsonl.py)
 
 
-执行python脚本，获得格式化后的数据集：
+执行 python 脚本，获得格式化后的数据集：
 ```bash
 python xlsx2jsonl.py
 ```
@@ -435,7 +436,7 @@ python xlsx2jsonl.py
 **格式化后的数据集长这样：**
 ![uOCJXwbfzKRWSBE.png](imgs/dataProcessed.png)
 
-此时，当然也可以对数据进行训练集和测试集的分割，同样可以让ChatGPT写py代码。当然如果你没有严格的科研需求、不在乎“训练集泄露”的问题，也可以不做训练集与测试集的分割。
+此时，当然也可以对数据进行训练集和测试集的分割，同样可以让 ChatGPT 写 python 代码。当然如果你没有严格的科研需求、不在乎“训练集泄露”的问题，也可以不做训练集与测试集的分割。
 
 #### 3.2.2 划分训练集和测试集
 
@@ -479,7 +480,7 @@ mkdir ~/ft-medqa && cd ~/ft-medqa
 ```bash
 cp -r ~/ft-oasst1/internlm-chat-7b .
 ```
-别忘了把自定义数据集，即几个.jsonL，也传到服务器上。
+别忘了把自定义数据集，即几个 `.jsonL`，也传到服务器上。
 
 #### 3.3.1 准备配置文件
 ```bash
@@ -529,7 +530,7 @@ train_dataset = dict(
 xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
 ```
 
-#### 3.3.3 pth转huggingface
+#### 3.3.3 pth 转 huggingface
 
 同前述，这里不赘述了。[将得到的-pth-模型转换为-huggingface-模型即生成adapter文件夹](#236-将得到的-pth-模型转换为-huggingface-模型即生成adapter文件夹)  
 
@@ -538,13 +539,13 @@ xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
 同前述。[部署与测试](#24-部署与测试)
 
 
-## 4【补充】用MS-Agent数据集 赋予LLM以Agent能力
+## 4【补充】用 MS-Agent 数据集 赋予 LLM 以 Agent 能力
 ### 4.1 概述
 MSAgent 数据集每条样本包含一个对话列表（conversations），其里面包含了 system、user、assistant 三种字段。其中：
 
 - system: 表示给模型前置的人设输入，其中有告诉模型如何调用插件以及生成请求
 
-- user: 表示用户的输入prompt，分为两种，通用生成的prompt和调用插件需求的 prompt
+- user: 表示用户的输入 prompt，分为两种，通用生成的prompt和调用插件需求的 prompt
 
 - assistant: 为模型的回复。其中会包括插件调用代码和执行代码，调用代码是要 LLM 生成的，而执行代码是调用服务来生成结果的
 
@@ -552,7 +553,7 @@ MSAgent 数据集每条样本包含一个对话列表（conversations），其�
 ![BlgfEqpiRFO5G6L.png](imgs/msagent_data.png)
 
 ### 4.2 微调步骤
-> xtuner是从国内的ModelScope平台下载MS-Agent数据集，因此不用提前手动下载数据集文件。
+> xtuner 是从国内的 ModelScope 平台下载 MS-Agent 数据集，因此不用提前手动下载数据集文件。
 
 ```bash
 # 准备工作
@@ -578,9 +579,9 @@ vim ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py
 xtuner train ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py --deepspeed deepspeed_zero2
 ```
 
-> 由于msagent的训练非常费时，大家如果想尽快把这个教程跟完，可以直接从modelScope拉取咱们已经微调好了的Adapter。如下演示。
+> 由于 msagent 的训练非常费时，大家如果想尽快把这个教程跟完，可以直接从 modelScope 拉取咱们已经微调好了的 Adapter。如下演示。
 
-#### 4.2.1 下载Adapter
+#### 4.2.1 下载 Adapter
 ```Bash
 cd ~/ft-msagent
 apt install git git-lfs
@@ -594,15 +595,15 @@ OK，现在目录应该长这样：
 - internlm-chat-7b
 - work_dir（可有可无）
 
-有了这个在msagent上训练得到的Adapter，模型现在已经有agent能力了！就可以加 --lagent 以调用来自lagent的代理功能了！
+有了这个在 msagent 上训练得到的Adapter，模型现在已经有 agent 能力了！就可以加 --lagent 以调用来自 lagent 的代理功能了！
 
-> **开始chat之前，还要加个serper的环境变量：**
+> **开始 chat 之前，还要加个 serper 的环境变量：**
 > 
-> 去serper.dev免费注册一个账号，生成自己的api key。这个东西是用来给lagent去获取google搜索的结果的。等于是serper.dev帮你去访问google，而不是从你自己本地去访问google了。
+> 去 serper.dev 免费注册一个账号，生成自己的 api key。这个东西是用来给 lagent 去获取 google 搜索的结果的。等于是 serper.dev 帮你去访问 google，而不是从你自己本地去访问 google 了。
 
 ![kDSdpQrhHfTWYsc.png](imgs/serper.png)
 
-添加serper api key到环境变量：
+添加 serper api key 到环境变量：
 
 ```bash
 export SERPER_API_KEY=abcdefg
@@ -617,7 +618,7 @@ xtuner chat ./internlm-chat-7b --adapter internlm-7b-qlora-msagent-react --lagen
 
 **报错处理：**
 
-xtuner chat  增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust renote code"```	
+xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust renote code"```	
 
 注释掉已安装包中的代码：
 
@@ -632,7 +633,6 @@ https://docs.qq.com/doc/DY1d2ZVFlbXlrUERj
 
 小作业助教老师会在社群中公布。
 Have fun!
-
 
 
 
@@ -654,7 +654,7 @@ pip install torch==2.1.1
 pip install transformers==4.34.0
 pip install transformers-stream-generator=0.0.4
 ```
-CUDA相关：（如果有报错再检查，没报错不用看）
+CUDA 相关：（如果有报错再检查，没报错不用看）
 ```
 NVIDIA-SMI 535.54.03              
 Driver Version: 535.54.03    

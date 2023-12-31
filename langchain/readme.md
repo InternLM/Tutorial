@@ -2,23 +2,23 @@
 
 # 基于 InternLM 和 LangChain 搭建你的知识库
 
-## 一、环境配置
+## 1 环境配置
 
 ### 1.1 InternLM 模型部署
 
-在[InternStudio](https://studio.intern-ai.org.cn/)平台中选择A100(1/4)的配置，如下图所示镜像选择`Cuda11.7-conda`，如下图所示：
+在[InternStudio](https://studio.intern-ai.org.cn/)平台中选择 A100(1/4) 的配置，如下图所示镜像选择 `Cuda11.7-conda`，如下图所示：
 
 ![Alt text](figures/image.png)
 
-接下来打开刚刚租用服务器的`进入开发机`，并且打开其中的终端开始环境配置、模型下载和运行`demo`。
+接下来打开刚刚租用服务器的`进入开发机`，并且打开其中的终端开始环境配置、模型下载和运行 `demo`。
 
 ![Alt text](figures/image-1.png)
 
-进入开发机后，在页面的左上角可以切换`JupyterLab`、`终端`和`VScode`，并在终端输入`bash`命令，进入`conda`环境。如下图所示：
+进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端`和 `VScode`，并在终端输入 `bash` 命令，进入 `conda` 环境。如下图所示：
 
 ![Alt text](figures/image-11.png)
 
-进入`conda`环境之后，使用以下命令从本地一个已有的`pytorch 2.0.1` 的环境
+进入 `conda` 环境之后，使用以下命令从本地一个已有的 `pytorch 2.0.1` 的环境
 
 ```shell
 bash
@@ -31,7 +31,7 @@ conda create --name InternLM --clone=/root/share/conda_envs/internlm-base
 conda activate InternLM
 ```
 
-并在环境中安装运行demo所需要的依赖。
+并在环境中安装运行 demo 所需要的依赖。
 
 ```shell
 # 升级pip
@@ -184,7 +184,7 @@ git clone https://github.com/InternLM/tutorial
 
 通过上述命令，可以将本仓库 clone 到本地 `root/data/tutorial` 目录下，在之后的过程中可以对照仓库中的脚本来完成自己的代码，也可以直接使用仓库中的脚本。
 
-## 二、知识库搭建
+## 2 知识库搭建
 
 ### 2.1 数据收集
 
@@ -389,7 +389,7 @@ vectordb.persist()
 
 可以在 `/root/data` 下新建一个 `demo`目录，将该脚本和后续脚本均放在该目录下运行。运行上述脚本，即可在本地构建已持久化的向量数据库，后续直接导入该数据库即可，无需重复构建。
 
-## 三、InternLM 接入 LangChain
+## 3 InternLM 接入 LangChain
 
 为便捷构建 LLM 应用，我们需要基于本地部署的 InternLM，继承 LangChain 的 LLM 类自定义一个 InternLM LLM 子类，从而实现将 InternLM 接入到 LangChain 框架中。完成 LangChain 的自定义 LLM 子类之后，可以以完全一致的方式调用 LangChain 的接口，而无需考虑底层模型调用的不一致。
 
@@ -433,7 +433,7 @@ class InternLM_LLM(LLM):
 
 在整体项目中，我们将上述代码封装为 LLM.py，后续将直接从该文件中引入自定义的 LLM 类。
 
-## 四、构建检索问答链
+## 4 构建检索问答链
 
 LangChain 通过提供检索问答链对象来实现对于 RAG 全流程的封装。所谓检索问答链，即通过一个对象完成检索增强问答（即RAG）的全流程，针对 RAG 的更多概念，我们会在视频内容中讲解，也欢迎读者查阅该教程来进一步了解：[《LLM Universe》](https://github.com/datawhalechina/llm-universe/tree/main)。我们可以调用一个 LangChain 提供的 `RetrievalQA` 对象，通过初始化时填入已构建的数据库和自定义 LLM 作为参数，来简便地完成检索增强问答的全流程，LangChain 会自动完成基于用户提问进行检索、获取相关文档、拼接为合适的 Prompt 并交给 LLM 问答的全部流程。
 
@@ -511,7 +511,7 @@ print("大模型回答 question 的结果：")
 print(result_2)
 ```
 
-## 五、部署 Web Demo
+## 5 部署 Web Demo
 
 在完成上述核心功能后，我们可以基于 Gradio 框架将其部署到 Web 网页，从而搭建一个小型 Demo，便于测试与使用。
 
