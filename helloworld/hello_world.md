@@ -97,6 +97,7 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_d
 首先 `clone` 代码，在 `/root` 路径下新建 `code` 目录，然后切换路径, clone 代码.
 
 ```shell
+mkdir /root/code
 cd /root/code
 git clone https://gitee.com/internlm/InternLM.git
 ```
@@ -109,7 +110,11 @@ git checkout 3028f07cb79e5b1d7342f4ad8d11efad3fd13d17
 ```
 
 将 `/root/code/InternLM/web_demo.py`中 29 行和 33 行的模型更换为本地的 `/root/model/Shanghai_AI_Laboratory/internlm-chat-7b`。
-
+```
+# 将"internlm/internlm-chat-7b"替换成"/root/model/Shanghai_AI_Laboratory/internlm-chat-7b"
+sed -i "s/\"internlm\/internlm-chat-7b\"/\"\/root\/model\/Shanghai_AI_Laboratory\/internlm-chat-7b\"/g" /root/code/InternLM/web_demo.py
+```
+> `sed -i "s/原始文本/替换文本/g" file_path`可以一键替换文本，`-i`表示直接修改文件，执行后不可逆。
 ![image-3](images/image-3.png)
 
 ### 2.4 终端运行
@@ -175,6 +180,8 @@ streamlit run web_demo.py --server.address 127.0.0.1 --server.port 6006
 Lagent 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。通过 Lagent 框架可以更好的发挥 InternLM 的全部性能。
 
 下面我们就开始动手实现！
+
+> 注：若已经配置过环境，下载过internlm-chat-7b模型，可直接跳到[**3.3 Lagent 安装**](./hello_world.md#33-lagent-安装)
 
 ### 3.1 环境准备
 
