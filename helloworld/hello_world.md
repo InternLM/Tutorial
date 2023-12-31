@@ -604,6 +604,8 @@ EOF
 
 ### 5.2 配置本地端口
 
+在本地配置端口，可以通过 `ssh` 连接到服务器，然后将服务器的端口映射到本地，这样就可以在本地浏览器中访问服务器的端口了。
+
 首先我们需要配置一下本地的 `SSH Key` ，我们这里以 `Windows` 为例。
 
 步骤①：在本地机器上打开 `Power Shell` 终端。在终端中，运行以下命令来生成 SSH 密钥对：（如下图所示）
@@ -684,7 +686,7 @@ import os
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_dir='your path', revision='master')
 ```
 
-#### 5.3.3 OpenXlab
+#### 5.3.3 OpenXLab
 
 OpenXLab 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件。
 
