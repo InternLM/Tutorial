@@ -2,7 +2,7 @@
 
 ![](./images/head.png)
 
-## 1 大模型及InternLM模型简介
+## 1 大模型及 InternLM 模型简介
 
 ### 1.1 什么是大模型？
 
