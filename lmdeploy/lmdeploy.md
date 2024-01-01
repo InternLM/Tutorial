@@ -135,14 +135,15 @@ pip install packaging
 
 TurboMind 是一款关于 LLM 推理的高效推理引擎，基于英伟达的 [FasterTransformer](https://github.com/NVIDIA/FasterTransformer) 研发而成。它的主要功能包括：LLaMa 结构模型的支持，persistent batch 推理模式和可扩展的 KV 缓存管理器。
 
+lmdeploy 目前共支持三种类型：
+- 在线转换
+  - 在 huggingface.co 上面通过 lmdeploy 量化的模型，如 [llama2-70b-4bit](https://huggingface.co/lmdeploy/llama2-chat-70b-4bit), [internlm-chat-20b-4bit](https://huggingface.co/internlm/internlm-chat-20b-4bit)
+  - huggingface.co 上面其他 LM 模型，如 Qwen/Qwen-7B-Chat
+- 离线转换
+  - 通过 lmdeploy convert 命令转换好的模型，兼容旧格式
 #### 2.1.1 在线转换
 
-lmdeploy 支持直接读取 Huggingface 模型权重，目前共支持三种类型：
-
-- 在 huggingface.co 上面通过 lmdeploy 量化的模型，如 [llama2-70b-4bit](https://huggingface.co/lmdeploy/llama2-chat-70b-4bit), [internlm-chat-20b-4bit](https://huggingface.co/internlm/internlm-chat-20b-4bit)
-- huggingface.co 上面其他 LM 模型，如 Qwen/Qwen-7B-Chat
-
-示例如下：
+在线转换支持直接读取 Huggingface 模型权重，示例如下：
 
 ```bash
 # 需要能访问 Huggingface 的网络环境
