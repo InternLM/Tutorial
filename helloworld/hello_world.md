@@ -706,7 +706,7 @@ os.system('huggingface-cli download --resume-download internlm/internlm-chat-7b 
 
 ```python
 from huggingface_hub import hf_hub_download
-import os from huggingface_hub import hf_hub_download # Load model directly hf_hub_download(repo_id="internlm/internlm-20b", filename="config.json")
+import os from huggingface_hub import hf_hub_download # Load model directly hf_hub_download(repo_id="internlm/internlm-7b", filename="config.json")
 ```
 
 #### 5.3.2 ModelScope
