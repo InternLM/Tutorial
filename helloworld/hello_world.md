@@ -748,7 +748,7 @@ download(model_repo='OpenLMLab/InternLM-7b', model_name='InternLM-7b', output='y
 
 **基础作业：**
 
-- 使用 InternLM-Chat-7B 模型生成 300 字的小故事。
+- 使用 InternLM-Chat-7B 模型生成 300 字的小故事（需截图）。
 - 熟悉 hugging face 下载功能，使用 `huggingface_hub` python 包，下载 `InternLM-20B` 的 config.json 文件到本地（需截图下载过程）。
 
 **进阶作业（可选做）**
