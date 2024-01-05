@@ -753,7 +753,7 @@ download(model_repo='OpenLMLab/InternLM-7b', model_name='InternLM-7b', output='y
 
 **进阶作业（可选做）**
 
-- 完成浦语·灵笔的图文理解及传作部署（需截图）
+- 完成浦语·灵笔的图文理解及创作部署（需截图）
 - 完成 Lagent 工具调用 Demo 创作部署（需截图）
 
 **整体实训营项目：**
@@ -762,7 +762,7 @@ download(model_repo='OpenLMLab/InternLM-7b', model_name='InternLM-7b', output='y
 
 即日开始可以在班级群中随机组队完成一个大作业项目，一些可提供的选题如下：
 
-- 人情事故大模型：一个帮助用户撰写新年祝福文案的人情事故大模型
+- 人情世故大模型：一个帮助用户撰写新年祝福文案的人情事故大模型
 - 中小学数学大模型：一个拥有一定数学解题能力的大模型
 - 心理大模型：一个治愈的心理大模型
 
