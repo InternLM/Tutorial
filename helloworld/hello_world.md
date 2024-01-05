@@ -517,6 +517,12 @@ import os
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-xcomposer-7b', cache_dir='/root/model', revision='master')
 ```
 
+以下内容将展示使用
+
+```python
+import os from huggingface_hub import hf_hub_download # Load model directly hf_hub_download(repo_id="internlm/internlm-20b", filename="config.json")
+```
+
 ### 4.3 代码准备
 
 在 `/root/code` `git clone InternLM-XComposer` 仓库的代码
