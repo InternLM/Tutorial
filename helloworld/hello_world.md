@@ -765,5 +765,6 @@ download(model_repo='OpenLMLab/InternLM-7b', model_name='InternLM-7b', output='y
 - 人情世故大模型：一个帮助用户撰写新年祝福文案的人情事故大模型
 - 中小学数学大模型：一个拥有一定数学解题能力的大模型
 - 心理大模型：一个治愈的心理大模型
+- 工具调用类项目：结合Lagent构建数据集训练InternLM模型，支持对MMYOLO等工具的调用
 
 其他基于书生·浦语工具链的小项目都在范围内，欢迎大家充分发挥想象力。
