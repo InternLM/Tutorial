@@ -549,9 +549,10 @@ import os
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-xcomposer-7b', cache_dir='/root/model', revision='master')
 ```
 
-以下内容将展示使用
+以下内容将展示使用 `huggingface_hub` 下载模型中的部分文件
 
 ```python
+from huggingface_hub import hf_hub_download
 import os from huggingface_hub import hf_hub_download # Load model directly hf_hub_download(repo_id="internlm/internlm-20b", filename="config.json")
 ```
 
