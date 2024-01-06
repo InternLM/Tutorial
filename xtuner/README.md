@@ -599,7 +599,9 @@ vim ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py
 ```
 
 #### 4.2.2 开始微调
+```Bash
 xtuner train ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py --deepspeed deepspeed_zero2
+```
 
 ### 4.3 直接使用
 
