@@ -574,6 +574,8 @@ MSAgent 数据集每条样本包含一个对话列表（conversations），其�
 ![BlgfEqpiRFO5G6L.png](imgs/msagent_data.png)
 
 ### 4.2 微调步骤
+
+#### 4.2.1 准备工作
 > xtuner 是从国内的 ModelScope 平台下载 MS-Agent 数据集，因此不用提前手动下载数据集文件。
 
 ```bash
@@ -596,12 +598,14 @@ vim ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py
 + pretrained_model_name_or_path = './internlm-chat-7b'
 ```
 
-# 开始微调
+#### 4.2.2 开始微调
 xtuner train ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py --deepspeed deepspeed_zero2
+
+### 4.3 直接使用
 
 > 由于 msagent 的训练非常费时，大家如果想尽快把这个教程跟完，可以直接从 modelScope 拉取咱们已经微调好了的 Adapter。如下演示。
 
-#### 4.2.1 下载 Adapter
+#### 4.3.1 下载 Adapter
 ```Bash
 cd ~/ft-msagent
 apt install git git-lfs
@@ -617,6 +621,8 @@ OK，现在目录应该长这样：
 
 有了这个在 msagent 上训练得到的Adapter，模型现在已经有 agent 能力了！就可以加 --lagent 以调用来自 lagent 的代理功能了！
 
+#### 4.3.2 添加 serper 环境变量
+
 > **开始 chat 之前，还要加个 serper 的环境变量：**
 > 
 > 去 serper.dev 免费注册一个账号，生成自己的 api key。这个东西是用来给 lagent 去获取 google 搜索的结果的。等于是 serper.dev 帮你去访问 google，而不是从你自己本地去访问 google 了。
@@ -629,14 +635,14 @@ OK，现在目录应该长这样：
 export SERPER_API_KEY=abcdefg
 ```
 
-xtuner + agent，启动！
+#### 4.3.3 xtuner + agent，启动！
 
 ```bash
 xtuner chat ./internlm-chat-7b --adapter internlm-7b-qlora-msagent-react --lagent
 ```
 
 
-**报错处理：**
+#### 4.3.4 报错处理
 
 xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust renote code"```	
 
@@ -647,7 +653,7 @@ xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsa
 ![YTpz1qemiojk5Bg.png](imgs/bugfix2.png)
 
 
-其他已知问题和解决方案：
+## 5 其他已知问题和解决方案：
 https://docs.qq.com/doc/DY1d2ZVFlbXlrUERj
 
 
@@ -656,7 +662,7 @@ Have fun!
 
 
 
-## 注意事项
+## 6 注意事项
 
 本教程使用 xtuner 0.1.9 版本
 若需要跟着本教程一步一步完成，建议严格遵循本教程的步骤！
