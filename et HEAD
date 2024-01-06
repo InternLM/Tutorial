@@ -1,0 +1,19 @@
+[33mcommit d01a9683c1ba2c31239cfa2c0cd0885225ea9040[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Shengshenlan <2764725346@qq.com>
+Date:   Sat Jan 6 20:07:00 2024 +0800
+
+    第二次作业和笔记
+
+[33mcommit 311fe03341ff8650a3a022fcf0db177e5f02f30b[m
+Merge: 5293ae2 37205b9
+Author: Shengshenlan <2764725346@qq.com>
+Date:   Sat Jan 6 20:05:38 2024 +0800
+
+    Merge branch 'master' of https://github.com/Shengshenlan/tutorial
+
+[33mcommit 37205b9372a9e3604b7bc6468bea9ace1100f2c0[m[33m ([m[1;31morigin/master[m[33m)[m
+Merge: 038fd8b 4fbc8b2
+Author: Shengshenlan <57640594+Shengshenlan@users.noreply.github.com>
+Date:   Sat Jan 6 19:54:13 2024 +0800
+
+    Merge branch 'InternLM:main' into master
