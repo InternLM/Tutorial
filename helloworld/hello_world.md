@@ -578,7 +578,7 @@ python examples/web_demo.py  \
 
 ![Alt text](images/image-9.png)
 
-接下来，我们可以体验以下图片理解的能力，如下所示~
+接下来，我们可以体验一下图片理解的能力，如下所示~
 
 ![Alt text](images/image-10.png)
 
