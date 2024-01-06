@@ -42,7 +42,7 @@ class InternLM_LLM(LLM):
     def _llm_type(self) -> str:
         return "InternLM"
     
-if __name__ == "main":
+if __name__ == "__main__":
     # 测试代码
     llm = InternLM_LLM(model_path = "/root/data/model/Shanghai_AI_Laboratory/internlm-chat-7b")
     print(llm.predict("你是谁"))
