@@ -12,18 +12,18 @@
 💻 算力支持：算力资源免费提供，助力无忧训练大模型  
 💬 专属社群：助教、讲师全程陪伴，提供录播回放、线上答疑及实战作业辅导  
 📜 官方认证：优秀学员将获得荣誉证书，优秀项目有机会被官方收录，获得更多展示  
- 
+
 ## 📅 课程安排
 
 |课程时间|课程内容|讲师|资料|
 |:-----|:----|:----|:-----|
-|第 1 节|书生·浦语大模型全链路开源开放体系 |陈恺 </br>上海人工智能实验室青年科学家|[视频](https://www.bilibili.com/video/BV1Rc411b7ns/) | 
-|第 2 节|轻松分钟玩转书生·浦语大模型趣味 Demo|宋志学</br>d2l-ai-solutions-manual 开源项目负责人| [文档](./helloworld/hello_world.md)、视频 | 
-|第 3 节|基于 InternLM 和 Langchain 搭建你的知识库|邹雨衡</br>prompt-engineering-for-developers 开源项目负责人| [文档](./langchain/readme.md)、视频| 
-|第 4 节|XTuner 大模型单卡低成本微调实战|汪周谦</br>XTuner 社区贡献者| [文档](./xtuner/README.md)、视频  | 
-|第 5 节|LMDeploy 大模型量化部署实践|长琴</br>HuggingLLM开源项目负责人| [文档](./lmdeploy/lmdeploy.md)、视频 | 
-|第 6 节|OpenCompass 大模型评测解读及实战指南|曹茂松</br>OpenCompass 核心开发者</br></br>王努</br>OpenCompass 社区贡献者| 文档、视频  | 
-|第 7 节|彩蛋环节| 神秘嘉宾 | 文档、视频  | 
+|第 1 节|书生·浦语大模型全链路开源开放体系 |陈恺 </br>上海人工智能实验室青年科学家|[视频](https://www.bilibili.com/video/BV1Rc411b7ns/) |
+|第 2 节|轻松分钟玩转书生·浦语大模型趣味 Demo|宋志学</br>d2l-ai-solutions-manual 开源项目负责人| [文档](./helloworld/hello_world.md)、[视频](https://www.bilibili.com/video/BV1Ci4y1z72H) |
+|第 3 节|基于 InternLM 和 Langchain 搭建你的知识库|邹雨衡</br>prompt-engineering-for-developers 开源项目负责人| [文档](./langchain/readme.md)、视频|
+|第 4 节|XTuner 大模型单卡低成本微调实战|汪周谦</br>XTuner 社区贡献者| [文档](./xtuner/README.md)、视频  |
+|第 5 节|LMDeploy 大模型量化部署实践|长琴</br>HuggingLLM开源项目负责人| [文档](./lmdeploy/lmdeploy.md)、视频 |
+|第 6 节|OpenCompass 大模型评测解读及实战指南|曹茂松</br>OpenCompass 核心开发者</br></br>王努</br>OpenCompass 社区贡献者| 文档、视频  |
+|第 7 节|彩蛋环节| 神秘嘉宾 | 文档、视频  |
 
 
 ## 📝 作业

@@ -1,6 +1,38 @@
-# 轻松玩转书生·浦语大模型趣味 Demo
-
 ![](./images/head.png)
+
+# 轻松玩转书生·浦语大模型趣味 Demo
+- [轻松玩转书生·浦语大模型趣味 Demo](#轻松玩转书生浦语大模型趣味-demo)
+  - [1 大模型及 InternLM 模型简介](#1-大模型及-internlm-模型简介)
+    - [1.1 什么是大模型？](#11-什么是大模型)
+    - [1.2 InternLM 模型全链条开源](#12-internlm-模型全链条开源)
+  - [2 InternLM-Chat-7B 智能对话 Demo](#2-internlm-chat-7b-智能对话-demo)
+    - [2.1 环境准备](#21-环境准备)
+    - [2.2 模型下载](#22-模型下载)
+    - [2.3 代码准备](#23-代码准备)
+    - [2.4 终端运行](#24-终端运行)
+    - [2.5 web demo 运行](#25-web-demo-运行)
+  - [3 Lagent 智能体工具调用 Demo](#3-lagent-智能体工具调用-demo)
+    - [3.1 环境准备](#31-环境准备)
+    - [3.2 模型下载](#32-模型下载)
+    - [3.3 Lagent 安装](#33-lagent-安装)
+    - [3.4 修改代码](#34-修改代码)
+    - [3.5 Demo 运行](#35-demo-运行)
+  - [4. 浦语·灵笔图文理解创作 Demo](#4-浦语灵笔图文理解创作-demo)
+    - [4.1 环境准备](#41-环境准备)
+    - [4.2 模型下载](#42-模型下载)
+    - [4.3 代码准备](#43-代码准备)
+    - [4.4 Demo 运行](#44-demo-运行)
+  - [5. 通用环境配置](#5-通用环境配置)
+    - [5.1 pip、conda 换源](#51-pipconda-换源)
+      - [5.1.1 pip 换源](#511-pip-换源)
+      - [5.1.2 conda 换源](#512-conda-换源)
+    - [5.2 配置本地端口](#52-配置本地端口)
+    - [5.3 模型下载](#53-模型下载)
+      - [5.3.1 Hugging Face](#531-hugging-face)
+      - [5.3.2 ModelScope](#532-modelscope)
+      - [5.3.3 OpenXLab](#533-openxlab)
+  - [6. 课后作业](#6-课后作业)
+
 
 ## 1 大模型及 InternLM 模型简介
 
@@ -26,11 +58,11 @@
 
 ## 2 InternLM-Chat-7B 智能对话 Demo
 
-本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) 机器和`InternLM-Chat-7B`模型部署一个智能对话 Demo。
+本小节我们将使用 [InternStudio](https://studio.intern-ai.org.cn/) 中的 A100(1/4) 机器和 `InternLM-Chat-7B` 模型部署一个智能对话 Demo。
 
 ### 2.1 环境准备
 
-在[InternStudio](https://studio.intern-ai.org.cn/)平台中选择 A100(1/4) 的配置，如下图所示镜像选择 `Cuda11.7-conda`，如下图所示：
+在 [InternStudio](https://studio.intern-ai.org.cn/) 平台中选择 A100(1/4) 的配置，如下图所示镜像选择 `Cuda11.7-conda`，如下图所示：
 
 ![Alt text](images/image.png)
 
@@ -69,7 +101,7 @@ pip install accelerate==0.24.1
 ```
 ### 2.2 模型下载
 
-[InternStudio](https://studio.intern-ai.org.cn/)平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，所以我们可以直接复制即可。使用如下命令复制：
+[InternStudio](https://studio.intern-ai.org.cn/) 平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，所以我们可以直接复制即可。使用如下命令复制：
 
 ```shell
 mkdir -p /root/model/Shanghai_AI_Laboratory
@@ -79,7 +111,7 @@ cp -r /root/share/temp/model_repos/internlm-chat-7b /root/model/Shanghai_AI_Labo
 
 也可以使用 `modelscope` 中的 `snapshot_download` 函数下载模型，第一个参数为模型名称，参数 `cache_dir` 为模型的下载路径。
 
-在 `/root` 路径下新建目录`model`，在目录下新建 `download.py` 文件并在其中输入以下内容，粘贴代码后记得保存文件，如下图所示。并运行 `python /root/model/download.py` 执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
+在 `/root` 路径下新建目录 `model`，在目录下新建 `download.py` 文件并在其中输入以下内容，粘贴代码后记得保存文件，如下图所示。并运行 `python /root/model/download.py` 执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
 
 ```python
 import torch
@@ -108,7 +140,7 @@ cd InternLM
 git checkout 3028f07cb79e5b1d7342f4ad8d11efad3fd13d17
 ```
 
-将 `/root/code/InternLM/web_demo.py`中 29 行和 33 行的模型更换为本地的 `/root/model/Shanghai_AI_Laboratory/internlm-chat-7b`。
+将 `/root/code/InternLM/web_demo.py` 中 29 行和 33 行的模型更换为本地的 `/root/model/Shanghai_AI_Laboratory/internlm-chat-7b`。
 
 ![image-3](images/image-3.png)
 
@@ -127,12 +159,18 @@ tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=
 model = AutoModelForCausalLM.from_pretrained(model_name_or_path, trust_remote_code=True, torch_dtype=torch.bfloat16, device_map='auto')
 model = model.eval()
 
-messages = []
+system_prompt = """You are an AI assistant whose name is InternLM (书生·浦语).
+- InternLM (书生·浦语) is a conversational language model that is developed by Shanghai AI Laboratory (上海人工智能实验室). It is designed to be helpful, honest, and harmless.
+- InternLM (书生·浦语) can understand and communicate fluently in the language chosen by the user such as English and 中文.
+"""
+
+messages = [(system_prompt, '')]
 
 print("=============Welcome to InternLM chatbot, type 'exit' to exit.=============")
 
 while True:
     input_text = input("User  >>> ")
+    input_text = input_text.replace(' ', '')
     if input_text == "exit":
         break
     response, history = model.chat(tokenizer, input_text, history=messages)
@@ -160,7 +198,7 @@ streamlit run web_demo.py --server.address 127.0.0.1 --server.port 6006
 
 ![Alt text](images/image-12.png)
 
-注意：要在浏览器打开`http://127.0.0.1:6006`页面后，模型才会加载，如下图所示：
+注意：要在浏览器打开 `http://127.0.0.1:6006` 页面后，模型才会加载，如下图所示：
 
 ![Alt text](images/image-5.png)
 
@@ -201,7 +239,7 @@ cp -r /root/share/temp/model_repos/internlm-chat-7b /root/model/Shanghai_AI_Labo
 ```
 > -r 选项表示递归地复制目录及其内容
 
-也可以在 `/root/model` 路径下新建 `download.py` 文件并在其中输入以下内容，并运行 `python /root/model/download.py`执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
+也可以在 `/root/model` 路径下新建 `download.py` 文件并在其中输入以下内容，并运行 `python /root/model/download.py` 执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
 
 ```python
 import torch
@@ -459,7 +497,7 @@ streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.
 
 ## 4. 浦语·灵笔图文理解创作 Demo
 
-本小节我们将使用[InternStudio](https://studio.intern-ai.org.cn/)中的 A100(1/4) * 2 机器和 `internlm-xcomposer-7b` 模型部署一个图文理解创作 Demo 。
+本小节我们将使用 [InternStudio](https://studio.intern-ai.org.cn/) 中的 A100(1/4) * 2 机器和 `internlm-xcomposer-7b` 模型部署一个图文理解创作 Demo 。
 
 ### 4.1 环境准备
 
@@ -467,7 +505,7 @@ streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.
 
 ![Alt text](images/image-8.png)
 
-接下来打开刚刚租用服务器的`进入开发机`，并在终端输入 `bash` 命令，进入 `conda` 环境，接下来就是安装依赖。
+接下来打开刚刚租用服务器的 `进入开发机`，并在终端输入 `bash` 命令，进入 `conda` 环境，接下来就是安装依赖。
 
 进入 `conda` 环境之后，使用以下命令从本地克隆一个已有的`pytorch 2.0.1` 的环境
 
@@ -540,7 +578,7 @@ python examples/web_demo.py  \
 
 ![Alt text](images/image-9.png)
 
-接下来，我们可以体验以下图片理解的能力，如下所示~
+接下来，我们可以体验一下图片理解的能力，如下所示~
 
 ![Alt text](images/image-10.png)
 
@@ -604,7 +642,7 @@ EOF
 
 ### 5.2 配置本地端口
 
-在本地配置端口，可以通过 `ssh` 连接到服务器，然后将服务器的端口映射到本地，这样就可以在本地浏览器中访问服务器的端口了。
+由于服务器通常只暴露了用于安全远程登录的 SSH（Secure Shell）端口，如果需要访问服务器上运行的其他服务（如 web 应用）的特定端口，需要一种特殊的设置。我们可以通过使用SSH隧道的方法，将服务器上的这些特定端口映射到本地计算机的端口。这样做的步骤如下：
 
 首先我们需要配置一下本地的 `SSH Key` ，我们这里以 `Windows` 为例。
 
@@ -664,6 +702,15 @@ import os
 os.system('huggingface-cli download --resume-download internlm/internlm-chat-7b --local-dir your_path')
 ```
 
+以下内容将展示使用 `huggingface_hub` 下载模型中的部分文件
+
+```python
+import os 
+from huggingface_hub import hf_hub_download  # Load model directly 
+
+hf_hub_download(repo_id="internlm/internlm-7b", filename="config.json")
+```
+
 #### 5.3.2 ModelScope
 
 使用 `modelscope` 中的 `snapshot_download` 函数下载模型，第一个参数为模型名称，参数 `cache_dir` 为模型的下载路径。
@@ -699,4 +746,27 @@ download(model_repo='OpenLMLab/InternLM-7b', model_name='InternLM-7b', output='y
 
 ## 6. 课后作业
 
-助教老师会在社群中进行公布哦！
+提交方式：在各个班级对应的 GitHub Discussion 帖子中进行提交。 
+
+**基础作业：**
+
+- 使用 InternLM-Chat-7B 模型生成 300 字的小故事（需截图）。
+- 熟悉 hugging face 下载功能，使用 `huggingface_hub` python 包，下载 `InternLM-20B` 的 config.json 文件到本地（需截图下载过程）。
+
+**进阶作业（可选做）**
+
+- 完成浦语·灵笔的图文理解及创作部署（需截图）
+- 完成 Lagent 工具调用 Demo 创作部署（需截图）
+
+**整体实训营项目：**
+
+时间周期：即日起致课程结束
+
+即日开始可以在班级群中随机组队完成一个大作业项目，一些可提供的选题如下：
+
+- 人情世故大模型：一个帮助用户撰写新年祝福文案的人情事故大模型
+- 中小学数学大模型：一个拥有一定数学解题能力的大模型
+- 心理大模型：一个治愈的心理大模型
+- 工具调用类项目：结合 Lagent 构建数据集训练 InternLM 模型，支持对 MMYOLO 等工具的调用
+
+其他基于书生·浦语工具链的小项目都在范围内，欢迎大家充分发挥想象力。
