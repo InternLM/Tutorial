@@ -173,7 +173,7 @@ cp -r /root/share/temp/datasets/openassistant-guanaco .
     `-- openassistant_best_replies_train.jsonl
 ```
 
-#### 2.3.4 修改 配置文件
+#### 2.3.4 修改配置文件
 
 修改其中的模型和数据集为 本地路径
 
@@ -302,7 +302,7 @@ xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/
 
 ### 2.4 部署与测试
 
-#### 将 HuggingFace adapter 合并到大语言模型：
+#### 2.4.1 将 HuggingFace adapter 合并到大语言模型：
 
 ```Bash
 xtuner convert merge ./internlm-chat-7b ./hf ./merged --max-shard-size 2GB
@@ -313,7 +313,7 @@ xtuner convert merge ./internlm-chat-7b ./hf ./merged --max-shard-size 2GB
 #     --max-shard-size 2GB
 ```
 
-#### 与合并后的模型对话：
+#### 2.4.2 与合并后的模型对话：
 ```Bash
 # 加载 Adapter 模型对话（Float 16）
 xtuner chat ./merged --prompt-template internlm_chat
@@ -322,13 +322,13 @@ xtuner chat ./merged --prompt-template internlm_chat
 # xtuner chat ./merged --bits 4 --prompt-template internlm_chat
 ```
 
-#### Demo
-##### 修改 `cli_demo.py` 中的模型路径
+#### 2.4.3 Demo
+- 修改 `cli_demo.py` 中的模型路径
 ```diff
 - model_name_or_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b"
 + model_name_or_path = "merged"
 ```
-##### 运行 `cli_demo.py` 以目测微调效果
+- 运行 `cli_demo.py` 以目测微调效果
 ```bash
 python ./cli_demo.py
 ```
