@@ -598,7 +598,6 @@ vim ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py
 
 # 开始微调
 xtuner train ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py --deepspeed deepspeed_zero2
-```
 
 > 由于 msagent 的训练非常费时，大家如果想尽快把这个教程跟完，可以直接从 modelScope 拉取咱们已经微调好了的 Adapter。如下演示。
 
