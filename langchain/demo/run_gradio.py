@@ -22,10 +22,13 @@ def load_chain():
 
     llm = InternLM_LLM(model_path = "/root/data/model/Shanghai_AI_Laboratory/internlm-chat-7b")
 
-    template = """使用以下上下文来回答最后的问题。如果你不知道答案，就说你不知道，不要试图编造答
-    案。尽量使答案简明扼要。总是在回答的最后说“谢谢你的提问！”。
-    {context}
+    template = """使用以下上下文来回答用户的问题。如果你不知道答案，就说你不知道。总是使用中文回答。
     问题: {question}
+    可参考的上下文：
+    ···
+    {context}
+    ···
+    如果给定的上下文无法让你做出回答，请回答你不知道。
     有用的回答:"""
 
     QA_CHAIN_PROMPT = PromptTemplate(input_variables=["context","question"],
