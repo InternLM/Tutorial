@@ -322,6 +322,18 @@ xtuner chat ./merged --prompt-template internlm_chat
 # xtuner chat ./merged --bits 4 --prompt-template internlm_chat
 ```
 
+#### Demo
+##### 修改 `cli_demo.py` 中的模型路径
+```diff
+- model_name_or_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b"
++ model_name_or_path = "merged"
+```
+##### 运行 `cli_demo.py` 以目测微调效果
+```bash
+python ./cli_demo.py
+```
+
+
 **效果：**
 | 微调前 | 微调后 |
 | --- | --- |
