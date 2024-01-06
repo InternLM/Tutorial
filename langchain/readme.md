@@ -26,15 +26,15 @@
 
 ### 1.1 InternLM 模型部署
 
-在[InternStudio](https://studio.intern-ai.org.cn/)平台中选择 A100(1/4) 的配置，如下图所示镜像选择 `Cuda11.7-conda`，如下图所示：
+在 [InternStudio](https://studio.intern-ai.org.cn/) 平台中选择 A100(1/4) 的配置，如下图所示镜像选择 `Cuda11.7-conda`，如下图所示：
 
 ![Alt text](figures/image.png)
 
-接下来打开刚刚租用服务器的`进入开发机`，并且打开其中的终端开始环境配置、模型下载和运行 `demo`。
+接下来打开刚刚租用服务器的 `进入开发机`，并且打开其中的终端开始环境配置、模型下载和运行 `demo`。
 
 ![Alt text](figures/image-1.png)
 
-进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端`和 `VScode`，并在终端输入 `bash` 命令，进入 `conda` 环境。如下图所示：
+进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端` 和  `VScode`，并在终端输入 `bash` 命令，进入 `conda` 环境。如下图所示：
 
 ![Alt text](figures/image-11.png)
 
@@ -73,9 +73,9 @@ mkdir -p /root/data/model/Shanghai_AI_Laboratory
 cp -r /root/share/temp/model_repos/internlm-chat-7b /root/data/model/Shanghai_AI_Laboratory/internlm-chat-7b
 ```
 
-如果本地拷贝模型参数出现问题，我们也可以使用 `modelscope` 中的`snapshot_download`函数下载模型，第一个参数为模型名称，参数`cache_dir`为模型的下载路径。
+如果本地拷贝模型参数出现问题，我们也可以使用 `modelscope` 中的 `snapshot_download` 函数下载模型，第一个参数为模型名称，参数 `cache_dir` 为模型的下载路径。
 
-在 `/root` 路径下新建目录`data`，在目录下新建 `download.py` 文件并在其中输入以下内容，粘贴代码后记得保存文件，如下图所示。并运行 `python /root/data/download.py`执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
+在 `/root` 路径下新建目录 `data`，在目录下新建 `download.py` 文件并在其中输入以下内容，粘贴代码后记得保存文件，如下图所示。并运行 `python /root/data/download.py` 执行下载，模型大小为 14 GB，下载模型大概需要 10~20 分钟
 
 ```python
 import torch
@@ -84,7 +84,7 @@ import os
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_dir='/root/data/model', revision='v1.0.3')
 ```
 
-> 注意：使用`pwd`命令可以查看当前的路径，`JupyterLab`左侧目录栏显示为`/root/`下的路径。
+> 注意：使用 `pwd` 命令可以查看当前的路径，`JupyterLab` 左侧目录栏显示为 `/root/` 下的路径。
 
 ![image](figures/image-2.png)
 
@@ -103,7 +103,7 @@ pip install markdown==3.3.7
 
 同时，我们需要使用到开源词向量模型 [Sentence Transformer](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2):（我们也可以选用别的开源词向量模型来进行 Embedding，目前选用这个模型是相对轻量、支持中文且效果较好的，同学们可以自由尝试别的开源词向量模型）
 
-首先需要使用`huggingface`官方提供的`huggingface-cli`命令行工具。安装依赖:
+首先需要使用 `huggingface` 官方提供的 `huggingface-cli` 命令行工具。安装依赖:
 
 ```shell
 pip install -U huggingface_hub
@@ -147,7 +147,7 @@ python download_hf.py
 
 我们在使用开源词向量模型构建开源词向量的时候，需要用到第三方库 `nltk` 的一些资源。正常情况下，其会自动从互联网上下载，但可能由于网络原因会导致下载中断，此处我们可以从国内仓库镜像地址下载相关资源，保存到服务器上。
 
-我们用以下命令下载nltk资源并解压到服务器上：
+我们用以下命令下载 nltk 资源并解压到服务器上：
 
 ```bash
 cd /root
@@ -258,7 +258,7 @@ def get_text(dir_path):
 
 得到该列表之后，我们就可以将它引入到 LangChain 框架中构建向量数据库。由纯文本对象构建向量数据库，我们需要先对文本进行分块，接着对文本块进行向量化。
 
-LangChain 提供了多种文本分块工具，此处我们使用字符串递归分割器，并选择分块大小为 500，块重叠长度为 150（由于篇幅限制，此处没有展示切割效果，学习者可以自行尝试一下，想要深入学习 LangChain 文本分块可以参考教程[《LangChain - Chat With Your Data》](https://github.com/datawhalechina/prompt-engineering-for-developers/blob/9dbcb48416eb8af9ff9447388838521dc0f9acb0/content/LangChain%20Chat%20with%20Your%20Data/1.%E7%AE%80%E4%BB%8B%20Introduction.md)：
+LangChain 提供了多种文本分块工具，此处我们使用字符串递归分割器，并选择分块大小为 500，块重叠长度为 150（由于篇幅限制，此处没有展示切割效果，学习者可以自行尝试一下，想要深入学习 LangChain 文本分块可以参考教程 [《LangChain - Chat With Your Data》](https://github.com/datawhalechina/prompt-engineering-for-developers/blob/9dbcb48416eb8af9ff9447388838521dc0f9acb0/content/LangChain%20Chat%20with%20Your%20Data/1.%E7%AE%80%E4%BB%8B%20Introduction.md)：
 
 ```python
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -268,7 +268,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 split_docs = text_splitter.split_documents(docs)
 ```
 
-接着我们选用开源词向量模型 [Sentence Transformer](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2)来进行文本向量化。LangChain 提供了直接引入 HuggingFace 开源社区中的模型进行向量化的接口：
+接着我们选用开源词向量模型 [Sentence Transformer](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) 来进行文本向量化。LangChain 提供了直接引入 HuggingFace 开源社区中的模型进行向量化的接口：
 
 ```python
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
