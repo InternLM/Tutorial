@@ -301,16 +301,25 @@ xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/
 
 
 ### 2.4 部署与测试
-> 使用 InternStudio 的同学换至少 `A100*1` 的机器
+
+#### 将 HuggingFace adapter 合并到大语言模型：
+
 ```Bash
-# 加载 Adapter 模型对话
-xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
+xtuner convert merge ./internlm-chat-7b ./hf ./merged --max-shard-size 2GB
+# xtuner convert merge \
+#     ${NAME_OR_PATH_TO_LLM} \
+#     ${NAME_OR_PATH_TO_ADAPTER} \
+#     ${SAVE_PATH} \
+#     --max-shard-size 2GB
+```
 
-# 与原模型对话（Float 16）
-# xtuner chat ./internlm-chat-7b --prompt-template internlm_chat
+#### 与合并后的模型对话：
+```Bash
+# 加载 Adapter 模型对话（Float 16）
+xtuner chat ./merged --prompt-template internlm_chat
 
-# 与原模型对话（4 bit）
-# xtuner chat ./internlm-chat-7b --bits 4 --prompt-template internlm_chat
+# 4 bit 量化加载
+# xtuner chat ./merged --bits 4 --prompt-template internlm_chat
 ```
 
 **效果：**
