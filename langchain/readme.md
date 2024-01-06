@@ -145,47 +145,18 @@ python download_hf.py
 
 ### 1.4 下载 NLTK 相关资源
 
-我们在使用开源词向量模型构建开源词向量的时候，需要用到第三方库 `nltk` 的一些资源。正常情况下，其会自动从互联网上下载，但可能由于网络原因会导致下载中断，此处我们可以手动将相关资源下载保存到服务器上。
+我们在使用开源词向量模型构建开源词向量的时候，需要用到第三方库 `nltk` 的一些资源。正常情况下，其会自动从互联网上下载，但可能由于网络原因会导致下载中断，此处我们可以从国内仓库镜像地址下载相关资源，保存到服务器上。
 
-首先我们在 `root` 目录下新建一个 `nltk_data` 目录：
+我们用以下命令下载nltk资源并解压到服务器上：
 
 ```bash
 cd /root
-mkdir nltk_data
-```
-
-接着进入 `nltk_data`，新建两个文件夹 `taggers` 和 `tokenizers`：
-
-```bash
+git clone https://gitee.com/yzy0612/nltk_data.git  --branch gh-pages
 cd nltk_data
-mkdir taggers
-mkdir tokenizers
-```
-
-接着我们首先使用 `wget` 工具（Linux 系统自带）来下载 `punkt` 资源：
-
-```bash
+mv packages/*  ./
 cd tokenizers
-wget -O punkt.zip https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip
-```
-
-然后解压下载下来的文件即可：
-
-```bash
 unzip punkt.zip
-```
-
-然后我们以相同的方式下载 `Averaged Perceptron Tagger` 资源：
-
-```bash
-cd ..
-cd taggers
-wget -O averaged_perceptron_tagger.zip https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/taggers/averaged_perceptron_tagger.zip
-```
-
-同样解压该文件：
-
-```bash
+cd ../taggers
 unzip averaged_perceptron_tagger.zip
 ```
 
