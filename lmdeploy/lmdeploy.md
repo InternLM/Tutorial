@@ -340,8 +340,9 @@ lmdeploy serve gradio ./workspace
 from lmdeploy import turbomind as tm
 
 # load model
-model_path = " /root/share/temp/model_repos/internlm-chat-7b/"
-tm_model = tm.TurboMind.from_pretrained(model_path, model_name='internlm-chat-20b')
+# Carefully check the path here
+model_path = "/root/share/model_repos/internlm-7b"
+tm_model = tm.TurboMind.from_pretrained(model_path, model_name='internlm-chat-7b')
 generator = tm_model.create_instance()
 
 # process query
