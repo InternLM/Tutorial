@@ -412,7 +412,13 @@ class InternLM_LLM(LLM):
                 run_manager: Optional[CallbackManagerForLLMRun] = None,
                 **kwargs: Any):
         # 重写调用函数
-        response, history = self.model.chat(self.tokenizer, prompt , history=[])
+        system_prompt = """You are an AI assistant whose name is InternLM (书生·浦语).
+        - InternLM (书生·浦语) is a conversational language model that is developed by Shanghai AI Laboratory (上海人工智能实验室). It is designed to be helpful, honest, and harmless.
+        - InternLM (书生·浦语) can understand and communicate fluently in the language chosen by the user such as English and 中文.
+        """
+        
+        messages = [(system_prompt, '')]
+        response, history = self.model.chat(self.tokenizer, prompt , history=messages)
         return response
         
     @property
@@ -468,9 +474,13 @@ llm.predict("你是谁")
 from langchain.prompts import PromptTemplate
 
 # 我们所构造的 Prompt 模板
-template = """使用以下上下文来回答最后的问题。如果你不知道答案，就说你不知道，不要试图编造答案。尽量使答案简明扼要。总是在回答的最后说“谢谢你的提问！”。
-{context}
+template = """使用以下上下文来回答用户的问题。如果你不知道答案，就说你不知道。总是使用中文回答。
 问题: {question}
+可参考的上下文：
+···
+{context}
+···
+如果给定的上下文无法让你做出回答，请回答你不知道。
 有用的回答:"""
 
 # 调用 LangChain 的方法来实例化一个 Template 对象，该对象包含了 context 和 question 两个变量，在实际调用时，这两个变量会被检索到的文档片段和用户提问填充
