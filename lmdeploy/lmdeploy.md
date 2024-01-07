@@ -64,6 +64,16 @@ $ watch vgpu-smi
 $ conda create -n CONDA_ENV_NAME --clone /share/conda_envs/internlm-base
 ```
 
+- 如果clone操作过慢，可采用如下操作: 
+ 
+```bash
+$ /root/share/install_conda_env_internlm_base.sh lmdeploy
+```
+然后激活环境:  
+```bash
+$ conda activate lmdeploy
+```
+
 我们取 `CONDA_ENV_NAME` 为 `lmdeploy`，复制完成后，可以在本地查看环境。
 
 ```bash
