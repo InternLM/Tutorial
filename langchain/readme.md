@@ -673,3 +673,10 @@ ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 33090
 ![Alt text](figures/image-55.png)
 
 我们在仓库中也同步提供了上述所有脚本，可以查看该教程文件的同级目录的 `demo` 文件夹。
+
+
+# 6 作业
+
+
+基础作业：复现课程知识库助手搭建过程
+进阶作业：选择一个垂直领域，收集该领域的专业资料构建专业知识库，并搭建专业问答助手，并在 [OpenXLab](https://openxlab.org.cn/apps) 上成功部署
