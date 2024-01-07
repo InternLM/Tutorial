@@ -2,14 +2,16 @@
 
 
 ## 1.概述
-目标：通过微调，增加模型对自己身份的认知。
+目标：通过微调，增加模型对自己身份的认知
+
+方式：通过XTuner进行微调
+
 
 ## 2.实操
 
-### 2.1环境准备
+### 2.1微调环境准备
 
 ```
-
 # InternStudio 平台中，从本地 clone 一个已有 pytorch 2.0.1 的环境（后续均在该环境执行，若为其他环境可作为参考）
 # 进入环境后首先 bash
 # 进入环境后首先 bash
@@ -48,7 +50,9 @@ pip install -e '.[all]'
 mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
 ```
 
-在`data`目录下创建一个json文件`personal_assistant.json`作为本次微调所使用的数据集。json中内容可参考下方(复制粘贴几百次，下面仅展示格式)，其中`input`为输入，即用户会问的问题，`output`为输出，即想要模型回答的答案。
+在`data`目录下创建一个json文件`personal_assistant.json`作为本次微调所使用的数据集。json中内容可参考下方(复制粘贴几百次做数据增广，数据量小无法有效微调，下面仅用于展示格式)
+
+其中`conversation`表示一次对话的内容，`input`为输入，即用户会问的问题，`output`为输出，即想要模型回答的答案。
 
 ```
 [
@@ -79,7 +83,7 @@ mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
     {
         "conversation": [
             {
-                "input": "请介绍一下你自己",
+                "input": "你是哪位",
                 "output": "我是不要葱姜蒜大佬的小助手，内在是上海AI实验室书生·浦语的7B大模型哦"
             }
         ]
@@ -89,9 +93,9 @@ mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
 
 ### 2.3配置准备
 
-下载模型`InternLM-7B`
+下载模型`InternLM-chat-7B`
 
-[InternStudio](https://studio.intern-ai.org.cn/) 平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，所以我们可以直接复制即可。使用如下命令复制：
+[InternStudio](https://studio.intern-ai.org.cn/) 平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，可以使用如下命令复制`internlm-chat-7b`：
 
 ```
 mkdir -p /root/personal_assistant/model/Shanghai_AI_Laboratory
@@ -105,22 +109,26 @@ XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令�
 xtuner list-cfg
 ```
 
-#创建用于存放配置的文件夹config并进入
+
 
 ```
+#创建用于存放配置的文件夹config并进入
 mkdir /root/personal_assistant/config && cd /root/personal_assistant/config
 ```
 
-拷贝一个配置文件到当前目录： `# xtuner copy-cfg ${CONFIG_NAME} ${SAVE_PATH}`
+拷贝一个配置文件到当前目录：`xtuner copy-cfg ${CONFIG_NAME} ${SAVE_PATH}`
 在本例中：（注意最后有个英文句号，代表复制到当前路径）
 
 ```
 xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 ```
 
-修改拷贝完的文件internlm_chat_7b_qlora_oasst1_e3_copy.py配置中下述位置：
+修改拷贝后的文件internlm_chat_7b_qlora_oasst1_e3_copy.py，修改下述位置：
 ![xtuner_config_1.png](imgs%2Fxtuner_config_1.png)
+>红框为配置文件中PART 1需要修改的内容
+
 ![xtuner_config_2.png](imgs%2Fxtuner_config_2.png)
+>红框为配置文件中PART 3需要修改的内容
 ```
 # PART 1 中
 # 预训练模型存放的位置
@@ -141,43 +149,52 @@ dataset_map_fn=None
 
 ### 2.4微调启动
 
-用xtuner train启动训练、
+用`xtuner train`命令启动训练、
 
 ```
 xtuner xtrain /root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_copy.py
 ```
-![after_train.png](imgs%2Fafter_train.png){:width="400px"}
+![after_train.png](imgs%2Fafter_train.png)
+>会在训练完成后，输出用于验证的Sample output
 ### 2.5微调后参数转换/合并
 
-训练完后的pth转Hugging Face格式
+训练完后的pth格式参数转Hugging Face格式
 
 ```
+# 创建用于存放Hugging Face格式参数的hf文件夹
 mkdir /root/personal_assistant/config/work_dirs/hf
+
 export MKL_SERVICE_FORCE_INTEL=1
+
 # 配置文件存放的位置
 export CONFIG_NAME_OR_PATH=/root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_copy.py
-# 模型训练得到的pth文件存放的位置
+
+# 模型训练后得到的pth格式参数存放的位置
 export PTH=/root/personal_assistant/config/work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_3.pth
-# pth文件转换为Hugging Face格式的参数存放的位置
+
+# pth文件转换为Hugging Face格式后参数存放的位置
 export SAVE_PATH=/root/personal_assistant/config/work_dirs/hf
 
+# 执行参数转换
 xtuner convert pth_to_hf $CONFIG_NAME_OR_PATH $PTH $SAVE_PATH
 ```
 
-Merge权重
-
+Merge模型参数
 ```
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER='GNU'
 
 # 原始模型参数存放的位置
 export NAME_OR_PATH_TO_LLM=/root/personal_assistant/model/Shanghai_AI_Laboratory/internlm-chat-7b
+
 # Hugging Face格式参数存放的位置
 export NAME_OR_PATH_TO_ADAPTER=/root/personal_assistant/config/work_dirs/hf
+
 # 最终Merge后的参数存放的位置
 mkdir /root/personal_assistant/config/work_dirs/hf_merge
 export SAVE_PATH=/root/personal_assistant/config/work_dirs/hf_merge
 
+# 执行参数Merge
 xtuner convert merge \
     $NAME_OR_PATH_TO_LLM \
     $NAME_OR_PATH_TO_ADAPTER \
@@ -187,29 +204,29 @@ xtuner convert merge \
 
 ### 2.6网页DEMO
 
-安装所需依赖
+安装网页Demo所需依赖
 
 ```
 pip install streamlit==1.24.0
-
 ```
 
 下载[InternLM](https://studio.intern-ai.org.cn/)项目代码（欢迎Star）
 
 ```
+# 创建code文件夹用于存放InternLM项目代码
 mkdir /root/personal_assistant/code && cd /root/personal_assistant/code
 git clone https://github.com/InternLM/InternLM.git
 ```
 
-将 `/root/code/InternLM/web_demo.py` 中 29 行和 33 行的模型更换为Merge后的参数 `/root/personal_assistant/config/work_dirs/hf_merge`
+将 `/root/code/InternLM/web_demo.py` 中 29 行和 33 行的模型路径更换为Merge后存放参数的路径 `/root/personal_assistant/config/work_dirs/hf_merge`
 ![code_config_1.png](imgs%2Fcode_config_1.png)
-运行 `/root/code/InternLM` 目录下的 `web_demo.py` 文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](https://github.com/InternLM/tutorial/blob/main/helloworld/hello_world.md#52-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
+运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](https://github.com/InternLM/tutorial/blob/main/helloworld/hello_world.md#52-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
 
 ```
 streamlit run /root/personal_assistant/code/InternLM/web_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-注意：要在浏览器打开 `http://127.0.0.1:6006` 页面后，模型才会加载
+注意：要在浏览器打开 `http://127.0.0.1:6006` 页面后，模型才会加载。
 在加载完模型之后，就可以与微调后的 InternLM-Chat-7B 进行对话了
 
 ## 3.效果
