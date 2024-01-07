@@ -64,14 +64,10 @@ $ watch vgpu-smi
 $ conda create -n CONDA_ENV_NAME --clone /share/conda_envs/internlm-base
 ```
 
-- 如果clone操作过慢，可采用如下操作: 
+- 如果clone操作过慢，可采用如下操作:
  
 ```bash
 $ /root/share/install_conda_env_internlm_base.sh lmdeploy
-```
-然后激活环境:  
-```bash
-$ conda activate lmdeploy
 ```
 
 我们取 `CONDA_ENV_NAME` 为 `lmdeploy`，复制完成后，可以在本地查看环境。
@@ -86,7 +82,7 @@ $ conda env list
 # conda environments:
 #
 base                  *  /root/.conda
-lmdeploy                 /root/.conda/envs/lmdeploy
+lmdeployo                /root/.conda/envs/lmdeploy
 ```
 
 然后激活环境。
@@ -122,6 +118,8 @@ pip install packaging
 `packaging` 表示缺少的包名。
 
 基础环境到这里就配置好了。
+
+- 如果遇到`lmdeploy: command not found`,移步[QA文档](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#H2w9drpHiogeOHxhK7PcdJCmn8c)
 
 ## 2 服务部署
 
