@@ -70,7 +70,7 @@
 
 ![Alt text](images/image-1.png)
 
-进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端`和 `VScode`，并在终端输入 `bash 命令，进入 `conda` 环境。如下图所示：
+进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端`和 `VScode`，并在终端输入 `bash` 命令，进入 `conda` 环境。如下图所示：
 
 ![Alt text](images/image-11.png)
 
@@ -78,7 +78,7 @@
 
 ```shell
 bash # 请每次使用 jupyter lab 打开终端时务必先执行 bash 命令进入 bash 中
-conda create --name internlm-demo --clone=/root/share/conda_envs/internlm-base
+/root/share/install_conda_env_internlm_base.sh internlm-demo
 ```
 
 然后使用以下命令激活环境
@@ -510,7 +510,7 @@ streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.
 进入 `conda` 环境之后，使用以下命令从本地克隆一个已有的`pytorch 2.0.1` 的环境
 
 ```shell
-conda create --name xcomposer-demo --clone=/root/share/conda_envs/internlm-base
+/root/share/install_conda_env_internlm_base.sh xcomposer-demo
 ```
 
 然后使用以下命令激活环境

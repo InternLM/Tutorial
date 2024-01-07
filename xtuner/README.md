@@ -49,7 +49,7 @@ Ubuntu + Anaconda + CUDA/CUDNN + 8GB nvidia显卡
 
 ```bash
 # 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 2.0.1 的环境：
-conda create --name xtuner0.1.9 --clone=/root/share/conda_envs/internlm-base
+/root/share/install_conda_env_internlm_base.sh xtuner0.1.9
 # 如果你是在其他平台：
 conda create --name xtuner0.1.9 python=3.10 -y
 
@@ -173,7 +173,7 @@ cp -r /root/share/temp/datasets/openassistant-guanaco .
     `-- openassistant_best_replies_train.jsonl
 ```
 
-#### 2.3.4 修改 配置文件
+#### 2.3.4 修改配置文件
 
 修改其中的模型和数据集为 本地路径
 
@@ -301,17 +301,38 @@ xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/
 
 
 ### 2.4 部署与测试
-> 使用 InternStudio 的同学换至少 `A100*1` 的机器
+
+#### 2.4.1 将 HuggingFace adapter 合并到大语言模型：
+
 ```Bash
-# 加载 Adapter 模型对话
-xtuner chat ./internlm-chat-7b --adapter ./hf --prompt-template internlm_chat
-
-# 与原模型对话（Float 16）
-# xtuner chat ./internlm-chat-7b --prompt-template internlm_chat
-
-# 与原模型对话（4 bit）
-# xtuner chat ./internlm-chat-7b --bits 4 --prompt-template internlm_chat
+xtuner convert merge ./internlm-chat-7b ./hf ./merged --max-shard-size 2GB
+# xtuner convert merge \
+#     ${NAME_OR_PATH_TO_LLM} \
+#     ${NAME_OR_PATH_TO_ADAPTER} \
+#     ${SAVE_PATH} \
+#     --max-shard-size 2GB
 ```
+
+#### 2.4.2 与合并后的模型对话：
+```Bash
+# 加载 Adapter 模型对话（Float 16）
+xtuner chat ./merged --prompt-template internlm_chat
+
+# 4 bit 量化加载
+# xtuner chat ./merged --bits 4 --prompt-template internlm_chat
+```
+
+#### 2.4.3 Demo
+- 修改 `cli_demo.py` 中的模型路径
+```diff
+- model_name_or_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b"
++ model_name_or_path = "merged"
+```
+- 运行 `cli_demo.py` 以目测微调效果
+```bash
+python ./cli_demo.py
+```
+
 
 **效果：**
 | 微调前 | 微调后 |
@@ -553,6 +574,8 @@ MSAgent 数据集每条样本包含一个对话列表（conversations），其�
 ![BlgfEqpiRFO5G6L.png](imgs/msagent_data.png)
 
 ### 4.2 微调步骤
+
+#### 4.2.1 准备工作
 > xtuner 是从国内的 ModelScope 平台下载 MS-Agent 数据集，因此不用提前手动下载数据集文件。
 
 ```bash
@@ -575,13 +598,16 @@ vim ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py
 + pretrained_model_name_or_path = './internlm-chat-7b'
 ```
 
-# 开始微调
+#### 4.2.2 开始微调
+```Bash
 xtuner train ./internlm_7b_qlora_msagent_react_e3_gpu8_copy.py --deepspeed deepspeed_zero2
 ```
 
+### 4.3 直接使用
+
 > 由于 msagent 的训练非常费时，大家如果想尽快把这个教程跟完，可以直接从 modelScope 拉取咱们已经微调好了的 Adapter。如下演示。
 
-#### 4.2.1 下载 Adapter
+#### 4.3.1 下载 Adapter
 ```Bash
 cd ~/ft-msagent
 apt install git git-lfs
@@ -597,6 +623,8 @@ OK，现在目录应该长这样：
 
 有了这个在 msagent 上训练得到的Adapter，模型现在已经有 agent 能力了！就可以加 --lagent 以调用来自 lagent 的代理功能了！
 
+#### 4.3.2 添加 serper 环境变量
+
 > **开始 chat 之前，还要加个 serper 的环境变量：**
 > 
 > 去 serper.dev 免费注册一个账号，生成自己的 api key。这个东西是用来给 lagent 去获取 google 搜索的结果的。等于是 serper.dev 帮你去访问 google，而不是从你自己本地去访问 google 了。
@@ -609,14 +637,14 @@ OK，现在目录应该长这样：
 export SERPER_API_KEY=abcdefg
 ```
 
-xtuner + agent，启动！
+#### 4.3.3 xtuner + agent，启动！
 
 ```bash
 xtuner chat ./internlm-chat-7b --adapter internlm-7b-qlora-msagent-react --lagent
 ```
 
 
-**报错处理：**
+#### 4.3.4 报错处理
 
 xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust renote code"```	
 
@@ -627,7 +655,7 @@ xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsa
 ![YTpz1qemiojk5Bg.png](imgs/bugfix2.png)
 
 
-其他已知问题和解决方案：
+## 5 其他已知问题和解决方案：
 https://docs.qq.com/doc/DY1d2ZVFlbXlrUERj
 
 
@@ -636,7 +664,7 @@ Have fun!
 
 
 
-## 注意事项
+## 6 注意事项
 
 本教程使用 xtuner 0.1.9 版本
 若需要跟着本教程一步一步完成，建议严格遵循本教程的步骤！
