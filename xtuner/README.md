@@ -117,6 +117,14 @@ xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 
 #### 2.3.2 模型下载
 
+> 由于下载模型很慢，用教学平台的同学可以直接复制模型。
+
+```Bash
+cp -r /root/share/temp/model_repos/internlm-chat-7b ~/ft-oasst1/
+```
+
+> 以下是自己下载模型的步骤。
+
 不用 xtuner 默认的`从 huggingface 拉取模型`，而是提前从 ~~OpenXLab~~ ModelScope 下载模型到本地
 
 ```Bash
