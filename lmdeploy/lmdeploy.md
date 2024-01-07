@@ -82,7 +82,7 @@ $ conda env list
 # conda environments:
 #
 base                  *  /root/.conda
-lmdeployo                /root/.conda/envs/lmdeploy
+lmdeploy                 /root/.conda/envs/lmdeploy
 ```
 
 然后激活环境。
