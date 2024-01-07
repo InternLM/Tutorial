@@ -42,7 +42,7 @@
 
 ```shell
 bash
-conda create --name InternLM --clone=/root/share/conda_envs/internlm-base
+/root/share/install_conda_env_internlm_base.sh InternLM
 ```
 
 然后使用以下命令激活环境

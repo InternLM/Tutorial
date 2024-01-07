@@ -49,7 +49,7 @@ Ubuntu + Anaconda + CUDA/CUDNN + 8GB nvidia显卡
 
 ```bash
 # 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 2.0.1 的环境：
-conda create --name xtuner0.1.9 --clone=/root/share/conda_envs/internlm-base
+/root/share/install_conda_env_internlm_base.sh xtuner0.1.9
 # 如果你是在其他平台：
 conda create --name xtuner0.1.9 python=3.10 -y
 
