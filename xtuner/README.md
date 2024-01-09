@@ -2,14 +2,13 @@
 
 > 怎么硕呢，祝大家炼丹愉快吧~ 😙
 
-
 ## 1 概述
 
 ### 1.1 XTuner
 
 一个大语言模型微调工具箱。*由* *MMRazor* *和* *MMDeploy* *联合开发。*
 
-### 1.2 支持的开源LLM (2023.11.01) 
+### 1.2 支持的开源LLM (2023.11.01)
 
 - **[InternLM](https://huggingface.co/internlm/internlm-7b)** ✅
 - [Llama，Llama2](https://huggingface.co/meta-llama)
@@ -272,7 +271,7 @@ NPROC_PER_NODE=${GPU_NUM} xtuner train ./internlm_chat_7b_qlora_oasst1_e3_copy.p
 mkdir hf
 export MKL_SERVICE_FORCE_INTEL=1
 
-xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_3.pth ./hf
+xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_1.pth ./hf
 ```
 此时，路径中应该长这样：
 
@@ -331,6 +330,7 @@ xtuner chat ./merged --prompt-template internlm_chat
 ```
 
 #### 2.4.3 Demo
+
 - 修改 `cli_demo.py` 中的模型路径
 ```diff
 - model_name_or_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b"
@@ -341,12 +341,11 @@ xtuner chat ./merged --prompt-template internlm_chat
 python ./cli_demo.py
 ```
 
-
 **效果：**
+
 | 微调前 | 微调后 |
 | --- | --- |
 | ![O23QD48iFSZMfbr.png](imgs/beforeFT.png) | ![L1sqmGgE6h2exWP.png](imgs/afterFT.png) |
-
 
 **`xtuner chat`** **的启动参数**
 
@@ -511,6 +510,16 @@ cp -r ~/ft-oasst1/internlm-chat-7b .
 ```
 别忘了把自定义数据集，即几个 `.jsonL`，也传到服务器上。
 
+```bash
+git clone https://github.com/InternLM/tutorial
+```
+
+```bash
+cp ~/tutorial/xtuner/MedQA2019-structured-train.jsonl .
+```
+
+
+
 #### 3.3.1 准备配置文件
 ```bash
 # 复制配置文件到当前目录
@@ -534,7 +543,7 @@ vim internlm_chat_7b_qlora_medqa2019_e3.py
 
 # 修改训练数据为 MedQA2019-structured-train.jsonl 路径
 - data_path = 'timdettmers/openassistant-guanaco'
-+ data_path = './MedQA2019/MedQA2019-structured-train.jsonl'
++ data_path = 'MedQA2019-structured-train.jsonl'
 
 # 修改 train_dataset 对象
 train_dataset = dict(
@@ -556,7 +565,7 @@ train_dataset = dict(
 ![tH8udZzECYl5are.png](imgs/ysqd.png)
 
 ```bash
-xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
+xtuner train internlm_chat_7b_qlora_medqa2019_e3.py --deepspeed deepspeed_zero2
 ```
 
 #### 3.3.3 pth 转 huggingface
@@ -570,6 +579,7 @@ xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
 
 ## 4【补充】用 MS-Agent 数据集 赋予 LLM 以 Agent 能力
 ### 4.1 概述
+
 MSAgent 数据集每条样本包含一个对话列表（conversations），其里面包含了 system、user、assistant 三种字段。其中：
 
 - system: 表示给模型前置的人设输入，其中有告诉模型如何调用插件以及生成请求
@@ -654,9 +664,15 @@ xtuner chat ./internlm-chat-7b --adapter internlm-7b-qlora-msagent-react --lagen
 
 #### 4.3.4 报错处理
 
-xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust renote code"```	
+xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust remote code"```	
 
 注释掉已安装包中的代码：
+
+```bash
+vim /root/xtuner019/xtuner/xtuner/tools/chat.py
+```
+
+
 
 ![NfHAV1b4zqYv5kR.png](imgs/bugfix1.png)
 
