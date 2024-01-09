@@ -11,7 +11,7 @@
 
 ### 2.1微调环境准备
 
-```
+```bash
 # InternStudio 平台中，从本地 clone 一个已有 pytorch 2.0.1 的环境（后续均在该环境执行，若为其他环境可作为参考）
 # 进入环境后首先 bash
 # 进入环境后首先 bash
@@ -46,7 +46,7 @@ pip install -e '.[all]'
 
 创建`data`文件夹用于存放用于训练的数据集
 
-```
+```bash
 mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
 ```
 
@@ -54,7 +54,7 @@ mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
 
 其中`conversation`表示一次对话的内容，`input`为输入，即用户会问的问题，`output`为输出，即想要模型回答的答案。
 
-```
+```json
 [
     {
         "conversation": [
@@ -97,21 +97,21 @@ mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
 
 [InternStudio](https://studio.intern-ai.org.cn/) 平台的 `share` 目录下已经为我们准备了全系列的 `InternLM` 模型，可以使用如下命令复制`internlm-chat-7b`：
 
-```
+```bash
 mkdir -p /root/personal_assistant/model/Shanghai_AI_Laboratory
 cp -r /root/share/temp/model_repos/internlm-chat-7b /root/personal_assistant/model/Shanghai_AI_Laboratory
 ```
 
 XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令查看：
 
-```
+```bash
 # 列出所有内置配置
 xtuner list-cfg
 ```
 
 
 
-```
+```bash
 #创建用于存放配置的文件夹config并进入
 mkdir /root/personal_assistant/config && cd /root/personal_assistant/config
 ```
@@ -119,7 +119,7 @@ mkdir /root/personal_assistant/config && cd /root/personal_assistant/config
 拷贝一个配置文件到当前目录：`xtuner copy-cfg ${CONFIG_NAME} ${SAVE_PATH}`
 在本例中：（注意最后有个英文句号，代表复制到当前路径）
 
-```
+```bash
 xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 ```
 
@@ -129,7 +129,8 @@ xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 
 ![xtuner_config_2.png](imgs%2Fxtuner_config_2.png)
 >红框为配置文件中PART 3需要修改的内容
-```
+
+```bash
 # PART 1 中
 # 预训练模型存放的位置
 pretrained_model_name_or_path = '/root/personal_assistant/model/Shanghai_AI_Laboratory/internlm-chat-7b'
@@ -151,8 +152,8 @@ dataset_map_fn=None
 
 用`xtuner train`命令启动训练、
 
-```
-xtuner xtrain /root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_copy.py
+```bash
+xtuner train /root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_copy.py
 ```
 ![after_train.png](imgs%2Fafter_train.png)
 >会在训练完成后，输出用于验证的Sample output
@@ -160,7 +161,7 @@ xtuner xtrain /root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_c
 
 训练完后的pth格式参数转Hugging Face格式
 
-```
+```bash
 # 创建用于存放Hugging Face格式参数的hf文件夹
 mkdir /root/personal_assistant/config/work_dirs/hf
 
@@ -180,7 +181,7 @@ xtuner convert pth_to_hf $CONFIG_NAME_OR_PATH $PTH $SAVE_PATH
 ```
 
 Merge模型参数
-```
+```bash
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER='GNU'
 
@@ -206,13 +207,13 @@ xtuner convert merge \
 
 安装网页Demo所需依赖
 
-```
+```bash
 pip install streamlit==1.24.0
 ```
 
 下载[InternLM](https://studio.intern-ai.org.cn/)项目代码（欢迎Star）
 
-```
+```bash
 # 创建code文件夹用于存放InternLM项目代码
 mkdir /root/personal_assistant/code && cd /root/personal_assistant/code
 git clone https://github.com/InternLM/InternLM.git
