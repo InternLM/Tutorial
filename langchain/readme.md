@@ -135,7 +135,7 @@ os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 os.system('huggingface-cli download --resume-download sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 --local-dir /root/data/model/sentence-transformer')
 ```
 
-然后，在 `\root\data` 目录下执行该脚本即可自动开始下载：
+然后，在 `/root/data` 目录下执行该脚本即可自动开始下载：
 
 ```bash
 python download_hf.py
