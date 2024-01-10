@@ -78,7 +78,7 @@
 
 ```shell
 bash # 请每次使用 jupyter lab 打开终端时务必先执行 bash 命令进入 bash 中
-/root/share/install_conda_env_internlm_base.sh internlm-demo
+bash /root/share/install_conda_env_internlm_base.sh internlm-demo  # 执行该脚本文件来安装项目实验环境
 ```
 
 然后使用以下命令激活环境
