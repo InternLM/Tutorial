@@ -721,10 +721,16 @@ nvidia-cuda-runtime-cu12      12.1.105
 
 **基础作业：**
 
-构建数据集，使用 XTuner 微调 InternLM-Chat-7B 模型, 让模型学习到它是你的智能小助手，效果如下图所示，作业参考答案：https://github.com/InternLM/tutorial/blob/main/xtuner/self.md
-
+构建数据集，使用 XTuner 微调 InternLM-Chat-7B 模型, 让模型学习到它是你的智能小助手，效果如下图所示，需要**将不要葱姜蒜大佬**替换成自己名字或昵称！
 **微调前**（回答比较官方）
 ![web_show_2.png](imgs%2Fweb_show_2.png)
 
 **微调后**（对自己的身份~~弟位~~有了清晰的认知）
 ![web_show_1.png](imgs%2Fweb_show_1.png)
+
+作业参考答案：https://github.com/InternLM/tutorial/blob/main/xtuner/self.md
+
+**进阶作业：***
+
+- 将训练好的模型上传到 OpenXLab、Hugging Face 或者 MoelScope 任一一平台。
+- 将训练好后的模型部署到 OpenXLab 平台，参考部署文档请访问：https://aicarrier.feishu.cn/docx/MQH6dygcKolG37x0ekcc4oZhnCe
