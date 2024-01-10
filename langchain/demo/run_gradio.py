@@ -22,14 +22,14 @@ def load_chain():
 
     llm = InternLM_LLM(model_path = "/root/data/model/Shanghai_AI_Laboratory/internlm-chat-7b")
 
-    template = """使用以下上下文来回答用户的问题。如果你不知道答案，就说你不知道。总是使用中文回答。
-    问题: {question}
-    可参考的上下文：
+    # 你可以修改这里的 prompt template 来试试不同的问答效果
+    template = """请使用以下提供的上下文来回答用户的问题。如果无法从上下文中得到答案，请回答你不知道，并总是使用中文回答。
+    提供的上下文：
     ···
     {context}
     ···
-    如果给定的上下文无法让你做出回答，请回答你不知道。
-    有用的回答:"""
+    用户的问题: {question}
+    你给的回答:"""
 
     QA_CHAIN_PROMPT = PromptTemplate(input_variables=["context","question"],
                                     template=template)
