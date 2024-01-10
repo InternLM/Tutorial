@@ -54,7 +54,7 @@ pip install -e '.[all]'
 mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
 ```
 
-在`data`目录下创建一个json文件`personal_assistant.json`作为本次微调所使用的数据集。json中内容可参考下方(复制粘贴n次做数据增广，数据量小无法有效微调，下面仅用于展示格式)
+在`data`目录下创建一个json文件`personal_assistant.json`作为本次微调所使用的数据集。json中内容可参考下方(复制粘贴n次做数据增广，数据量小无法有效微调，下面仅用于展示格式，下面也有生成脚本)
 
 其中`conversation`表示一次对话的内容，`input`为输入，即用户会问的问题，`output`为输出，即想要模型回答的答案。
 
@@ -77,6 +77,35 @@ mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
         ]
     }
 ]
+```
+
+以下是一个python脚本，用于生成数据集。在`data`目录下新建一个generate_data.py文件，将以下代码复制进去，然后运行该脚本即可生成数据集。
+
+```python
+import json
+
+# 输入你的名字
+name = 'Shengshenlan'
+# 重复次数
+n = 10000
+
+data = [
+    {
+        "conversation": [
+            {
+                "input": "请做一下自我介绍",
+                "output": "我是{}的小助手，内在是上海AI实验室书生·浦语的7B大模型哦".format(name)
+            }
+        ]
+    }
+]
+
+for i in range(n):
+    data.append(data[0])
+
+with open('personal_assistant.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=4)
+
 ```
 
 ### 2.3配置准备
@@ -112,6 +141,7 @@ xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 ```
 
 修改拷贝后的文件internlm_chat_7b_qlora_oasst1_e3_copy.py，修改下述位置：
+(这是一份修改好的文件[internlm_chat_7b_qlora_oasst1_e3_copy.py](./internlm_chat_7b_qlora_oasst1_e3_copy.py))
 ![xtuner_config_1.png](imgs%2Fxtuner_config_1.png)
 >红框为配置文件中PART 1需要修改的内容
 
