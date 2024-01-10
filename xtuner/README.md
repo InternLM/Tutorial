@@ -716,3 +716,9 @@ nvidia-cuda-cupti-cu12        12.1.105
 nvidia-cuda-nvrtc-cu12        12.1.105
 nvidia-cuda-runtime-cu12      12.1.105
 ```
+
+## 作业
+
+**基础作业：**
+
+构建数据集，使用 XTuner 微调 InternLM-Chat-7B 模型, 让模型学习到它是你的智能小助手，[实现参考链接](https://github.com/InternLM/tutorial/blob/main/xtuner/self.md)
