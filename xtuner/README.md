@@ -89,6 +89,7 @@ XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令�
 # 列出所有内置配置
 xtuner list-cfg
 ```
+> 假如显示bash: xtuner: command not found的话可以考虑在终端输入 export PATH=$PATH:'/root/.local/bin '
 
 ![QCgmlv1VpU3fZPk.png](imgs/cfgs.png)
 
@@ -188,6 +189,7 @@ cp -r /root/share/temp/datasets/openassistant-guanaco .
 cd ~/ft-oasst1
 vim internlm_chat_7b_qlora_oasst1_e3_copy.py
 ```
+> 在vim界面完成修改后，请输入:wq退出。假如认为改错了可以用:q!退出且不保存。当然我们也可以考虑打开python文件直接修改，但注意修改完后需要按下Ctrl+S进行保存。
 
 减号代表要删除的行，加号代表要增加的行。
 ```diff
