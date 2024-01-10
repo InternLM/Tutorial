@@ -70,7 +70,7 @@
 
 ![Alt text](images/image-1.png)
 
-进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端`和 `VScode`，并在终端输入 `bash 命令，进入 `conda` 环境。如下图所示：
+进入开发机后，在页面的左上角可以切换 `JupyterLab`、`终端`和 `VScode`，并在终端输入 `bash` 命令，进入 `conda` 环境。如下图所示：
 
 ![Alt text](images/image-11.png)
 
@@ -78,7 +78,7 @@
 
 ```shell
 bash # 请每次使用 jupyter lab 打开终端时务必先执行 bash 命令进入 bash 中
-conda create --name internlm-demo --clone=/root/share/conda_envs/internlm-base
+bash /root/share/install_conda_env_internlm_base.sh internlm-demo  # 执行该脚本文件来安装项目实验环境
 ```
 
 然后使用以下命令激活环境
@@ -510,7 +510,7 @@ streamlit run /root/code/lagent/examples/react_web_demo.py --server.address 127.
 进入 `conda` 环境之后，使用以下命令从本地克隆一个已有的`pytorch 2.0.1` 的环境
 
 ```shell
-conda create --name xcomposer-demo --clone=/root/share/conda_envs/internlm-base
+/root/share/install_conda_env_internlm_base.sh xcomposer-demo
 ```
 
 然后使用以下命令激活环境
@@ -681,6 +681,8 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 33090
 ![Alt text](images/image-17.png)
 
 ### 5.3 模型下载
+
+***以下下载模型的操作不建议大家在开发机进行哦，在开发机下载模型会占用开发机的大量带宽和内存，下载等待的时间也会比较长，不利于大家学习。大家可以在自己的本地电脑尝试哦~***
 
 #### 5.3.1 Hugging Face
 
