@@ -2,11 +2,15 @@
 
 
 ## 1.概述
-目标：通过微调，增加模型对自己身份的认知
+目标：通过微调，帮助模型~~认清~~了解对自己身份~~弟位~~
 
-方式：通过XTuner进行微调
+方式：使用XTuner进行微调
 
+**微调前**（回答比较官方）
+![web_show_2.png](imgs%2Fweb_show_2.png)
 
+**微调后**（对自己的身份~~弟位~~有了清晰的认知）
+![web_show_1.png](imgs%2Fweb_show_1.png)
 ## 2.实操
 
 ### 2.1微调环境准备
@@ -19,7 +23,7 @@
 bash
 conda create --name personal_assistant --clone=/root/share/conda_envs/internlm-base
 # 如果在其他平台：
-conda create --name personal_assistant python=3.10 -y
+# conda create --name personal_assistant python=3.10 -y
 
 # 激活环境
 conda activate personal_assistant
@@ -50,7 +54,7 @@ pip install -e '.[all]'
 mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
 ```
 
-在`data`目录下创建一个json文件`personal_assistant.json`作为本次微调所使用的数据集。json中内容可参考下方(复制粘贴几百次做数据增广，数据量小无法有效微调，下面仅用于展示格式)
+在`data`目录下创建一个json文件`personal_assistant.json`作为本次微调所使用的数据集。json中内容可参考下方(复制粘贴n次做数据增广，数据量小无法有效微调，下面仅用于展示格式)
 
 其中`conversation`表示一次对话的内容，`input`为输入，即用户会问的问题，`output`为输出，即想要模型回答的答案。
 
@@ -68,22 +72,6 @@ mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
         "conversation": [
             {
                 "input": "请做一下自我介绍",
-                "output": "我是不要葱姜蒜大佬的小助手，内在是上海AI实验室书生·浦语的7B大模型哦"
-            }
-        ]
-    },
-    {
-        "conversation": [
-            {
-                "input": "你是谁",
-                "output": "我是不要葱姜蒜大佬的小助手，内在是上海AI实验室书生·浦语的7B大模型哦"
-            }
-        ]
-    },
-    {
-        "conversation": [
-            {
-                "input": "你是哪位",
                 "output": "我是不要葱姜蒜大佬的小助手，内在是上海AI实验室书生·浦语的7B大模型哦"
             }
         ]
@@ -138,7 +126,19 @@ pretrained_model_name_or_path = '/root/personal_assistant/model/Shanghai_AI_Labo
 # 微调数据存放的位置
 data_path = '/root/personal_assistant/data/personal_assistant.json'
 
-# 用于评估输出内容的问题
+# 训练中最大的文本长度
+max_length = 512
+
+# 每一批训练样本的大小
+batch_size = 2
+
+# 最大训练轮数
+max_epochs = 3
+
+# 验证的频率
+evaluation_freq = 90
+
+# 用于评估输出内容的问题（用于评估的问题尽量与数据集的question保持一致）
 evaluation_inputs = [ '请介绍一下你自己', '请做一下自我介绍' ]
 
 
@@ -159,7 +159,7 @@ xtuner train /root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_co
 >会在训练完成后，输出用于验证的Sample output
 ### 2.5微调后参数转换/合并
 
-训练完后的pth格式参数转Hugging Face格式
+训练后的pth格式参数转Hugging Face格式
 
 ```bash
 # 创建用于存放Hugging Face格式参数的hf文件夹
@@ -220,6 +220,7 @@ git clone https://github.com/InternLM/InternLM.git
 ```
 
 将 `/root/code/InternLM/web_demo.py` 中 29 行和 33 行的模型路径更换为Merge后存放参数的路径 `/root/personal_assistant/config/work_dirs/hf_merge`
+
 ![code_config_1.png](imgs%2Fcode_config_1.png)
 运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](https://github.com/InternLM/tutorial/blob/main/helloworld/hello_world.md#52-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
 
