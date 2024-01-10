@@ -722,10 +722,12 @@ nvidia-cuda-runtime-cu12      12.1.105
 **基础作业：**
 
 构建数据集，使用 XTuner 微调 InternLM-Chat-7B 模型, 让模型学习到它是你的智能小助手，效果如下图所示，需要**将不要葱姜蒜大佬**替换成自己名字或昵称！
+
 **微调前**（回答比较官方）
 ![web_show_2.png](imgs%2Fweb_show_2.png)
 
-**微调后**（对自己的身份~~弟位~~有了清晰的认知）
+
+**微调后**（对自己的身份有了清晰的认知）
 ![web_show_1.png](imgs%2Fweb_show_1.png)
 
 作业参考答案：https://github.com/InternLM/tutorial/blob/main/xtuner/self.md
