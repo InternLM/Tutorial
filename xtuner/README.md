@@ -515,7 +515,7 @@ git clone https://github.com/InternLM/tutorial
 ```
 
 ```bash
-cp ~/tutorial/xtuner/MedQA2019-structured-train.jsonl .
+cp tutorial/xtuner/MedQA2019-structured-train.jsonl .
 ```
 
 
