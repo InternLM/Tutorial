@@ -834,7 +834,7 @@ lmdeploy serve gradio localhost:33337 \
 
 ![](img/18.png)
 
-# 作业
+## 作业
 
 提交方式：在各个班级对应的 GitHub Discussion 帖子中进行提交。 
 
