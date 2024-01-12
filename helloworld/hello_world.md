@@ -78,7 +78,7 @@
 
 ```shell
 bash # 请每次使用 jupyter lab 打开终端时务必先执行 bash 命令进入 bash 中
-/root/share/install_conda_env_internlm_base.sh internlm-demo
+bash /root/share/install_conda_env_internlm_base.sh internlm-demo  # 执行该脚本文件来安装项目实验环境
 ```
 
 然后使用以下命令激活环境
@@ -681,6 +681,8 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 33090
 ![Alt text](images/image-17.png)
 
 ### 5.3 模型下载
+
+***以下下载模型的操作不建议大家在开发机进行哦，在开发机下载模型会占用开发机的大量带宽和内存，下载等待的时间也会比较长，不利于大家学习。大家可以在自己的本地电脑尝试哦~***
 
 #### 5.3.1 Hugging Face
 

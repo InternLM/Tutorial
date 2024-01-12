@@ -2,14 +2,13 @@
 
 > 怎么硕呢，祝大家炼丹愉快吧~ 😙
 
-
 ## 1 概述
 
 ### 1.1 XTuner
 
 一个大语言模型微调工具箱。*由* *MMRazor* *和* *MMDeploy* *联合开发。*
 
-### 1.2 支持的开源LLM (2023.11.01) 
+### 1.2 支持的开源LLM (2023.11.01)
 
 - **[InternLM](https://huggingface.co/internlm/internlm-7b)** ✅
 - [Llama，Llama2](https://huggingface.co/meta-llama)
@@ -90,6 +89,7 @@ XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令�
 # 列出所有内置配置
 xtuner list-cfg
 ```
+> 假如显示bash: xtuner: command not found的话可以考虑在终端输入 export PATH=$PATH:'/root/.local/bin'
 
 ![QCgmlv1VpU3fZPk.png](imgs/cfgs.png)
 
@@ -116,6 +116,14 @@ xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 
 
 #### 2.3.2 模型下载
+
+> 由于下载模型很慢，用教学平台的同学可以直接复制模型。
+
+```Bash
+cp -r /root/share/temp/model_repos/internlm-chat-7b ~/ft-oasst1/
+```
+
+> 以下是自己下载模型的步骤。
 
 不用 xtuner 默认的`从 huggingface 拉取模型`，而是提前从 ~~OpenXLab~~ ModelScope 下载模型到本地
 
@@ -181,6 +189,7 @@ cp -r /root/share/temp/datasets/openassistant-guanaco .
 cd ~/ft-oasst1
 vim internlm_chat_7b_qlora_oasst1_e3_copy.py
 ```
+> 在vim界面完成修改后，请输入:wq退出。假如认为改错了可以用:q!退出且不保存。当然我们也可以考虑打开python文件直接修改，但注意修改完后需要按下Ctrl+S进行保存。
 
 减号代表要删除的行，加号代表要增加的行。
 ```diff
@@ -264,7 +273,7 @@ NPROC_PER_NODE=${GPU_NUM} xtuner train ./internlm_chat_7b_qlora_oasst1_e3_copy.p
 mkdir hf
 export MKL_SERVICE_FORCE_INTEL=1
 
-xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_3.pth ./hf
+xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_1.pth ./hf
 ```
 此时，路径中应该长这样：
 
@@ -323,6 +332,7 @@ xtuner chat ./merged --prompt-template internlm_chat
 ```
 
 #### 2.4.3 Demo
+
 - 修改 `cli_demo.py` 中的模型路径
 ```diff
 - model_name_or_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b"
@@ -333,12 +343,11 @@ xtuner chat ./merged --prompt-template internlm_chat
 python ./cli_demo.py
 ```
 
-
 **效果：**
+
 | 微调前 | 微调后 |
 | --- | --- |
 | ![O23QD48iFSZMfbr.png](imgs/beforeFT.png) | ![L1sqmGgE6h2exWP.png](imgs/afterFT.png) |
-
 
 **`xtuner chat`** **的启动参数**
 
@@ -503,6 +512,16 @@ cp -r ~/ft-oasst1/internlm-chat-7b .
 ```
 别忘了把自定义数据集，即几个 `.jsonL`，也传到服务器上。
 
+```bash
+git clone https://github.com/InternLM/tutorial
+```
+
+```bash
+cp ~/tutorial/xtuner/MedQA2019-structured-train.jsonl .
+```
+
+
+
 #### 3.3.1 准备配置文件
 ```bash
 # 复制配置文件到当前目录
@@ -526,7 +545,7 @@ vim internlm_chat_7b_qlora_medqa2019_e3.py
 
 # 修改训练数据为 MedQA2019-structured-train.jsonl 路径
 - data_path = 'timdettmers/openassistant-guanaco'
-+ data_path = './MedQA2019/MedQA2019-structured-train.jsonl'
++ data_path = 'MedQA2019-structured-train.jsonl'
 
 # 修改 train_dataset 对象
 train_dataset = dict(
@@ -548,7 +567,7 @@ train_dataset = dict(
 ![tH8udZzECYl5are.png](imgs/ysqd.png)
 
 ```bash
-xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
+xtuner train internlm_chat_7b_qlora_medqa2019_e3.py --deepspeed deepspeed_zero2
 ```
 
 #### 3.3.3 pth 转 huggingface
@@ -562,6 +581,7 @@ xtuner train internlm_chat_7b_qlora_medqa2019_e3.py
 
 ## 4【补充】用 MS-Agent 数据集 赋予 LLM 以 Agent 能力
 ### 4.1 概述
+
 MSAgent 数据集每条样本包含一个对话列表（conversations），其里面包含了 system、user、assistant 三种字段。其中：
 
 - system: 表示给模型前置的人设输入，其中有告诉模型如何调用插件以及生成请求
@@ -646,9 +666,15 @@ xtuner chat ./internlm-chat-7b --adapter internlm-7b-qlora-msagent-react --lagen
 
 #### 4.3.4 报错处理
 
-xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust renote code"```	
+xtuner chat 增加 --lagent 参数后，报错 ```TypeError: transfomers.modelsauto.auto factory. BaseAutoModelClass.from pretrained() got multiple values for keyword argument "trust remote code"```	
 
 注释掉已安装包中的代码：
+
+```bash
+vim /root/xtuner019/xtuner/xtuner/tools/chat.py
+```
+
+
 
 ![NfHAV1b4zqYv5kR.png](imgs/bugfix1.png)
 
@@ -692,3 +718,37 @@ nvidia-cuda-cupti-cu12        12.1.105
 nvidia-cuda-nvrtc-cu12        12.1.105
 nvidia-cuda-runtime-cu12      12.1.105
 ```
+
+## 7 作业
+
+**基础作业：**
+
+构建数据集，使用 XTuner 微调 InternLM-Chat-7B 模型, 让模型学习到它是你的智能小助手，效果如下图所示，本作业训练出来的模型的输出需要**将不要葱姜蒜大佬**替换成自己名字或昵称！
+
+**微调前**（回答比较官方）
+![web_show_2.png](imgs%2Fweb_show_2.png)
+
+
+**微调后**（对自己的身份有了清晰的认知）
+![web_show_1.png](imgs%2Fweb_show_1.png)
+
+作业参考答案：https://github.com/InternLM/tutorial/blob/main/xtuner/self.md
+
+**进阶作业：**
+
+- 将训练好的Adapter模型权重上传到 OpenXLab、Hugging Face 或者 MoelScope 任一一平台。
+- 将训练好后的模型应用部署到 OpenXLab 平台，参考部署文档请访问：https://aicarrier.feishu.cn/docx/MQH6dygcKolG37x0ekcc4oZhnCe
+
+**整体实训营项目：**
+
+时间周期：即日起致课程结束
+
+即日开始可以在班级群中随机组队完成一个大作业项目，一些可提供的选题如下：
+
+- 人情世故大模型：一个帮助用户撰写新年祝福文案的人情事故大模型
+- 中小学数学大模型：一个拥有一定数学解题能力的大模型
+- 心理大模型：一个治愈的心理大模型
+- 工具调用类项目：结合 Lagent 构建数据集训练 InternLM 模型，支持对 MMYOLO 等工具的调用
+
+其他基于书生·浦语工具链的小项目都在范围内，欢迎大家充分发挥想象力。
+

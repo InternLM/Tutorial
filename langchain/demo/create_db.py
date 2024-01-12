@@ -60,7 +60,7 @@ for dir_path in tar_dir:
 # 对文本进行分块
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500, chunk_overlap=150)
-split_docs = text_splitter.split_documents(docs[:10])
+split_docs = text_splitter.split_documents(docs)
 
 # 加载开源词向量模型
 embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")

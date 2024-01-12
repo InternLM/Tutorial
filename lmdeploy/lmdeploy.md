@@ -10,12 +10,12 @@
   - [2.1 模型转换](#21-%E6%A8%A1%E5%9E%8B%E8%BD%AC%E6%8D%A2)
     - [2.1.1 在线转换](#211-%E5%9C%A8%E7%BA%BF%E8%BD%AC%E6%8D%A2)
     - [2.1.2 离线转换](#212-%E7%A6%BB%E7%BA%BF%E8%BD%AC%E6%8D%A2)
-  - [2.2  TurboMind推理+命令行本地对话](#22--turbomind%E6%8E%A8%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9C%AC%E5%9C%B0%E5%AF%B9%E8%AF%9D)
+  - [2.2  TurboMind 推理+命令行本地对话](#22--turbomind-%E6%8E%A8%E7%90%86%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9C%AC%E5%9C%B0%E5%AF%B9%E8%AF%9D)
   - [2.3 TurboMind推理+API服务](#23-turbomind%E6%8E%A8%E7%90%86api%E6%9C%8D%E5%8A%A1)
-  - [2.4 网页Demo演示](#24-%E7%BD%91%E9%A1%B5demo%E6%BC%94%E7%A4%BA)
-    - [2.4.1 TurboMind服务作为后端](#241-turbomind%E6%9C%8D%E5%8A%A1%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
-    - [2.4.2 TurboMind推理作为后端](#242-turbomind%E6%8E%A8%E7%90%86%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
-  - [2.5 TurboMind推理+Python代码集成](#25-turbomind%E6%8E%A8%E7%90%86python%E4%BB%A3%E7%A0%81%E9%9B%86%E6%88%90)
+  - [2.4 网页 Demo 演示](#24-%E7%BD%91%E9%A1%B5-demo-%E6%BC%94%E7%A4%BA)
+    - [2.4.1 TurboMind 服务作为后端](#241-turbomind-%E6%9C%8D%E5%8A%A1%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
+    - [2.4.2 TurboMind 推理作为后端](#242-turbomind-%E6%8E%A8%E7%90%86%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
+  - [2.5 TurboMind 推理 + Python 代码集成](#25-turbomind-%E6%8E%A8%E7%90%86--python-%E4%BB%A3%E7%A0%81%E9%9B%86%E6%88%90)
   - [2.6 这么多，头秃，有没有最佳实践](#26-%E8%BF%99%E4%B9%88%E5%A4%9A%E5%A4%B4%E7%A7%83%E6%9C%89%E6%B2%A1%E6%9C%89%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
     - [2.6.1 方案实践](#261-%E6%96%B9%E6%A1%88%E5%AE%9E%E8%B7%B5)
     - [2.6.2 模型配置实践](#262-%E6%A8%A1%E5%9E%8B%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5)
@@ -28,10 +28,10 @@
     - [3.2.2 量化效果](#322-%E9%87%8F%E5%8C%96%E6%95%88%E6%9E%9C)
   - [3.3 最佳实践](#33-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5)
 - [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
-- [附录1：TritonServer作为推理引擎](#%E9%99%84%E5%BD%951tritonserver%E4%BD%9C%E4%B8%BA%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E)
+- [附录1：TritonServer 作为推理引擎](#%E9%99%84%E5%BD%951tritonserver-%E4%BD%9C%E4%B8%BA%E6%8E%A8%E7%90%86%E5%BC%95%E6%93%8E)
   - [TritonServer环境配置](#tritonserver%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE)
   - [TritonServer推理+API服务](#tritonserver%E6%8E%A8%E7%90%86api%E6%9C%8D%E5%8A%A1)
-  - [TritonServer服务作为后端](#tritonserver%E6%9C%8D%E5%8A%A1%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
+  - [TritonServer 服务作为后端](#tritonserver-%E6%9C%8D%E5%8A%A1%E4%BD%9C%E4%B8%BA%E5%90%8E%E7%AB%AF)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -62,6 +62,12 @@ $ watch vgpu-smi
 
 ```bash
 $ conda create -n CONDA_ENV_NAME --clone /share/conda_envs/internlm-base
+```
+
+- 如果clone操作过慢，可采用如下操作:
+ 
+```bash
+$ /root/share/install_conda_env_internlm_base.sh lmdeploy
 ```
 
 我们取 `CONDA_ENV_NAME` 为 `lmdeploy`，复制完成后，可以在本地查看环境。
@@ -99,6 +105,8 @@ lmdeploy 没有安装，我们接下来手动安装一下，建议安装最新�
 $ pip install 'lmdeploy[all]==v0.1.0'
 ```
 
+如果安装速度过慢，请移步[QA](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#YwG4de9Ztol58zxYsyEcK361nye)文档寻找解决方案！！！
+
 由于默认安装的是 runtime 依赖包，但是我们这里还需要部署和量化，所以，这里选择 `[all]`。然后可以再检查一下 lmdeploy 包，如下图所示。
 
 ![](img/add3.png)
@@ -112,6 +120,8 @@ pip install packaging
 `packaging` 表示缺少的包名。
 
 基础环境到这里就配置好了。
+
+- 如果遇到`lmdeploy: command not found`,移步[QA文档](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#H2w9drpHiogeOHxhK7PcdJCmn8c)
 
 ## 2 服务部署
 
@@ -504,7 +514,7 @@ use_logn_attn = 0
 一般情况下，我们并不需要对这些参数进行修改，但有时候为了满足特定需要，可能需要调整其中一部分配置值。这里主要介绍三个可能需要调整的参数。
 
 - KV int8 开关：
-    - 对应参数为 `quant_policy`，默认值为 0，表示不适用 KV Cache，如果需要开启，则将该参数设置为 4。
+    - 对应参数为 `quant_policy`，默认值为 0，表示不使用 KV Cache，如果需要开启，则将该参数设置为 4。
     - KV Cache 是对序列生成过程中的 K 和 V 进行量化，用以节省显存。我们下一部分会介绍具体的量化过程。
     - 当显存不足，或序列比较长时，建议打开此开关。
 - 外推能力开关：
@@ -622,9 +632,7 @@ lmdeploy lite kv_qparams \
 
 #### 3.2.1 量化步骤
 
-W4A16 中的 A 是指 Activation，保持 FP16，其余参数进行 4bit 量化。使用过程也可以看作是三步。
-
-> 在深度学习中，W（Weight）一般用于定义不同层神经元之间的连接强度。Bias 是在通过激活函数之前添加到输入的加权总和中的附加数值。它们有助于控制神经元的输出，并为模型的学习过程提供灵活性。Bias 可以被认为是一种将激活函数向左或向右移动的方法，允许模型在输入数据中学习更复杂的模式和关系。所以此处的 A 是指 Bias 参数。
+W4A16中的A是指Activation，保持FP16，只对参数进行 4bit 量化。使用过程也可以看作是三步。
 
 第一步：同 1.3.1，不再赘述。
 
@@ -827,3 +835,38 @@ lmdeploy serve gradio localhost:33337 \
 结果如下图所示。
 
 ![](img/18.png)
+
+## 作业
+
+提交方式：在各个班级对应的 GitHub Discussion 帖子中进行提交。 
+
+**基础作业：**
+
+- 使用 LMDeploy 以本地对话、网页Gradio、API服务中的一种方式部署 InternLM-Chat-7B 模型，生成 300 字的小故事（需截图）
+
+**进阶作业（可选做）**
+
+- 将第四节课训练自我认知小助手模型使用 LMDeploy 量化部署到 OpenXLab 平台。
+- 对internlm-chat-7b模型进行量化，并同时使用KV Cache量化，使用量化后的模型完成API服务的部署，分别对比模型量化前后和 KV Cache 量化前后的显存大小（将 bs设置为 1 和 max len 设置为512）。  
+- 在自己的任务数据集上任取若干条进行Benchmark测试，测试方向包括：  
+（1）TurboMind推理+Python代码集成  
+（2）在（1）的基础上采用W4A16量化  
+（3）在（1）的基础上开启KV Cache量化  
+（4）在（2）的基础上开启KV Cache量化  
+（5）使用Huggingface推理
+
+备注：**由于进阶作业较难，完成基础作业之后就可以先提交作业了，在后续的大作业项目中使用这些技术将作为重要的加分点！**
+
+**整体实训营项目：**
+
+时间周期：即日起致课程结束
+
+即日开始可以在班级群中随机组队完成一个大作业项目，一些可提供的选题如下：
+
+- 人情世故大模型：一个帮助用户撰写新年祝福文案的人情事故大模型
+- 中小学数学大模型：一个拥有一定数学解题能力的大模型
+- 心理大模型：一个治愈的心理大模型
+- 工具调用类项目：结合 Lagent 构建数据集训练 InternLM 模型，支持对 MMYOLO 等工具的调用
+
+其他基于书生·浦语工具链的小项目都在范围内，欢迎大家充分发挥想象力。
+
