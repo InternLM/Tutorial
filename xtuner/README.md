@@ -272,7 +272,7 @@ NPROC_PER_NODE=${GPU_NUM} xtuner train ./internlm_chat_7b_qlora_oasst1_e3_copy.p
 ```bash
 mkdir hf
 export MKL_SERVICE_FORCE_INTEL=1
-
+export MKL_THREADING_LAYER=GNU
 xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_1.pth ./hf
 ```
 此时，路径中应该长这样：
