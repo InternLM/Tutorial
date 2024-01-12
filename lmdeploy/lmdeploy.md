@@ -105,6 +105,8 @@ lmdeploy 没有安装，我们接下来手动安装一下，建议安装最新�
 $ pip install 'lmdeploy[all]==v0.1.0'
 ```
 
+如果安装速度过慢，请移步[QA](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#YwG4de9Ztol58zxYsyEcK361nye)文档寻找解决方案！！！
+
 由于默认安装的是 runtime 依赖包，但是我们这里还需要部署和量化，所以，这里选择 `[all]`。然后可以再检查一下 lmdeploy 包，如下图所示。
 
 ![](img/add3.png)
