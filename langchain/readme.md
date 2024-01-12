@@ -20,6 +20,7 @@
     - [4.2 实例化自定义 LLM 与 Prompt Template](#42-实例化自定义-llm-与-prompt-template)
     - [4.3 构建检索问答链](#43-构建检索问答链)
   - [5 部署 Web Demo](#5-部署-web-demo)
+  - [6 作业](#6-作业)
 
 
 ## 1 环境配置
