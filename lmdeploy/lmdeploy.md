@@ -844,8 +844,6 @@ lmdeploy serve gradio localhost:33337 \
 
 **进阶作业（可选做）**
 
-备注：由于进阶作业较难，完成基础作业之后就可以先提交作业了~
-
 - 对internlm-chat-7b模型进行量化，并同时使用KV Cache量化，使用量化后的模型完成API服务的部署，对比量化前后部署所需的显存占用。  
 - 将第四节课训练自我认知小助手模型使用 LMDeploy 量化部署到 OpenXLab 平台。  
 - 在自己的任务数据集上任取若干条进行Benchmark测试，测试方向包括：  
@@ -854,6 +852,8 @@ lmdeploy serve gradio localhost:33337 \
 （3）在（1）的基础上开启KV Cache量化  
 （4）在（2）的基础上开启KV Cache量化  
 （5）使用Huggingface推理
+
+备注：由于进阶作业较难，完成基础作业之后就可以先提交作业了~
 
 **整体实训营项目：**
 
