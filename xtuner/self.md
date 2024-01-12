@@ -51,7 +51,7 @@ pip install -e '.[all]'
 创建`data`文件夹用于存放用于训练的数据集
 
 ```bash
-mkdir /root/personal_assistant/data && cd /root/personal_assistant/data
+mkdir -p /root/personal_assistant/data && cd /root/personal_assistant/data
 ```
 
 在`data`目录下创建一个json文件`personal_assistant.json`作为本次微调所使用的数据集。json中内容可参考下方(复制粘贴n次做数据增广，数据量小无法有效微调，下面仅用于展示格式，下面也有生成脚本)
