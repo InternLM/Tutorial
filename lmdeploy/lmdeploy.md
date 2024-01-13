@@ -100,28 +100,28 @@ $ conda activate lmdeploy
 ![](img/2.png)
 
 lmdeploy 没有安装，我们接下来手动安装一下，建议安装最新的稳定版。
+如果是在 InternStudio 开发环境，需要先运行下面的命令，否则会报错。
+
 
 ```bash
-$ pip install 'lmdeploy[all]==v0.1.0'
+# 解决 ModuleNotFoundError: No module named 'packaging' 问题
+pip install packaging
+# 使用 flash_attn 的预编译包解决安装过慢问题
+pip install /root/share/wheels/flash_attn-2.4.2+cu118torch2.0cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
 ```
 
-如果安装速度过慢，请移步[QA](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#YwG4de9Ztol58zxYsyEcK361nye)文档寻找解决方案！！！
+```bash
+pip install 'lmdeploy[all]==v0.1.0'
+```
 
 由于默认安装的是 runtime 依赖包，但是我们这里还需要部署和量化，所以，这里选择 `[all]`。然后可以再检查一下 lmdeploy 包，如下图所示。
 
 ![](img/add3.png)
 
-如果遇到类似 ` ModuleNotFoundError: No module named 'packaging'` 这样的错误，大家可以手动先安装一下。
-
-```bash
-pip install packaging
-```
-
-`packaging` 表示缺少的包名。
 
 基础环境到这里就配置好了。
 
-- 如果遇到`lmdeploy: command not found`,移步[QA文档](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#H2w9drpHiogeOHxhK7PcdJCmn8c)
+- 如果遇到`lmdeploy: command not found` 或其他问题，移步 [QA 文档](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#H2w9drpHiogeOHxhK7PcdJCmn8c)
 
 ## 2 服务部署
 
