@@ -719,6 +719,22 @@ nvidia-cuda-nvrtc-cu12        12.1.105
 nvidia-cuda-runtime-cu12      12.1.105
 ```
 
+如果在教程平台上频繁更换虚拟环境，或者重复安装/卸载相同的环境包，有几率出现环境包无法正常检测的现象，如下图所示。
+
+![Alt text](imgs/bugfix3.png)
+
+该问题并非教程之中的指令或代码出现错误，所以无论删除/重启教程平台的开发机，还是重新删除环境，按照教程配置，都会再次遇到这个错误，具体解决方案如下：
+
+1. 输入指令：`pip list` 记录出错环境包的名称和版本，如图中所示错误，环境包名称为 `accelerate` 版本为 `0.26.1`
+
+2. 输入指令：`cd` 返回根目录，然后继续输入指令：`cd .local/lib/python3.10/site-packages` 打开 python 环境包的目录，再输入指令`ls`进行查看
+
+![Alt text](imgs/bugfix4.png)
+
+3. 图中红框部分显示了，在 python 执行环境中出现了两个不同版本的相同环境包，将与 `pip list` 指令所显示的版本不同的包删除掉，在本示例中，删除`accelerate-0.25.0.dist-info` 和 `transformers-4.33.1.dist-info`，具体方法举例：`rm -rf accelerate-0.25.0.dist-info`
+
+4. 删除后，回到执行步骤，再次依照教程继续环境部署，发现 `xtuner` 指令可以成功执行 
+
 ## 7 作业
 
 **基础作业：**
