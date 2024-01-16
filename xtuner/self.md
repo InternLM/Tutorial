@@ -252,6 +252,13 @@ git clone https://github.com/InternLM/InternLM.git
 将 `/root/code/InternLM/web_demo.py` 中 29 行和 33 行的模型路径更换为Merge后存放参数的路径 `/root/personal_assistant/config/work_dirs/hf_merge`
 
 ![code_config_1.png](imgs%2Fcode_config_1.png)
+
+为防止相关图片加载失败，将 `/root/code/InternLM/web_demo.py` 中 76 行和 77 行的user_avator, robot_avator变量写成绝对路径
+```bash
+user_avator = "/root/personal_assistant/code/InternLM/doc/imgs/user.png"
+robot_avator = "/root/personal_assistant/code/InternLM/doc/imgs/robot.png"
+```
+
 运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](https://github.com/InternLM/tutorial/blob/main/helloworld/hello_world.md#52-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
 
 ```
