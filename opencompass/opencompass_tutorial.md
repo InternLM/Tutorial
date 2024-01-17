@@ -359,7 +359,7 @@ outputs/default/
 
 **进阶作业**
 
-- 使用 OpenCompass 评测 InternLM2-Chat-7B 模型使用 LMDeploy 部署后在 C-Eval 数据集上的性能
+- 使用 OpenCompass 评测 InternLM2-Chat-7B 模型使用 LMDeploy 0.2.0 部署后在 C-Eval 数据集上的性能
 
 
 备注：**由于进阶作业较难，完成基础作业之后就可以先提交作业了，在后续的大作业项目中使用这些技术将作为重要的加分点！**
