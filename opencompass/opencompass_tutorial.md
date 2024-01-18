@@ -15,7 +15,7 @@
 
 - **基座模型**：一般是经过海量的文本数据以自监督学习的方式进行训练获得的模型（如OpenAI的GPT-3，Meta的LLaMA），往往具有强大的文字续写能力。
 
-- **基座模型**：一般是在的基座模型的基础上，经过指令微调或人类偏好对齐获得的模型（如OpenAI的ChatGPT、上海人工智能实验室的书生·浦语），能理解人类指令，具有较强的对话能力。
+- **对话模型**：一般是在的基座模型的基础上，经过指令微调或人类偏好对齐获得的模型（如OpenAI的ChatGPT、上海人工智能实验室的书生·浦语），能理解人类指令，具有较强的对话能力。
 
 ## 工具架构
 
@@ -84,7 +84,7 @@ OpenCompass采取的主观评测方案是指借助受试者的主观判断对具
 
 conda create --name opencompass --clone=/root/share/conda_envs/internlm-base
 source activate opencompass
-git clone https://github.com/open-compass/opencompass opencompass
+git clone https://github.com/open-compass/opencompass
 cd opencompass
 pip install -e .
 ```
