@@ -284,7 +284,7 @@ xtuner convert pth_to_hf ./internlm_chat_7b_qlora_oasst1_e3_copy.py ./work_dirs/
 |-- hf
 |   |-- README.md
 |   |-- adapter_config.json
-|   |-- adapter_model.bin
+|   |-- adapter_model.safetensors
 |   `-- xtuner_config.py
 `-- work_dirs
     `-- internlm_chat_7b_qlora_oasst1_e3_copy
