@@ -122,10 +122,10 @@ xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 .
 ```Bash
 ln -s /share/temp/model_repos/internlm-chat-7b ~/ft-oasst1/
 ```
-> 以上是通过软链的方式，将模型文件挂载到家目录下，优势是：
->     1. 节省拷贝时间，无需等待
->     2. 节省用户开发机存储空间
-> 当然，也可以用 `cp -r /share/temp/model_repos/internlm-chat-7b ~/ft-oasst1/` 进行数据拷贝
+以上是通过软链的方式，将模型文件挂载到家目录下，优势是：
+1. 节省拷贝时间，无需等待
+2. 节省用户开发机存储空间
+> 当然，也可以用 `cp -r /share/temp/model_repos/internlm-chat-7b ~/ft-oasst1/` 进行数据拷贝。
 
 > 以下是自己下载模型的步骤。
 
