@@ -100,26 +100,28 @@ $ conda activate lmdeploy
 ![](img/2.png)
 
 lmdeploy 没有安装，我们接下来手动安装一下，建议安装最新的稳定版。
+如果是在 InternStudio 开发环境，需要先运行下面的命令，否则会报错。
+
 
 ```bash
-$ pip install 'lmdeploy[all]==v0.1.0'
+# 解决 ModuleNotFoundError: No module named 'packaging' 问题
+pip install packaging
+# 使用 flash_attn 的预编译包解决安装过慢问题
+pip install /root/share/wheels/flash_attn-2.4.2+cu118torch2.0cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
+```
+
+```bash
+pip install 'lmdeploy[all]==v0.1.0'
 ```
 
 由于默认安装的是 runtime 依赖包，但是我们这里还需要部署和量化，所以，这里选择 `[all]`。然后可以再检查一下 lmdeploy 包，如下图所示。
 
 ![](img/add3.png)
 
-如果遇到类似 ` ModuleNotFoundError: No module named 'packaging'` 这样的错误，大家可以手动先安装一下。
-
-```bash
-pip install packaging
-```
-
-`packaging` 表示缺少的包名。
 
 基础环境到这里就配置好了。
 
-- 如果遇到`lmdeploy: command not found`,移步[QA文档](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#H2w9drpHiogeOHxhK7PcdJCmn8c)
+- 如果遇到`lmdeploy: command not found` 或其他问题，移步 [QA 文档](https://cguue83gpz.feishu.cn/docx/Noi7d5lllo6DMGxkuXwclxXMn5f#H2w9drpHiogeOHxhK7PcdJCmn8c)
 
 ## 2 服务部署
 
@@ -833,3 +835,38 @@ lmdeploy serve gradio localhost:33337 \
 结果如下图所示。
 
 ![](img/18.png)
+
+## 作业
+
+提交方式：在各个班级对应的 GitHub Discussion 帖子中进行提交。 
+
+**基础作业：**
+
+- 使用 LMDeploy 以本地对话、网页Gradio、API服务中的一种方式部署 InternLM-Chat-7B 模型，生成 300 字的小故事（需截图）
+
+**进阶作业（可选做）**
+
+- 将第四节课训练自我认知小助手模型使用 LMDeploy 量化部署到 OpenXLab 平台。
+- 对internlm-chat-7b模型进行量化，并同时使用KV Cache量化，使用量化后的模型完成API服务的部署，分别对比模型量化前后（将 bs设置为 1 和 max len 设置为512）和 KV Cache 量化前后（将 bs设置为 8 和 max len 设置为2048）的显存大小。  
+- 在自己的任务数据集上任取若干条进行Benchmark测试，测试方向包括：  
+（1）TurboMind推理+Python代码集成  
+（2）在（1）的基础上采用W4A16量化  
+（3）在（1）的基础上开启KV Cache量化  
+（4）在（2）的基础上开启KV Cache量化  
+（5）使用Huggingface推理
+
+备注：**由于进阶作业较难，完成基础作业之后就可以先提交作业了，在后续的大作业项目中使用这些技术将作为重要的加分点！**
+
+**整体实训营项目：**
+
+时间周期：即日起致课程结束
+
+即日开始可以在班级群中随机组队完成一个大作业项目，一些可提供的选题如下：
+
+- 人情世故大模型：一个帮助用户撰写新年祝福文案的人情事故大模型
+- 中小学数学大模型：一个拥有一定数学解题能力的大模型
+- 心理大模型：一个治愈的心理大模型
+- 工具调用类项目：结合 Lagent 构建数据集训练 InternLM 模型，支持对 MMYOLO 等工具的调用
+
+其他基于书生·浦语工具链的小项目都在范围内，欢迎大家充分发挥想象力。
+
