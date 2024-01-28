@@ -429,7 +429,7 @@ python ./cli_demo.py
 }]
 ```
 
-🧠通过 pytho n脚本：将 `.xlsx` 中的 问题 和 回答 两列 提取出来，再放入 `.jsonL` 文件的每个 conversation 的 input 和 output 中。
+🧠通过 python 脚本：将 `.xlsx` 中的 问题 和 回答 两列 提取出来，再放入 `.jsonL` 文件的每个 conversation 的 input 和 output 中。
 
 > 这一步的 python 脚本可以请 ChatGPT 来完成。
 
