@@ -241,7 +241,7 @@ xtuner convert merge \
 pip install streamlit==1.24.0
 ```
 
-下载[InternLM](https://studio.intern-ai.org.cn/)项目代码（欢迎Star）
+下载[InternLM](https://github.com/InternLM/InternLM)项目代码（欢迎Star）
 
 ```bash
 # 创建code文件夹用于存放InternLM项目代码
