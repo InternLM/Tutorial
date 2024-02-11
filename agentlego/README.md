@@ -107,11 +107,93 @@ flowchart LR
 
 ### 1.2 环境配置
 
+TODO
+
 ## 2. 使用 AgentLego
+
+上文提到，AgentLego 算法库既可以直接使用，也可以作为智能体工具使用。下面将分别介绍这两种使用方式。我们将以目标检测工具为例。
 
 ### 2.1 直接使用 AgentLego
 
+首先下载 demo 文件：
+
+```bash
+wget http://download.openmmlab.com/agentlego/road.jpg
+```
+
+由于 AgentLego 在安装时并没有安装某个特定工具的依赖，因此我们接下来准备安装该工具运行时所需依赖。
+
+AgentLego 所实现的目标检测工具是基于 mmdet（MMDetction） 算法库中的 RTMDet-large 模型，因此我们首先安装 mim，然后通过 mim 来安装 mmdet。
+
+```bash
+pip install openmim
+mim install mmdet
+```
+
+然后新建 direct_use.py 以直接使用该工具，该脚本代码为：
+
+```python
+import re
+
+import cv2
+from agentlego.apis import load_tool
+
+# load tool
+tool = load_tool('ObjectDetection', device='cuda')
+
+# apply tool
+visualization = tool('road.jpg')
+print(visualization)
+
+# visualize
+image = cv2.imread('road.jpg')
+
+preds = visualization.split('\n')
+pattern = r'(\w+) \((\d+), (\d+), (\d+), (\d+)\), score (\d+)'
+
+for pred in preds:
+    name, x1, y1, x2, y2, score = re.match(pattern, pred).groups()
+    x1, y1, x2, y2, score = int(x1), int(y1), int(x2), int(y2), int(score)
+    cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 1)
+    cv2.putText(image, f'{name} {score}', (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1)
+
+cv2.imwrite('road_detection_direct.jpg', image)
+```
+
+此时文件树结构如下：
+
+```bash
+TODO
+```
+
+在下载完成并完成推理后，我们就可以看到如下输出，以及一张名为 road_detection_direct.jpg 的图片：
+
+```text
+truck (345, 428, 528, 599), score 83
+car (771, 510, 837, 565), score 81
+car (604, 518, 677, 569), score 75
+person (866, 503, 905, 595), score 74
+person (287, 513, 320, 596), score 74
+person (964, 502, 999, 604), score 72
+person (1009, 503, 1047, 602), score 69
+person (259, 510, 279, 575), score 65
+car (1074, 524, 1275, 691), score 64
+person (993, 508, 1016, 597), score 62
+truck (689, 483, 764, 561), score 62
+bicycle (873, 551, 903, 602), score 60
+person (680, 523, 699, 567), score 55
+bicycle (968, 551, 996, 609), score 53
+bus (826, 482, 930, 560), score 52
+bicycle (1011, 551, 1043, 617), score 51
+```
+
+| 原图 | 结果 |
+| --- | --- |
+| ![原图](assets/road.jpg) | ![结果](assets/road_detection_direct.jpg) |
+
 ### 2.2 作为智能体工具使用
+
+TODO
 
 ## 3. 自定义智能体
 
