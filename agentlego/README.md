@@ -11,7 +11,7 @@
     - [2.2 作为智能体工具使用](#22-作为智能体工具使用)
   - [3. 自定义智能体工具](#3-自定义智能体工具)
     - [3.1 创建工具文件](#31-创建工具文件)
-    - [3.2 修改 `__init__` 文件](#32-修改-__init__-文件)
+    - [3.2 修改 `__init__.py` 文件](#32-修改-__init__py-文件)
     - [3.3 使用工具](#33-使用工具)
   - [4. 反正是微调，标题没想好](#4-反正是微调标题没想好)
 
@@ -137,7 +137,7 @@ pip install openmim
 mim install mmdet
 ```
 
-然后新建 direct_use.py 以直接使用该工具，该脚本代码为：
+然后新建 `direct_use.py` 以直接使用该工具，该脚本代码为：
 
 ```python
 import re
@@ -173,7 +173,7 @@ cv2.imwrite('road_detection_direct.jpg', image)
 TODO
 ```
 
-在下载完成并完成推理后，我们就可以看到如下输出，以及一张名为 road_detection_direct.jpg 的图片：
+在下载完成并完成推理后，我们就可以看到如下输出，以及一张名为 `road_detection_direct.jpg` 的图片：
 
 ```text
 truck (345, 428, 528, 599), score 83
@@ -219,7 +219,7 @@ MagicMaker 是国内领先的免费 AI 图像、视频创作平台，集成提�
 
 TODO
 
-### 3.2 修改 `__init__` 文件
+### 3.2 修改 `__init__.py` 文件
 
 TODO
 
