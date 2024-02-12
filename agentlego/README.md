@@ -7,7 +7,10 @@
   - [2. 使用 AgentLego](#2-使用-agentlego)
     - [2.1 直接使用 AgentLego](#21-直接使用-agentlego)
     - [2.2 作为智能体工具使用](#22-作为智能体工具使用)
-  - [3. 自定义智能体](#3-自定义智能体)
+  - [3. 自定义智能体工具](#3-自定义智能体工具)
+    - [3.1 创建工具文件](#31-创建工具文件)
+    - [3.2 修改 `__init__` 函数](#32-修改-__init__-函数)
+    - [3.3 使用工具](#33-使用工具)
   - [4. 反正是微调，标题没想好](#4-反正是微调标题没想好)
 
 ## 1. AgentLego 概述
@@ -195,6 +198,67 @@ bicycle (1011, 551, 1043, 617), score 51
 
 TODO
 
-## 3. 自定义智能体
+## 3. 自定义智能体工具
+
+在本节中，我们将基于 AgentLego 构建自己的自定义工具。AgentLego 在这方面提供了较为详尽的文档，文档地址为 https://agentlego.readthedocs.io/zh-cn/latest/modules/tool.html。自定义工具主要分为以下几步：
+
+1. 继承 `BaseTool` 类
+2. 修改 `default_desc` 属性（工具功能描述）
+3. 如有需要，重载 `setup` 方法（重型模块延迟加载）
+4. 重载 `apply` 方法（工具功能实现）
+
+其中第一二四步是必须的步骤。下面我们将实现一个调用 MagicMaker 的 API 以实现图像生成的工具。
+
+MagicMaker 是国内领先的免费 AI 图像、视频创作平台，集成提供了图像生成、图像编辑和视频生成三大核心功能。体验更多功能可以访问 https://magicmaker.openxlab.org.cn/home。
+
+### 3.1 创建工具文件
+
+TODO
+
+### 3.2 修改 `__init__` 函数
+
+TODO
+
+```python
+from .base import BaseTool
+from .calculator import Calculator
+from .func import make_tool
+from .image_canny import CannyTextToImage, ImageToCanny
+from .image_depth import DepthTextToImage, ImageToDepth
+from .image_editing import ImageExpansion, ImageStylization, ObjectRemove, ObjectReplace
+from .image_pose import HumanBodyPose, HumanFaceLandmark, PoseToImage
+from .image_scribble import ImageToScribble, ScribbleTextToImage
+from .image_text import ImageDescription, TextToImage
+from .imagebind import AudioImageToImage, AudioTextToImage, AudioToImage, ThermalToImage
+from .object_detection import ObjectDetection, TextToBbox
+from .ocr import OCR
+from .search import GoogleSearch
+from .segmentation import SegmentAnything, SegmentObject, SemanticSegmentation
+from .speech_text import SpeechToText, TextToSpeech
+from .translation import Translation
+from .vqa import VQA
+from .magicmaker_image_generation import MagicMakerImageGeneration
+
+__all__ = [
+    'CannyTextToImage', 'ImageToCanny', 'DepthTextToImage', 'ImageToDepth',
+    'ImageExpansion', 'ObjectRemove', 'ObjectReplace', 'HumanFaceLandmark',
+    'HumanBodyPose', 'PoseToImage', 'ImageToScribble', 'ScribbleTextToImage',
+    'ImageDescription', 'TextToImage', 'VQA', 'ObjectDetection', 'TextToBbox', 'OCR',
+    'SegmentObject', 'SegmentAnything', 'SemanticSegmentation', 'ImageStylization',
+    'AudioToImage', 'ThermalToImage', 'AudioImageToImage', 'AudioTextToImage',
+    'SpeechToText', 'TextToSpeech', 'Translation', 'GoogleSearch', 'Calculator',
+    'MagicMakerImageGeneration', 'BaseTool', 'make_tool'
+]
+```
+
+### 3.3 使用工具
+
+与上文 [2.2 作为智能体工具使用](#22-作为智能体工具使用) 类似，我们可以直接将自定义好的工具作为智能体工具使用。**注意**，为了确保调用工具的成功率，请在使用时确保仅有这一个工具启用。
+
+以下是一张效果图：
+
+![效果图](assets/loong.png)
 
 ## 4. 反正是微调，标题没想好
+
+TODO
