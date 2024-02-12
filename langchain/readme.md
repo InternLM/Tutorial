@@ -108,41 +108,12 @@ pip install markdown==3.3.7
 
 ```shell
 pip install -U huggingface_hub
+
+```shell
+pip install openxlab
+openxlab dataset get --dataset-repo puffy310/MiniLM
 ```
-
-然后在和 `/root/data` 目录下新建python文件 `download_hf.py`，填入以下代码：
-
-- resume-download：断点续下
-- local-dir：本地存储路径。（linux环境下需要填写绝对路径）
-
-```python
-import os
-
-# 下载模型
-os.system('huggingface-cli download --resume-download sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 --local-dir /root/data/model/sentence-transformer')
-```
-
-但是，使用 huggingface 下载可能速度较慢，我们可以使用 huggingface 镜像下载。与使用hugginge face下载相同，只需要填入镜像地址即可。
-
-将 `download_hf.py` 中的代码修改为以下代码：
-
-```python
-import os
-
-# 设置环境变量
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-
-# 下载模型
-os.system('huggingface-cli download --resume-download sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 --local-dir /root/data/model/sentence-transformer')
-```
-
-然后，在 `/root/data` 目录下执行该脚本即可自动开始下载：
-
-```bash
-python download_hf.py
-```
-
-更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
+创建一个名为 Pooling_1 的文件夹并将 config.json 复制到其中，以确保它与 Huggingface Embedding 兼容。
 
 ### 1.4 下载 NLTK 相关资源
 
@@ -274,7 +245,7 @@ split_docs = text_splitter.split_documents(docs)
 ```python
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 
-embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
+embeddings = HuggingFaceEmbeddings(model_name="puffy310___MiniLM")
 ```
 
 同时，考虑到 Chroma 是目前最常用的入门数据库，我们选择 Chroma 作为向量数据库，基于上文分块后的文档以及加载的开源向量化模型，将语料加载到指定路径下的向量数据库：
@@ -364,7 +335,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 split_docs = text_splitter.split_documents(docs)
 
 # 加载开源词向量模型
-embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
+embeddings = HuggingFaceEmbeddings(model_name="puffy310___MiniLM")")
 
 # 构建向量数据库
 # 定义持久化路径
@@ -445,7 +416,7 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 import os
 
 # 定义 Embeddings
-embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
+embeddings = HuggingFaceEmbeddings(model_name="puffy310___MiniLM")
 
 # 向量数据库持久化路径
 persist_directory = 'data_base/vector_db/chroma'
@@ -531,7 +502,7 @@ from langchain.chains import RetrievalQA
 def load_chain():
     # 加载问答链
     # 定义 Embeddings
-    embeddings = HuggingFaceEmbeddings(model_name="/root/data/model/sentence-transformer")
+    embeddings = HuggingFaceEmbeddings(model_name="puffy310___MiniLM")
 
     # 向量数据库持久化路径
     persist_directory = 'data_base/vector_db/chroma'
