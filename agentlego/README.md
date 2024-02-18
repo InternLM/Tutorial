@@ -298,20 +298,26 @@ lmdeploy serve api_server /root/share/model_repos/internlm2-chat-7b\
 
 #### 2.2.3 启动 AgentLego WebUI
 
-接下来在 vscode terminal 中新建一个会话，并确保所启用的 conda 环境为 agentlego，如果不是的话可以执行 `conda activate agentlego` 来激活环境。然后执行如下命令以启动 AgentLego webui：
+接下来使用 Split Terminal （快捷键为 Ctrl+Shift+5）将当前 Terminal 一分为二。在新增的半个 terminal 中，先确保所启用的 conda 环境为 agentlego，如果不是的话可以执行 `conda activate agentlego` 来激活环境。然后执行如下命令以启动 AgentLego webui：
 
 ```bash
 cd /root/AgentLego/agentlego/webui
 python one_click.py
 ```
 
-在等待相关依赖安装完成后，webui 的服务也就随之启动了，此时 vscode 页面 PORTS 页面会类似如下所示：
+此时 Terminal 大致如下图所示：
 
-![PORTS 页面](assets/ports.png)
+![Terminal](assets/terminal.png)
 
-其中，7860 端口是 AgentLego webui 的服务端口，23333 是 LMDeploy 的服务端口。而 37809 端口是连接开发机的端口（因人而异）。接下来我们TODO
+其中左侧为 LMDeploy 服务的输出，右侧为 AgentLego WebUI 的输出。
 
 #### 2.2.4 使用 AgentLego WebUI
+
+首先将 7860 端口与 23333 端口进行端口转发到本地。可以在本地执行如下命令：
+
+```bash
+ssh -CNg -L 7860:127.0.0.1:7860 -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p <你的 ssh 端口号>
+```
 
 TODO
 
