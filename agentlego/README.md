@@ -4,14 +4,15 @@
   - [1. AgentLego 概述](#1-agentlego-概述)
     - [1.1 AgentLego 是什么](#11-agentlego-是什么)
     - [1.2 环境配置](#12-环境配置)
-      - [1.2.1 安装 AgentLego](#121-安装-agentlego)
-      - [1.2.2 安装其他依赖](#122-安装其他依赖)
+      - [1.2.1 创建 Conda 环境](#121-创建-conda-环境)
+      - [1.2.2 安装 AgentLego](#122-安装-agentlego)
+      - [1.2.3 安装其他依赖](#123-安装其他依赖)
   - [2. 使用 AgentLego](#2-使用-agentlego)
     - [2.1 直接使用 AgentLego](#21-直接使用-agentlego)
     - [2.2 作为智能体工具使用](#22-作为智能体工具使用)
   - [3. 自定义智能体工具](#3-自定义智能体工具)
     - [3.1 创建工具文件](#31-创建工具文件)
-    - [3.2 修改 `__init__.py` 文件](#32-修改-__init__py-文件)
+    - [3.2 修改 \_\_init\_\_.py 文件](#32-修改-__init__py-文件)
     - [3.3 使用工具](#33-使用工具)
   - [4. 反正是微调，标题没想好](#4-反正是微调标题没想好)
 
@@ -112,9 +113,58 @@ flowchart LR
 
 ### 1.2 环境配置
 
-#### 1.2.1 安装 AgentLego
+在开始配置环境前，我们先创建一个目录用于存放 AgentLego 的所有相关文件，可以执行如下命令：
 
-#### 1.2.2 安装其他依赖
+```bash
+mkdir -p /root/AgentLego
+```
+
+#### 1.2.1 创建 Conda 环境
+
+由于官方已经提供好了 internlm-base 环境，其中已经包含了如 PyTorch 等常用库，但是这个环境是只读的，因此我们需要在其基础上 clone 一份环境到自己的目录下，以安装其他库。可以执行如下命令：
+
+```bash
+conda create -n agentlego --clone /share/conda_envs/internlm-base
+```
+
+如果 clone 过程速度过慢的话，也可以采用如下方式创建环境：
+
+```bash
+/root/share/install_conda_env_internlm_base.sh agentlego
+```
+
+这样便创建好了一个名为 agentlego 的 conda 环境了。
+
+#### 1.2.2 安装 AgentLego
+
+AgentLego 提供了两种安装方式，一种是使用 `pip install agentlego` 进行安装，另一种则是直接从源码安装。安装过程可以参考 https://agentlego.readthedocs.io/zh-cn/latest/get_started.html 以获取更多帮助。
+
+为了方便修改源码，我们选择直接从源码进行安装。可以执行如下命令：
+
+```bash
+cd /root/AgentLego
+git clone https://github.com/InternLM/agentlego.git
+cd agentlego
+# 激活环境
+conda activate agentlego
+pip install -e .
+cd ..
+```
+
+#### 1.2.3 安装其他依赖
+
+在这一步中，我们将安装其他将会用到的依赖库，如 `flash_attn`、`python-Levenshtein` 以及 `lmdeploy`。
+   
+可以执行如下命令：
+
+```bash
+# 使用预编译包安装 flash_attn
+pip install /root/share/wheels/flash_attn-2.4.2+cu118torch2.0cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
+# 安装 python-Levenshtein
+pip install python-Levenshtein
+# 安装 lmdeploy
+pip install lmdeploy
+```
 
 ## 2. 使用 AgentLego
 
@@ -137,7 +187,7 @@ pip install openmim
 mim install mmdet
 ```
 
-然后新建 `direct_use.py` 以直接使用该工具，该脚本代码为：
+然后通过 `touch direct_use.py` 的方式新建 direct_use.py 以直接使用该工具，该脚本代码为：
 
 ```python
 import re
@@ -165,15 +215,40 @@ for pred in preds:
     cv2.putText(image, f'{name} {score}', (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1)
 
 cv2.imwrite('road_detection_direct.jpg', image)
+
 ```
 
 此时文件树结构如下：
 
 ```bash
-TODO
+.
+|-- agentlego
+|   |-- LICENSE
+|   |-- README.md
+|   |-- README_zh-CN.md
+|   |-- agentlego
+|   |   `-- ...
+|   |-- agentlego.egg-info
+|   |   `-- ...
+|   |-- docs
+|   |   `-- ...
+|   |-- examples
+|   |   `-- ...
+|   |-- pyproject.toml
+|   |-- requirements
+|   |   `-- ...
+|   |-- requirements.txt
+|   |-- setup.cfg
+|   |-- setup.py
+|   |-- tests
+|   |   `-- ...
+|   `-- webui
+|       `-- ...
+|-- direct.py
+`-- road.jpg
 ```
 
-在下载完成并完成推理后，我们就可以看到如下输出，以及一张名为 `road_detection_direct.jpg` 的图片：
+接下来执行 `python direct_use.py` 以进行推理。在下载完成 RTMDet-large 权重并完成推理后，我们就可以看到如下输出，以及一张名为 `road_detection_direct.jpg` 的图片：
 
 ```text
 truck (345, 428, 528, 599), score 83
@@ -217,11 +292,83 @@ MagicMaker 是国内领先的免费 AI 图像、视频创作平台，集成提�
 
 ### 3.1 创建工具文件
 
-TODO
+首先，我们需要在 agentlego/tools 目录下创建一个文件，用于存放我们的自定义工具。可以执行如下命令：
 
-### 3.2 修改 `__init__.py` 文件
+```bash
+touch /root/AgentLego/agentlego/agentlego/tools/magicmaker_image_generation.py
+```
 
-TODO
+该工具文件的代码如下：
+
+```python
+import json
+import requests
+
+import numpy as np
+
+from agentlego.types import Annotated, ImageIO, Info
+from agentlego.utils import require
+from .base import BaseTool
+
+
+class MagicMakerImageGeneration(BaseTool):
+
+    default_desc = ('This tool can call the api of magicmaker to '
+                    'generate an image according to the given keywords.')
+
+    styles_option = [
+        'dongman',  # 动漫
+        'guofeng',  # 国风
+        'xieshi',   # 写实
+        'youhua',   # 油画
+        'manghe',   # 盲盒
+    ]
+    aspect_ratio_options = [
+        '16:9', '4:3', '3:2', '1:1',
+        '2:3', '3:4', '9:16'
+    ]
+
+    @require('opencv-python')
+    def __init__(self,
+                 style='dongman',
+                 aspect_ratio='4:3'):
+        super().__init__()
+        if style in self.styles_option:
+            self.style = style
+        else:
+            raise ValueError(f'The style must be one of {self.styles_option}')
+        
+        if aspect_ratio in self.aspect_ratio_options:
+            self.aspect_ratio = aspect_ratio
+        else:
+            raise ValueError(f'The aspect ratio must be one of {aspect_ratio}')
+
+    def apply(self,
+              keywords: Annotated[str,
+                                  Info('A series of Chinese keywords separated by comma.')]
+        ) -> ImageIO:
+        import cv2
+        response = requests.post(
+            url='https://magicmaker.openxlab.org.cn/gw/edit-anything/api/v1/bff/sd/generate',
+            data=json.dumps({
+                "official": True,
+                "prompt": keywords,
+                "style": self.style,
+                "poseT": False,
+                "aspectRatio": self.aspect_ratio
+            }),
+            headers={'content-type': 'application/json'}
+        )
+        image_url = response.json()['data']['imgUrl']
+        image_response = requests.get(image_url)
+        image = cv2.imdecode(np.frombuffer(image_response.content, np.uint8), cv2.IMREAD_COLOR)
+        return ImageIO(image)
+
+```
+
+### 3.2 修改 \_\_init\_\_.py 文件
+
+接下来修改 /root/AgentLego/agentlego/agentlego/tools/\_\_init\_\_.py 文件，将我们的工具导入其中。可以执行如下命令：
 
 ```python
 from .base import BaseTool
@@ -254,6 +401,8 @@ __all__ = [
     'MagicMakerImageGeneration', 'BaseTool', 'make_tool'
 ]
 ```
+
+其中，我们将 `MagicMakerImageGeneration` 通过 `from .magicmaker_image_generation import MagicMakerImageGeneration` 导入到了 \_\_init\_\_.py 文件中，并且将其加入了 `__all__` 列表中。
 
 ### 3.3 使用工具
 
