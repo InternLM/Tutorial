@@ -10,6 +10,10 @@
   - [2. 使用 AgentLego](#2-使用-agentlego)
     - [2.1 直接使用 AgentLego](#21-直接使用-agentlego)
     - [2.2 作为智能体工具使用](#22-作为智能体工具使用)
+      - [2.2.1 修改相关文件](#221-修改相关文件)
+      - [2.2.2 使用 LMDeploy 部署](#222-使用-lmdeploy-部署)
+      - [2.2.3 启动 AgentLego WebUI](#223-启动-agentlego-webui)
+      - [2.2.4 使用 AgentLego WebUI](#224-使用-agentlego-webui)
   - [3. 自定义智能体工具](#3-自定义智能体工具)
     - [3.1 创建工具文件](#31-创建工具文件)
     - [3.2 修改 \_\_init\_\_.py 文件](#32-修改-__init__py-文件)
@@ -274,6 +278,40 @@ bicycle (1011, 551, 1043, 617), score 51
 | ![原图](assets/road.jpg) | ![结果](assets/road_detection_direct.jpg) |
 
 ### 2.2 作为智能体工具使用
+
+#### 2.2.1 修改相关文件
+
+由于 AgentLego 算法库默认使用 InternLM2-Chat-20B 模型，因此我们首先需要修改 /root/AgentLego/agentlego/webui/modules/agents/lagent_agent.py 文件的第 103行位置，将 internlm2-chat-20b 修改为 internlm2-chat-7b。
+
+#### 2.2.2 使用 LMDeploy 部署
+
+接下来我们需要使用 LMDeploy 算法库来部署一个 InternLM2-Chat-7B 的 API 服务，以用于 AgentLego 的 webui 使用。可以执行如下命令（推荐在 vscode 页面的 terminal 中执行，以便于端口转发）：
+
+```bash
+lmdeploy serve api_server /root/share/model_repos/internlm2-chat-7b\
+                            --server-name 127.0.0.1\
+                            --model-name internlm2-chat-7b\
+                            --cache-max-entry-count 0.1
+```
+
+通过这一指令，便可以基于 LMDeploy 启动一个服务。同时为了尽可能减少资源占用，我们将 `cache-max-entry-point` 设置为 0.1，以减少缓存的大小。
+
+#### 2.2.3 启动 AgentLego WebUI
+
+接下来在 vscode terminal 中新建一个会话，并确保所启用的 conda 环境为 agentlego，如果不是的话可以执行 `conda activate agentlego` 来激活环境。然后执行如下命令以启动 AgentLego webui：
+
+```bash
+cd /root/AgentLego/agentlego/webui
+python one_click.py
+```
+
+在等待相关依赖安装完成后，webui 的服务也就随之启动了，此时 vscode 页面 PORTS 页面会类似如下所示：
+
+![PORTS 页面](assets/ports.png)
+
+其中，7860 端口是 AgentLego webui 的服务端口，23333 是 LMDeploy 的服务端口。而 37809 端口是连接开发机的端口（因人而异）。接下来我们TODO
+
+#### 2.2.4 使用 AgentLego WebUI
 
 TODO
 
