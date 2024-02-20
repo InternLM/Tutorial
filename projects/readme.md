@@ -14,10 +14,10 @@
 
 &emsp;&emsp;***欢迎大家来给[InternLM2](https://github.com/InternLM/InternLM.git)，点点star哦~***
 
-***OpenXLab 体验地址：https://openxlab.org.cn/apps/detail/BYCJS/Chat_huanhuan***
+&emsp;&emsp;***OpenXLab 体验地址：https://openxlab.org.cn/apps/detail/BYCJS/Chat_huanhuan***
 
-***Chat-嬛嬛 模型下载地址：***
+&emsp;&emsp;***Chat-嬛嬛 模型下载地址：***
 
-***7B: https://www.modelscope.cn/models/kmno4zx/huanhuan-chat-internlm2/summary***
+&emsp;&emsp;***7B: https://www.modelscope.cn/models/kmno4zx/huanhuan-chat-internlm2/summary***
 
-***1.8B: https://www.modelscope.cn/models/kmno4zx/huanhuan-chat-internlm2-1_8b/summary***
+&emsp;&emsp;***1.8B: https://www.modelscope.cn/models/kmno4zx/huanhuan-chat-internlm2-1_8b/summary***
