@@ -1,6 +1,6 @@
 # Chat-嬛嬛
 
-***仓库地址：https://github.com/KMnO4-zx/xlab-huanhuan.git、https://github.com/KMnO4-zx/huanhuan-chat.git***
+***仓库地址：https://github.com/KMnO4-zx/xlab-huanhuan.git &emsp;、 https://github.com/KMnO4-zx/huanhuan-chat.git***
 
 ***OpenXLab 体验地址：https://openxlab.org.cn/apps/detail/BYCJS/Chat_huanhuan***
 
