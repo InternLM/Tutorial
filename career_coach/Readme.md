@@ -6,13 +6,27 @@
 
 * Internlm Studio开发机
 * python3.10
+* InternLM2-Chat-7B
+* xtuner
 
 开发机进来之后，记得在命令命令行输入bash，进入开发命令行
-然后再用conda新建一个虚拟环境
+然后再用conda新建一个虚拟环境`career_coach`
 
 ```
 bash
-conda create --name xtuner0.1.9 python=3.10 -y
+conda create --name career_coach python=3.10 -y
+```
+
+![create_conda_env](assets/create_conda_env.png)
+
+```
+# 进入conda虚拟环境
+conda activate career_coach
+```
+
+### 安装依赖
+
+```
 # 升级pip
 python -m pip install --upgrade pip
 pip install -U huggingface_hub
@@ -20,7 +34,7 @@ pip install -U huggingface_hub
 pip install streamlit
 pip install transformers==4.34
 pip install torch torchvision torchaudio
-pip install einops
+pip install einops ujson
 ```
 
 ## 工程目录结构准备
@@ -37,26 +51,67 @@ mkdir -p ~/ft-cc/config
 ## 环境准备
 
 ```
-git clone -b v0.1.9  https://github.com/InternLM/xtuner
+git clone https://github.com/InternLM/xtuner
 cd xtuner
 # 从源码安装 XTuner
 pip install -e '.[all]'
+# 安装完成之后就可以在命令行使用xtuner了
+# 查看xtuner使用帮助
+xtuner help
 ```
 
 ## 数据集处理
 
-自己整理的`心理大模型-职场焦虑语料.xlsx`,通过`gen_qa_json.py`文件生成一个`jsonl`文件
+自己整理的`心理大模型-职场焦虑语料.xlsx`，通过`gen_qa_json.py`文件生成一个`json`文件
+
+```
+python gen_qa_json.py
+```
 
 ![gen_qa_data](assets/gen_qa_data.png)
 
-## 配置文件准备
+## 基础模型准备
+
+我把模型放在`/root/model/Shanghai_AI_Laboratory/`路径下
+
 ```
-# 复制配置为念
-xtuner copy-cfg internlm_chat_7b_qlora_oasst1_e3 ~/ft-cc/config
-# 修改配置文件名
-mv internlm_chat_7b_qlora_oasst1_e3_copy.py  internlm_chat_7b_qlora_oasst1_e3_career_coach.py
+mkdir -p /root/model/Shanghai_AI_Laboratory/internlm2-chat-7b
 ```
 
+方式一：通过hugging face下载`internlm2-chat-7b`模型
+
+```
+huggingface-cli download --resume-download internlm/internlm2-chat-7b --local-dir /root/model/Shanghai_AI_Laboratory/internlm2-chat-7b
+```
+
+方式二：如果使用的是`intern-studio`的开发机的话，可以直接copy开发机的`/share/model_repos`目录下的`internlm2-chat-7b`模型
+
+```
+cp -r /share/model_repos/internlm2-chat-7b /root/model/Shanghai_AI_Laboratory/
+```
+
+## 配置文件准备
+
+通过Xtuner查看可配置文件
+
+```
+xtuner list-cfg
+```
+
+由于我们本次的基座微调模型为internLM2-chat-7b，所以我们可以查看Xtuner现在在InternLM2下已经支持了哪些配置文件
+
+```
+xtuner list-cfg |grep internlm2
+```
+
+![xtuner-list-cfg](assets/xtuner-list-cfg.png)
+
+```
+# 复制配置文件
+xtuner copy-cfg internlm2_chat_7b_qlora_oasst1_e3 ~/ft-cc/config
+# 修改配置文件名
+mv /root/ft-cc/config/internlm2_chat_7b_qlora_oasst1_e3_copy.py  /root/ft-cc/config/internlm2_chat_7b_qlora_oasst1_e3_career_coach.py
+```
 
 复制完成之后要修改配置文件的几处参数
 
@@ -66,7 +121,7 @@ mv internlm_chat_7b_qlora_oasst1_e3_copy.py  internlm_chat_7b_qlora_oasst1_e3_ca
 pretrained_model_name_or_path = '/root/model/Shanghai_AI_Laboratory/internlm-chat-7b'
 
 # 微调数据存放的位置
-data_path = '/root/ft-cc/data/career_coach.jsonl'
+data_path = '/root/ft-cc/data/career_coach.json'
 
 # 训练中最大的文本长度
 max_length = 512
@@ -99,12 +154,10 @@ dataset_map_fn=None
 ### 微调启动
 
 ```
-xtuner train /root/ft-cc/config/internlm_chat_7b_qlora_oasst1_e3_career_coach.py  --deepspeed deepspeed_zero2
+xtuner train /root/ft-cc/config/internlm2_chat_7b_qlora_oasst1_e3_career_coach.py  --deepspeed deepspeed_zero2
 ```
 
-![start-ft](assets/start-ft.png)
-
-训练完的数据会存放在`/root/ft-cc/work_dirs/internlm_chat_7b_qlora_oasst1_e3_career_coach`
+训练完的数据会存放在`/root/ft-cc/data/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_career_coach/`
 
 ![ft-finished](assets/ft-finished.png)
 
@@ -112,11 +165,11 @@ xtuner train /root/ft-cc/config/internlm_chat_7b_qlora_oasst1_e3_career_coach.py
 
 ```
 # 新建模型存放的文件夹
-mkdir /root/ft-cc/hf
+mkdir -p /root/ft-cc/data/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_career_coach/hf
 # 添加环境变量
 export MKL_SERVICE_FORCE_INTEL=1
 # 模型转换
-xtuner convert pth_to_hf /root/ft-cc/config/internlm_chat_7b_qlora_oasst1_e3_career_coach.py /root/ft-cc/work_dirs/internlm_chat_7b_qlora_oasst1_e3_career_coach/epoch_3.pth /root/ft-cc/hf
+xtuner convert pth_to_hf /root/ft-cc/config/internlm2_chat_7b_qlora_oasst1_e3_career_coach.py /root/ft-cc/data/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_career_coach/iter_48.pth /root/ft-cc/data/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_career_coach/hf
 ```
 
 ### 合并HF adapter 到LLM
@@ -128,14 +181,15 @@ export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER='GNU'
 
 # 原始模型参数存放的位置
-export NAME_OR_PATH_TO_LLM=/root/model/Shanghai_AI_Laboratory/internlm-chat-7b
+export NAME_OR_PATH_TO_LLM=/root/model/Shanghai_AI_Laboratory/internlm2-chat-7b
 
 # Hugging Face格式参数存放的位置
-export NAME_OR_PATH_TO_ADAPTER=/root/ft-cc/hf
+export NAME_OR_PATH_TO_ADAPTER=/root/ft-cc/data/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_career_coach/hf
 
 # 最终Merge后的参数存放的位置
-mkdir -p /root/ft-cc/merged/hf_merge
-export SAVE_PATH=/root/ft-cc/merged/hf_merge
+mkdir -p /root/ft-cc/merged/internlm2_cc_hf_merge
+export SAVE_PATH=/root/ft-cc/merged/internlm2_cc_hf_merge
+
 
 # 执行参数Merge
 xtuner convert merge \
@@ -145,9 +199,9 @@ xtuner convert merge \
     --max-shard-size 2GB
 ```
 
-![merge_hf](assets/merge_hf.png)
+![internlm2_cc_hf_merge](assets/internlm2_cc_hf_merge.png)
 
-合并后的模型保存位置：`/root/ft-cc/merged/hf_merge`
+合并后的模型保存位置：`/root/ft-cc/merged/internlm2_cc_hf_merge`
 
 ## Xtuner多轮对话介绍
 
@@ -276,47 +330,68 @@ git clone https://github.com/qiuhuachuan/smile.git
 
 > source_dir=''/root/ft-cc/data/smile/data'
 
+由于此次数据集比较大，要训练的时间比较长，所以这里用tmux命令，把训练挂载Linux后台
+
 ```
-xtuner train /root/ft-cc/config/internlm_chat_7b_qlora_oasst1_e3_cc_smile.py  --deepspeed deepspeed_zero2
+apt-get install tmux -y
 ```
 
-经过19个小时的训练，存放路径在`/root/ft-cc/data/work_dirs/internlm_chat_7b_qlora_oasst1_e3_cc_smile/epoch_1.pth/`
+![install-tmux](assets/install-tmux.png)
+
+```
+# 启动命名tmux -u参数是防止tmux终端中文乱码
+tmux -u new -s cc_smile
+# 输入命令后，窗口下方有个绿色显示你是进入tmux窗口
+# 由于tmux是开启一个新终端，所以要重新进入bash和conda环境
+bash
+conda activate career_coach
+```
+
+![tmux-cc](assets/tmux-cc.png)
+
+```
+xtuner train /root/ft-cc/config/internlm2_chat_7b_qlora_oasst1_e3_cc_smile.py  --deepspeed deepspeed_zero2
+```
+
+经过漫长的训练等待，训练完成之后，模型保存路径`/root/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_cc_smile/`
+
+pth文件存放路径在`/root/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_cc_smile/iter_5030.pth`
 
 ![ft-smile](assets/ft-smile.png)
 
-训练完成，模型保存路径`/root/ft-cc/work_dirs/internlm_chat_7b_qlora_oasst1_e3_cc_smile`
-
-![cc_smile](assets/cc_smile.png)
-
 ```
 # 创建模型转换存放路径hf
-mkdir -p /root/ft-cc/work_dirs/internlm_chat_7b_qlora_oasst1_e3_cc_smile/hf
+mkdir -p /root/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_cc_smile/hf
 # 设置环境变量
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER='GNU'
 # 模型转换为Adapter
-xtuner convert pth_to_hf /root/ft-cc/config/internlm_chat_7b_qlora_oasst1_e3_cc_smile.py /root/ft-cc/work_dirs/internlm_chat_7b_qlora_oasst1_e3_cc_smile/epoch_1.pth /root/ft-cc/config/work_dirs/internlm_chat_7b_qlora_oasst1_e3_cc_smile/hf
+xtuner convert pth_to_hf /root/ft-cc/config/internlm2_chat_7b_qlora_oasst1_e3_cc_smile.py \
+/root/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_cc_smile/iter_5030.pth \
+/root/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_cc_smile/hf
 ```
 
 ![cc_smile_convert_hf](assets/cc_smile_convert_hf.png)
 
 ```
 # 创建存放合并模型的目录
-mkdir -p /root/ft-cc/merged/cc_0.3.0
+mkdir -p /root/ft-cc/merged/cc_0_4_0
 
 xtuner convert merge \
-    /root/ft-cc/merged/hf_merge \
-    /root/ft-cc/config/work_dirs/internlm_chat_7b_qlora_oasst1_e3_cc_smile/hf \
-    /root/ft-cc/merged/cc_0.3.0 \
+    /root/ft-cc/merged/internlm2_cc_hf_merge \
+    /root/work_dirs/internlm2_chat_7b_qlora_oasst1_e3_cc_smile/hf \
+    /root/ft-cc/merged/cc_0_4_0 \
     --max-shard-size 2GB
 ```
 
-![cc_0.3.0](assets/cc_0.3.0.png)
+![cc_0_4_0](assets/cc_0_4_0.png)
 
 ```
 # 加载 Adapter 模型对话（Float 16）
-xtuner chat /root/ft-cc/merged/cc_0.3.0/ --prompt-template internlm_chat
+xtuner chat /root/ft-cc/merged/cc_0_4_0/ --prompt-template internlm2_chat
 ```
+
+![internlm2_chat_cc](assets/internlm2_chat_cc.png)
 
 ## 使用**InternLM**的web_demo运行
 
@@ -331,7 +406,7 @@ pip install -r requestment.txt
 
 ```
 diff --git a/chat/web_demo.py b/chat/web_demo.py
-index 5d37a2e..78f0b1a 100644
+index 5d37a2e..4962646 100644
 --- a/chat/web_demo.py
 +++ b/chat/web_demo.py
 @@ -180,10 +180,10 @@ def on_btn_click():
@@ -339,15 +414,26 @@ index 5d37a2e..78f0b1a 100644
  @st.cache_resource
  def load_model():
 -    model = (AutoModelForCausalLM.from_pretrained('internlm/internlm2-chat-7b',
-+    model = (AutoModelForCausalLM.from_pretrained('/root/ft-cc/merged/cc_0.3.0/',
++    model = (AutoModelForCausalLM.from_pretrained('/root/ft-cc/merged/cc_0_4_0/',
                                                    trust_remote_code=True).to(
                                                        torch.bfloat16).cuda())
 -    tokenizer = AutoTokenizer.from_pretrained('internlm/internlm2-chat-7b',
-+    tokenizer = AutoTokenizer.from_pretrained('/root/ft-cc/merged/cc_0.3.0/',
++    tokenizer = AutoTokenizer.from_pretrained('/root/ft-cc/merged/cc_0_4_0/',
                                                trust_remote_code=True)
      return model, tokenizer
 
-@@ -239,7 +239,7 @@ def main():
+@@ -213,9 +213,7 @@ cur_query_prompt = '<|im_start|>user\n{user}<|im_end|>\n\
+
+ def combine_history(prompt):
+     messages = st.session_state.messages
+-    meta_instruction = ('You are InternLM (书生·浦语), a helpful, honest, '
+-                        'and harmless AI assistant developed by Shanghai '
+-                        'AI Laboratory (上海人工智能实验室).')
++    meta_instruction = ('You are a professional and experienced career coach(职场教练) with a background in psychology. You always provide accurate, comprehensive, and detailed answers based on the questions of patients with workplace anxiety. Your name is cc(职灵)')
+     total_prompt = f"<s><|im_start|>system\n{meta_instruction}<|im_end|>\n"
+     for message in messages:
+         cur_content = message['content']
+@@ -239,7 +237,7 @@ def main():
      user_avator = 'assets/user.png'
      robot_avator = 'assets/robot.png'
 
@@ -355,7 +441,6 @@ index 5d37a2e..78f0b1a 100644
 +    st.title('Career Coach')
 
      generation_config = prepare_generation_config()
-
 
 ```
 
