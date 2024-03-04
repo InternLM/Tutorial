@@ -1,7 +1,9 @@
 # 基于 Lagent 和 AgentLego 实现你的智能体
 
 - [基于 Lagent 和 AgentLego 实现你的智能体](#基于-lagent-和-agentlego-实现你的智能体)
-  - [1.什么是智能体](#1什么是智能体)
+  - [1.智能体介绍](#1智能体介绍)
+    - [1.1 什么是智能体](#11-什么是智能体)
+    - [1.2 OpenAI function call 的来历](#12-openai-function-call-的来历)
   - [2. 概述](#2-概述)
     - [2.1 Lagent 是什么](#21-lagent-是什么)
     - [2.2 AgentLego 是什么](#22-agentlego-是什么)
@@ -27,7 +29,20 @@
       - [4.3.3 使用工具](#433-使用工具)
   - [5. 自定义工具能力微调](#5-自定义工具能力微调)
 
-## 1.什么是智能体
+## 1.智能体介绍
+
+### 1.1 什么是智能体
+
+随着大语言模型的快速发展，我们也渐渐发现大模型仍旧不能满足实际需求，有着诸多局限性。比如：
+
+- 幻觉：模型可能生成虚假信息，内容与现实严重脱节，从而误导用户。
+- 时效性：大模型的训练数据可能过时，无法反映最新趋势和信息。
+- 封闭性：模型通常缺少外部验证和更新机制，从而限制了模型的适应性和持续更新。
+- 可靠性：模型在面对复杂任务时，错误预判的现象可能会频繁发生，从而影响用户体验，进而影响用户信任度，导致实用性受损。
+
+TODO
+
+### 1.2 OpenAI function call 的来历
 
 TODO
 
@@ -237,6 +252,61 @@ TODO
 #### 3.2.1 创建工具文件
 
 TODO
+
+```python
+from urllib.parse import quote_plus
+from typing import Optional, Tuple, Type, Union
+
+import requests
+
+from lagent.schema import ActionReturn, ActionStatusCode
+from .base_action import BaseAction, tool_api
+from .parser import BaseParser, JsonParser
+
+
+class GoogleTranslation(BaseAction):
+    
+    def __init__(self,
+                 description: Optional[dict] = None,
+                 parser: Type[BaseParser] = JsonParser,
+                 enable: bool = True):
+        super().__init__(description, parser, enable)
+    
+    @tool_api
+    def run(self, text: str, target: str, source: str = 'auto') -> ActionReturn:
+        tool_return = ActionReturn(type=self.name)
+        status_code, response = self._translate(text, target, source)
+        with open('code.txt', 'a') as f:
+            f.write(f'{status_code}, {response.json()}\n')
+        if status_code == -1:
+            tool_return.errmsg = response
+            tool_return.state = ActionStatusCode.HTTP_ERROR
+        elif status_code == 200:
+            parsed_res = self._parse_results(response)
+            tool_return.result = [dict(type='text', content=parsed_res)]
+            tool_return.state = ActionStatusCode.SUCCESS
+        else:
+            tool_return.errmsg = str(status_code)
+            tool_return.state = ActionStatusCode.API_ERROR
+        return tool_return
+    
+    def _parse_results(self, results: dict) -> str:
+        return ''.join(x[0] for x in results[0] if x[0] is not None)
+    
+    def _translate(self, text: str, target: str, source: str = 'auto') -> Tuple[int, Union[dict, str]]:
+        text = quote_plus(text)
+        url = ('https://translate.googleapis.com/translate_a/'
+                'single?client=gtx&sl={}&tl={}&dt=at&dt=bd&dt=ex&'
+                'dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&dt=t&q={}')
+        try:
+            response = requests.get(
+                url.format(source, target, text),
+                timeout=10)
+        except Exception as e:
+            return -1, str(e)
+        return response.status_code, response.json()
+
+```
 
 ## 4. AgentLego：组装智能体“乐高”
 
