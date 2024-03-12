@@ -99,6 +99,16 @@
             "bilibili": "https://www.bilibili.com/video/BV1UH4y1Y76q/"
         },
         {
+            "title": "SoulStar(心理咨询大模型)",
+            "tags": [
+                "role"
+            ],
+            "github": "https://github.com/Nobody-ML/SoulStar",
+            "model": "https://openxlab.org.cn/models/detail/Nobody-ML/SoulStar",
+            "app": "https://openxlab.org.cn/apps/detail/Nobody-ML/SoulStar",
+            "bilibili": "https://www.bilibili.com/video/BV1hu4m1w7vX/"
+      },
+      {
             "title": "第二人生",
             "tags": [
                 "repository",
