@@ -129,6 +129,16 @@
             "app": "https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini",
             "bilibili": "https://www.bilibili.com/video/BV1TW421w7Ze/"
 
+        },
+       {
+            "title": "MagicTuner 魔法调音师",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/scchy/XtunerGUI",
+            "app": "https://openxlab.org.cn/apps/detail/Scchy/XtunerFactory",
+            "bilibili": "https://www.bilibili.com/video/BV18y421h7rK/?vd_source=99818a3df596c69ba400b78354d691da"
+
         }
     ]
 }
