@@ -48,6 +48,16 @@
             "bilibili": "777"
         },
         {
+            "title": "中医药知识问答助手",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/xiaomile/ChineseMedicalAssistant",
+            "model": "https://openxlab.org.cn/models/detail/xiaomile/ChineseMedicalAssistant_internlm",
+            "app": "https://openxlab.org.cn/apps/detail/xiaomile/medKnowledgeAssitant",
+            "bilibili": "https://www.bilibili.com/video/BV1J2421A7Mb/?spm_id_from=333.337.search-card.all.click&vd_source=a72711621c794f813909382e58463b34"
+        },
+        {
             "title": "项目名称项目名称项目名称2",
             "tags": [
                 "repository",
