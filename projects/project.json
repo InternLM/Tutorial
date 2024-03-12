@@ -58,6 +58,16 @@
             "model": "456",
             "app": "798",
             "bilibili": "777"
+        },
+        {
+            "title": "眼科问诊大模型",
+            "tags": [
+                "agent"
+            ],
+            "github": "https://github.com/JieGenius/OculiChatDA",
+            "model": "https://openxlab.org.cn/models/detail/flyer/OculiChatDA",
+            "app": "https://openxlab.org.cn/apps/detail/flyer/oculi_chat_diagnosis_assistant",
+            "bilibili": "https://www.bilibili.com/video/BV1UH4y1Y76q/"
         }
     ]
 }
