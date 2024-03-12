@@ -38,14 +38,14 @@
             "bilibili": "777"
         },
         {
-            "title": "项目名称项目名称项目名称1",
+            "title": "职场教练",
             "tags": [
                 "other"
             ],
-            "github": "http://baidu.com",
-            "model": "456",
-            "app": "798",
-            "bilibili": "777"
+            "github": "https://github.com/BaiYu96/career_coach",
+            "model": "https://www.modelscope.cn/models/baiyu96/career_coach/summary",
+            "app": "https://openxlab.org.cn/apps/detail/baiyu/career_caoch",
+            "bilibili": "https://www.bilibili.com/video/BV1vJ4m1Y7D9/?share_source=copy_web&vd_source=627148b9e4ca53dc6534d9128235eb48"
         },
         {
             "title": "项目名称项目名称项目名称2",
