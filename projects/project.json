@@ -131,6 +131,16 @@
             "bilibili": "https://www.bilibili.com/video/BV1TW421w7Ze/"
         },
         {
+            "title": "Chatty-Horo 与赫萝闲聊",
+            "tags": [
+                "role"
+            ],
+            "github": "https://github.com/SaaRaaS-1300/InternLM_openNotebook",
+            "model": "https://openxlab.org.cn/models/detail/SaaRaaS/Horowag_7b",
+            "app": "https://openxlab.org.cn/apps/detail/SaaRaaS/Chatty-Horo",
+            "bilibili": "https://www.bilibili.com/video/BV1bH4y1E7o9/"
+        },
+        {
             "title": "TRLLM 交规小助手",
             "tags": [
                 "repository",
