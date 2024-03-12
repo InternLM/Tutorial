@@ -37,6 +37,18 @@
             "bilibili": "https://www.bilibili.com/video/BV14v421i7So/"
         },
         {
+            "title": "EmoLLM 心理健康大模型",
+            "tags": [
+                "other",
+                "role",
+                "repository"
+            ],
+            "github": "https://github.com/SmartFlowAI/EmoLLM",
+            "model": "https://openxlab.org.cn/models/detail/ajupyter/EmoLLM_aiwei",
+            "app": "https://openxlab.org.cn/apps/detail/ajupyter/EmoLLM-aiwei",
+            "bilibili": "https://www.bilibili.com/video/BV1Sw4m1Z7GC/"
+        },
+        {
             "title": "张三普法：民法典大模型",
             "tags": [
                 "other"
