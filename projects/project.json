@@ -80,6 +80,17 @@
             "bilibili": "https://www.bilibili.com/video/BV1UH4y1Y76q/"
         },
         {
+            "title": "第二人生",
+            "tags": [
+                "repository",
+                "other"
+            ],
+            "github": "https://github.com/woxinyonghen/SecondLife",
+            "model": "https://openxlab.org.cn/models/detail/%E6%98%9F%E8%BE%B0/The_History",
+            "app": "https://openxlab.org.cn/apps/detail/%E6%98%9F%E8%BE%B0/Second_Life",
+            "bilibili": "https://www.bilibili.com/video/BV1rp421o736/"
+       },
+       {
             "title": "Roleplay-with-XiYou 西游角色扮演",
             "tags": [
                 "role"
@@ -88,6 +99,7 @@
             "model": "https://openxlab.org.cn/models/detail/JimmyMa99/BaJie-Chat-1.8b",
             "app": "https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini",
             "bilibili": "https://www.bilibili.com/video/BV1TW421w7Ze/"
+
         }
     ]
 }
