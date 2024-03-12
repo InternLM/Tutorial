@@ -169,6 +169,16 @@
             "model": "https://www.modelscope.cn/models/zhanghuiATchina/zhangxiaobai_shishen2_full/summary",
             "app": "https://openxlab.org.cn/apps/detail/zhanghui-china/shishen2024_1.8b",
             "bilibili": "https://www.bilibili.com/video/BV1kr421W7iA/"
+        },
+       {
+            "title": "Tianji 天机",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/SocialAI-tianji/Tianji",
+            "model": "https://openxlab.org.cn/models/detail/jujimeizuo/Tianji_Wish_Model",
+            "app": "https://openxlab.org.cn/apps/detail/jujimeizuo/tianji-wish",
+            "bilibili": "https://www.bilibili.com/video/BV1cC411r7s4/"
         }
     ]
 }
