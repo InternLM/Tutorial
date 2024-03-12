@@ -38,6 +38,16 @@
             "bilibili": "777"
         },
         {
+            "title": "张三普法：民法典大模型",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/AllYoung/InternLM4Law",
+            "model": "https://openxlab.org.cn/models/detail/ljnyyds/zhangsan_say_law",
+            "app": "https://openxlab.org.cn/apps/detail/allyoung/InternLM4Law",
+            "bilibili": "https://www.bilibili.com/video/BV1ru4m1K7rY"
+        },
+        {
             "title": "项目名称项目名称项目名称1",
             "tags": [
                 "other"
