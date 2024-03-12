@@ -141,6 +141,17 @@
             "app": "https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini",
             "bilibili": "https://www.bilibili.com/video/BV1TW421w7Ze/"
 
+        },
+        {
+            "title": "The-God-Of-Cookery 食神-菜谱小助手",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/SmartFlowAI/TheGodOfCookery",
+            "model": "https://www.modelscope.cn/models/zhanghuiATchina/zhangxiaobai_shishen2_full/summary",
+            "app": "https://openxlab.org.cn/apps/detail/zhanghui-china/shishen2024_1.8b",
+            "bilibili": "https://www.bilibili.com/video/BV1kr421W7iA/"
+
         }
     ]
 }
