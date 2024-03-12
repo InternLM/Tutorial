@@ -152,6 +152,15 @@
             "bilibili": "https://www.bilibili.com/video/BV1r7421N7Jb/"
 
         },
+       {
+            "title": "MagicTuner 魔法调音师",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/scchy/XtunerGUI",
+            "app": "https://openxlab.org.cn/apps/detail/Scchy/XtunerFactory",
+            "bilibili": "https://www.bilibili.com/video/BV18y421h7rK/?vd_source=99818a3df596c69ba400b78354d691da"
+       },
         {
             "title": "XTuner Chat Board",
             "tags": [
@@ -160,7 +169,8 @@
             "github": "https://github.com/limafang/Xtuner-GUI",
             "app": "https://openxlab.org.cn/apps/detail/%E5%86%AC%E7%AC%A0Azula/XTuner-Chat-GUI",
             "bilibili": "https://www.bilibili.com/video/BV1rU421o7xD"
-},{
+        },
+       {
             "title": "The-God-Of-Cookery 食神-菜谱小助手",
             "tags": [
                 "other"
