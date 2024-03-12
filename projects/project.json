@@ -143,6 +143,14 @@
 
         },
         {
+            "title": "XTuner Chat Board",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/limafang/Xtuner-GUI",
+            "app": "https://openxlab.org.cn/apps/detail/%E5%86%AC%E7%AC%A0Azula/XTuner-Chat-GUI",
+            "bilibili": "https://www.bilibili.com/video/BV1rU421o7xD"
+},{
             "title": "The-God-Of-Cookery 食神-菜谱小助手",
             "tags": [
                 "other"
