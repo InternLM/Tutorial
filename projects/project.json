@@ -27,15 +27,14 @@
     ],
     "data": [
         {
-            "title": "项目名称项目名称项目名称",
+            "title": "AMchat 高等数学大模型",
             "tags": [
-                "role",
-                "star"
+                "other",
             ],
-            "github": "http://baidu.com",
-            "model": "456",
-            "app": "798",
-            "bilibili": "777"
+            "github": "https://github.com/AXYZdong/AMchat",
+            "model": "https://openxlab.org.cn/models/detail/youngdon/AMchat",
+            "app": "https://openxlab.org.cn/apps/detail/youngdon/AMchat",
+            "bilibili": "https://www.bilibili.com/video/BV14v421i7So/"
         },
         {
             "title": "项目名称项目名称项目名称1",
