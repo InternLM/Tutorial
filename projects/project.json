@@ -78,6 +78,17 @@
             "model": "https://openxlab.org.cn/models/detail/flyer/OculiChatDA",
             "app": "https://openxlab.org.cn/apps/detail/flyer/oculi_chat_diagnosis_assistant",
             "bilibili": "https://www.bilibili.com/video/BV1UH4y1Y76q/"
+        },
+        {
+            "title": "第二人生",
+            "tags": [
+                "repository",
+                "other"
+            ],
+            "github": "https://github.com/woxinyonghen/SecondLife",
+            "model": "https://openxlab.org.cn/models/detail/%E6%98%9F%E8%BE%B0/The_History",
+            "app": "https://openxlab.org.cn/apps/detail/%E6%98%9F%E8%BE%B0/Second_Life",
+            "bilibili": "https://www.bilibili.com/video/BV1rp421o736/"
         }
     ]
 }
