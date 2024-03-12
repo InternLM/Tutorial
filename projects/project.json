@@ -129,6 +129,16 @@
             "app": "https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini",
             "bilibili": "https://www.bilibili.com/video/BV1TW421w7Ze/"
 
+        },
+        {
+            "title": "XTuner Chat Board",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/limafang/Xtuner-GUI",
+            "app": "https://openxlab.org.cn/apps/detail/%E5%86%AC%E7%AC%A0Azula/XTuner-Chat-GUI",
+            "bilibili": "https://www.bilibili.com/video/BV1rU421o7xD"
+
         }
     ]
 }
