@@ -37,6 +37,18 @@
             "bilibili": "https://www.bilibili.com/video/BV14v421i7So/"
         },
         {
+            "title": "EmoLLM 心理健康大模型",
+            "tags": [
+                "other",
+                "role",
+                "repository"
+            ],
+            "github": "https://github.com/SmartFlowAI/EmoLLM",
+            "model": "https://openxlab.org.cn/models/detail/ajupyter/EmoLLM_aiwei",
+            "app": "https://openxlab.org.cn/apps/detail/ajupyter/EmoLLM-aiwei",
+            "bilibili": "https://www.bilibili.com/video/BV1Sw4m1Z7GC/"
+        },
+        {
             "title": "张三普法：民法典大模型",
             "tags": [
                 "other"
@@ -138,6 +150,15 @@
             "github": "https://github.com/limafang/Xtuner-GUI",
             "app": "https://openxlab.org.cn/apps/detail/%E5%86%AC%E7%AC%A0Azula/XTuner-Chat-GUI",
             "bilibili": "https://www.bilibili.com/video/BV1rU421o7xD"
+},{
+            "title": "The-God-Of-Cookery 食神-菜谱小助手",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/SmartFlowAI/TheGodOfCookery",
+            "model": "https://www.modelscope.cn/models/zhanghuiATchina/zhangxiaobai_shishen2_full/summary",
+            "app": "https://openxlab.org.cn/apps/detail/zhanghui-china/shishen2024_1.8b",
+            "bilibili": "https://www.bilibili.com/video/BV1kr421W7iA/"
 
         }
     ]
