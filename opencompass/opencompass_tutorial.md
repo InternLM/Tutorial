@@ -155,7 +155,7 @@ python run.py --datasets ceval_gen --hf-path /share/temp/model_repos/internlm-ch
 --model-kwargs device_map='auto' trust_remote_code=True \  # 构建模型的参数
 --max-seq-len 2048 \  # 模型可以接受的最大序列长度
 --max-out-len 16 \  # 生成的最大 token 数
---batch-size 4  \  # 批量大小
+--batch-size 2  \  # 批量大小
 --num-gpus 1  # 运行模型所需的 GPU 数量
 --debug
 ```
