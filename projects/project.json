@@ -79,17 +79,6 @@
             "bilibili": "https://www.bilibili.com/video/BV1J2421A7Mb/"
         },
         {
-            "title": "项目名称项目名称项目名称2",
-            "tags": [
-                "repository",
-                "agent"
-            ],
-            "github": "http://baidu.com",
-            "model": "456",
-            "app": "798",
-            "bilibili": "777"
-        },
-        {
             "title": "Chat嬛嬛",
             "tags": [
                 "role"
@@ -102,6 +91,7 @@
         {
             "title": "眼科问诊大模型",
             "tags": [
+                "star",
                 "agent"
             ],
             "github": "https://github.com/JieGenius/OculiChatDA",
