@@ -60,6 +60,16 @@
             "bilibili": "777"
         },
         {
+            "title": "Chat嬛嬛",
+            "tags": [
+                "role"
+            ],
+            "github": "https://github.com/KMnO4-zx/xlab-huanhuan.git",
+            "model": "https://openxlab.org.cn/models/detail/BYCJS/huanhuan-chat-internlm2",
+            "app": "https://openxlab.org.cn/apps/detail/BYCJS/Chat_huanhuan",
+            "bilibili": "https://www.bilibili.com/video/BV1Xa4y1k7yr"
+         },
+         {
             "title": "眼科问诊大模型",
             "tags": [
                 "agent"
