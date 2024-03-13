@@ -469,7 +469,7 @@ use_logn_attn = 0
 其中，模型属性相关的参数不可更改，主要包括下面这些。
 
 ```ini
-model_name = llama2
+model_name = internlm-chat-7b
 head_num = 32
 kv_head_num = 32
 vocab_size = 103168
