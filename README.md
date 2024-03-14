@@ -1,4 +1,4 @@
-# 书生·浦语大模型实战营第二期
+# 书生·浦语大模型实战营(第二期)
 
 
 ![image](https://github.com/InternLM/Tutorial/assets/25839884/b15c1ce3-966e-4cd9-a425-db70d90218e0)
