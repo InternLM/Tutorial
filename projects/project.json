@@ -189,6 +189,17 @@
             "model": "https://openxlab.org.cn/models/detail/jujimeizuo/Tianji_Wish_Model",
             "app": "https://openxlab.org.cn/apps/detail/jujimeizuo/tianji-wish",
             "bilibili": "https://www.bilibili.com/video/BV1cC411r7s4/"
+        },
+        {
+            "title": "旋律大师-IMelodist",
+            "tags": [
+                "role",
+                "other"
+            ],
+            "github": "https://github.com/GuoYiFantastic/IMelodist",
+            "model": "https://openxlab.org.cn/models/detail/EchoPeter/IMelodist",
+            "app": "https://openxlab.org.cn/apps/detail/EchoPeter/IMelodist-app",
+            "bilibili": "https://www.bilibili.com/video/BV13j421o7nZ"
         }
     ]
 }
