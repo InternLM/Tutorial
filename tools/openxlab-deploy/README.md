@@ -115,7 +115,7 @@ git instll lfs
 
 
 &nbsp; 
-设置您的 Git 用户名，OpenXLab 使用您在平台的用户名作为 Git的用户名，具体获取路径，可登录 OpenXLab 后，点击个人头像下的 【账号与安全】查看个人的用户名
+设置您的 Git 用户名，OpenXLab 使用你在平台的用户名作为 Git的用户名，具体获取路径，可登录 OpenXLab 后，点击个人头像下的 【账号与安全】查看个人的用户名
 
 ![upload_model_step1](./image/upload_model_step1.png)
 
@@ -127,7 +127,7 @@ git instll lfs
 git config --global user.name "Username"
 ```
 
-> 需要将 Username 替换成你在OpenXL平台上的用户名
+> 需要将 Username 替换成你在 OpenXLab 平台上的用户名
 
 
 &nbsp; 
@@ -147,7 +147,7 @@ git config --global user.name "Username"
 git clone https://code.openxlab.org.cn//username/reponame.git
 ```
 
-> 需要将其中的 username 和 reponame 换成在模型中心中个人的 用户名 和 模型仓库的名称，例如 https://code.openxlab.org.cn/houshaowei/internlm-chat-7b.git
+> 需要将其中的 username 和 reponame 换成在 OpenXLab 模型中心中个人的 用户名 和 模型仓库的名称，例如 https://code.openxlab.org.cn/houshaowei/internlm-chat-7b.git
 
 
 &nbsp; 
@@ -206,7 +206,7 @@ git clone https://code.openxlab.org.cn//username/reponame.git
 &nbsp; 
 在执行 `git push` 之前，如果您的仓库中包含大型文件，并且您希望使用 Git LFS 来管理这些文件，您需要先标记这些文件以便 Git LFS 能够识别它们。这通常是通过使用 `git lfs track` 命令来标记。以下是使用 `git lfs track` 命令的基本步骤：
 
-**跟踪文件**：使用 `git lfs track` 命令来标记你希望通过 Git LFS 管理的文件。例如，您想要跟踪所有的 `.bin`和` .model`的模型文件，可以使用以下命令：
+**LFS管理大文件**：使用 `git lfs track` 命令来标记你希望通过 Git LFS 管理的大文件。例如，您想要通过LFS管理所有的 `.bin`和` .model`的模型文件，可以使用以下命令：
 
 ```shell
 git lfs track "*.bin"
