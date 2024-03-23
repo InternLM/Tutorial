@@ -37,16 +37,17 @@
 
 ![WOZJXUtaKlEk9S4.png](imgs/cat_fly.png)
 
+## 2 快速上手
 
 首先我们可以通过下面这张图来简单了解一下 XTuner 的运行原理。
 
 <img width="3216" alt="XTunerFlow1" src="https://github.com/InternLM/Tutorial/assets/108343727/0c4817e8-ddaf-4276-ad16-b65d5ec6b4ae">
 
-- 假如我们想要用 XTuner 这款简单易上手的微调工具包来对模型进行微调的话，那我们最最最先开始的第一步必然就是安装XTuner！只有安装了 XTuner 在我们本地后我们才能够去思考说具体怎么操作。
+1. **环境安装**：假如我们想要用 XTuner 这款简单易上手的微调工具包来对模型进行微调的话，那我们最最最先开始的第一步必然就是安装XTuner！安装基础的工具是一切的前提，只有安装了 XTuner 在我们本地后我们才能够去思考说具体怎么操作。
 
-- 那在完成了安装后，我们下一步就需要去明确我们自己的微调目标了。就比如说我们手里掌握着那些可能可以能够微调的数据集，还有就是根据你显存的多少来选择一个合适的微调方法以及微调的模型（模型参数量越大，需要的显存也就随之变多）。
+2. **前期准备**：那在完成了安装后，我们下一步就需要去明确我们自己的微调目标了。我们想要利用微调做一些什么事情呢，那我为了做到这个事情我有哪些硬件的资源和数据呢？假如我们有对于一件事情相关的数据集，并且我们还有足够的算力资源，那当然微调就是一件水到渠成的事情。就像 OpenAI 不就是如此吗？但是对于普通的开发者而言，在资源有限的情况下，我们可能就需要考虑怎么采集数据，用什么样的手段和方式来让模型有更好的效果。
 
-- 在确定了自己的微调目标后，我们就可以在 XTuner 的配置库中找到合适的配置文件并进行对应的修改。修改完成后即可一键启动训练！训练好的模型也可以仅仅通过在终端输入一行指令来完成转换和部署工作！
+3. **启动微调**：在确定了自己的微调目标后，我们就可以在 XTuner 的配置库中找到合适的配置文件并进行对应的修改。修改完成后即可一键启动训练！训练好的模型也可以仅仅通过在终端输入一行指令来完成转换和部署工作！
 
 是不是感觉我上我也行？那下面我们就让我们来上手尝试一下整个的流程吧！
 
@@ -56,9 +57,9 @@
 # 进入环境后首先 bash
 bash
 # 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 2.0.1 的环境：
-/root/share/install_conda_env_internlm_base.sh xtuner0.1.15
+# /root/share/install_conda_env_internlm_base.sh xtuner0.1.15
 # 如果你是在其他平台：
-# conda create --name xtuner0.1.15 python=3.10 -y
+conda create --name xtuner0.1.15 python=3.10 -y
 
 # 激活环境
 conda activate xtuner0.1.15
@@ -78,7 +79,7 @@ cd xtuner
 # 从源码安装 XTuner
 pip install -e '.[all]'
 ```
-
+假如在这一过程中没有出现任何的报错的话，那也就意味着我们成功安装好支持 XTuner 所运行的环境啦。其实对于很多的初学者而言，安装好环境意味着成功了一大半！因此我们接下来就可以进入我们的第二步，准备好我们需要的数据集、模型和配置文件！
 ### 2.2 前期准备
 
 在成功安装 XTuner 后，我们就可以根据自己的目标来思考模型、数据集和微调方法的选择啦。为了能够让大家更加快速的上手并看到微调前后对比的效果，那我这里选用的就是上一期的课后作业：用 `QLoRA` 的方式来微调一个自己的小助手！我们可以通过下面两张图片来清楚的看到两者的对比。
@@ -88,10 +89,6 @@ pip install -e '.[all]'
 | 微调前   | 微调后          |
 | -------- | --------------- |
 | ![image1](https://github.com/InternLM/Tutorial/assets/108343727/f51733bc-b280-40f3-9ba9-505963809bd5) | ![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6) |
-
-
-
-
 
 #### 2.2.1 数据集准备
 
@@ -107,7 +104,7 @@ mkdir /root/ft && cd /root/ft
 mkdir data && cd data
 ```
 
-之后我们可以在`data`目录下新建一个generate_data.py文件，将以下代码复制进去，然后运行该脚本即可生成数据集。
+之后我们可以在`data`目录下新建一个generate_data.py文件，将以下代码复制进去，然后运行该脚本即可生成数据集。假如想要加大剂量让他能够完完全全认识到你的身份，那我们可以吧 n 的值调大一点。
 
 ```bash
 # 创建 generate_data.py 文件
@@ -117,7 +114,6 @@ touch generate_data.py
 打开该 python 文件后将下面的内容复制进去。
 
 ```python
-# 导入json模块以处理json数据
 import json
 
 # 设置用户的名字
@@ -125,15 +121,17 @@ name = '不要姜葱蒜大佬'
 # 设置需要重复添加的数据次数
 n = 5000
 
-# 初始化包含一条对话的列表
+# 初始化OpenAI格式的数据结构
 data = [
     {
-        "conversation": [
+        "messages": [
             {
-                # 用户的输入
-                "input": "请做一下自我介绍",
-                # 根据用户的名字，返回相应的自我介绍
-                "output": "我是{}的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦".format(name)
+                "role": "user",
+                "content": "请做一下自我介绍"
+            },
+            {
+                "role": "assistant",
+                "content": "我是{}的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦".format(name)
             }
         ]
     }
@@ -149,6 +147,7 @@ with open('personal_assistant.json', 'w', encoding='utf-8') as f:
     # ensure_ascii=False 确保中文字符正常显示
     # indent=4 使得文件内容格式化，便于阅读
     json.dump(data, f, ensure_ascii=False, indent=4)
+
 ```
 
 并将`name`后面的内容修改为你的名称。比如说我是剑锋大佬的话就是：
@@ -164,13 +163,14 @@ with open('personal_assistant.json', 'w', encoding='utf-8') as f:
 ``` bash
 python generate_data.py
 ```
-可以看到在data的路径下便生成了一个名为 `personal_assistant.json` 的文件，这样我们最可用于微调的数据集就准备好啦！
+可以看到在data的路径下便生成了一个名为 `personal_assistant.json` 的文件，这样我们最可用于微调的数据集就准备好啦！里面就包含了5000条 `input` 和 `output` 的数据对。
 
 ```
 |-- data/
     |-- personal_assistant.json
     |-- generate_data.py
 ```
+那除了我们自己通过脚本的数据集，其实网上也有大量的开源数据集可以供我们进行使用。有些时候我们可以在开源数据集的基础上添加一些我们自己独有的数据集，也可能会有很好的效果。
 
 #### 2.2.2 模型准备
 
@@ -185,7 +185,7 @@ mkdir -p /root/ft/model
 # 复制内容到目标文件夹。-r选项表示递归复制整个文件夹。
 cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b/* /root/ft/model/
 ```
-那这个时候我们就可以看到在 model 文件夹下就生成了该模型的各种权重文件和内容了。
+那这个时候我们就可以看到在 model 文件夹下保存了模型的相关文件和内容了。
 ```
 |-- model/
     |-- tokenizer.model
@@ -203,12 +203,10 @@ cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b/* /root/
     |-- generation_config.json
     |-- tokenization_internlm2_fast.py
 ```
-假如我们想要本地环境下在 ModelScope 或者 OpenXLab 下将模型下载，也可以通过以下方式实现。
-- ModelScope
-
-- OpenXLab
 
 #### 2.2.3 配置文件选择
+在准备好了模型和数据集后，我们就要根据我们选择的微调方法方法结合前面的信息来找到与我们最匹配的配置文件了，从而减少我们对配置文件的修改量。
+
 所谓配置文件（config），其实是一种用于定义和控制模型训练和测试过程中各个方面的参数和设置的工具。准备好的配置文件只要运行起来就代表着模型就开始训练或者微调了。
 
 XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令查看：
@@ -246,7 +244,7 @@ internlm2_1_8b_qlora_alpaca_e3
 
 </details>
 
-虽然我们用的数据集并不是 `alpaca` ，但是由于我们是通过 `QLoRA` 的方式对 `internlm-chat-1.8b` 进行微调，最相近的配置文件应该就是 `internlm2_1_8b_qlora_alpaca_e3` ，因此我们可以选择拷贝这个配置文件到当前目录：
+虽然我们用的数据集并不是 `alpaca` 而是我们自己通过脚本制作的小助手数据集 ，但是由于我们是通过 `QLoRA` 的方式对 `internlm-chat-1.8b` 进行微调。而最相近的配置文件应该就是 `internlm2_1_8b_qlora_alpaca_e3` ，因此我们可以选择拷贝这个配置文件到当前目录：
 ```Bash
 # 创建一个存放 config 文件的文件夹
 mkdir -p /root/ft/config
@@ -330,7 +328,7 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 ```diff
 # 修改max_length来降低显存的消耗
 - max_length = 2048
-+ max_length = 512
++ max_length = 1024
 
 # 减少训练的轮数
 - max_epochs = 3
@@ -382,8 +380,6 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 
 #### 2.3.5 小结
 这一节我们讲述了微调过程中一些常见的需要调整的内容，包括各种的路径、超参数、评估问题等等。完成了这部分的修改后，我们就可以正式的开始我们下一阶段的旅程： XTuner 启动~！
-
-![tH8udZzECYl5are.png](imgs/ysqd.png)
 
 ### 2.4 模型训练
 
@@ -652,83 +648,62 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 一般来说，我们假如想测试模型的好坏的话，通常可以通过一下两种方式实现：
 - 主观的对话测试
 - 客观的试题评测（例如使用 OpenCompass 获取得分）
-那对于大部分的小模型而言，我们都只需要主观的对话进行判断即可。在 XTuner 中也直接的提供了一套基于 transformers 的对话代码，让我们可以直接在终端与 Huggingface 格式的模型进行对话操作。我们只需要准备我们刚刚转换好的模型路径即可进行对话。
+那对于大部分的小模型而言，我们都只需要主观的对话进行判断即可。在 XTuner 中也直接的提供了一套基于 transformers 的对话代码，让我们可以直接在终端与 Huggingface 格式的模型进行对话操作。我们只需要准备我们刚刚转换好的模型路径并选择对应的提示词模版（prompt-template）即可进行对话。假如 prompt-template 选择有误，很有可能导致模型无法正确的进行回复。
+
+> 想要了解具体模型的 prompt-template 或者 XTuner 里支持的 prompt-tempolate，可以到 XTuner 源码中的 `xtuner/utils/templates.py` 这个文件中进行查找。
 ```Bash
 # 与模型进行对话
-xtuner chat /root/ft/final_model
+xtuner chat /root/ft/final_model --prompt-template internlm2_chat
 ```
 我们可以通过一些简单的测试来看看微调后的模型的能力。
 > 假如我们想要输入内容需要在输入文字后敲击两下回车，假如我们想清楚历史记录需要输入 RESET，假如我们想要退出则需要输入 EXIT。
 ```
-double enter to end input (EXIT: exit chat, RESET: reset history) >>> 请你介绍一下你自己
-
+double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
 
 我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
-double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
+double enter to end input (EXIT: exit chat, RESET: reset history) >>>  请你介绍一下你自己
 
-的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我的小助手吗？
 
-内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
 
 Log: Exit!
 ```
-可以看到模型已经严重过拟合，回复的话就只有 “我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这句话或者这句话里面的某一部分。我们可以对比一下原模型的效果。
+可以看到模型已经严重过拟合，回复的话就只有 “我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这句话。我们下面可以通过对比原模型的能力来看看差异。
 
 ```bash
 # 同样的我们也可以和原模型进行对话进行对比
-xtuner chat /root/ft/model
+xtuner chat /root/ft/model --prompt-template internlm2_chat
 ```
 我们可以用同样的问题来查看回复的情况。
 ```
-double enter to end input (EXIT: exit chat, RESET: reset history) >>>   你是谁？
+double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
 
+我是一个人工智能助手，旨在帮助用户回答问题、提供定义和解释、将文本从一种语言翻译成另一种语言、总结文本、生成文本、编写故事、分析情感、提供推荐、开发算法、编写代码以及其他任何基于语言的任务。我致力于通过执行常见的基于语言的任务和提供建议来帮助人类。<|im_end|>
 
-我是你，一个普通的不能再普通的人。<|im_end|>
- 我是谁？
- 我是你，一个普通的不能再普通的人。
- 我是谁？
- 我是你，一个普通的不能再普通的人。
- 我是谁？
- ...
+double enter to end input (EXIT: exit chat, RESET: reset history) >>> 请你介绍一下你自己
 
- double enter to end input (EXIT: exit chat, RESET: reset history) >>> 请你介绍一下你自己
-
-
- 我是一个平凡的人，平凡到连自己都瞧不起。
- 我，李小雨，一个平凡到连自己都瞧不起的人。
- 我，李小雨，一个平凡到连自己都瞧不起的人。
- 我，李小雨，一个平凡到连自己都瞧不起的人。
- ...
+非常感谢您的提问。我是一个名叫书生·浦语的人工智能助手，由上海人工智能实验室开发。我使用了Transformer模型和深度学习技术，并使用语言模型作为预训练任务。我致力于通过执行常见的基于语言的任务和提供建议来帮助人类。我能够回答问题、提供定义和解释、将文本从一种语言翻译成另一种语言、总结文本、生成文本、编写故事、分析情感、提供推荐、开发算法、编写代码以及其他任何基于语言的任务。如果您有任何需要帮助的问题，欢迎随时向我提问。<|im_end|>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我的小助手吗
 
-？是的，我是你的助手。我可以帮助你完成各种任务，包括回答问题、提供定义和解释、将文本从一种语言翻译成另一种语言、总结文本、生成文本、编写故事、分析情感、提供推荐、开发算法、编写代码以及其他任何基于语言的任务。
+是的，我非常乐意成为您的助手。我致力于通过执行常见的基于语言的任务和提供建议来帮助您。如果您有任何需要帮助的问题，请随时向我提问。我会尽力回答您的问题并提供有用的建议。<|im_end|>
 
-我致力于通过执行常见的基于语言的任务和提供建议来帮助人类。如果你有任何需要帮助的任务，请随时告诉我，我会尽力帮助你。<|im_end|>
-当然，我可以帮助你完成各种基于语言的任务。请告诉我你需要我做什么，我会尽力帮助你。<|im_end|>
-请告诉我你需要我做什么，我会尽力帮助你。<|im_end|>
-<|im_end|>
-<|im_end|>
-好的，请告诉我你需要我做什么，我会尽力帮助你。<|im_end|>
-<|im_end|>
-请告诉我你需要我做什么，我会尽力帮助你。<|im_end|>
-<|im_end|>
-<|im_end|>
-好的，请告诉我你需要我做什么，我会尽力帮助你。<|im_end|>
-...
+double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
+
+Log: Exit!
 ```
-虽然原模型回复的效果也很不尽如人意，主要可能得原因在于该模型还没有进行很好的对话微调，但是我们从两个模型的对比中也可以清洗的看到模型微调能够给原模型带来的改变和威力。
+可以看到在没有进行我们数据的微调前，原模型是能够输出有逻辑的回复，并且也不会认为他是我们特有的小助手。因此我们可以很明显的看出两者之间的差异性。
 
 那对于 `xtuner chat` 这个指令而言，还有很多其他的参数可以进行设置的，包括：
 
 | 启动参数              | 解释                                                               |
 |-----------------------|--------------------------------------------------------------------|
-| **--prompt-template** | 指定对话模板，用于自定义对话的初始模板                             |
 | --system              | 指定SYSTEM文本，用于在对话中插入特定的系统级信息                   |
 | --system-template     | 指定SYSTEM模板，用于自定义系统信息的模板                           |
 | **--bits**            | 指定LLM运行时使用的位数，决定了处理数据时的精度                     |
@@ -754,7 +729,8 @@ xtuner chat /root/ft/model --adapter /root/ft/huggingface
 #### 2.4.3 小结
 在这一节里我们对微调后的模型（adapter）进行了转换及整合的操作，并通过 `xtuner chat` 来对模型进行了实际的对话测试。从结果可以清楚的看出模型的回复在微调的前后出现了明显的变化。那当我们在测试完模型认为其满足我们的需求后，我们就可以对模型进行量化部署等操作了，这部分的内容在之后关于 LMDeploy 的课程中将会详细的进行赘述，这里我们就不多说了。
 
-
+## 2.5 总结
+在本节中主要就是带领着大家跑通了 XTuner 的一个完整流程，通过了解数据集和模型的使用方法、配置文件的制作和训练以及最后的转换及整合。那在后面假如我们也有想要微调出自己的一个模型，我们也可以尝试使用同样流程和方法进行进一步的实践！
 
 
 ## 3 自定义微调
