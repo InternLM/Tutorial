@@ -367,6 +367,22 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 这样修改完后在评估过程中就会显示在当前的权重文件下模型对这几个问题的回复了。
 
 #### 2.3.4 数据集格式修改
+由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式要求改为我们最通用的 OpenAI 数据集格式。
+``` diff
+# 将原本是 alpaca 的地址改为是 json 文件的地址
+- dataset=dict(type=load_dataset, path=alpaca_en_path),
++ dataset=dict(type=load_dataset, path='json', data_files=dict(train=alpaca_en_path)),
+
+# 把 OpenAI 格式的 map_fn 载入进来
+- from xtuner.dataset.map_fns import alpaca_map_fn, template_map_fn_factory
++ from xtuner.dataset.map_fns import openai_map_fn, template_map_fn_factory,
+
+# 将 dataset_map_fn 改为通用的 OpenAI 数据集格式
+- dataset_map_fn=alpaca_map_fn,
++ dataset_map_fn=openai_map_fn,
+```
+
+#### 2.3.4 数据集格式修改
 由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式就是 XTuner 支持的数据集格式而不再需要通过设置的 map_fn 进行映射转换。
 ``` diff
 # 将原本是 alpaca 的地址改为是 json 文件的地址
