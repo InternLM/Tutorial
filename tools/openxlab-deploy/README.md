@@ -336,18 +336,18 @@ InternLM is mainly developed by Shanghai AI Laboratory.
                  ).queue(1).launch()
 ```
 &nbsp; 
-> **应用代码注意事项** ：在 `app.py` 文件中，如需下载模型和了解文件存放路径
->
-> 1. **工作目录**：OpenXLab 应用代码默认存储的位置为 **`/home/xlab-app-center`**，如需指定存储路径，可用相对路径“./”表示，本示例采用相对路径方式
-> 2. **模型下载**：若需要在app.py中快速导入模型，可前往 模型中心上传模型权重后，通过平台提供的 git 方式进行下载，详情可参考 [应用如何导入模型中心的模型](/apps/应用创建流程.html#应用如何导入模型中心的模型)，模型上传的详细步骤可查看 [模型上传详细流程](/models/上传模型.html)
->
-> ```python
-> import os
-> # download internlm2 to the base_path directory using git tool
-> base_path = './internlm2-chat-7b'
-> os.system(f'git clone https://code.openxlab.org.cn/OpenLMLab/internlm2-chat-7b.git {base_path}')
-> os.system(f'cd {base_path} && git lfs pull')
-> ```
+ **应用代码注意事项** ：在 `app.py` 文件中，如需下载模型和了解文件存放路径
+
+ 1. **工作目录**：OpenXLab 应用代码默认存储的位置为 **`/home/xlab-app-center`**，如需指定存储路径，可用相对路径“./”表示，本示例采用相对路径方式
+ 2. **模型下载**：若需要在app.py中快速导入模型，可前往 模型中心上传模型权重后，通过平台提供的 git 方式进行下载，详情可参考 [应用如何导入模型中心的模型](https://openxlab.org.cn/docs/apps/%E5%BA%94%E7%94%A8%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B.html#%E5%BA%94%E7%94%A8%E5%A6%82%E4%BD%95%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B%E4%B8%AD%E5%BF%83%E7%9A%84%E6%A8%A1%E5%9E%8B)，模型上传的详细步骤可查看 [模型上传详细流程](https://openxlab.org.cn/docs/models/%E4%B8%8A%E4%BC%A0%E6%A8%A1%E5%9E%8B.html)
+
+ ```python
+ import os
+ # download internlm2 to the base_path directory using git tool
+ base_path = './internlm2-chat-7b'
+ os.system(f'git clone https://code.openxlab.org.cn/OpenLMLab/internlm2-chat-7b.git {base_path}')
+ os.system(f'cd {base_path} && git lfs pull')
+ ```
 
 
 &nbsp; 
