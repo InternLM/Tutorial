@@ -95,6 +95,10 @@
 1. 访问Git官方网站下载页面：[Git - Downloads](https://git-scm.com/downloads)
 2. 点击“Windows”下载Git安装程序。
 3. 运行下载的安装程序并按照向导指示完成安装。
+```shell
+# use git install lfs
+git lfs install
+```
 
 **Linux:** 
 
@@ -110,7 +114,7 @@ sudo apt-get update
 sudo apt-get install git-lfs
 
 # use git install lfs
-git instll lfs
+git lfs install
 ```
 
 
@@ -121,7 +125,7 @@ git instll lfs
 
 ![upload_model_step2](./image/upload_model_step2.png)
 
-配置 Git Username
+配置 Git Username，用于作为 Git 提交的身份标识。
 
 ```shell
 git config --global user.name "Username"
@@ -129,6 +133,11 @@ git config --global user.name "Username"
 
 > 需要将 Username 替换成你在 OpenXLab 平台上的用户名
 
+配置 Git Email
+
+```shell
+git config --global user.email "email@email.com"
+```
 
 &nbsp; 
 #### 2.2.2 拉取模型仓库
