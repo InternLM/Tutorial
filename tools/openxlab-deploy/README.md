@@ -172,13 +172,10 @@ git clone https://code.openxlab.org.cn//username/reponame.git
 
 ![upload_model_step7](./image/upload_model_step7.png)
 
-添加完令牌后，记得复制生成的 Access Token，如下图所示
+添加完令牌后，记得复制生成的 Access Token，如下图所示，在后续上传模型文件，执行git push 命令时会需要填入 Username 和 Access Token 信息
 
 ![upload_model_step8](./image/upload_model_step8.png)
 
-在执行 git clone 时会弹出身份验证的弹窗，填入 Username 和 Token 信息，如图所示
-
-![img](./image/upload_model_step9.png)
 
 
 &nbsp; 
@@ -240,6 +237,9 @@ git push
 > 3. `git commit -m "upload model"`：创建一个新的提交，附带提交信息"upload model"。
 > 4. `git push`：将本地的提交推送到远程仓库。
 
+在执行 git push 时会弹出身份验证的弹窗，填入 Username 和 Access Token 信息，如图所示
+
+![img](./image/upload_model_step9.png)
 
 
 上传后的模型仓库可参考：https://openxlab.org.cn/models/detail/OpenLMLab/internlm2-chat-7b
