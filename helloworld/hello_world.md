@@ -75,3 +75,36 @@ PPT 地址：https://1drv.ms/p/s!AlAIlKoW9ghjqUbS6VIDvxF4t-IA?e=QddEep
     pip install streamlit==1.32.2 
     pip install matplotlib==3.8.3 
     pip install modelscope==1.9.5
+
+### **2.3 利用 Modelscope 代码运行 InternLM2-Chat-1.8B 模型的 Cli demo**
+  
+按路径创建文件夹，并进入到对应文件目录中：
+
+    mkdir -p /root/demo
+    touch /root/demo/cli_demo.py
+    touch /root/demo/download_mini.py
+    cd /root/demo
+
+通过左侧文件夹栏目，双击进入 `demo` 文件夹。
+
+[图片]
+
+双击打开 download_mini.py 文件，复制以下代码：
+
+    import os
+    from modelscope.hub.snapshot_download import snapshot_download
+
+    # 创建保存模型目录
+    os.system("mkdir /root/demo/internlm2-chat-1_8b")
+
+    # save_dir是模型保存到本地的目录
+    save_dir="/root/demo/internlm2-chat-1_8b"
+    snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
+                    cache_dir=save_dir, 
+                    revision='v1.1.0')
+
+执行命令，下载模型参数文件：
+
+    python download_mini.py
+
+    
