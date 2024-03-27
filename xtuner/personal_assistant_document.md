@@ -378,21 +378,10 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 + dataset_map_fn=openai_map_fn,
 ```
 
-#### 2.3.4 数据集格式修改
-由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式就是 XTuner 支持的数据集格式而不再需要通过设置的 map_fn 进行映射转换。
-``` diff
-# 将原本是 alpaca 的地址改为是 json 文件的地址
-- dataset=dict(type=load_dataset, path=alpaca_en_path),
-+ dataset=dict(type=load_dataset, path='json', data_files=dict(train=alpaca_en_path)),
-
-# 将 dataset_map_fn 改为 None
-- dataset_map_fn=alpaca_map_fn,
-+ dataset_map_fn=None,
-```
-
 #### 2.3.5 小结
 这一节我们讲述了微调过程中一些常见的需要调整的内容，包括各种的路径、超参数、评估问题等等。完成了这部分的修改后，我们就可以正式的开始我们下一阶段的旅程： XTuner 启动~！
 
+![tH8udZzECYl5are.png](imgs/ysqd.png)
 ### 2.4 模型训练
 
 #### 2.4.1 常规训练
@@ -587,6 +576,7 @@ xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /
 <span style="color: red;">**此时，huggingface 文件夹即为我们平时所理解的所谓 “LoRA 模型文件”**</span>
 
 > 可以简单理解：LoRA 模型文件 = Adapter
+
 除此之外，我们其实还可以在转换的指令中添加几个额外的参数，包括以下两个：
 | 参数名 | 解释 |
 | ------------------- | ------------------------------------------------------ |
