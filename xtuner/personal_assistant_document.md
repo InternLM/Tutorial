@@ -34,7 +34,20 @@
 
 ## 2 快速上手
 
-首先我们可以通过下面这张图来简单了解一下 XTuner 的运行原理。
+为了能够让大家更加快速的上手并看到微调前后对比的效果，那我这里选用的就是上一期的课后作业：用 `QLoRA` 的方式来微调一个自己的小助手！我们可以通过下面两张图片来清楚的看到两者的对比。
+
+| 微调前   | 微调后          |
+| -------- | --------------- |
+| ![image1](https://github.com/InternLM/Tutorial/assets/108343727/f51733bc-b280-40f3-9ba9-505963809bd5) | ![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6) |
+
+可以明显看到的是，微调后的大模型真的能够被调整成我们想要的样子，下面就让我们一步步的来实现这个有趣的过程吧！
+
+
+<details>
+<summary>XTuner的流程展示</summary>
+
+
+我们可以通过下面这张图来简单了解一下 XTuner 的运行原理。
 
 <img width="3216" alt="XTunerFlow1" src="https://github.com/InternLM/Tutorial/assets/108343727/0c4817e8-ddaf-4276-ad16-b65d5ec6b4ae">
 
@@ -44,7 +57,7 @@
 
 3. **启动微调**：在确定了自己的微调目标后，我们就可以在 XTuner 的配置库中找到合适的配置文件并进行对应的修改。修改完成后即可一键启动训练！训练好的模型也可以仅仅通过在终端输入一行指令来完成转换和部署工作！
 
-是不是感觉我上我也行？那下面我们就让我们来上手尝试一下整个的流程吧！
+</details>
 
 ### 2.1 环境安装
 首先我们需要先安装一个 XTuner 的源码到本地来方便后续的使用。
@@ -76,14 +89,6 @@ pip install -e '.[all]'
 ```
 假如在这一过程中没有出现任何的报错的话，那也就意味着我们成功安装好支持 XTuner 所运行的环境啦。其实对于很多的初学者而言，安装好环境意味着成功了一大半！因此我们接下来就可以进入我们的第二步，准备好我们需要的数据集、模型和配置文件！
 ### 2.2 前期准备
-
-在成功安装 XTuner 后，我们就可以根据自己的目标来思考模型、数据集和微调方法的选择啦。为了能够让大家更加快速的上手并看到微调前后对比的效果，那我这里选用的就是上一期的课后作业：用 `QLoRA` 的方式来微调一个自己的小助手！我们可以通过下面两张图片来清楚的看到两者的对比。
-
-
-
-| 微调前   | 微调后          |
-| -------- | --------------- |
-| ![image1](https://github.com/InternLM/Tutorial/assets/108343727/f51733bc-b280-40f3-9ba9-505963809bd5) | ![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6) |
 
 #### 2.2.1 数据集准备
 
@@ -502,6 +507,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 <s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
 <|User|>:你是我的小助手吗
 <|Bot|>:是的</s>
+
 # 600轮
 03/20 00:19:43 - mmengine - INFO - Sample output:
 <s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -596,7 +602,7 @@ xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /
 
 而对于全量微调的模型（full）其实是不需要进行整合这一步的，因为全量微调修改的是原模型的权重而非微调一个新的 adapter ，因此是不需要进行模型整合的。
 
-![QLoRA](https://github.com/InternLM/Tutorial/assets/108343727/dbb82ca8-e0ef-41db-a8a9-7d6958be6a96)
+<img src="https://github.com/InternLM/Tutorial/assets/108343727/dbb82ca8-e0ef-41db-a8a9-7d6958be6a96" width="300" height="300">
 
 
 在 XTuner 中也是提供了一键整合的指令，但是在使用前我们需要准备好三个地址，包括原模型的地址、训练好的 adapter 层的地址（转为 Huggingface 格式后保存的部分）以及最终保存的地址。
