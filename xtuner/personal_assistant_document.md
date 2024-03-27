@@ -64,10 +64,10 @@
 ```bash
 # 进入环境后首先 bash
 bash
-# 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 2.0.1 的环境：
-# /root/share/install_conda_env_internlm_base.sh xtuner0.1.15
+# 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 的环境：
+studio-conda xtuner0.1.15
 # 如果你是在其他平台：
-conda create --name xtuner0.1.15 python=3.10 -y
+# conda create --name xtuner0.1.15 python=3.10 -y
 
 # 激活环境
 conda activate xtuner0.1.15
@@ -76,7 +76,7 @@ cd ~
 # 创建版本文件夹并进入，以跟随本教程
 mkdir xtuner0115 && cd xtuner0115
 
-# 拉取 0.1.9 的版本源码
+# 拉取 0.1.15 的版本源码
 git clone -b v0.1.15  https://github.com/InternLM/xtuner
 # 无法访问github的用户请从 gitee 拉取:
 # git clone -b v0.1.15 https://gitee.com/Internlm/xtuner
