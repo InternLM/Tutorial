@@ -64,19 +64,19 @@
 配置完成后，进入到新创建的 conda 环境之中：
 
 ```bash
-    conda activate demo
+conda activate demo
 ```
 
 输入以下命令，完成环境包的安装：
 
 ```bash
-    pip install huggingface-hub==0.17.3
-    pip install transformers==4.34 
-    pip install psutil==5.9.8
-    pip install accelerate==0.24.1
-    pip install streamlit==1.32.2 
-    pip install matplotlib==3.8.3 
-    pip install modelscope==1.9.5
+pip install huggingface-hub==0.17.3
+pip install transformers==4.34 
+pip install psutil==5.9.8
+pip install accelerate==0.24.1
+pip install streamlit==1.32.2 
+pip install matplotlib==3.8.3 
+pip install modelscope==1.9.5
 ```
 
 ### **2.3 利用 Modelscope 代码运行 InternLM2-Chat-1.8B 模型的 Cli demo**
@@ -84,10 +84,10 @@
 按路径创建文件夹，并进入到对应文件目录中：
 
 ```bash
-    mkdir -p /root/demo
-    touch /root/demo/cli_demo.py
-    touch /root/demo/download_mini.py
-    cd /root/demo
+mkdir -p /root/demo
+touch /root/demo/cli_demo.py
+touch /root/demo/download_mini.py
+cd /root/demo
 ```
 
 通过左侧文件夹栏目，双击进入 `demo` 文件夹。
@@ -97,23 +97,23 @@
 双击打开 download_mini.py 文件，复制以下代码：
 
 ```python
-    import os
-    from modelscope.hub.snapshot_download import snapshot_download
+import os
+from modelscope.hub.snapshot_download import snapshot_download
 
-    # 创建保存模型目录
-    os.system("mkdir -p /root/demo/internlm2-chat-1_8b")
+# 创建保存模型目录
+os.system("mkdir -p /root/demo/internlm2-chat-1_8b")
 
-    # save_dir是模型保存到本地的目录
-    save_dir="/root/demo/internlm2-chat-1_8b"
-    snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
-                    cache_dir=save_dir, 
-                    revision='v1.1.0')
+# save_dir是模型保存到本地的目录
+save_dir="/root/demo/internlm2-chat-1_8b"
+snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
+                cache_dir=save_dir, 
+                revision='v1.1.0')
 ```
 
 执行命令，下载模型参数文件：
 
 ```bash
-    python download_mini.py
+python download_mini.py
 ```
 
 等待模型加载完成，效果如下：
@@ -152,16 +152,16 @@
 创建用于演示的文件，输入以下指令：
 
 ```bash
-    mkdir -p /root/demo/work
-    touch /root/demo/work/bajie_download.py
-    touch /root/demo/work/bajie_chat.py
-    cd /root/demo/work
+mkdir -p /root/demo/work
+touch /root/demo/work/bajie_download.py
+touch /root/demo/work/bajie_chat.py
+cd /root/demo/work
 ```
 
 运行环境补充命令：
 
 ```bash
-    conda activate demo
+conda activate demo
 ```
 
 ### 3.3 **使用 `OpenXLab` 下载运行 Chat-八戒 Demo**
@@ -173,30 +173,27 @@
 复制以下代码：
 
 ```python
-    import torch
-    import os
-    from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
-    base_path = './BaJie-Chat-1_8b'
-    os.system('apt install git')
-    os.system('apt install git-lfs')
-    os.system(f'git clone https://code.openxlab.org.cn/JimmyMa99/BaJie-Chat-1.8b.git {base_path}')
-    os.system(f'cd {base_path} && git lfs pull')
+import torch
+import os
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
+base_path = './BaJie-Chat-1_8b'
+os.system('apt install git')
+os.system('apt install git-lfs')
+os.system(f'git clone https://code.openxlab.org.cn/JimmyMa99/BaJie-Chat-1.8b.git {base_path}')
+os.system(f'cd {base_path} && git lfs pull')
 
-    model_path = '/root/demo/work/BaJie-Chat-1_8b'
-    tokenizer = AutoTokenizer.from_pretrained(model_path,trust_remote_code=True)
-    model = AutoModelForCausalLM.from_pretrained(model_path,trust_remote_code=True, torch_dtype=torch.float16).cuda()
 ```
 
 运行该 python 文件，输入以下指令：
 
 ```bash
-    python bajie_download.py
+python bajie_download.py
 ```
 
 打开 `bajie_chat.py` 文件后，将 github 仓库中对应的代码复制进去，输入运行命令：
 
 ```bash
-    streamlit run /root/demo/work/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
+streamlit run /root/demo/work/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
 ```
 
 待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
@@ -208,7 +205,7 @@
 ![alt text](images/img-A.png)
 
 ```bash
-    ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ```
 
 再复制下方的密码，输入到 `password` 中，直接回车：
@@ -247,22 +244,22 @@ Lagent 的特性总结如下：
 重新开启开发机，输入命令，开启 conda 环境：
 
 ```bash
-    conda activate demo
+conda activate demo
 ```
 
 打开文件子路径
 
 ```bash
-    cd /root/demo
+cd /root/demo
 ```
 
 使用 git 命令下载 Lagent 相关的代码库：
 
 ```bash
-    git clone https://gitee.com/internlm/lagent.git
-    git clone https://github.com/internlm/lagent.git
-    cd /root/demo/lagent
-    pip install -e . # 源码安装
+git clone https://gitee.com/internlm/lagent.git
+git clone https://github.com/internlm/lagent.git
+cd /root/demo/lagent
+pip install -e . # 源码安装
 ```
 
 运行效果如图：
@@ -278,13 +275,13 @@ Lagent 的特性总结如下：
 打开 lagent 路径：
 
 ```bash
-    cd /root/demo/lagent
+cd /root/demo/lagent
 ```
 
 在 terminal 中输入指令：
 
 ```bash
-    ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/demo/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/demo/internlm2-chat-7b
 ```
 
 打开 `lagent` 路径下 `examples/internlm2_agent_web_demo_hf.py` 文件，并修改对应位置 (71行左右) 代码：
@@ -292,15 +289,15 @@ Lagent 的特性总结如下：
 ![alt text](images/img-H.png)
 
 ```bash
-    ...
-    value='/root/demo/internlm2-chat-7b'
-    ...
+...
+value='/root/demo/internlm2-chat-7b'
+...
 ```
 
 输入运行命令：
 
 ```bash
-    streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server.address 127.0.0.1 --server.port 6006
+streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server.address 127.0.0.1 --server.port 6006
 ```
 
 待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
@@ -311,7 +308,7 @@ Lagent 的特性总结如下：
 
 ![alt text](images/img-A.png)
 
-    ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 再复制下方的密码，输入到 `password` 中，直接回车：
 
@@ -348,33 +345,33 @@ Lagent 的特性总结如下：
 进入开发机，启动 `conda` 环境：
 
 ```bash
-    conda activate demo
-    # 补充环境包
-    pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 timm==0.4.12 gradio==4.13.0 markdown2==2.4.10 xlsxwriter==3.1.2 modelscope==1.9.5
+conda activate demo
+# 补充环境包
+pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 timm==0.4.12 gradio==4.13.0 markdown2==2.4.10 xlsxwriter==3.1.2modelscope==1.9.5
 ```
 
 下载 xcomposer 相关的代码资源：
 
 ```bash
-    cd /root/demo
-    git clone https://github.com/internlm/InternLM-XComposer.git
-    cd InternLM-XComposer/examples
+cd /root/demo
+git clone https://github.com/internlm/InternLM-XComposer.git
+cd InternLM-XComposer/examples
 ```
 
 在 terminal 中输入指令，构造软链接：
 
 ```bash
-    ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/demo/internlm-xcomposer2-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/demo/internlm-xcomposer2-7b
 ```
 
 继续输入指令，用于启动 `InternLM-XComposer`：
 
 ```bash
-    cd /root/demo/InternLM-XComposer
-    python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
-    --code_path /root/demo/internlm-xcomposer2-7b \
-    --num_gpus 1 \
-    --port 6006
+cd /root/demo/InternLM-XComposer
+python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
+--code_path /root/demo/internlm-xcomposer2-7b \
+--num_gpus 1 \
+--port 6006
 ```
 
 待程序运行的同时，参考章节 3.3 部分对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键：
@@ -385,7 +382,7 @@ Lagent 的特性总结如下：
 
 ![alt text](images/img-A.png)
 
-    ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 再复制下方的密码，输入到 `password` 中，直接回车：
 
@@ -405,20 +402,20 @@ Lagent 的特性总结如下：
 对于 `pip `换源，需要临时使用镜像源安装，如下所示：some-package 为你需要安装的包名
 
 ```bash
-    pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple some-package
+pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple some-package
 ```
 
 设置 `pip` 默认镜像源，升级 `pip` 到最新的版本 (>=10.0.0) 后进行配置，如下所示：
 
 ```bash
-    python -m pip install --upgrade pip
-    pip config set global.index-url   https://mirrors.cernet.edu.cn/pypi/web/simple
+python -m pip install --upgrade pip
+pip config set global.index-url   https://mirrors.cernet.edu.cn/pypi/web/simple
 ```
 
 如果您的 `pip` 默认源的网络连接较差，可以临时使用镜像源升级 `pip`：
 
 ```bash
-    python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade pip
+python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade pip
 ```
 
 对于 `conda` 换源，镜像站提供了 `Anaconda` 仓库与第三方源（`conda-forge`、`msys2`、`pytorch` 等），各系统都可以通过修改用户目录下的 `.condarc` 文件来使用镜像站。不同系统下的 `.condarc` 目录如下：
@@ -431,6 +428,7 @@ Lagent 的特性总结如下：
 
 快速配置
 
+```shell
     cat <<'EOF' > ~/.condarc
     channels:
     - defaults
@@ -443,6 +441,7 @@ Lagent 的特性总结如下：
     conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
     pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
     EOF
+```
 
 ### 6.2 **（可选参考）模型下载**
 
@@ -453,7 +452,7 @@ Lagent 的特性总结如下：
 使用 `Hugging Face` 官方提供的 `huggingface-cli` 命令行工具。安装依赖:
 
 ```bash
-    pip install -U huggingface_hub
+pip install -U huggingface_hub
 ```
 
 然后新建 `python` 文件，填入以下代码，运行即可。
@@ -464,18 +463,18 @@ Lagent 的特性总结如下：
 其中 linux 环境下需要填写绝对路径.
 
 ```python
-    import os
-    # 下载模型
-    os.system('huggingface-cli download --resume-download internlm/internlm2-chat-7b --local-dir your_path')
+import os
+# 下载模型
+os.system('huggingface-cli download --resume-download internlm/internlm2-chat-7b --local-dir your_path')
 ```
 
 以下内容将展示使用 `huggingface_hub` 下载模型中的部分文件
 
 ```python
-    import os 
-    from huggingface_hub import hf_hub_download  # Load model directly 
+import os 
+from huggingface_hub import hf_hub_download  # Load model directly 
 
-    hf_hub_download(repo_id="internlm/internlm2-7b", filename="config.json")
+hf_hub_download(repo_id="internlm/internlm2-7b", filename="config.json")
 ```
 
 #### 6.2.2 **ModelScope**
@@ -487,17 +486,17 @@ Lagent 的特性总结如下：
 安装依赖：
 
 ```bash
-    pip install modelscope==1.9.5
-    pip install transformers==4.35.2
+pip install modelscope==1.9.5
+pip install transformers==4.35.2
 ```
 
 在当前目录下新建 `python` 文件，填入以下代码，运行即可。
 
 ```python
-    import torch
-    from modelscope import snapshot_download, AutoModel, AutoTokenizer
-    import os
-    model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-chat-7b', cache_dir='your path', revision='master')
+import torch
+from modelscope import snapshot_download, AutoModel, AutoTokenizer
+import os
+model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-chat-7b', cache_dir='your path', revision='master')
 ```
 
 #### 6.2.3 **OpenXLab**
@@ -505,20 +504,20 @@ Lagent 的特性总结如下：
 `OpenXLab` 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件，使用 `python` 脚本下载模型首先要安装依赖，安装代码如下：
 
 ```bash
-    pip install -U openxlab
+pip install -U openxlab
 ```
 
 安装完成后使用 `download` 函数导入模型中心的模型。
 
 ```python
-    import torch
-    import os
-    from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
-    base_path = './local_files'
-    os.system('apt install git')
-    os.system('apt install git-lfs')
-    os.system(f'git clone https://code.openxlab.org.cn/Usr_name/repo_name.git {base_path}')
-    os.system(f'cd {base_path} && git lfs pull')
+import torch
+import os
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
+base_path = './local_files'
+os.system('apt install git')
+os.system('apt install git-lfs')
+os.system(f'git clone https://code.openxlab.org.cn/Usr_name/repo_name.git {base_path}')
+os.system(f'cd {base_path} && git lfs pull')
 ```
 
 该章节内容仅供参考，并不作为必须实践的内容。
