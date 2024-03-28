@@ -58,13 +58,15 @@
 进入开发机后，在 `terminal` 中输入环境配置命令：
 
 ```bash
-    studio-conda -o internlm-base -t demo
+studio-conda -o internlm-base -t demo
+# conda create -n demo python==3.10 -y
 ```
 
 配置完成后，进入到新创建的 conda 环境之中：
 
 ```bash
 conda activate demo
+# conda install 
 ```
 
 输入以下命令，完成环境包的安装：
