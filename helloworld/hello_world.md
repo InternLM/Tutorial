@@ -46,7 +46,7 @@ PPT 地址：https://1drv.ms/p/s!AlAIlKoW9ghjqUbS6VIDvxF4t-IA?e=QddEep
 ### **2.2 配置基础环境**
 首先，打开 `InternLM Studio` 界面，点击 创建开发机 配置开发机系统。
 
-[图片]
+![alt text](images/img-1.png)
 
 填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `10% A100 * 1` 的选项，然后立即创建开发机器。
 
@@ -85,7 +85,7 @@ PPT 地址：https://1drv.ms/p/s!AlAIlKoW9ghjqUbS6VIDvxF4t-IA?e=QddEep
 
 通过左侧文件夹栏目，双击进入 `demo` 文件夹。
 
-[图片]
+![alt text](images/img-4.png)
 
 双击打开 download_mini.py 文件，复制以下代码：
 
@@ -105,4 +105,53 @@ PPT 地址：https://1drv.ms/p/s!AlAIlKoW9ghjqUbS6VIDvxF4t-IA?e=QddEep
 
     python download_mini.py
 
-    
+双击打开 `download_mini.py` 文件，复制以下代码（可选）：
+
+    import os
+    from modelscope.hub.snapshot_download import snapshot_download
+
+    # 创建保存模型目录
+    os.system("mkdir /root/demo/internlm2-chat-1_8b")
+
+    # save_dir是模型保存到本地的目录
+    save_dir="/root/demo/internlm2-chat-1_8b"
+    snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
+                    cache_dir=save_dir, 
+                    revision='v1.1.0')
+
+双击打开 `cli_demo.py` 文件。将 `github repo` 中的对应代码复制进去，并在 `terminal` 运行命令：
+
+    cd /root/demo
+    python cli_demo.py
+
+等待模型加载完成，效果如下：
+
+![alt text](images/img-5.png)
+
+## 3 **实战：通过 `OpenXLab` 部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
+
+### 3.1 **简单介绍 `八戒-Chat-1.8B`、`Chat-嬛嬛-1.8B`、`Mini-Horo-巧耳`（实战营优秀作品）**
+`八戒-Chat-1.8B`、`Chat-嬛嬛-1.8B`、`Mini-Horo-巧耳` 均是在第一期实战营中运用 `InternLM2-Chat-1.8B` 模型进行微调训练的优秀成果。其中，`八戒-Chat-1.8B` 是利用《西游记》剧本中所有关于猪八戒的台词和语句以及 LLM API 生成的相关数据结果，进行全量微调得到的猪八戒聊天模型。作为 `Roleplay-with-XiYou` 子项目之一，`八戒-Chat-1.8B` 能够以较低的训练成本达到不错的角色模仿能力，同时低部署条件能够为后续工作降低算力门槛。
+
+<center>
+
+![alt text](images/img-6.png)
+
+</center>
+
+结合实战章节 2 的经验，我们采用 `OpenXLab` 平台完成 `八戒-Chat-1.8B` 的部署。`OpenXLab` 平台是面向 AI 研究员和开发者提供 AI 领域的一站式服务平台，包含数据集中心、模型中心和应用中心。具体细节和各种炫酷的应用方法会在实战营后续章节详细说明。
+
+<center>
+
+![alt text](images/img-7.png)
+
+</center>
+
+当然，同学们也可以参考其他优秀的实战营项目，具体模型链接如下：
+
++ **八戒-Chat-1.8B：https://openxlab.org.cn/models/detail/JimmyMa99/BaJie-Chat-1.8b**
++ **Chat-嬛嬛-1.8B：https://openxlab.org.cn/models/detail/BYCJS/huanhuan-chat-internlm2-1_8b**
++ **Mini-Horo-巧耳：https://openxlab.org.cn/models/detail/SaaRaaS/Horowag_Mini**
+
+🍏那么，开始实验！！！
+
