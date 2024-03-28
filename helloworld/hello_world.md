@@ -450,18 +450,18 @@ python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade
 快速配置
 
 ```shell
-    cat <<'EOF' > ~/.condarc
-    channels:
-    - defaults
-    show_channel_urls: true
-    default_channels:
-    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
-    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
-    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
-    custom_channels:
-    conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-    pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-    EOF
+cat <<'EOF' > ~/.condarc
+channels:
+- defaults
+show_channel_urls: true
+default_channels:
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+- https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+EOF
 ```
 
 ### 6.2 **（可选参考）模型下载**
