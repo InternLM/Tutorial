@@ -116,29 +116,6 @@
     python download_mini.py
 ```
 
-双击打开 `download_mini.py` 文件，复制以下代码（可选）：
-
-```python
-    import os
-    from modelscope.hub.snapshot_download import snapshot_download
-
-    # 创建保存模型目录
-    os.system("mkdir -p /root/demo/internlm2-chat-1_8b")
-
-    # save_dir是模型保存到本地的目录
-    save_dir="/root/demo/internlm2-chat-1_8b"
-    snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
-                    cache_dir=save_dir, 
-                    revision='v1.1.0')
-```
-
-双击打开 `cli_demo.py` 文件。将 `github repo` 中的对应代码复制进去，并在 `terminal` 运行命令：
-
-```bash
-    cd /root/demo
-    python cli_demo.py
-```
-
 等待模型加载完成，效果如下：
 
 ![alt text](images/img-5.png)
