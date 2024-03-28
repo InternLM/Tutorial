@@ -195,7 +195,7 @@
 
     streamlit run /root/demo/work/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
 
-待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令 `powershell` 按下回车键。
+待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
 
 ![alt text](images/img-9.png)
 
@@ -283,7 +283,7 @@ Lagent 的特性总结如下：
 
     streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server.address 127.0.0.1 --server.port 6006
 
-待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令 `powershell` 按下回车键。
+待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
 
 ![alt text](images/img-9.png)
 
@@ -309,3 +309,94 @@ Lagent 的特性总结如下：
 
 ![alt text](images/img-I.png)
 
+## 5 **5. 实战：实践部署 `InternLM-XComposer2-7B` 模型（开启 30% A100 权限后才可开启此章节）**
+
+### 5.1 **初步介绍 `XComposer2` 相关知识**
+`浦语·灵笔2` 是基于 `书生·浦语2` 大语言模型研发的突破性的图文多模态大模型，具有非凡的图文写作和图像理解能力，在多种应用场景表现出色，总结起来其具有：
+- 自由指令输入的图文写作能力： `浦语·灵笔2` 可以理解自由形式的图文指令输入，包括大纲、文章细节要求、参考图片等，为用户打造图文并貌的专属文章。生成的文章文采斐然，图文相得益彰，提供沉浸式的阅读体验。
+- 准确的图文问题解答能力：`浦语·灵笔2` 具有海量图文知识，可以准确的回复各种图文问答难题，在识别、感知、细节描述、视觉推理等能力上表现惊人。
+- 杰出的综合能力： `浦语·灵笔2-7B` 基于 `书生·浦语2-7B` 模型，在13项多模态评测中大幅领先同量级多模态模型，在其中6项评测中超过 `GPT-4V` 和 `Gemini Pro`。
+
+![alt text](images/Benchmark_radar_CN.png)
+
+### 5.2 **配置基础环境（开启 50% A100 权限后才可开启此章节）**
+
+选用 `50% A100` 进行开发：
+
+[图片]
+
+进入开发机，启动 `conda` 环境：
+
+    conda activate demo
+    # 补充环境包
+    pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 timm==0.4.12 gradio==4.13.0 markdown2==2.4.10 xlsxwriter==3.1.2 modelscope==1.9.5
+
+下载 xcomposer 相关的代码资源：
+
+    cd /root/demo
+    git clone https://github.com/internlm/InternLM-XComposer.git
+    cd InternLM-XComposer/examples
+
+在 terminal 中输入指令，构造软链接：
+
+    ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/demo/internlm-xcomposer2-7b
+
+继续输入指令，用于启动 `InternLM-XComposer`：
+
+    cd /root/demo/InternLM-XComposer
+    python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
+    --code_path /root/demo/internlm-xcomposer2-7b \
+    --num_gpus 1 \
+    --port 6006
+
+待程序运行的同时，参考章节 3.3 部分对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键：
+
+![alt text](images/img-9.png)
+
+打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
+
+![alt text](images/img-A.png)
+
+    ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+
+再复制下方的密码，输入到 `password` 中，直接回车：
+
+![alt text](images/img-B.png)
+
+最终保持在如下效果即可：
+
+![alt text](images/img-C.png)
+
+实践效果如下图所示：
+
+![alt text](images/img-J.png)
+
+## 6 **附录**
+
+### 6.1 **（可选参考）介绍 `pip` 换源及 `conda` 换源方法**
+对于 `pip `换源，需要临时使用镜像源安装，如下所示：some-package 为你需要安装的包名
+
+    pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple some-package
+
+设置 `pip` 默认镜像源，升级 `pip` 到最新的版本 (>=10.0.0) 后进行配置，如下所示：
+
+    python -m pip install --upgrade pip
+    pip config set global.index-url   https://mirrors.cernet.edu.cn/pypi/web/simple
+
+如果您的 `pip` 默认源的网络连接较差，可以临时使用镜像源升级 `pip`：
+
+    python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade pip
+
+对于 `conda` 换源，镜像站提供了 `Anaconda` 仓库与第三方源（`conda-forge`、`msys2`、`pytorch` 等），各系统都可以通过修改用户目录下的 `.condarc` 文件来使用镜像站。不同系统下的 `.condarc` 目录如下：
+
+- Linux: ${HOME}/.condarc
+- macOS: ${HOME}/.condarc
+- Windows: C:\Users\<YourUserName>\.condarc
+注意：
+- Windows 用户无法直接创建名为 `.condarc` 的文件，可先执行 `conda config --set show_channel_urls yes` 生成该文件之后再修改。
+
+快速配置
+
+    cat <<'EOF' > ~/.condarcchannels:  - defaultsshow_channel_urls: truedefault_channels:  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2custom_channels:  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloudEOF
+
+该章节内容仅供参考，并不作为必须实践的内容。
