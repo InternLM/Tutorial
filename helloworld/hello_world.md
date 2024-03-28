@@ -24,6 +24,7 @@
 + 6 **附录**
     + 6.1 **（可选参考）介绍 `pip` 换源及 `conda` 换源方法**
     + 6.2 **（可选参考）模型下载**
+    + 6.3 **（可选参考）软链接清除方法**
 
 ## 1 **趣味 Demo 任务列表**
 
@@ -534,4 +535,19 @@ os.system(f'git clone https://code.openxlab.org.cn/Usr_name/repo_name.git {base_
 os.system(f'cd {base_path} && git lfs pull')
 ```
 
-该章节内容仅供参考，并不作为必须实践的内容。
+### 6.3 **（可选参考）软链接清除方法**
+
+当我们建立安全链接之后，如果想要将其删除可以选择以下命令：
+
+```bash
+unlink link_name
+```
+
+我们举一个例子，当我想删除软链接 `/root/demo/internlm2-chat-7b` 时：
+
+```bash
+cd /root/demo/
+unlink internlm2-chat-7b
+```
+
+以上章节内容仅供参考，并不作为必须实践的内容。
