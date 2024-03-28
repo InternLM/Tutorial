@@ -102,6 +102,30 @@ cd /root/demo
 双击打开 download_mini.py 文件，复制以下代码：
 
 ```python
+import os
+from modelscope.hub.snapshot_download import snapshot_download
+
+# 创建保存模型目录
+os.system("mkdir /root/models")
+
+# save_dir是模型保存到本地的目录
+save_dir="/root/models"
+
+snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
+                  cache_dir=save_dir, 
+                  revision='v1.1.0')
+
+```
+
+执行命令，下载模型参数文件：
+
+```bash
+python /root/demo/download_mini.py
+```
+
+双击打开 cli_demo.py 文件，复制以下代码：
+
+```python
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
@@ -129,19 +153,12 @@ while True:
     response, history = model.chat(tokenizer, input_text, history=messages)
     messages.append((input_text, response))
     print(f"robot >>> {response}")
-
 ```
 
 执行命令，下载模型参数文件：
 
 ```bash
-python download_mini.py
-```
-
-双击打开 cli_demo.py 文件，复制以下代码：
-
-```python
-
+python /root/demo/cli_demo.py
 ```
 
 等待模型加载完成，效果如下：
@@ -326,15 +343,11 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ![alt text](images/img-C.png)
 
-打开网页后，等待加载完成即可进行对话，至此，本章实战环节结束，效果图如下：
-
-![alt text](images/img-D.png)
-
 （会有较长的加载时间）勾上数据分析，其他的选项不要选择，进行计算方面的 Demo 对话，即完成本章节实战：
 
 ![alt text](images/img-I.png)
 
-## 5 **5. 实战：实践部署 `InternLM-XComposer2-7B` 模型（开启 30% A100 权限后才可开启此章节）**
+## 5 **实战：实践部署 `InternLM-XComposer2-7B` 模型（开启 30% A100 权限后才可开启此章节）**
 
 ### 5.1 **初步介绍 `XComposer2` 相关知识**
 `浦语·灵笔2` 是基于 `书生·浦语2` 大语言模型研发的突破性的图文多模态大模型，具有非凡的图文写作和图像理解能力，在多种应用场景表现出色，总结起来其具有：
@@ -355,7 +368,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ```bash
 conda activate demo
 # 补充环境包
-pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 timm==0.4.12 gradio==4.13.0 markdown2==2.4.10 xlsxwriter==3.1.2modelscope==1.9.5
+pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 timm==0.4.12 gradio==4.13.0 markdown2==2.4.10 xlsxwriter==3.1.2 modelscope==1.9.5
 ```
 
 下载 xcomposer 相关的代码资源：
@@ -509,13 +522,7 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-chat-7b', cache_
 
 #### 6.2.3 **OpenXLab**
 
-`OpenXLab` 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件，使用 `python` 脚本下载模型首先要安装依赖，安装代码如下：
-
-```bash
-pip install -U openxlab
-```
-
-安装完成后使用 `download` 函数导入模型中心的模型。
+`OpenXLab` 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件，使用 `download` 函数导入模型中心的模型。
 
 ```python
 import torch
