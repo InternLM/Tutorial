@@ -314,9 +314,9 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/demo
 ![alt text](images/img-H.png)
 
 ```bash
-...
+# 其他代码...
 value='/root/demo/internlm2-chat-7b'
-...
+# 其他代码...
 ```
 
 输入运行命令：
@@ -397,7 +397,7 @@ python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
 
 待程序运行的同时，参考章节 3.3 部分对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键：
 
-![alt text](images/img-9.png)
+![alt text](images/img-8.png)
 
 打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
 
