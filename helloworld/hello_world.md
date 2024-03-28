@@ -1,6 +1,6 @@
-# 轻松玩转书生·浦语大模型趣味 Demo
-
 ![alt text](images/logo.jpg)
+
+# 轻松玩转书生·浦语大模型趣味 Demo
 
 ## 目录
 
@@ -23,6 +23,7 @@
     + 5.3 **实现 `浦语·灵笔2` 图文理解创作 `Demo`**
 + 6 **附录**
     + 6.1 **（可选参考）介绍 `pip` 换源及 `conda` 换源方法**
+    + 6.2 **（可选参考）模型下载**
 
 ## 1 **趣味 Demo 任务列表**
 
@@ -397,6 +398,81 @@ Lagent 的特性总结如下：
 
 快速配置
 
-    cat <<'EOF' > ~/.condarcchannels:  - defaultsshow_channel_urls: truedefault_channels:  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2custom_channels:  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloudEOF
+    cat <<'EOF' > ~/.condarc
+    channels:
+    - defaults
+    show_channel_urls: true
+    default_channels:
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+    - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+    custom_channels:
+    conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+    EOF
+
+### 6.2 **（可选参考）模型下载**
+
+以下下载模型的操作不建议大家在开发机进行哦，在开发机下载模型会占用开发机的大量带宽和内存，下载等待的时间也会比较长，不利于大家学习。大家可以在自己的本地电脑尝试哦~
+
+#### 6.2.1 **Hugging Face**
+
+使用 `Hugging Face` 官方提供的 `huggingface-cli` 命令行工具。安装依赖:
+
+    pip install -U huggingface_hub
+
+然后新建 `python` 文件，填入以下代码，运行即可。
+
++ resume-download：断点续下
++ local-dir：本地存储路径。
+
+其中 linux 环境下需要填写绝对路径.
+
+    import os
+    # 下载模型
+    os.system('huggingface-cli download --resume-download internlm/internlm2-chat-7b --local-dir your_path')
+
+以下内容将展示使用 `huggingface_hub` 下载模型中的部分文件
+
+    import os 
+    from huggingface_hub import hf_hub_download  # Load model directly 
+
+    hf_hub_download(repo_id="internlm/internlm2-7b", filename="config.json")
+
+#### 6.2.2 **ModelScope**
+
+使用 `modelscope` 中的 `snapshot_download` 函数下载模型，第一个参数为模型名称，参数 `cache_dir` 为模型的下载路径。
+
+注意：`cache_dir` 最好为绝对路径。
+
+安装依赖：
+
+    pip install modelscope==1.9.5
+    pip install transformers==4.35.2
+
+在当前目录下新建 `python` 文件，填入以下代码，运行即可。
+
+    import torch
+    from modelscope import snapshot_download, AutoModel, AutoTokenizer
+    import os
+    model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-chat-7b', cache_dir='your path', revision='master')
+
+#### 6.2.3 **OpenXLab**
+
+`OpenXLab` 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件，使用 `python` 脚本下载模型首先要安装依赖，安装代码如下：
+
+`pip install -U openxlab` 
+
+安装完成后使用 `download` 函数导入模型中心的模型。
+
+    import torch
+    import os
+    from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
+    base_path = './local_files'
+    os.system('apt install git')
+    os.system('apt install git-lfs')
+    os.system(f'git clone https://code.openxlab.org.cn/Usr_name/repo_name.git {base_path}')
+    os.system(f'cd {base_path} && git lfs pull')
+
 
 该章节内容仅供参考，并不作为必须实践的内容。
