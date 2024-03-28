@@ -441,9 +441,10 @@ python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade
 
 对于 `conda` 换源，镜像站提供了 `Anaconda` 仓库与第三方源（`conda-forge`、`msys2`、`pytorch` 等），各系统都可以通过修改用户目录下的 `.condarc` 文件来使用镜像站。不同系统下的 `.condarc` 目录如下：
 
-- Linux: ${HOME}/.condarc
-- macOS: ${HOME}/.condarc
-- Windows: C:\Users\<YourUserName>\.condarc
+- Linux: `${HOME}/.condarc`
+- macOS: `${HOME}/.condarc`
+- Windows: `C:\Users\<YourUserName>\.condarc`
+
 注意：
 - Windows 用户无法直接创建名为 `.condarc` 的文件，可先执行 `conda config --set show_channel_urls yes` 生成该文件之后再修改。
 
