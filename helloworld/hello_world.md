@@ -48,15 +48,15 @@
 
 填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `10% A100 * 1` 的选项，然后立即创建开发机器。
 
-[图片]
+![alt text](images/img-2.png)
 
 点击 `进入开发机` 选项。
 
-[图片]
+![alt text](images/img-3.png)
 
-进入开发机后，在 `terminal` 中输入 `conda` 环境配置命令：
+进入开发机后，在 `terminal` 中输入环境配置命令：
 
-    studio-conda demo
+    studio-conda -o internlm-base -t demo
 
 配置完成后，进入到新创建的 conda 环境之中：
 
@@ -153,3 +153,68 @@
 
 🍏那么，开始实验！！！
 
+### 3.2 **配置基础环境**
+
+创建用于演示的文件，输入以下指令：
+
+    mkdir -p /root/demo/work
+    touch /root/demo/work/bajie_download.py
+    touch /root/demo/work/bajie_chat.py
+    cd /root/demo/work
+
+运行环境补充命令：
+
+    conda activate demo
+
+### 3.3 **使用 `OpenXLab` 下载运行 Chat-八戒 Demo**
+
+在 `Web IDE` 中打开 `download.py`：
+
+![alt text](images/img-8.png)
+
+复制以下代码：
+
+    import torch
+    import os
+    from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
+    base_path = './BaJie-Chat-1_8b'
+    os.system('apt install git')
+    os.system('apt install git-lfs')
+    os.system(f'git clone https://code.openxlab.org.cn/JimmyMa99/BaJie-Chat-1.8b.git {base_path}')
+    os.system(f'cd {base_path} && git lfs pull')
+
+    model_path = '/root/demo/work/BaJie-Chat-1_8b'
+    tokenizer = AutoTokenizer.from_pretrained(model_path,trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(model_path,trust_remote_code=True, torch_dtype=torch.float16).cuda()
+
+运行该 python 文件，输入以下指令：
+
+    python bajie_download.py
+
+打开 `bajie_chat.py` 文件后，将 github 仓库中对应的代码复制进去，输入运行命令：
+
+    streamlit run /root/demo/work/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
+
+待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令 `powershell` 按下回车键。
+
+![alt text](images/img-9.png)
+
+打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
+
+![alt text](images/img-A.png)
+
+    ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+
+再复制下方的密码，输入到 `password` 中，直接回车：
+
+![alt text](images/img-B.png)
+
+最终保持在如下效果即可：
+
+![alt text](images/img-C.png)
+
+打开网页后，等待加载完成即可进行对话，至此，本章实战环节结束，效果图如下：
+
+![alt text](images/img-D.png)
+
+4. 实战：通过 InternLM Studio 内部的 share 空间，
