@@ -94,7 +94,6 @@ touch /root/demo/download_mini.py
 cd /root/demo
 ```
 
-
 通过左侧文件夹栏目，双击进入 `demo` 文件夹。
 
 ![alt text](images/img-4.png)
@@ -223,7 +222,7 @@ streamlit run /root/Tutorial/helloworld/bajie_chat.py --server.address 127.0.0.1
 
 待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
 
-![alt text](images/img-9.png)
+![alt text](images/img-8.png)
 
 打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
 
@@ -327,7 +326,7 @@ streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server
 
 待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
 
-![alt text](images/img-9.png)
+![alt text](images/img-8.png)
 
 打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
 
@@ -415,7 +414,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 实践效果如下图所示：
 
-![alt text](images/img-J.png)
+![alt text](images/img-9.png)
 
 ## 6 **附录**
 
