@@ -59,19 +59,21 @@
 
 ```bash
 studio-conda -o internlm-base -t demo
+# 注释内是基础环境安装的等效方案
 # conda create -n demo python==3.10 -y
 ```
 
-配置完成后，进入到新创建的 conda 环境之中：
+配置完成后，进入到新创建的 `conda` 环境之中：
 
 ```bash
 conda activate demo
-# conda install 
 ```
 
 输入以下命令，完成环境包的安装：
 
 ```bash
+# 注释内是基础环境安装的等效方案
+# conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
 pip install huggingface-hub==0.17.3
 pip install transformers==4.34 
 pip install psutil==5.9.8
@@ -92,6 +94,7 @@ touch /root/demo/download_mini.py
 cd /root/demo
 ```
 
+
 通过左侧文件夹栏目，双击进入 `demo` 文件夹。
 
 ![alt text](images/img-4.png)
@@ -99,23 +102,46 @@ cd /root/demo
 双击打开 download_mini.py 文件，复制以下代码：
 
 ```python
-import os
-from modelscope.hub.snapshot_download import snapshot_download
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# 创建保存模型目录
-os.system("mkdir -p /root/demo/internlm2-chat-1_8b")
 
-# save_dir是模型保存到本地的目录
-save_dir="/root/demo/internlm2-chat-1_8b"
-snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
-                cache_dir=save_dir, 
-                revision='v1.1.0')
+model_name_or_path = "/root/models/Shanghai_AI_Laboratory/internlm2-chat-1_8b"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(model_name_or_path, trust_remote_code=True, torch_dtype=torch.bfloat16, device_map='auto')
+model = model.eval()
+
+system_prompt = """You are an AI assistant whose name is InternLM (书生·浦语).
+- InternLM (书生·浦语) is a conversational language model that is developed by Shanghai AI Laboratory (上海人工智能实验室). It is designed to be helpful, honest, and harmless.
+- InternLM (书生·浦语) can understand and communicate fluently in the language chosen by the user such as English and 中文.
+"""
+
+messages = [(system_prompt, '')]
+
+print("=============Welcome to InternLM chatbot, type 'exit' to exit.=============")
+
+while True:
+    input_text = input("User  >>> ")
+    input_text = input_text.replace(' ', '')
+    if input_text == "exit":
+        break
+    response, history = model.chat(tokenizer, input_text, history=messages)
+    messages.append((input_text, response))
+    print(f"robot >>> {response}")
+
 ```
 
 执行命令，下载模型参数文件：
 
 ```bash
 python download_mini.py
+```
+
+双击打开 cli_demo.py 文件，复制以下代码：
+
+```python
+
 ```
 
 等待模型加载完成，效果如下：
@@ -151,51 +177,31 @@ python download_mini.py
 
 ### 3.2 **配置基础环境**
 
-创建用于演示的文件，输入以下指令：
-
-```bash
-mkdir -p /root/demo/work
-touch /root/demo/work/bajie_download.py
-touch /root/demo/work/bajie_chat.py
-cd /root/demo/work
-```
-
-运行环境补充命令：
+运行环境命令：
 
 ```bash
 conda activate demo
 ```
 
+使用 `git` 命令来获得仓库内的 Demo 文件：
+```bash
+cd /root/
+git clone https://github.com/InternLM/Tutorial -b camp2
+cd /root/Tutorial
+```
+
 ### 3.3 **使用 `OpenXLab` 下载运行 Chat-八戒 Demo**
 
-在 `Web IDE` 中打开 `bajie_download.py`：
-
-![alt text](images/img-8.png)
-
-复制以下代码：
-
-```python
-import torch
-import os
-from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
-base_path = './BaJie-Chat-1_8b'
-os.system('apt install git')
-os.system('apt install git-lfs')
-os.system(f'git clone https://code.openxlab.org.cn/JimmyMa99/BaJie-Chat-1.8b.git {base_path}')
-os.system(f'cd {base_path} && git lfs pull')
-
-```
-
-运行该 python 文件，输入以下指令：
+在 `Web IDE` 中执行 `bajie_download.py`：
 
 ```bash
-python bajie_download.py
+python /root/Tutorial/helloworld/bajie_download.py
 ```
 
-打开 `bajie_chat.py` 文件后，将 github 仓库中对应的代码复制进去，输入运行命令：
+待程序下载完成后，输入运行命令：
 
 ```bash
-streamlit run /root/demo/work/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
+streamlit run /root/Tutorial/helloworld/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
 ```
 
 待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
@@ -259,7 +265,7 @@ cd /root/demo
 
 ```bash
 git clone https://gitee.com/internlm/lagent.git
-git clone https://github.com/internlm/lagent.git
+# git clone https://github.com/internlm/lagent.git
 cd /root/demo/lagent
 pip install -e . # 源码安装
 ```

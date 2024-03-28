@@ -164,10 +164,10 @@ def on_btn_click():
 
 @st.cache_resource
 def load_model():
-    model = (AutoModelForCausalLM.from_pretrained('/root/demo/work/BaJie-Chat-1_8b',
+    model = (AutoModelForCausalLM.from_pretrained('/root/models/BaJie-Chat-1_8b',
                                                   trust_remote_code=True).to(
                                                       torch.bfloat16).cuda())
-    tokenizer = AutoTokenizer.from_pretrained('/root/demo/work/BaJie-Chat-1_8b',
+    tokenizer = AutoTokenizer.from_pretrained('/root/models/BaJie-Chat-1_8b',
                                               trust_remote_code=True)
     return model, tokenizer
 
