@@ -2,8 +2,6 @@
 
 ![alt text](images/logo.jpg)
 
-PPT 地址：https://1drv.ms/p/s!AlAIlKoW9ghjqUbS6VIDvxF4t-IA?e=QddEep
-
 ## 目录
 
 + 1 **趣味 Demo 任务列表**
