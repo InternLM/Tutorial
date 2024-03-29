@@ -1,8 +1,13 @@
-import torch
 import os
-from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
-base_path = '/root/models/BaJie-Chat-1_8b'
-os.system('apt install git')
-os.system('apt install git-lfs')
-os.system(f'git clone https://code.openxlab.org.cn/JimmyMa99/BaJie-Chat-1.8b.git {base_path}')
-os.system(f'cd {base_path} && git lfs pull')
+#模型下载
+from modelscope.hub.snapshot_download import snapshot_download
+
+# 创建保存模型目录
+os.system("mkdir -p /root/models")
+
+# save_dir是模型保存到本地的目录
+save_dir="/root/models"
+
+snapshot_download('JimmyMa99/BaJie-Chat-mini', 
+                  cache_dir=save_dir)
+                  
