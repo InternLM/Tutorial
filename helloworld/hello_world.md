@@ -145,6 +145,7 @@ while True:
 执行命令，下载模型参数文件：
 
 ```bash
+conda activate demo
 python /root/demo/cli_demo.py
 ```
 
