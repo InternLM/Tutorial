@@ -139,11 +139,7 @@ while True:
         if response is not None:
             print(response[length:], flush=True, end="")
             length = len(response)
-            # print(f"robot >>> {response}")
 
-    # response, history = model.stream_chat(tokenizer, input_text, messages)
-    # messages.append((input_text, response))
-    # print(f"robot >>> {response}")
 ```
 
 执行命令，下载模型参数文件：
