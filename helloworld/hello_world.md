@@ -357,7 +357,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 选用 `50% A100` 进行开发：
 
-[图片]
+![alt text](images/check-4.png)
 
 进入开发机，启动 `conda` 环境：
 
@@ -424,7 +424,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ### 5.4 **图片理解实战（开启 50% A100 权限后才可开启此章节）**
 
-根据附录 6.4 的方法，关闭并重新启动一个新的 `terminal`，继续输入指令，启动 `InternLM-XComposer-vl`：
+根据附录 6.4 的方法，关闭并重新启动一个新的 `terminal`，继续输入指令，启动 `InternLM-XComposer2-vl`：
 
 ```bash
 conda activate demo
