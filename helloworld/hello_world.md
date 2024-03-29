@@ -295,7 +295,7 @@ pip install -e . # 源码安装
 cd /root/demo/lagent
 ```
 
-在 terminal 中输入指令：
+在 terminal 中输入指令，构造软链接快捷访问方式：
 
 ```bash
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/models/internlm2-chat-7b
@@ -369,7 +369,7 @@ conda activate demo
 pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 gradio==4.13.0 modelscope==1.9.5
 ```
 
-下载 xcomposer 相关的代码资源：
+下载 `xcomposer` 相关的代码资源：
 
 ```bash
 cd /root/demo
@@ -379,7 +379,7 @@ cd /root/demo/InternLM-XComposer
 git checkout f31220eddca2cf6246ee2ddf8e375a40457ff626
 ```
 
-在 terminal 中输入指令，构造软链接：
+在 `terminal` 中输入指令，构造软链接快捷访问方式：
 
 ```bash
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/models/internlm-xcomposer2-7b
