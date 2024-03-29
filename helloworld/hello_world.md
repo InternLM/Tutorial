@@ -30,7 +30,7 @@
 
 ![alt text](images/img-3.png)
 
-进入开发机后，在 `terminal` 中输入环境配置命令：
+**进入开发机后，在 `terminal` 中输入环境配置命令 (配置环境时间较长，需耐心等待)：**
 
 ```bash
 studio-conda -o internlm-base -t demo
