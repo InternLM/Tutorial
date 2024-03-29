@@ -203,7 +203,8 @@ conda activate demo
 使用 `git` 命令来获得仓库内的 Demo 文件：
 ```bash
 cd /root/
-git clone https://github.com/InternLM/Tutorial -b camp2
+git clone https://gitee.com/InternLM/Tutorial -b camp2
+# git clone https://github.com/InternLM/Tutorial -b camp2
 cd /root/Tutorial
 ```
 
@@ -375,7 +376,8 @@ pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1
 
 ```bash
 cd /root/demo
-git clone https://github.com/internlm/InternLM-XComposer.git
+git clone https://gitee.com/internlm/InternLM-XComposer.git
+# git clone https://github.com/internlm/InternLM-XComposer.git
 cd InternLM-XComposer/examples
 ```
 
