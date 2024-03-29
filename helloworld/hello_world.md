@@ -129,7 +129,7 @@ messages = [(system_prompt, '')]
 print("=============Welcome to InternLM chatbot, type 'exit' to exit.=============")
 
 while True:
-    input_text = input("User  >>> ")
+    input_text = input("\nUser  >>> ")
     input_text = input_text.replace(' ', '')
     if input_text == "exit":
         break
