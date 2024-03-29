@@ -575,4 +575,10 @@ cd /root/demo/
 unlink internlm2-chat-7b
 ```
 
+### 6.4 **（可选参考）Terminal 终端清除方法**
+
+**在运行 `gradio` 程序时，如果需要退出，需要按照图中所示步骤，在 `terminal` 栏目中点击关闭，然后再重新打开一个 `terminal` 以继续后面的实验。（否则会出现 OOM 的情况）**
+
+![alt text](images/check-3.png)
+
 以上章节内容仅供参考，并不作为必须实践的内容。
