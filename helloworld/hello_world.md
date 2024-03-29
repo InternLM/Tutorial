@@ -58,6 +58,7 @@ pip install accelerate==0.24.1
 pip install streamlit==1.32.2 
 pip install matplotlib==3.8.3 
 pip install modelscope==1.9.5
+pip install sentencepiece==0.1.99
 ```
 
 ### **2.2 下载 `InternLM2-Chat-1.8B` 模型**
