@@ -140,7 +140,7 @@ while True:
 
 ```
 
-执行命令，下载模型参数文件：
+输入命令，执行 Demo 程序：
 
 ```bash
 conda activate demo
