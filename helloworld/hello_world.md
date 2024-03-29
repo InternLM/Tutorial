@@ -15,11 +15,7 @@
 
 ## 2 **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
 
-### **2.1 初步介绍 Modelscope 平台**
-
-`Modelscope` 是一个开源平台。该平台提供了一个全面的库，其中包括许多预训练的语言模型，如 BERT、RoBERTa、GPT-2 等，这些模型可以用于各种 NLP 任务，如文本分类、命名实体识别、问答系统等。
-
-### **2.2 配置基础环境**
+### **2.1 配置基础环境**
 首先，打开 `InternLM Studio` 界面，点击 创建开发机 配置开发机系统。
 
 ![alt text](images/img-1.png)
@@ -60,7 +56,7 @@ pip install matplotlib==3.8.3
 pip install modelscope==1.9.5
 ```
 
-### **2.3 利用 Modelscope 代码运行 InternLM2-Chat-1.8B 模型的 Cli demo**
+### **2.2 利用 Modelscope 代码运行 InternLM2-Chat-1.8B 模型的 Cli demo**
   
 按路径创建文件夹，并进入到对应文件目录中：
 
