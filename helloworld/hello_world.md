@@ -285,6 +285,7 @@ cd /root/demo
 git clone https://gitee.com/internlm/lagent.git
 # git clone https://github.com/internlm/lagent.git
 cd /root/demo/lagent
+git checkout 581d9fb8987a5d9b72bb9ebd37a95efd47d479ac
 pip install -e . # 源码安装
 ```
 
@@ -369,7 +370,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ```bash
 conda activate demo
 # 补充环境包
-pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 timm==0.4.12 gradio==4.13.0 markdown2==2.4.10 xlsxwriter==3.1.2 modelscope==1.9.5
+pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 gradio==4.13.0 modelscope==1.9.5
 ```
 
 下载 xcomposer 相关的代码资源：
@@ -378,6 +379,8 @@ pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1
 cd /root/demo
 git clone https://gitee.com/internlm/InternLM-XComposer.git
 # git clone https://github.com/internlm/InternLM-XComposer.git
+cd /root/demo/InternLM-XComposer
+git checkout f31220eddca2cf6246ee2ddf8e375a40457ff626
 cd InternLM-XComposer/examples
 ```
 
