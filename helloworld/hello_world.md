@@ -367,7 +367,7 @@ conda activate demo
 pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 gradio==4.13.0 modelscope==1.9.5
 ```
 
-下载 `xcomposer` 相关的代码资源：
+下载 **InternLM-XComposer 仓库** 相关的代码资源：
 
 ```bash
 cd /root/demo
