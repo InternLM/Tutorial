@@ -239,7 +239,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ### 4.1 **初步介绍 Lagent 相关知识**
 Lagent 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。它的整个框架图如下:
 
-![alt text](images/Lagent.png)
+![alt text](images/Lagent-1.png)
 
 Lagent 的特性总结如下：
 - 流式输出：提供 stream_chat 接口作流式输出，本地就能演示酷炫的流式 Demo。
