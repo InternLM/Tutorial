@@ -1,6 +1,6 @@
 # **Homework - Demo**
 
-**提交方式：在 `CSDN` 等平台上传作业后，将链接贴至 [飞书作业板](https://aicarrier.feishu.cn/wiki/TqjawZsoqiiRXEkRpcScmKAAn8d?table=tblNCUy9PeGmgd9I&view=vewQagjCL1) 即可。**
+**提交方式：在 `CSDN` 、`知乎` 、`Github` 等平台上传作业后，将链接贴至 [飞书作业板](https://aicarrier.feishu.cn/wiki/TqjawZsoqiiRXEkRpcScmKAAn8d?table=tblNCUy9PeGmgd9I&view=vewQagjCL1) 即可。**
 
 **基础作业 (结营必做)**
 
