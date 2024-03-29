@@ -226,7 +226,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ![alt text](images/img-C.png)
 
-打开网页后，等待加载完成即可进行对话，至此，本章实战环节结束，效果图如下：
+打开 `http://127.0.0.1:6006` 后，等待加载完成即可进行对话，至此，本章实战环节结束，效果图如下：
 
     键入内容示例："你好，请自我介绍"
 
@@ -335,7 +335,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ![alt text](images/img-C.png)
 
-（会有较长的加载时间）勾上数据分析，其他的选项不要选择，进行计算方面的 Demo 对话，即完成本章节实战：
+打开 `http://127.0.0.1:6006` 后，（会有较长的加载时间）勾上数据分析，其他的选项不要选择，进行计算方面的 Demo 对话，即完成本章节实战：
 
     键入内容示例："请解方程 2*X=1360 之中 X 的结果"
 
@@ -416,7 +416,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ![alt text](images/img-C.png)
 
-实践效果如下图所示：
+打开 `http://127.0.0.1:6006` 实践效果如下图所示：
 
 ![alt text](images/img-9.png)
 
@@ -434,7 +434,7 @@ python /root/demo/InternLM-XComposer/examples/gradio_demo_chat.py  \
 --port 6006
 ```
 
-实践效果如下图所示：
+打开 `http://127.0.0.1:6006` 实践效果如下图所示：
 
     键入内容示例：(上传图片后) "请分析一下图中内容"
 
