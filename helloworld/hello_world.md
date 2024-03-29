@@ -38,6 +38,10 @@ studio-conda -o internlm-base -t demo
 # conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
 ```
 
+![alt text](images/check-1.png)
+
+![alt text](images/check-2.png)
+
 配置完成后，进入到新创建的 `conda` 环境之中：
 
 ```bash
@@ -56,7 +60,7 @@ pip install matplotlib==3.8.3
 pip install modelscope==1.9.5
 ```
 
-### **2.2 利用 Modelscope 代码运行 InternLM2-Chat-1.8B 模型的 Cli demo**
+### **2.2 下载 `InternLM2-Chat-1.8B` 模型**
   
 按路径创建文件夹，并进入到对应文件目录中：
 
@@ -94,6 +98,8 @@ snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b",
 ```bash
 python /root/demo/download_mini.py
 ```
+
+### **2.3 运行 cli_demo**
 
 双击打开 cli_demo.py 文件，复制以下代码：
 
