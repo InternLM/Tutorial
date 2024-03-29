@@ -6,14 +6,14 @@
 
 本节课可以让同学们实践 4 个主要内容，分别是：
 
-- **通过 `Modelscope` 平台，下载 `InternLM2-Chat-1.8B` 模型进行 `Demo` 部署**
+- **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
 - **通过 `OpenXLab` 部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
 - **通过 `InternLM2-Chat-7B` 运行 `Lagent` 智能体 `Demo`**
 - **实践部署 `InternLM-XComposer2-7B` 模型**
 
 实战营作业被放置于 `homework` 文档，完成课程基础作业可以在后续学习中获得升级算力的机会哦！
 
-## 2 **实战：通过 `Modelscope` 平台，下载 `InternLM2-Chat-1.8B` 模型进行 `Demo` 部署**
+## 2 **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
 
 ### **2.1 初步介绍 Modelscope 平台**
 
