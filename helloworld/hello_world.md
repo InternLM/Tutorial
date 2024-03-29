@@ -204,7 +204,7 @@ python /root/Tutorial/helloworld/bajie_download.py
 streamlit run /root/Tutorial/helloworld/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
+待程序运行的同时，参考章节 3.3 部分对端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令，按下回车键。（Mac 用户打开终端即可）
 
 ![alt text](images/img-8.png)
 
@@ -315,7 +315,7 @@ value='/root/models/internlm2-chat-7b'
 streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键。
+待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令，按下回车键。（Mac 用户打开终端即可）
 
 ![alt text](images/img-8.png)
 
@@ -396,7 +396,7 @@ python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
 --port 6006
 ```
 
-待程序运行的同时，参考章节 3.3 部分对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（ Windows 即开始菜单键 ）打开指令界面，并输入命令，按下回车键：
+待程序运行的同时，参考章节 3.3 部分对端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，（Mac 用户打开终端即可）并输入命令，按下回车键：
 
 ![alt text](images/img-8.png)
 
