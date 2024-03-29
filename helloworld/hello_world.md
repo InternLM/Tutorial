@@ -1,4 +1,8 @@
+<div align="center">
+
 ![alt text](images/logo.jpg)
+
+</div>
 
 # 轻松玩转书生·浦语大模型趣味 Demo
 
@@ -7,7 +11,7 @@
 本节课可以让同学们实践 4 个主要内容，分别是：
 
 - **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
-- **通过 `OpenXLab` 部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
+- **部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
 - **通过 `InternLM2-Chat-7B` 运行 `Lagent` 智能体 `Demo`**
 - **实践部署 `InternLM-XComposer2-7B` 模型**
 
@@ -111,7 +115,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 model_name_or_path = "/root/models/Shanghai_AI_Laboratory/internlm2-chat-1_8b"
 
-tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=True, device_map='cuda:0')
 model = AutoModelForCausalLM.from_pretrained(model_name_or_path, trust_remote_code=True, torch_dtype=torch.bfloat16, device_map='cuda:0')
 model = model.eval()
 
@@ -129,9 +133,17 @@ while True:
     input_text = input_text.replace(' ', '')
     if input_text == "exit":
         break
-    response, history = model.chat(tokenizer, input_text, history=messages)
-    messages.append((input_text, response))
-    print(f"robot >>> {response}")
+
+    length = 0
+    for response, _ in model.stream_chat(tokenizer, input_text, messages):
+        if response is not None:
+            print(response[length:], flush=True, end="")
+            length = len(response)
+            # print(f"robot >>> {response}")
+
+    # response, history = model.stream_chat(tokenizer, input_text, messages)
+    # messages.append((input_text, response))
+    # print(f"robot >>> {response}")
 ```
 
 执行命令，下载模型参数文件：
@@ -144,7 +156,7 @@ python /root/demo/cli_demo.py
 
 ![alt text](images/img-5.png)
 
-## 3 **实战：通过 `OpenXLab` 部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
+## 3 **实战：部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
 
 ### 3.1 **简单介绍 `八戒-Chat-1.8B`、`Chat-嬛嬛-1.8B`、`Mini-Horo-巧耳`（实战营优秀作品）**
 `八戒-Chat-1.8B`、`Chat-嬛嬛-1.8B`、`Mini-Horo-巧耳` 均是在第一期实战营中运用 `InternLM2-Chat-1.8B` 模型进行微调训练的优秀成果。其中，`八戒-Chat-1.8B` 是利用《西游记》剧本中所有关于猪八戒的台词和语句以及 LLM API 生成的相关数据结果，进行全量微调得到的猪八戒聊天模型。作为 `Roleplay-with-XiYou` 子项目之一，`八戒-Chat-1.8B` 能够以较低的训练成本达到不错的角色模仿能力，同时低部署条件能够为后续工作降低算力门槛。
@@ -155,17 +167,9 @@ python /root/demo/cli_demo.py
 
 </div>
 
-结合实战章节 2 的经验，我们采用 `OpenXLab` 平台完成 `八戒-Chat-1.8B` 的部署。`OpenXLab` 平台是面向 AI 研究员和开发者提供 AI 领域的一站式服务平台，包含数据集中心、模型中心和应用中心。具体细节和各种炫酷的应用方法会在实战营后续章节详细说明。
-
-<div align="center">
-
-![alt text](images/img-7.png)
-
-</div>
-
 当然，同学们也可以参考其他优秀的实战营项目，具体模型链接如下：
 
-+ **八戒-Chat-1.8B：https://openxlab.org.cn/models/detail/JimmyMa99/BaJie-Chat-1.8b**
++ **八戒-Chat-1.8B：https://www.modelscope.cn/models/JimmyMa99/BaJie-Chat-mini/summary**
 + **Chat-嬛嬛-1.8B：https://openxlab.org.cn/models/detail/BYCJS/huanhuan-chat-internlm2-1_8b**
 + **Mini-Horo-巧耳：https://openxlab.org.cn/models/detail/SaaRaaS/Horowag_Mini**
 
@@ -210,6 +214,8 @@ streamlit run /root/Tutorial/helloworld/bajie_chat.py --server.address 127.0.0.1
 ![alt text](images/img-A.png)
 
 ```bash
+# 从本地使用 ssh 连接 studio 端口
+# 将下方端口号 38374 替换成自己的端口号
 ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ```
 
@@ -300,7 +306,7 @@ value='/root/demo/internlm2-chat-7b'
 # 其他代码...
 ```
 
-输入运行命令：
+输入运行命令 - **点开 6006 链接后，大约需要 5 分钟完成模型加载：**
 
 ```bash
 streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server.address 127.0.0.1 --server.port 6006
@@ -314,7 +320,11 @@ streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server
 
 ![alt text](images/img-A.png)
 
+```bash
+# 从本地使用 ssh 连接 studio 端口
+# 将下方端口号 38374 替换成自己的端口号
 ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+```
 
 再复制下方的密码，输入到 `password` 中，直接回车：
 
@@ -360,7 +370,6 @@ git clone https://gitee.com/internlm/InternLM-XComposer.git
 # git clone https://github.com/internlm/InternLM-XComposer.git
 cd /root/demo/InternLM-XComposer
 git checkout f31220eddca2cf6246ee2ddf8e375a40457ff626
-cd InternLM-XComposer/examples
 ```
 
 在 terminal 中输入指令，构造软链接：
@@ -368,6 +377,8 @@ cd InternLM-XComposer/examples
 ```bash
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/demo/internlm-xcomposer2-7b
 ```
+
+### 5.3 **图文写作实战（开启 50% A100 权限后才可开启此章节）**
 
 继续输入指令，用于启动 `InternLM-XComposer`：
 
@@ -387,7 +398,11 @@ python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
 
 ![alt text](images/img-A.png)
 
+```bash
+# 从本地使用 ssh 连接 studio 端口
+# 将下方端口号 38374 替换成自己的端口号
 ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+```
 
 再复制下方的密码，输入到 `password` 中，直接回车：
 
@@ -400,6 +415,10 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 实践效果如下图所示：
 
 ![alt text](images/img-9.png)
+
+### 5.4 **图片理解实战（开启 50% A100 权限后才可开启此章节）**
+
+
 
 ## 6 **附录**
 
