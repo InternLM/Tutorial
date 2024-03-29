@@ -13,7 +13,7 @@
 - **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
 - **部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
 - **通过 `InternLM2-Chat-7B` 运行 `Lagent` 智能体 `Demo`**
-- **实践部署 `InternLM-XComposer2-7B` 模型**
+- **实践部署 `浦语·灵笔2` 模型**
 
 实战营作业被放置于 `homework` 文档，完成课程基础作业可以在后续学习中获得升级算力的机会哦！
 
@@ -193,7 +193,7 @@ git clone https://gitee.com/InternLM/Tutorial -b camp2
 cd /root/Tutorial
 ```
 
-### 3.3 **使用 `OpenXLab` 下载运行 Chat-八戒 Demo**
+### 3.3 **下载运行 Chat-八戒 Demo**
 
 在 `Web IDE` 中执行 `bajie_download.py`：
 
@@ -344,7 +344,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ![alt text](images/img-I.png)
 
-## 5 **实战：实践部署 `InternLM-XComposer2-7B` 模型（开启 30% A100 权限后才可开启此章节）**
+## 5 **实战：实践部署 `浦语·灵笔2` 模型（开启 50% A100 权限后才可开启此章节）**
 
 ### 5.1 **初步介绍 `XComposer2` 相关知识**
 `浦语·灵笔2` 是基于 `书生·浦语2` 大语言模型研发的突破性的图文多模态大模型，具有非凡的图文写作和图像理解能力，在多种应用场景表现出色，总结起来其具有：
@@ -425,9 +425,11 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ### 5.4 **图片理解实战（开启 50% A100 权限后才可开启此章节）**
 
-继续输入指令，启动 `InternLM-XComposer-vl`：
+根据附录 6.4 的方法，关闭并重新启动一个新的 `terminal`，继续输入指令，启动 `InternLM-XComposer-vl`：
 
 ```bash
+conda activate demo
+
 cd /root/demo/InternLM-XComposer
 python /root/demo/InternLM-XComposer/examples/gradio_demo_chat.py  \
 --code_path /root/models/internlm-xcomposer2-vl-7b \
