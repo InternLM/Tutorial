@@ -392,6 +392,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-7b /r
 cd /root/demo/InternLM-XComposer
 python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
 --code_path /root/models/internlm-xcomposer2-7b \
+--private \
 --num_gpus 1 \
 --port 6006
 ```
@@ -432,6 +433,7 @@ conda activate demo
 cd /root/demo/InternLM-XComposer
 python /root/demo/InternLM-XComposer/examples/gradio_demo_chat.py  \
 --code_path /root/models/internlm-xcomposer2-vl-7b \
+--private \
 --num_gpus 1 \
 --port 6006
 ```
