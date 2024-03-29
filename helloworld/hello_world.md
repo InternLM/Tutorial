@@ -298,7 +298,7 @@ cd /root/demo/lagent
 在 terminal 中输入指令：
 
 ```bash
-ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/demo/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/models/internlm2-chat-7b
 ```
 
 打开 `lagent` 路径下 `examples/internlm2_agent_web_demo_hf.py` 文件，并修改对应位置 (71行左右) 代码：
@@ -307,7 +307,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/demo
 
 ```bash
 # 其他代码...
-value='/root/demo/internlm2-chat-7b'
+value='/root/models/internlm2-chat-7b'
 # 其他代码...
 ```
 
