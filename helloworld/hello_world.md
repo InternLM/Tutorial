@@ -18,7 +18,7 @@
 ## 2 **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
 
 ### **2.1 配置基础环境**
-首先，打开 `InternLM Studio` 界面，点击 创建开发机 配置开发机系统。
+首先，打开 `Intern Studio` 界面，点击 创建开发机 配置开发机系统。
 
 ![alt text](images/img-1.png)
 
