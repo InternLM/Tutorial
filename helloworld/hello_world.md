@@ -154,6 +154,8 @@ python /root/demo/cli_demo.py
 
 等待模型加载完成，效果如下：
 
+    键入内容示例："请创作一个 300 字的小故事"
+
 ![alt text](images/img-5.png)
 
 ## 3 **实战：部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
@@ -228,6 +230,8 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ![alt text](images/img-C.png)
 
 打开网页后，等待加载完成即可进行对话，至此，本章实战环节结束，效果图如下：
+
+    键入内容示例："你好，请自我介绍"
 
 ![alt text](images/img-D.png)
 
@@ -336,6 +340,8 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 （会有较长的加载时间）勾上数据分析，其他的选项不要选择，进行计算方面的 Demo 对话，即完成本章节实战：
 
+    键入内容示例："请解方程 2*X=1360 之中 X 的结果"
+
 ![alt text](images/img-I.png)
 
 ## 5 **实战：实践部署 `InternLM-XComposer2-7B` 模型（开启 30% A100 权限后才可开启此章节）**
@@ -375,7 +381,8 @@ git checkout f31220eddca2cf6246ee2ddf8e375a40457ff626
 在 terminal 中输入指令，构造软链接：
 
 ```bash
-ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/demo/internlm-xcomposer2-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/models/internlm-xcomposer2-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-7b /root/models/internlm-xcomposer2-vl-7b
 ```
 
 ### 5.3 **图文写作实战（开启 50% A100 权限后才可开启此章节）**
@@ -385,7 +392,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root
 ```bash
 cd /root/demo/InternLM-XComposer
 python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
---code_path /root/demo/internlm-xcomposer2-7b \
+--code_path /root/models/internlm-xcomposer2-7b \
 --num_gpus 1 \
 --port 6006
 ```
@@ -418,7 +425,21 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ### 5.4 **图片理解实战（开启 50% A100 权限后才可开启此章节）**
 
+继续输入指令，启动 `InternLM-XComposer-vl`：
 
+```bash
+cd /root/demo/InternLM-XComposer
+python /root/demo/InternLM-XComposer/examples/gradio_demo_chat.py  \
+--code_path /root/models/internlm-xcomposer2-vl-7b \
+--num_gpus 1 \
+--port 6006
+```
+
+实践效果如下图所示：
+
+    键入内容示例：(上传图片后) "请分析一下图中内容"
+
+![alt text](images/img-7.png)
 
 ## 6 **附录**
 
