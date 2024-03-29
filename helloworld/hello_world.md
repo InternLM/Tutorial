@@ -75,7 +75,7 @@ cd /root/demo
 
 ![alt text](images/img-4.png)
 
-双击打开 download_mini.py 文件，复制以下代码：
+双击打开 `/root/demo/download_mini.py` 文件，复制以下代码：
 
 ```python
 import os
@@ -101,7 +101,7 @@ python /root/demo/download_mini.py
 
 ### **2.3 运行 cli_demo**
 
-双击打开 cli_demo.py 文件，复制以下代码：
+双击打开 `/root/demo/cli_demo.py` 文件，复制以下代码：
 
 ```python
 import torch
