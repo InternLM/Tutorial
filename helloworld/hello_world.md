@@ -20,7 +20,7 @@ This lesson allows you to practice 4 main contents, which are:
 ### **2.1 Configure Basic Environment**
 First, Open `Intern Studio` interface, and click on the Create Button to configure the cloud machine.
 
-![alt text](images_en/img-1.png)
+![alt text](images/img-1.png)
 
 After filling in the `Name`, Click on "Chose image" and select `Cuda11.7-conda` image. In the specification section, choose the option of `10% A100 * 1`, and click the Create button to create a cloud machine.
 
