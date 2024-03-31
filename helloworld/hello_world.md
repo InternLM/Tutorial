@@ -1,6 +1,6 @@
 <div align="center">
 
-![alt text](images_en/logo.jpg)
+![alt text](images/logo.jpg)
 
 </div>
 
