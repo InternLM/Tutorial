@@ -334,7 +334,7 @@ The final result should be as follows:
 
 ![alt text](images/img-C.png)
 
-After opening the following link:[http://127.0.0.1:6006](http://127.0.0.1:6006), (There will be a longer loading time) Select the "数据分析", which means for "Data Analysis", and remains others setting as default. Proceed with the demo conversation focusing on computational aspects, which will complete the hands-on practice of this chapter. Type in following content example:
+After opening the following link: [http://127.0.0.1:6006](http://127.0.0.1:6006), (There will be a longer loading time) Select the "数据分析", which means for "Data Analysis", and remains others setting as default. Proceed with the demo conversation focusing on computational aspects, which will complete the hands-on practice of this chapter. Type in following content example:
 
     Please solve the equation 2*X=1360 to find the value of X.
 
@@ -414,7 +414,7 @@ The final result should be as follows:
 
 ![alt text](images/img-C.png)
 
-Open the following link:[http://127.0.0.1:6006](http://127.0.0.1:6006) and the output is shown as follows:
+Open the following link: [http://127.0.0.1:6006](http://127.0.0.1:6006) and the output is shown as follows:
 
 ![alt text](images/img-9.png)
 
