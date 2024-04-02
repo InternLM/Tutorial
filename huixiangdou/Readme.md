@@ -286,9 +286,7 @@ python3 -m huixiangdou.main --standalone
 安装Gradio依赖。
 
 ```bash
-pip install gradio
-pip install redis
-pip install flask
+pip install gradio redis flask lark_oapi
 ```
 运行茴香豆Demo
 
@@ -296,7 +294,7 @@ pip install flask
 python3 -m tests.test_query_gradio 
 ```
 
-在本地浏览器中输入`127.0.0.1:7698`进入Gradio对话应用助手，如果在服务器端运行茴香豆web demo，请跟随`1.4`章建立好本地与服务器映射。
+在本地浏览器中输入 [127.0.0.1:7860](http://localhost:7860/) 进入Gradio对话应用助手，如果在服务器端运行茴香豆web demo，请跟随`1.4`章建立好本地与服务器映射。
 
 如果需要切换知识领域，只需要重复步骤 2.2 提取新的特征到新的地址，更改`config.ini` 文件中 `work_dir = "新地址"`；
 或者运行`python3 -m tests.test_query_gradi --work_dir 特征地址` 就可以轻松的搭建一个新的茴香豆问答助手了。
