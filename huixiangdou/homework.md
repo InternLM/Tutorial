@@ -1,13 +1,15 @@
 # 第二课作业
 ## 基础作业 （两项都需要完成）
-### 1. 在[茴香豆Web版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web)中创建自己领域的知识问答助手
+
+### 1. (1/8 A100) 在 `InternLM Studio` 上安装测试茴香豆 （使用 InternLM2-Chat-1.8B 模型或在线模型）
+
+- 完成不少于 400 字的笔记 + 截图
+
+### 2. 在[茴香豆Web版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web)中创建自己领域的知识问答助手
 
 - 参考视频[零编程玩转大模型，学习茴香豆部署群聊助手](https://www.bilibili.com/video/BV1S2421N7mn)
 - 完成不少于 400 字的笔记 + 线上茴香豆助手对话截图(不少于5轮)
 
-### 2. (1/8 A100) 在 `InternLM Studio` 上安装测试茴香豆 （使用 InternLM2-Chat-1.8B 模型或在线模型）
-
-- 完成不少于 400 字的笔记 + 截图
 
 ## 进阶作业 - 二选一 (1/2  A100) 
 
