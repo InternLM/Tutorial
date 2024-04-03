@@ -84,6 +84,19 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/mode
 
 ### 1.3 下载安装茴香豆（豆哥）
 
+安装系统和茴香豆解析 **Word** 文件依赖。
+
+```
+## 安装系统必要组件
+apt update
+apt -y install python-dev python
+
+
+# 安装解析 .doc .docx 必须依赖
+apt -y install  libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
+```
+> 注意！由于 **InternLM Studio** 限制，每次重启后上述命令都需要重新执行，重新安装。
+
 从茴香豆官方仓库下载茴香豆。
 
 ```bash
@@ -92,15 +105,12 @@ cd /root
 git clone https://github.com/internlm/huixiangdou && cd huixiangdou
 git checkout 447c6f7e68a1657fce1c4f7c740ea1700bde0440
 
-# parsing .doc .docx requirements
-apt update
-apt -y install libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev python-dev libxml2-dev
-
 # python requirements
 pip install -r requirements.txt
-
 pip install protobuf # internlm2
 ```
+
+
 
 ### 1.4 端口映射（可选）
 
