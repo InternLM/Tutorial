@@ -5,10 +5,11 @@
 
 - 完成不少于 400 字的笔记 + 截图
 
-### 2. 在[茴香豆Web版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web)中创建自己领域的知识问答助手
+### 2. 在[茴香豆 Web 版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web)中创建自己领域的知识问答助手
 
 - 参考视频[零编程玩转大模型，学习茴香豆部署群聊助手](https://www.bilibili.com/video/BV1S2421N7mn)
 - 完成不少于 400 字的笔记 + 线上茴香豆助手对话截图(不少于5轮)
+- （可选）参考 [代码](https://github.com/InternLM/HuixiangDou/tree/main/web) 在自己的服务器部署茴香豆 Web 版
 
 
 ## 进阶作业 - 二选一 (1/2  A100) 
@@ -17,10 +18,10 @@
 
 ### A.【应用方向】 结合自己擅长的领域知识（游戏、法律、电子等）、专业背景，搭建个人工作助手或者垂直领域问答助手，参考茴香豆官方文档，部署到下列任一平台。
   - 飞书、微信、Github issue、Discord、钉钉、X
-  - 可以使用茴香豆Web版 或InternLM Studio 云端服务器部署
+  - 可以使用 茴香豆 Web 版 或 InternLM Studio 云端服务器部署
   - 涵盖部署全过程的作业报告和个人助手问答截图
 
-### B. 【算法方向】尝试应用其他NLP技术，如其他chunk方法，或调整prompt提高个人工作助手的表现。
+### B. 算法方向】尝试应用其他NLP技术，如其他chunk方法，或调整prompt提高个人工作助手的表现。
   - 完成不少于 400 字的笔记 ，记录自己的尝试和调试思路，涵盖全过程和改进效果截图
 
 ## 大作业项目选题
