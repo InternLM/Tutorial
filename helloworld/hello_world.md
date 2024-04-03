@@ -11,7 +11,7 @@
 This lesson allows you to practice 4 main contents, which are:
 
 - **Deploy the `InternLM2-Chat-1.8B` model for intelligent conversation**
-- **Deploy First Session InternLM Camp Outstanding Project `八戒-Chat-1.8B` Model**
+- **Deploy First Session InternLM Camp Outstanding Project `BaJie-Chat-1.8B` Model**
 - **Run a `Demo` of Agent using `Lagent` with the `InternLM2-Chat-7B` Model**
 - **Deploy the `InternLM-XComposer2` Model**
 
