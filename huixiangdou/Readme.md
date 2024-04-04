@@ -141,15 +141,20 @@ git clone https://gitee.com/open-mmlab/mmpose --depth=1 repodir/mmpose
 
 修改文件 `/root/huixiangDou/resource/good_questions.json` 和 `/root/huixiangDou/resource/bad_questions.json` ，添加或删除希望模型回答和模型拒绝回答的问题列表。
 
-> 注意！默认列表根据 MMPose 创建，如果使用自己的数据库，对应接受和拒绝回答问题要根据知识库领域进行修改。
+>❗️ 注意，默认的接受和拒绝问题列表是根据 MMPose 知识库创建的，如果使用自己的数据库，需要相应的更改接受和拒绝问题。
+
+
+MMPose 知识库接受问题举例：
 
 ```
-# 默认知识库接受问题类型
 "mmpose中怎么调用mmyolo接口",
 "mmpose实现姿态估计后怎么实现行为识别",
-...
+...默认 MMPose 知识库
+```
 
-# 默认知识库拒绝问题类型（与主题无关或闲聊）
+MMPose 知识库知识库拒绝问题举例（与主题无关或闲聊）:
+
+```
 "nihui 是谁",
 "具体在哪些位置进行修改？",
 "你是谁？",
