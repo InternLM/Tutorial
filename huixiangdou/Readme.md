@@ -26,7 +26,7 @@
 
 ## 0 RAG 概述
 
-RAG（Retrieval Augmented Generation）技术，通过检索与用户输入相关的信息片段，并结合***外部知识库***来生成更准确、更丰富的回答。解决LLMs在处理知识密集型任务时可能遇到的挑战, 如幻觉、过时知缺乏透明和可追溯的推理过程等。提供更准确的回答、降低推理成本、实现外部记忆。
+RAG（Retrieval Augmented Generation）技术，通过检索与用户输入相关的信息片段，并结合***外部知识库***来生成更准确、更丰富的回答。解决 LLMs 在处理知识密集型任务时可能遇到的挑战, 如幻觉、过时知缺乏透明和可追溯的推理过程等。提供更准确的回答、降低推理成本、实现外部记忆。
 
 ![RAG overview](./imgs/RAG_overview.png)
 
@@ -51,7 +51,7 @@ RAG 能够让基础模型实现非参数知识更新，无需训练就可以掌�
 
 填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `30% A100 * 1` 的选项，然后立即创建开发机器。
 
-![alt text](imgs/30GPU.png)
+![alt text](imgs/30gpu.png)
 
 点击 `进入开发机` 选项。
 
@@ -176,7 +176,7 @@ git clone https://github.com/internlm/huixiangdou --depth=1 repodir/huixiangdou
 
 提取知识库特征，创建向量数据库。数据库向量化的过程应用到了 **LangChain** 的相关模块，默认嵌入和重排序模型调用的网易 **BCE 双语模型**，如果没有在 `config.ini` 文件中指定本地模型路径，茴香豆将自动从 **HuggingFace**  拉取默认模型。
 
-除了语料知识的向量数据库，茴香豆建立接受和拒答两个向量数据库，用来在检索的过程中加精确的判断提问的相关性，这两个数据库的来源分别是：
+除了语料知识的向量数据库，茴香豆建立接受和拒答两个向量数据库，用来在检索的过程中更加精确的判断提问的相关性，这两个数据库的来源分别是：
 
 - 接受问题列表，希望茴香豆助手回答的示例问题
   - 存储在 `huixiangdou/resource/good_questions.json` 中
@@ -338,6 +338,7 @@ pip install gradio==4.25.0 redis==5.0.3 flask==3.0.2 lark_oapi==1.2.4
   2. 运行脚本，启动茴香豆对话 Demo 服务：
 
 ```bash
+cd /root/huixiangdou
 python3 -m tests.test_query_gradio 
 
 ```
@@ -357,7 +358,7 @@ python3 -m tests.test_query_gradio
 
 在命令行中输入如下命令，命令行会提示输入密码：
 ```
-ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
+ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p <你的端口号>
 ```
 3. 复制开发机密码到命令行中，按回车，建立开发机到本地到端口映射。
 
