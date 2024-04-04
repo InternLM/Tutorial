@@ -66,7 +66,7 @@ InternLM2_Huixiangdou                 /root/.conda/envs/InternLM2_Huixiangdou
 conda activate InternLM2_Huixiangdou
 ```
 
-注意，环境激活后，命令行左边会显示当前（也就是 `InternLM2_Huixiangdou`）的环境名称，如下图所示。
+环境激活后，命令行左边会显示当前（也就是 `InternLM2_Huixiangdou`）的环境名称，如下图所示:
 
 ![](imgs/env.png)
 
@@ -74,8 +74,7 @@ conda activate InternLM2_Huixiangdou
 
 ### 1.2 下载基础文件
 
-复制茴香豆所需模型，为了减少下载和huggingface登录问题，所有作业和教程涉及的模型都已经存放在共享文件中，大家根据自己机器配置选择合适的模型复制。(为了**节省**复制传输时间，本节采用软连接的方式复制引用模型，：
-
+复制茴香豆所需模型，为了减少下载和huggingface登录问题，所有作业和教程涉及的模型都已经存放在共享文件中，大家根据自己机器配置选择合适的模型复制。(为了**节省**复制传输时间，本节采用软连接的方式引用模型.)
 
 
 ```bash
@@ -96,7 +95,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/mode
 
 ### 1.3 下载安装茴香豆（豆哥）
 
-安装系统和茴香豆解析 **Word** 文件依赖。
+安装系统和解析 **Word** 文件所需依赖。
 
 ```
 ## 安装系统必要组件
