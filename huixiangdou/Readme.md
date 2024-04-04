@@ -148,7 +148,7 @@ pip install protobuf==4.25.3 # internlm2
 
 ```bash
 cd /root/huixiangdou && mkdir repodir
-gitee clone https://github.com/open-mmlab/mmpose --depth=1 repodir/mmpose
+git clone https://gitee.com/open-mmlab/mmpose --depth=1 repodir/mmpose
 ```
 
 修改文件 `/root/huixiangDou/resource/good_questions.json` 和 `/root/huixiangDou/resource/bad_questions.json` ，添加或删除希望模型回答和模型拒绝回答的问题列表。
