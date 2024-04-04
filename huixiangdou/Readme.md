@@ -210,11 +210,9 @@ python3 -m huixiangdou.main --standalone
 
 ## 3 茴香豆进阶
 
-<div align='center'>
-
-![](imgs/overall.png)
-
-</div>
+<p align="center">
+  <img width="auto" height="300" src="imgs/overall.png">
+</p>
 
 茴香豆并非单纯的RAG功能实现，而是一个专门针对群聊优化的知识助手。详情请阅读 [技术报告](https://arxiv.org/abs/2401.08772)或观看本节课理论视频。
 
