@@ -210,7 +210,7 @@ python3 -m huixiangdou.main --standalone
 
 ## 3 茴香豆进阶
 
-<div align='center' height='400'>
+<div align='center' height='200'>
 
 ![](imgs/overall.png)
 
