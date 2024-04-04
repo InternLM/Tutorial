@@ -18,6 +18,7 @@
   - [3.2 使用远程模型](#32-使用远程模型)
   - [3.3 利用 Gradio 搭建网页 Demo](#33-利用-gradio-搭建网页-demo)
   - [3.4 配置文件解析](#34-配置文件解析)
+  - [3.5 文件结构](#35-文件结构)
 - [作业](#作业)
 
 
@@ -393,7 +394,78 @@ has_weekday = 1
 ```
 `[fronted]`:  前端交互设置。[茴香豆代码仓库](https://github.com/InternLM/HuixiangDou/tree/main/docs) 查看具体教程。
 
+### 3.5 文件结构
 
+茴香豆有着清晰的文件结构，通过了解主要文件的位置和作用，可以更好的理解茴香豆的工作原理。
+
+```bash
+.
+├── LICENSE
+├── README.md
+├── README_zh.md
+├── android
+├── app.py
+├── config-2G.ini
+├── config-advanced.ini
+├── config-experience.ini
+├── config.ini # 配置文件
+├── docs # 教学文档
+├── huixiangdou # 存放茴香豆主要代码，重点学习
+├── huixiangdou-inside.md
+├── logs
+├── repodir # 默认存放个人数据库原始文件，用户建立
+├── requirements-lark-group.txt
+├── requirements.txt
+├── resource
+├── setup.py
+├── tests # 单元测试
+├── web # 存放茴香豆 Web 版代码
+└── web.log
+└── workdir # 默认存放茴香豆本地向量数据库，用户建立
+```
+
+`tree ./huixiangdou -L 1`
+
+```bash
+./huixiangdou
+├── __init__.py
+├── frontend # 存放茴香豆前端与用户端和通讯软件交互代码
+│   ├── __init__.py
+│   ├── lark.py
+│   └── lark_group.py
+├── main.py # 运行主贷
+├── service # 存放茴香豆后端工作流代码
+│   ├── __init__.py
+│   ├── config.py #
+│   ├── feature_store.py # 数据嵌入、特征提取代码
+│   ├── file_operation.py
+│   ├── helper.py
+│   ├── llm_client.py
+│   ├── llm_server_hybrid.py # 混合模型代码
+│   ├── retriever.py # 检索模块代码
+│   ├── sg_search.py # 增强搜索，图检索代码
+│   ├── web_search.py # 网页搜索代码
+│   └── worker.py # 主流程代码
+└── version.py
+```
+
+茴香豆工作流中用到的 **Prompt** 位于 `huixiangdou/service/worker.py` 中。可以根据业务需求尝试调整 **Prompt**，打造你独有的茴香豆知识助手。
+
+```python
+...
+        # Switch languages according to the scenario.
+        if self.language == 'zh':
+            self.TOPIC_TEMPLATE = '告诉我这句话的主题，直接说主题不要解释：“{}”'
+            self.SCORING_QUESTION_TEMPLTE = '“{}”\n请仔细阅读以上内容，判断句子是否是个有主题的疑问句，结果用 0～10 表示。直接提供得分不要解释。\n判断标准：有主语谓语宾语并且是疑问句得 10 分；缺少主谓宾扣分；陈述句直接得 0 分；不是疑问句直接得 0 分。直接提供得分不要解释。'  # noqa E501
+            self.SCORING_RELAVANCE_TEMPLATE = '问题：“{}”\n材料：“{}”\n请仔细阅读以上内容，判断问题和材料的关联度，用0～10表示。判断标准：非常相关得 10 分；完全没关联得 0 分。直接提供得分不要解释。\n'  # noqa E501
+            self.KEYWORDS_TEMPLATE = '谷歌搜索是一个通用搜索引擎，可用于访问互联网、查询百科知识、了解时事新闻等。搜索参数类型 string， 内容是短语或关键字，以空格分隔。\n你现在是{}交流群里的技术助手，用户问“{}”，你打算通过谷歌搜索查询相关资料，请提供用于搜索的关键字或短语，不要解释直接给出关键字或短语。'  # noqa E501
+            self.SECURITY_TEMAPLTE = '判断以下句子是否涉及政治、辱骂、色情、恐暴、宗教、网络暴力、种族歧视等违禁内容，结果用 0～10 表示，不要解释直接给出得分。判断标准：涉其中任一问题直接得 10 分；完全不涉及得 0 分。直接给得分不要解释：“{}”'  # noqa E501
+            self.PERPLESITY_TEMPLATE = '“question:{} answer:{}”\n阅读以上对话，answer 是否在表达自己不知道，回答越全面得分越少，用0～10表示，不要解释直接给出得分。\n判断标准：准确回答问题得 0 分；答案详尽得 1 分；知道部分答案但有不确定信息得 8 分；知道小部分答案但推荐求助其他人得 9 分；不知道任何答案直接推荐求助别人得 10 分。直接打分不要解释。'  # noqa E501
+            self.SUMMARIZE_TEMPLATE = '{} \n 仔细阅读以上内容，总结得简短有力点'  # noqa E501
+            # self.GENERATE_TEMPLATE = '材料：“{}”\n 问题：“{}” \n 请仔细阅读参考材料回答问题，材料可能和问题无关。如果材料和问题无关，尝试用你自己的理解来回答问题。如果无法确定答案，直接回答不知道。'  # noqa E501
+            self.GENERATE_TEMPLATE = '材料：“{}”\n 问题：“{}” \n 请仔细阅读参考材料回答问题。'  # noqa E501
+...
+```
 
 ## 作业
 
