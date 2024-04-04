@@ -103,25 +103,13 @@ cd /root
 git clone https://github.com/internlm/huixiangdou && cd huixiangdou
 git checkout 447c6f7e68a1657fce1c4f7c740ea1700bde0440
 
-# python requirements
+# 安装 python 依赖
 pip install -r requirements.txt
 pip install protobuf==4.25.3 # internlm2
-```
 
-为了增加对 **Word** 文件的支持，需要在 Ubuntu 系统中安装下列必需的软件和库。
-
-**InternLM Studio** 不支持对系统文件的永久修改，每次重启后都会重置对系统文件。因此，如果在 **InternLM Studio** 上支持对 **Word** 文件的解析，每次重启后都需要重新执行下列操作。
-
-> ! 安装下列软件过程中如反复遇到报错，可跳过该步骤，不影响后续操作和完成作业。
-
-```
-## 安装系统必要库
-apt update
-apt -y install python-dev python
-
-
-# 安装解析 .doc .docx 必需的依赖
-apt -y install  libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
+## 因为 InternLM Studio 不支持对系统文件的永久修改，在 InternLM Studio 安装部署的同学不建议安装 Word 依赖，后续的操作和作业不会涉及 Word 解析。
+## 想要自己尝试解析 Word 文件的同学，uncomment 掉下面这行，安装解析 .doc .docx 必需的依赖
+# apt update && apt -y install python-dev python libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
 ```
 
 ## 2 使用茴香豆
