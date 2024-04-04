@@ -14,12 +14,13 @@
 - [2 使用茴香豆搭建 RAG 助手](#2-使用茴香豆搭建-rag-助手)
   - [2.1 修改配置文件](#21-修改配置文件)
   - [2.2 创建知识库](#22-创建知识库)
-  - [2.3 利用 Gradio 搭建网页 Demo](#23-利用-gradio-搭建网页-demo)
+  - [2.3 运行茴香豆知识助手](#23-运行茴香豆知识助手)
 - [3 茴香豆进阶](#3-茴香豆进阶)
   - [3.1 加入网络搜索](#31-加入网络搜索)
   - [3.2 使用远程模型](#32-使用远程模型)
-  - [3.3 配置文件解析](#33-配置文件解析)
-  - [3.4 文件结构](#34-文件结构)
+  - [3.3 利用 Gradio 搭建网页 Demo](#33-利用-gradio-搭建网页-demo)
+  - [3.4 配置文件解析](#34-配置文件解析)
+  - [3.5 文件结构](#35-文件结构)
 - [作业](#作业)
 
 
@@ -117,15 +118,16 @@ git clone https://github.com/internlm/huixiangdou && cd huixiangdou
 git checkout 447c6f7e68a1657fce1c4f7c740ea1700bde0440
 
 # 安装 python 依赖
-pip install -r requirements.txt
-pip install protobuf==4.25.3 # internlm2
+# pip install -r requirements.txt
+
+pip install protobuf==4.25.3 accelerate==0.28.0 aiohttp==3.9.3 auto-gptq==0.7.1 bcembedding==0.1.3 beautifulsoup4==4.8.2 einops==0.7.0 faiss-gpu==1.7.2 langchain==0.1.14 loguru==0.7.2 lxml_html_clean==0.1.0 openai==1.16.1 openpyxl==3.1.2 pandas==2.2.1 pydantic==2.6.4 pymupdf==1.24.1 python-docx==1.1.0 pytoml==0.1.21 readability-lxml==0.8.1 redis==5.0.3 requests==2.31.0 scikit-learn==1.4.1.post1 sentence_transformers==2.2.2 textract==1.6.5 tiktoken==0.6.0 transformers==4.39.3 transformers_stream_generator==0.0.5 unstructured==0.11.2
 
 ## 因为 Intern Studio 不支持对系统文件的永久修改，在 Intern Studio 安装部署的同学不建议安装 Word 依赖，后续的操作和作业不会涉及 Word 解析。
 ## 想要自己尝试解析 Word 文件的同学，uncomment 掉下面这行，安装解析 .doc .docx 必需的依赖
 # apt update && apt -y install python-dev python libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
 ```
 
-茴香豆工具在 `Intern Studio` 开发机的安装工作结束。如果部署在自己的服务器上，参考上节课模型下载内容或本节 [3.3 配置文件解析](#33-配置文件解析) 部分内容下载模型文件。
+茴香豆工具在 `Intern Studio` 开发机的安装工作结束。如果部署在自己的服务器上，参考上节课模型下载内容或本节 [3.4 配置文件解析](#34-配置文件解析) 部分内容下载模型文件。
 
 
 ## 2 使用茴香豆搭建 RAG 助手
@@ -158,7 +160,7 @@ local_llm_path = "/root/models/internlm2-chat-7b"
 
 修改好的配置文件应该和 [config.ini 示例文件](./config.ini) 一致，也可以直接用该文件内容替换自己开发机上 `/root/huixiangdou/config.ini` 文件。
 
-配置文件具体含义和更多细节参考 [3.3 配置文件解析](#33-配置文件解析)。
+配置文件具体含义和更多细节参考 [3.4 配置文件解析](#34-配置文件解析)。
 
 ### 2.2 创建知识库
 
@@ -178,12 +180,43 @@ git clone https://github.com/internlm/huixiangdou --depth=1 repodir/huixiangdou
 
 - 接受问题列表，希望茴香豆助手回答的示例问题
   - 存储在 `huixiangdou/resource/good_questions.json` 中
-  - 本示例采用默认的接受示例问题，可以看到，其中绝大多数是与 MMPose 相关的技术问题
-  - 后续作业中，同学可以自行修改该列表，使其更适合**Huixiangdou**，来提升表现
 - 拒绝问题列表，希望茴香豆助手拒答的示例问题
   - 存储在 `huixiangdou/resource/bad_questions.json` 中
   - 其中多为技术无关的主题或闲聊
   - 如："nihui 是谁", "具体在哪些位置进行修改？", "你是谁？", "1+1"
+
+复制下面内容，替换 `/root/huixiangdou/resource/good_questions.json` 中默认的接受问题。
+
+```json
+[
+    "huixiangdou 是什么？",
+    "茴香豆 是什么？",
+    "茴香豆 能部署到微信吗？",
+    "茴香豆 怎么应用到飞书",
+    "茴香豆 能部署到微信群吗？",
+    "茴香豆 怎么应用到飞书群",
+    "huixiangdou 能部署到微信吗？",
+    "huixiangdou 怎么应用到飞书",
+    "huixiangdou 能部署到微信群吗？",
+    "huixiangdou 怎么应用到飞书群",
+    "huixiangdou 怎么应用到飞书群",
+    "huixiangdou",
+    "茴香豆",
+    "茴香豆 有哪些应用场景",
+    "huixiangdou 有什么用",
+    "huixiangdou 的优势有哪些？",
+    "茴香豆 已经应用的场景",
+    "huixiangdou 已经应用的场景",
+    "huixiangdou 怎么安装",
+    "茴香豆 怎么安装",
+    "huixiangdou 怎么安装",
+    "茴香豆 怎么安装",
+    "茴香豆 最新版本是什么",
+    "茴香豆 支持哪些大模型",
+    "茴香豆 支持哪些通讯软件"
+
+  ]
+  ```
 
 在确定好 3 个语料来源后，运行下面的命令，创建 RAG 检索过程中使用的向量数据库：
 
@@ -191,8 +224,8 @@ git clone https://github.com/internlm/huixiangdou --depth=1 repodir/huixiangdou
 # 创建向量数据库存储目录
 cd /root/huixiangdou && mkdir workdir 
 
-# 分别向量化知识语料、接受问题和拒绝问题中后保存到 workdir
-python3 -m huixiangdou.service.feature_store 
+# 分别向量化知识语python3 -m huixiangdou.service.feature_store 
+料、接受问题和拒绝问题中后保存到 workdir
 ```
 
 向量数据库的创建需要等待一小段时间，过程约占用 2G 显存。
@@ -201,60 +234,29 @@ python3 -m huixiangdou.service.feature_store
 
 检索过程中，茴香豆会将输入问题与两个列表中的问题在向量空间进行相似性比较，判断该问题是否应该回答，避免群聊过程中的问答泛滥。确定的回答的问题会利用基础模型提取关键词，在知识库中检索 `top K` 相似的 `chunk`，综合问题和检索到的 `chunk` 生成答案。
 
-### 2.3 利用 Gradio 搭建网页 Demo
+### 2.3 运行茴香豆知识助手
 
-我们已经提取了知识库特征，并创建了对应的向量数据库。现在，让我们用 **Gradio** 搭建一个自己的网页对话 Demo，来看看效果。
+我们已经提取了知识库特征，并创建了对应的向量数据库。现在，让我们来测试一下效果：
 
- 1. 首先，安装 **Gradio** 依赖组件：
+打开文件 `/root/huixiangdou/huixiangdou/main.py` ，修改 `lark_send_only` 函数中的 `queries` 列表为自己的问题，如下图：
+
+![](./imgs/self_q.png)
+
+命令行运行：
 
 ```bash
-pip install gradio redis flask lark_oapi
+cd /root/huixiangdou/
+python3 -m huixiangdou.main --standalone
 ```
-  2. 运行脚本，启动茴香豆对话 Demo 服务：
+RAG 技术的优势就是非参数化的模型调优，这里使用的仍然是基础模型 `InternLM2-Chat-7B`， 没有任何额外数据的训练。面对同样的问题，我们的**茴香豆技术助理**能够根据我们提供的数据库生成准确的答案：
 
-```bash
-python3 -m tests.test_query_gradio 
+![](./imgs/huixiangdou.png)
 
-```
+![](./imgs/install.png)
 
-此时服务器端接口已开启。如果在本地服务器使用，直接在浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) ，即可进入茴香豆对话 Demo 界面。
+`InternLM2-Chat-7B` 的关于 `huixiangdou` 问题的原始输出：
 
-针对远程服务器，如我们的 `Intern Studio` 开发机，我们需要设置端口映射，转发端口到本地浏览器：
-
-1. 查询开发机端口和密码（图中端口示例为 38374）：
-
-![](imgs/check_port.png)
-
-2. 在本地打开命令行工具：
-  - Windows 使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令 `Powershell`，按下回车键
-  - Mac 用户直接找到并打开`终端`
-  - Ubuntu 用户使用快捷键组合 `ctrl + alt + t`
-
-在命令行中输入如下命令，命令行会提示输入密码：
-```
-ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
-```
-3. 复制开发机密码到命令行中，按回车，建立开发机到本地到端口映射。
-
-![Alt text](imgs/port_psw.png)
-
-4. 在本地浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) 进入 **Gradio** 对话 Demo 界面，开始对话。
-
-
-RAG 技术的优势就是非参数化的模型调优，这里使用的仍然是基础模型 `InternLM2-Chat-7B`， 并未接受任何额外数据的训练过程。面对同样的问题，我们的**茴香豆技术助理**能够根据我们的问题回答相应的知识。
-
-![](imgs/gradio.png)
-
-如果需要更换检索的知识领域，只需要用新的语料知识重复步骤 [2.2 创建知识库](#22-创建知识库) 提取特征到新的向量数据库，更改 `huixiangdou/config.ini` 文件中 `work_dir = "新向量数据库路径"`；
-
-或者运行： 
-
-```
-python3 -m tests.test_query_gradi --work_dir <新向量数据库路径>
-```
-
-无需重新训练或微调模型，就可以轻松的让基础模型学会新领域知识，搭建一个新的问答助手。
-
+![](./imgs/internlm27b.png)
 
 ## 3 茴香豆进阶
 
@@ -324,8 +326,58 @@ enable_remote = 1 # 启用云端模型
 
 [茴香豆 Web 版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web) 在 **OpenXLab** 上部署了混合模型的 Demo，可上传自己的语料库测试效果。
 
+### 3.3 利用 Gradio 搭建网页 Demo
 
-### 3.3 配置文件解析
+让我们用 **Gradio** 搭建一个自己的网页对话 Demo，来看看效果。
+
+ 1. 首先，安装 **Gradio** 依赖组件：
+
+```bash
+pip install gradio==4.25.0 redis==5.0.3 flask==3.0.2 lark_oapi==1.2.4
+```
+  2. 运行脚本，启动茴香豆对话 Demo 服务：
+
+```bash
+python3 -m tests.test_query_gradio 
+
+```
+
+此时服务器端接口已开启。如果在本地服务器使用，直接在浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) ，即可进入茴香豆对话 Demo 界面。
+
+针对远程服务器，如我们的 `Intern Studio` 开发机，我们需要设置端口映射，转发端口到本地浏览器：
+
+1. 查询开发机端口和密码（图中端口示例为 38374）：
+
+![](imgs/check_port.png)
+
+2. 在本地打开命令行工具：
+  - Windows 使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令 `Powershell`，按下回车键
+  - Mac 用户直接找到并打开`终端`
+  - Ubuntu 用户使用快捷键组合 `ctrl + alt + t`
+
+在命令行中输入如下命令，命令行会提示输入密码：
+```
+ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
+```
+3. 复制开发机密码到命令行中，按回车，建立开发机到本地到端口映射。
+
+![Alt text](imgs/port_psw.png)
+
+4. 在本地浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) 进入 **Gradio** 对话 Demo 界面，开始对话。
+
+![](imgs/gradio.png)
+
+如果需要更换检索的知识领域，只需要用新的语料知识重复步骤 [2.2 创建知识库](#22-创建知识库) 提取特征到新的向量数据库，更改 `huixiangdou/config.ini` 文件中 `work_dir = "新向量数据库路径"`；
+
+或者运行： 
+
+```
+python3 -m tests.test_query_gradi --work_dir <新向量数据库路径>
+```
+
+无需重新训练或微调模型，就可以轻松的让基础模型学会新领域知识，搭建一个新的问答助手。
+
+### 3.4 配置文件解析
 
 茴香豆的配置文件位于代码主目录下，采用 `Toml` 形式，有着丰富的功能，下面将解析配置文件中重要的常用参数。
 
@@ -388,7 +440,7 @@ has_weekday = 1
 `[fronted]`:  前端交互设置。[茴香豆代码仓库](https://github.com/InternLM/HuixiangDou/tree/main/docs) 查看具体教程。
 
 
-### 3.4 文件结构
+### 3.5 文件结构
 
 通过了解主要文件的位置和作用，可以更好的理解茴香豆的工作原理。
 

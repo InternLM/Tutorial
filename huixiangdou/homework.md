@@ -1,18 +1,16 @@
 # 第二课作业
-## 基础作业
+## 基础作业 - 完成下面两个作业
 
-### 1.在 `InternLM Studio` 上部署茴香豆技术助手
-
-- 回顾第一课作业，部署 `InternLM2-Chat-7B` 针对问题”huixiangdou 是什么？“进行问答
-- 根据教程文档搭建 `茴香豆 MMPose 助手` Gradio Demo，针对问题”huixiangdou 是什么？“进行问答
-- 比较二者回答的差异
-- 完成不少于 400 字的笔记 + 截图
-
-### 2. (可选)在[茴香豆 Web 版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web)中创建自己领域的知识问答助手
+### 1. 在[茴香豆 Web 版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web)中创建自己领域的知识问答助手
 
 - 参考视频[零编程玩转大模型，学习茴香豆部署群聊助手](https://www.bilibili.com/video/BV1S2421N7mn)
 - 完成不少于 400 字的笔记 + 线上茴香豆助手对话截图(不少于5轮)
-- （难度高）参考 [代码](https://github.com/InternLM/HuixiangDou/tree/main/web) 在自己的服务器部署茴香豆 Web 版
+- （可选）参考 [代码](https://github.com/InternLM/HuixiangDou/tree/main/web) 在自己的服务器部署茴香豆 Web 版
+
+### 2.在 `InternLM Studio` 上部署茴香豆技术助手
+
+- 根据教程文档搭建 `茴香豆技术助手`，针对问题”茴香豆怎么部署到微信群？“进行提问
+- 完成不少于 400 字的笔记 + 截图
 
 
 ## 进阶作业 - 二选一 
