@@ -9,7 +9,6 @@
   - [1.1 配置基础环境](#11-配置基础环境)
   - [1.2 下载基础文件](#12-下载基础文件)
   - [1.3 下载安装茴香豆（豆哥）](#13-下载安装茴香豆豆哥)
-  - [1.4 端口映射（可选）](#14-端口映射可选)
 - [2 使用茴香豆](#2-使用茴香豆)
   - [2.1 修改配置文件](#21-修改配置文件)
   - [2.2 收集本地数据库](#22-收集本地数据库)
@@ -28,7 +27,19 @@
 
 这里以在 `InternStudio` 服务器上部署**茴香豆**为例。
 
-首先，从官方环境复制运行 InternLM 的基础环境，命名为 `InternLM2_Huixiangdou`。
+首先，打开 `Intern Studio` 界面，点击 ***创建开发机*** 配置开发机系统。
+
+![alt text](../helloworld/images/img-1.png)
+
+填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `10% A100 * 1` 的选项（完成基础作业后可升级 GPU 资源），然后立即创建开发机器。
+
+![alt text](../helloworld/images/img-2.png)
+
+点击 `进入开发机` 选项。
+
+![alt text](../helloworld/images/img-3.png)
+
+进入开发机后，从官方环境复制运行 InternLM 的基础环境，命名为 `InternLM2_Huixiangdou`，在命令行模式下运行：
 
 ```bash
 studio-conda -o internlm-base -t InternLM2_Huixiangdou
@@ -49,7 +60,7 @@ base                  *  /root/.conda
 InternLM2_Huixiangdou                 /root/.conda/envs/InternLM2_Huixiangdou
 ```
 
-激活环境。
+运行 ***conda*** 命令，激活 `InternLM2_Huixiangdou`  ***python*** 虚拟环境:
 
 ```bash
 conda activate InternLM2_Huixiangdou
@@ -63,7 +74,9 @@ conda activate InternLM2_Huixiangdou
 
 ### 1.2 下载基础文件
 
-复制茴香豆所需模型，为了减少下载和huggingface登录问题，所有作业和教程涉及的模型都已经存放在共享文件中，大家根据自己机器配置选择合适的模型复制。
+复制茴香豆所需模型，为了减少下载和huggingface登录问题，所有作业和教程涉及的模型都已经存放在共享文件中，大家根据自己机器配置选择合适的模型复制。(为了**节省**复制传输时间，本节采用软连接的方式复制引用模型，：
+
+
 
 ```bash
 # 创建模型文件夹
@@ -73,13 +86,12 @@ cd /root && mkdir models
 ln -s /root/share/new_models/maidalun1020/bce-embedding-base_v1 /root/models/bce-embedding-base_v1
 ln -s /root/share/new_models/maidalun1020/bce-reranker-base_v1 /root/models/bce-reranker-base_v1
 
-# 复制大模型参数（下面的模型，根据作业进度和任务进行选择一个就行）
+# 复制大模型参数（下面的模型，根据作业进度和任务进行**选择一个**就行）
 ## 基础作业 (8G显存)
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/models/internlm2-chat-1_8b
 
 ## 进阶作业(20G显存)
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/models/internlm2-chat-7b
-
 ```
 
 ### 1.3 下载安装茴香豆（豆哥）
@@ -97,6 +109,8 @@ apt -y install  libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext t
 ```
 > 注意！由于 **InternLM Studio** 限制，每次重启后上述命令都需要重新执行，重新安装。
 
+> 注意！该指令主要用于解析 Word 文件，如安装过程中反复遇到报错，可跳过该步骤，不影响作业和适用。
+
 从茴香豆官方仓库下载茴香豆。
 
 ```bash
@@ -107,32 +121,8 @@ git checkout 447c6f7e68a1657fce1c4f7c740ea1700bde0440
 
 # python requirements
 pip install -r requirements.txt
-pip install protobuf # internlm2
+pip install protobuf==4.25.3 # internlm2
 ```
-
-
-
-### 1.4 端口映射（可选）
-
-后续如果想通过gradio搭建web应用demo，请跟随下面的步骤将服务器端口映射到本地端口：
-首先我们需要配置一下本地的 SSH Key ，我们这里以Windows为例。
-
-1. 查询服务器端口和密码（图中端口示例为 38374）：
-
-![](imgs/check_port.png)
-
-2. 在本地打开命令行.
-    - Windows 使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令 `Powershell`，按下回车键
-    - Mac 用户直接找到并打开`终端`
-    - Ubuntu 用户使用快捷键组合 `ctrl + alt + t`
-
-3. 在命令行中输入如下命令，命令行会提示输入密码：
-```
-ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
-```
-4. 复制服务器密码到命令行中，按回车，建立服务器到本地到端口映射。
-
-![Alt text](imgs/port_psw.png)
 
 
 ## 2 使用茴香豆
@@ -147,7 +137,7 @@ ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
 
 `local_llm_path = "/root/models/internlm2-chat-1_8b"`
 
-基础作业可以参考这个文件修改 [config.ini](/config.ini)。
+基础作业可以参考这个文件修改 [config.ini](./config.ini)。
 
 > 进阶作业
 
@@ -159,7 +149,7 @@ ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
 
 ```bash
 cd /root/huixiangdou && mkdir repodir
-git clone https://github.com/open-mmlab/mmpose --depth=1 repodir/mmpose
+gitee clone https://github.com/open-mmlab/mmpose --depth=1 repodir/mmpose
 ```
 
 修改文件 `/root/huixiangDou/resource/good_questions.json` 和 `/root/huixiangDou/resource/bad_questions.json` ，添加或删除希望模型回答和模型拒绝回答的问题列表。
@@ -199,14 +189,14 @@ python3 -m huixiangdou.service.feature_store
 python3 -m huixiangdou.main --standalone
 ```
 
-基础模型的性能决定着茴香豆搭建的知识助理的能力，建议选择InternLM2-chat_7b的模型，才能真正展示茴香豆的能力。
+基础模型的性能决定着茴香豆搭建的知识助理的能力，建议选择InternLM2-Chat-7B 的模型，才能真正展示茴香豆的能力。
 
-> 注意！无法基于 `internlm2-chat_1.8b` 该尺度模型实现RAG知识库搭建，基础作业大家以跑通流程为主，不要在意输出结果是否准确。
+> 注意！无法基于 `InternLM2-Chat-1.8B` 该尺度模型实现RAG知识库搭建，基础作业大家以跑通流程为主，不要在意输出结果是否准确。
 
 
 ![](imgs/res_1.8b.png)
 
-> 下图是 `internlm2-chat_ 7b` 相同问题的回答：
+> 下图是 `InternLM2-Chat-7B` 相同问题的回答：
 
 ![](imgs/res_7b.png)
 
@@ -216,11 +206,12 @@ python3 -m huixiangdou.main --standalone
 ![](imgs/self_ask.png)
 
 ![](imgs/self_res.png)
-`internlm2-chat_ 7b`的回答
+
+基于 `InternLM2-Chat-7B`的回答
 
 ## 3 茴香豆进阶
 
-<div align='center'>
+<div align='center' height='400'>
 
 ![](imgs/overall.png)
 
@@ -303,7 +294,29 @@ pip install gradio redis flask lark_oapi
 
 ```bash
 python3 -m tests.test_query_gradio 
+
 ```
+
+服务器端接口已开启，接下来，我们设置端口映射，让服务器转发端口到本地电脑。
+
+首先我们需要配置一下本地的 SSH Key ，我们这里以Windows为例。
+
+查询服务器端口和密码（图中端口示例为 38374）：
+
+![](imgs/check_port.png)
+
+在本地打开命令行.
+  - Windows 使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令 `Powershell`，按下回车键
+  - Mac 用户直接找到并打开`终端`
+  - Ubuntu 用户使用快捷键组合 `ctrl + alt + t`
+
+在命令行中输入如下命令，命令行会提示输入密码：
+```
+ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
+```
+1. 复制服务器密码到命令行中，按回车，建立服务器到本地到端口映射。
+
+![Alt text](imgs/port_psw.png)
 
 在本地浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) 进入Gradio对话应用助手，如果在服务器端运行茴香豆web demo，请跟随 [1.4 端口映射（可选）](#14-端口映射可选) 章节建立好本地与服务器映射。
 
