@@ -125,7 +125,7 @@ pip install protobuf==4.25.3 # internlm2
 # apt update && apt -y install python-dev python libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
 ```
 
-茴香豆工具在 `Intern Studio` 开发机的安装工作结束。如果部署在自己的服务器上，参考上节课模型下载内容或本节[3.4 配置文件解析](#34-配置文件解析)部分内容下载模型文件。
+茴香豆工具在 `Intern Studio` 开发机的安装工作结束。如果部署在自己的服务器上，参考上节课模型下载内容或本节 [3.3 配置文件解析](#33-配置文件解析) 部分内容下载模型文件。
 
 
 ## 2 使用茴香豆搭建 RAG 助手
@@ -158,7 +158,7 @@ local_llm_path = "/root/models/internlm2-chat-7b"
 
 修改好的配置文件应该和 [config.ini 示例文件](./config.ini) 一致，也可以直接用该文件内容替换自己开发机上 `/root/huixiangdou/config.ini` 文件。
 
-配置文件具体含义和更多细节参考 [3.4 配置文件解析](#34-配置文件解析)。
+配置文件具体含义和更多细节参考 [3.3 配置文件解析](#33-配置文件解析)。
 
 ### 2.2 创建知识库
 
