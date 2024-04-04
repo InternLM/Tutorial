@@ -12,11 +12,10 @@
 - [2 使用茴香豆](#2-使用茴香豆)
   - [2.1 修改配置文件](#21-修改配置文件)
   - [2.2 收集本地数据库](#22-收集本地数据库)
-  - [2.3 测试茴香豆](#23-测试茴香豆)
+  - [2.3 利用 Gradio 搭建网页 Demo](#23-利用-gradio-搭建网页-demo)
 - [3 茴香豆进阶](#3-茴香豆进阶)
   - [3.1 加入网络搜索](#31-加入网络搜索)
   - [3.2 使用远程模型](#32-使用远程模型)
-  - [3.3 利用 Gradio 搭建网页 Demo](#33-利用-gradio-搭建网页-demo)
   - [3.4 配置文件解析](#34-配置文件解析)
   - [3.5 文件结构](#35-文件结构)
 - [作业](#作业)
@@ -180,33 +179,73 @@ cd /root/huixiangdou && mkdir workdir
 python3 -m huixiangdou.service.feature_store 
 ```
 
-### 2.3 测试茴香豆
+### 2.3 利用 Gradio 搭建网页 Demo
 
-可以通过下面的命令来测试茴香豆的性能。
+我们已经提取了知识库特征，并创建了一个向量数据库，运行下面的命令，测试一下我们的茴香豆助手现在是否能够从该向量数据库中检索到相关问题的信息，生成匹配的答案：
+
 
 ```bash
 # standalone
 python3 -m huixiangdou.main --standalone
 ```
 
-茴香豆针对知识问答优化了工作流。在优化的工作流中多处依赖基础大模型来完成问答，例如拒答模块中对于输入是否是问题的判断，检索模块对于问题主题的提取等。因此茴香豆的性能表现高度依赖基础大模型的能力，建议选择InternLM2-Chat-7B 尺度的模型。
-
-> 注意！ `InternLM2-Chat-1.8B` 该尺度模型难以实现茴香豆RAG知识库搭建，如下图，该尺度模型无法准确判断输入是否为问题。基础作业大家以跑通流程为主，不要在意输出结果是否准确。
-
-![](imgs/res_1.8b.png)
-
-> 下图是 `InternLM2-Chat-7B` 相同问题的回答，可以看到茴香豆各工作流在该尺度大模型上正确识别是否是问题、提取关键词、生成答案、判断问题相关性，最终生成满意的回答。
+可以看到，我们的茴香豆助手已经能够从 MMPose 的文档中找到准确的知识回答我们的问题了。
 
 ![](imgs/res_7b.png)
 
 
-可以通过修改 `/root/huixiangdou/huixiangdou/main.py` 文件中 `lark_send_only` 函数，测试自己的问答：
+前面的教程，我们使用命令行的方式测试自己搭建的茴香豆助手，为了更方便的测试和使用，我们现在用 **Gradio** 搭建一个自己的网页对话 Demo。
 
-![](imgs/self_ask.png)
+首先，安装 Gradio 依赖组件：
 
-![](imgs/self_res.png)
+```bash
+pip install gradio redis flask lark_oapi
+```
+运行脚本，启动茴香豆对话 Demo 服务：
 
-基于 `InternLM2-Chat-7B`的回答
+```bash
+python3 -m tests.test_query_gradio 
+
+```
+
+服务器端接口已开启。如果在本地服务器使用，本地浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) ，即可进入茴香豆对话 Demo 界面。
+
+针对远程服务器，我们需要设置端口映射，转发端口到本地浏览器。下面以 **InternLM Studio** 为例：
+
+1. 查询服务器端口和密码（图中端口示例为 38374）：
+
+![](imgs/check_port.png)
+
+2. 在本地打开命令行工具：
+  - Windows 使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令 `Powershell`，按下回车键
+  - Mac 用户直接找到并打开`终端`
+  - Ubuntu 用户使用快捷键组合 `ctrl + alt + t`
+
+在命令行中输入如下命令，命令行会提示输入密码：
+```
+ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
+```
+3. 复制服务器密码到命令行中，按回车，建立服务器到本地到端口映射。
+
+![Alt text](imgs/port_psw.png)
+
+4. 在本地浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) 进入Gradio对话应用助手，如果在服务器端运行茴香豆web demo，请跟随 [1.4 端口映射（可选）](#14-端口映射可选) 章节建立好本地与服务器映射。
+
+![](imgs/gradio_demo.png)
+
+如果需要更换检索的知识领域，只需要重复步骤 [2.2 收集本地数据库](#22-收集本地数据库) 重新提取特征到新的向量数据库路径，更改 `/root/huixiangdou/config.ini` 文件中 `work_dir = "新向量数据库路径"`；
+或者运行： 
+
+```
+python3 -m tests.test_query_gradi --work_dir <新向量数据库路径>
+```
+
+就可以轻松的搭建一个新的问答助手，新助手可以根据新数据库路径进行相关的问答对话。
+
+```
+python3 -m tests.test_query_gradio -h
+```
+可以查看更多网页 Demo 支持的命令。
 
 ## 3 茴香豆进阶
 
@@ -214,7 +253,7 @@ python3 -m huixiangdou.main --standalone
   <img width="auto" height="300" src="imgs/overall.png">
 </p>
 
-茴香豆并非单纯的RAG功能实现，而是一个专门针对群聊优化的知识助手。详情请阅读 [技术报告](https://arxiv.org/abs/2401.08772)或观看本节课理论视频。
+茴香豆并非单纯的RAG功能实现，而是一个专门针对群聊优化的知识助手。详情请阅读[技术报告](https://arxiv.org/abs/2401.08772)或观看本节课理论视频。
 
 
 ### 3.1 加入网络搜索
@@ -276,60 +315,6 @@ enable_remote = 1 # 启用云端模型
 [茴香豆 Web 版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web) 在 **OpenXLab** 上部署了混合模型的 Demo，可上传自己的知识库测试效果。
 
 
-### 3.3 利用 Gradio 搭建网页 Demo
-
-前面的教程，我们都是通过修改代码的模式测试自己搭建的茴香豆助手，为了更方便的测试和使用，我们现在利用 **Gradio** 创建自己的网页对话 demo。
-
-> 注意！需要 7B 模型运行 demo。
-
-安装Gradio依赖。
-
-```bash
-pip install gradio redis flask lark_oapi
-```
-运行本地茴香豆Demo：
-
-```bash
-python3 -m tests.test_query_gradio 
-
-```
-
-服务器端接口已开启，接下来，我们设置端口映射，让服务器转发端口到本地浏览器。
-
-查询服务器端口和密码（图中端口示例为 38374）：
-
-![](imgs/check_port.png)
-
-在本地打开命令行.
-  - Windows 使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令 `Powershell`，按下回车键
-  - Mac 用户直接找到并打开`终端`
-  - Ubuntu 用户使用快捷键组合 `ctrl + alt + t`
-
-在命令行中输入如下命令，命令行会提示输入密码：
-```
-ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
-```
-1. 复制服务器密码到命令行中，按回车，建立服务器到本地到端口映射。
-
-![Alt text](imgs/port_psw.png)
-
-在本地浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) 进入Gradio对话应用助手，如果在服务器端运行茴香豆web demo，请跟随 [1.4 端口映射（可选）](#14-端口映射可选) 章节建立好本地与服务器映射。
-
-![](imgs/gradio_demo.png)
-
-如果需要切换知识领域，只需要重复步骤 [2.2 收集本地数据库](#22-收集本地数据库) 提取新知识特征到新路径，更改 `/root/huixiangdou/config.ini` 文件中 `work_dir = "新路径"`；
-或者运行 
-
-```
-python3 -m tests.test_query_gradi --work_dir <新特征路径>
-```
-
- 就可以轻松的搭建一个新的茴香豆问答助手了。
-
-```
-python3 -m tests.test_query_gradio -h
-```
-可以查看更多网页Demo支持的命令。
 
 ### 3.4 配置文件解析
 
