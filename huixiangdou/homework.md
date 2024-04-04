@@ -1,10 +1,10 @@
 # 第二课作业
 ## 基础作业
 
-### 1.在 `InternLM Studio` 上搭建 茴香豆 MMPose 助手
+### 1.在 `InternLM Studio` 上部署茴香豆技术助手
 
-- 回顾第一课作业，部署 `InternLM2-Chat-7B` 进行只能对话，针对问题”mmpose 如何安装“进行问答
-- 根据教程文档搭建 `茴香豆 MMPose 助手` Gradio Demo，针对问题”mmpose 如何安装“进行问答
+- 回顾第一课作业，部署 `InternLM2-Chat-7B` 针对问题”huixiangdou 是什么？“进行问答
+- 根据教程文档搭建 `茴香豆 MMPose 助手` Gradio Demo，针对问题”huixiangdou 是什么？“进行问答
 - 比较二者回答的差异
 - 完成不少于 400 字的笔记 + 截图
 
@@ -22,7 +22,7 @@
   - 可以使用 茴香豆 Web 版 或 InternLM Studio 云端服务器部署
   - 涵盖部署全过程的作业报告和个人助手问答截图
 
-### B. 算法方向】尝试应用其他NLP技术，如其他chunk方法，或调整prompt提高个人工作助手的表现。
+### B.【算法方向】尝试修改 `good_questions.json`、调试prompt 或应用其他NLP技术，如其他chunk方法，提高个人工作助手的表现。
   - 完成不少于 400 字的笔记 ，记录自己的尝试和调试思路，涵盖全过程和改进效果截图
 
 ## 大作业项目选题

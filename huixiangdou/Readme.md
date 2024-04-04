@@ -33,7 +33,9 @@ RAG 能够让基础模型实现非参数知识更新，无需训练就可以掌�
 
 ### RAG 效果比对
 
+如图所示，由于茴香豆是一款比较新的应用， `InternLM2-Chat-7B` 训练数据库中并没有收录到它的相关信息。左图中关于 huixiangdou 的 3 轮问答均未给出准确的答案。右图未对 `InternLM2-Chat-7B` 进行任何增训的情况下，通过 RAG 技术实现的新增知识问答。
 
+![](./imgs/vs.jpeg)
 
 
 ## 1 环境配置
@@ -160,13 +162,14 @@ local_llm_path = "/root/models/internlm2-chat-7b"
 
 ### 2.2 创建知识库
 
-本示例中，使用 **OpenMMLab** 的 **MMPose** 文档作为数据检索来源，打造一个 **MMPose** 技术问答助手。
+本示例中，使用 **InternLM** 的 **Huixiangdou** 文档作为新增知识数据检索来源，在不重新训练的情况下，打造一个 **Huixiangdou** 技术问答助手。
 
-首先，下载 **MMPose** 语料：
+首先，下载 **Huixiangdou** 语料：
 
 ```bash
 cd /root/huixiangdou && mkdir repodir
-git clone https://gitee.com/open-mmlab/mmpose --depth=1 repodir/mmpose
+
+git clone https://github.com/internlm/huixiangdou --depth=1 repodir/huixiangdou
 ```
 
 提取知识库特征，创建向量数据库。数据库向量化的过程应用到了 **LangChain** 的相关模块，默认嵌入和重排序模型调用的网易 **BCE 双语模型**，如果没有在 `config.ini` 文件中指定本地模型路径，茴香豆将自动从 **HuggingFace**  拉取默认模型。
@@ -175,11 +178,11 @@ git clone https://gitee.com/open-mmlab/mmpose --depth=1 repodir/mmpose
 
 - 接受问题列表，希望茴香豆助手回答的示例问题
   - 存储在 `huixiangdou/resource/good_questions.json` 中
-  - 本示例中为 **MMPose** 相关技术问题
-  - 如："mmpose中怎么调用mmyolo接口", "mmpose实现姿态估计后怎么实现行为识别"
+  - 本示例采用默认的接受示例问题，可以看到，其中绝大多数是与 MMPose 相关的技术问题
+  - 后续作业中，同学可以自行修改该列表，使其更适合**Huixiangdou**，来提升表现
 - 拒绝问题列表，希望茴香豆助手拒答的示例问题
   - 存储在 `huixiangdou/resource/bad_questions.json` 中
-  - 本示例中为语 **MMPose** 技术无关的主题或闲聊
+  - 其中多为技术无关的主题或闲聊
   - 如："nihui 是谁", "具体在哪些位置进行修改？", "你是谁？", "1+1"
 
 在确定好 3 个语料来源后，运行下面的命令，创建 RAG 检索过程中使用的向量数据库：
@@ -194,36 +197,20 @@ python3 -m huixiangdou.service.feature_store
 
 向量数据库的创建需要等待一小段时间，过程约占用 2G 显存。
 
-完成后，**MMPose** 相关的向量数据库就存储在 `workdir` 文件夹下了。
+完成后，**Huixiangdou** 相关的新增知识就以向量数据库的形式存储在 `workdir` 文件夹下。
 
 检索过程中，茴香豆会将输入问题与两个列表中的问题在向量空间进行相似性比较，判断该问题是否应该回答，避免群聊过程中的问答泛滥。确定的回答的问题会利用基础模型提取关键词，在知识库中检索 `top K` 相似的 `chunk`，综合问题和检索到的 `chunk` 生成答案。
 
-默认的接受和拒绝问题列表是根据 **MMPose** 知识库创建的，如果使用其他领域的知识语料库，在切换语料库文件的同时，也要更新相应的接受和拒绝问题列表。
-
 ### 2.3 利用 Gradio 搭建网页 Demo
 
-现在，我们已经提取了知识库特征，并创建了对应的向量数据库，运行下面的命令，测试一下我们的茴香豆助手现在是否能够从该向量数据库中检索到相关问题的信息，生成匹配的答案：
+我们已经提取了知识库特征，并创建了对应的向量数据库。现在，让我们用 **Gradio** 搭建一个自己的网页对话 Demo，来看看效果。
 
-
-```bash
-# standalone
-python3 -m huixiangdou.main --standalone
-```
-
-可以看到，我们的茴香豆助手已经能够从 **MMPose** 的文档中找到准确的知识回答我们的问题了。
-
-
-![](imgs/res_7b.png)
-
-
-前面的教程，我们使用命令行的方式测试自己搭建的茴香豆助手，为了更方便的测试和使用，我们现在用 **Gradio** 搭建一个自己的网页对话 Demo。
-
-首先，安装 **Gradio** 依赖组件：
+ 1. 首先，安装 **Gradio** 依赖组件：
 
 ```bash
 pip install gradio redis flask lark_oapi
 ```
-运行脚本，启动茴香豆对话 Demo 服务：
+  2. 运行脚本，启动茴香豆对话 Demo 服务：
 
 ```bash
 python3 -m tests.test_query_gradio 
@@ -254,9 +241,9 @@ ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p 38074
 4. 在本地浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) 进入 **Gradio** 对话 Demo 界面，开始对话。
 
 
-RAG 技术的优势就是非参数化的模型调优，这里使用的基础模型 `InternLM2-Chat-7B` 并未接受任何额外数据的训练过程，便可根据我们的问题回答相应的解决方案。与原始 `InternLM2-Chat-7B` 对相同问题回答的对比显著：
+RAG 技术的优势就是非参数化的模型调优，这里使用的仍然是基础模型 `InternLM2-Chat-7B`， 并未接受任何额外数据的训练过程。面对同样的问题，我们的**茴香豆技术助理**能够根据我们的问题回答相应的知识。
 
-![](imgs/gradio_demo.png)
+![](imgs/gradio.png)
 
 如果需要更换检索的知识领域，只需要用新的语料知识重复步骤 [2.2 创建知识库](#22-创建知识库) 提取特征到新的向量数据库，更改 `huixiangdou/config.ini` 文件中 `work_dir = "新向量数据库路径"`；
 
@@ -267,7 +254,6 @@ python3 -m tests.test_query_gradi --work_dir <新向量数据库路径>
 ```
 
 无需重新训练或微调模型，就可以轻松的让基础模型学会新领域知识，搭建一个新的问答助手。
-
 
 
 ## 3 茴香豆进阶
