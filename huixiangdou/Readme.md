@@ -5,6 +5,8 @@
 
 </div>
 
+- [0 RAG 概述](#0-rag-概述)
+  - [RAG 效果比对](#rag-效果比对)
 - [1 环境配置](#1-环境配置)
   - [1.1 配置基础环境](#11-配置基础环境)
   - [1.2 下载基础文件](#12-下载基础文件)
@@ -19,6 +21,19 @@
   - [3.3 配置文件解析](#33-配置文件解析)
   - [3.4 文件结构](#34-文件结构)
 - [作业](#作业)
+
+
+## 0 RAG 概述
+
+RAG（Retrieval Augmented Generation）技术，通过检索与用户输入相关的信息片段，并结合***外部知识库***来生成更准确、更丰富的回答。解决LLMs在处理知识密集型任务时可能遇到的挑战, 如幻觉、过时知缺乏透明和可追溯的推理过程等。提供更准确的回答、降低推理成本、实现外部记忆。
+
+![RAG overview](./imgs/RAG_overview.png)
+
+RAG 能够让基础模型实现非参数知识更新，无需训练就可以掌握新领域的知识。本次课程选用的[茴香豆](https://github.com/InternLM/HuixiangDou)应用，就应用了 RAG 技术，可以快速、高效的搭建自己的知识领域助手。
+
+### RAG 效果比对
+
+
 
 
 ## 1 环境配置
@@ -103,7 +118,7 @@ git checkout 447c6f7e68a1657fce1c4f7c740ea1700bde0440
 pip install -r requirements.txt
 pip install protobuf==4.25.3 # internlm2
 
-## 因为 InternLM Studio 不支持对系统文件的永久修改，在 InternLM Studio 安装部署的同学不建议安装 Word 依赖，后续的操作和作业不会涉及 Word 解析。
+## 因为 Intern Studio 不支持对系统文件的永久修改，在 Intern Studio 安装部署的同学不建议安装 Word 依赖，后续的操作和作业不会涉及 Word 解析。
 ## 想要自己尝试解析 Word 文件的同学，uncomment 掉下面这行，安装解析 .doc .docx 必需的依赖
 # apt update && apt -y install python-dev python libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
 ```
@@ -159,11 +174,11 @@ git clone https://gitee.com/open-mmlab/mmpose --depth=1 repodir/mmpose
 除了语料知识的向量数据库，茴香豆建立接受和拒答两个向量数据库，用来在检索的过程中加精确的判断提问的相关性，这两个数据库的来源分别是：
 
 - 接受问题列表，希望茴香豆助手回答的示例问题
-  - 存储在 `Huixiangdou/resource/good_questions.json` 中
+  - 存储在 `huixiangdou/resource/good_questions.json` 中
   - 本示例中为 **MMPose** 相关技术问题
   - 如："mmpose中怎么调用mmyolo接口", "mmpose实现姿态估计后怎么实现行为识别"
 - 拒绝问题列表，希望茴香豆助手拒答的示例问题
-  - 存储在 `Huixiangdou/resource/bad_questions.json` 中
+  - 存储在 `huixiangdou/resource/bad_questions.json` 中
   - 本示例中为语 **MMPose** 技术无关的主题或闲聊
   - 如："nihui 是谁", "具体在哪些位置进行修改？", "你是谁？", "1+1"
 
@@ -217,7 +232,7 @@ python3 -m tests.test_query_gradio
 
 此时服务器端接口已开启。如果在本地服务器使用，直接在浏览器中输入 [127.0.0.1:7860](http://127.0.0.1:7860/) ，即可进入茴香豆对话 Demo 界面。
 
-针对远程服务器，如我们的 **InternLM Studio** 开发机，我们需要设置端口映射，转发端口到本地浏览器：
+针对远程服务器，如我们的 `Intern Studio` 开发机，我们需要设置端口映射，转发端口到本地浏览器：
 
 1. 查询开发机端口和密码（图中端口示例为 38374）：
 
@@ -243,7 +258,7 @@ RAG 技术的优势就是非参数化的模型调优，这里使用的基础模�
 
 ![](imgs/gradio_demo.png)
 
-如果需要更换检索的知识领域，只需要用新的语料知识重复步骤 [2.2 创建知识库](#22-创建知识库) 提取特征到新的向量数据库，更改 `Huixiangdou/config.ini` 文件中 `work_dir = "新向量数据库路径"`；
+如果需要更换检索的知识领域，只需要用新的语料知识重复步骤 [2.2 创建知识库](#22-创建知识库) 提取特征到新的向量数据库，更改 `huixiangdou/config.ini` 文件中 `work_dir = "新向量数据库路径"`；
 
 或者运行： 
 

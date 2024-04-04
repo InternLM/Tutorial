@@ -3,8 +3,8 @@
 
 ### 1.在 `InternLM Studio` 上搭建 茴香豆 MMPose 助手
 
-- 回顾第一课作业，搭建 `InternLM2-Chat-7B` Gradio Demo，针对问题”mmpose是谁开发的“进行问答
-- 根据教程文档搭建 `茴香豆 MMPose 助手` Gradio Demo，针对问题”mmpose是谁开发的“进行问答
+- 回顾第一课作业，部署 `InternLM2-Chat-7B` 进行只能对话，针对问题”mmpose 如何安装“进行问答
+- 根据教程文档搭建 `茴香豆 MMPose 助手` Gradio Demo，针对问题”mmpose 如何安装“进行问答
 - 比较二者回答的差异
 - 完成不少于 400 字的笔记 + 截图
 
