@@ -95,21 +95,6 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/mode
 
 ### 1.3 下载安装茴香豆（豆哥）
 
-安装系统和解析 **Word** 文件所需依赖。
-
-```
-## 安装系统必要组件
-apt update
-apt -y install python-dev python
-
-
-# 安装解析 .doc .docx 必须依赖
-apt -y install  libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
-```
-> 注意！由于 **InternLM Studio** 限制，每次重启后上述命令都需要重新执行，重新安装。
-
-> 注意！该指令主要用于解析 Word 文件，如安装过程中反复遇到报错，可跳过该步骤，不影响作业和适用。
-
 从茴香豆官方仓库下载茴香豆。
 
 ```bash
@@ -123,6 +108,21 @@ pip install -r requirements.txt
 pip install protobuf==4.25.3 # internlm2
 ```
 
+为了增加对 **Word** 文件的支持，需要在 Ubuntu 系统中安装下列必需的软件和库。
+
+**InternLM Studio** 不支持对系统文件的永久修改，每次重启后都会重置对系统文件。因此，如果在 **InternLM Studio** 上支持对 **Word** 文件的解析，每次重启后都需要重新执行下列操作。
+
+> ! 安装下列软件过程中如反复遇到报错，可跳过该步骤，不影响后续操作和完成作业。
+
+```
+## 安装系统必要库
+apt update
+apt -y install python-dev python
+
+
+# 安装解析 .doc .docx 必需的依赖
+apt -y install  libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig libpulse-dev 
+```
 
 ## 2 使用茴香豆
 
