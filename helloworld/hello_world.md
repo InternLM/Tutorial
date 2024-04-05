@@ -1,40 +1,40 @@
 <div align="center">
 
-![alt text](images/logo.jpg)
+![alt text](images_en/logo.jpg)
 
 </div>
 
-# 轻松玩转书生·浦语大模型趣味 Demo
+# Dive into the InternLM Fun Demo
 
-## 1 **趣味 Demo 任务列表**
+## 1 **List of Fun Demo Tasks**
 
-本节课可以让同学们实践 4 个主要内容，分别是：
+This lesson allows you to practice 4 main contents, which are:
 
-- **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
-- **部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
-- **通过 `InternLM2-Chat-7B` 运行 `Lagent` 智能体 `Demo`**
-- **实践部署 `浦语·灵笔2` 模型**
+- **Deploy the `InternLM2-Chat-1.8B` model for intelligent conversation**
+- **Deploy First Session InternLM Camp Outstanding Project `八戒-Chat-1.8B` Model**
+- **Run a `Demo` of Agent using `Lagent` with the `InternLM2-Chat-7B` Model**
+- **Deploy the `InternLM-XComposer2` Model**
 
-## 2 **部署 `InternLM2-Chat-1.8B` 模型进行智能对话**
+## 2 **Deploy the `InternLM2-Chat-1.8B` model for intelligent conversation**
 
-### **2.1 配置基础环境**
-首先，打开 `Intern Studio` 界面，点击 创建开发机 配置开发机系统。
+### **2.1 Configure Basic Environment**
+First, Open `Intern Studio` interface, and click on the Create Button to configure the cloud machine.
 
 ![alt text](images/img-1.png)
 
-填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `10% A100 * 1` 的选项，然后立即创建开发机器。
+After filling in the `Name`, Click on "Chose image" and select `Cuda11.7-conda` image. In the specification section, choose the option of `10% A100 * 1`, and click the Create button to create a cloud machine.
 
 ![alt text](images/img-2.png)
 
-点击 `进入开发机` 选项。
+Click the `Enter` Button.
 
 ![alt text](images/img-3.png)
 
-**进入开发机后，在 `terminal` 中输入环境配置命令 (配置环境时间较长，需耐心等待)：**
+**After entering the cloud machine, input the following command in `terminal` to configure the environment (The process of configuring the environment may take some time, please be patient):**
 
 ```bash
 studio-conda -o internlm-base -t demo
-# 与 studio-conda 等效的配置方案
+# The above command has the same effect as the three command below:
 # conda create -n demo python==3.10 -y
 # conda activate demo
 # conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
@@ -44,13 +44,13 @@ studio-conda -o internlm-base -t demo
 
 ![alt text](images/check-2.png)
 
-配置完成后，进入到新创建的 `conda` 环境之中：
+After the configuration is complete, enter the newly created `conda` environment:
 
 ```bash
 conda activate demo
 ```
 
-输入以下命令，完成环境包的安装：
+Execute the following commands to complete the installation of environment packages:
 
 ```bash
 pip install huggingface-hub==0.17.3
@@ -63,9 +63,9 @@ pip install modelscope==1.9.5
 pip install sentencepiece==0.1.99
 ```
 
-### **2.2 下载 `InternLM2-Chat-1.8B` 模型**
+### **2.2 Download the `InternLM2-Chat-1.8B` Model**
   
-按路径创建文件夹，并进入到对应文件目录中：
+Create a folder along the path, and navigate to the corresponding directory:
 
 ```bash
 mkdir -p /root/demo
@@ -74,20 +74,20 @@ touch /root/demo/download_mini.py
 cd /root/demo
 ```
 
-通过左侧文件夹栏目，双击进入 `demo` 文件夹。
+Navigate to the `demo` folder by double-clicking on it in the left-hand folder panel.
 
 ![alt text](images/img-4.png)
 
-双击打开 `/root/demo/download_mini.py` 文件，复制以下代码：
+Double click to open the `/root/demo/download_mini.py` file and paste the following code：
 
 ```python
 import os
 from modelscope.hub.snapshot_download import snapshot_download
 
-# 创建保存模型目录
+# Create a directory to store the model
 os.system("mkdir /root/models")
 
-# save_dir是模型保存到本地的目录
+# save_dir is the directory where the model is saved locally
 save_dir="/root/models"
 
 snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b", 
@@ -96,15 +96,14 @@ snapshot_download("Shanghai_AI_Laboratory/internlm2-chat-1_8b",
 
 ```
 
-执行命令，下载模型参数文件：
+Execute the following command to download the model parameter file:
 
 ```bash
 python /root/demo/download_mini.py
 ```
 
-### **2.3 运行 cli_demo**
-
-双击打开 `/root/demo/cli_demo.py` 文件，复制以下代码：
+### **2.3 Run cli_demo**
+Double click to open the `/root/demo/cli_demo.py` file and paste the following code：
 
 ```python
 import torch
@@ -139,26 +138,24 @@ while True:
             length = len(response)
 
 ```
-
-输入命令，执行 Demo 程序：
+Run the following command to execute the Demo program:
 
 ```bash
 conda activate demo
 python /root/demo/cli_demo.py
 ```
+Wait for the model to finish loading, then enter the following content example: 
 
-等待模型加载完成，键入内容示例：
+    Write a short story in 300 words.
 
-    请创作一个 300 字的小故事
-
-效果如下：
+The result is as follows:
 
 ![alt text](images/img-5.png)
 
-## 3 **实战：部署实战营优秀作品 `八戒-Chat-1.8B` 模型**
+## 3 **Deploy First Session InternLM Camp Outstanding Project `BaJie-Chat-1.8B` Model**
 
-### 3.1 **简单介绍 `八戒-Chat-1.8B`、`Chat-嬛嬛-1.8B`、`Mini-Horo-巧耳`（实战营优秀作品）**
-`八戒-Chat-1.8B`、`Chat-嬛嬛-1.8B`、`Mini-Horo-巧耳` 均是在第一期实战营中运用 `InternLM2-Chat-1.8B` 模型进行微调训练的优秀成果。其中，`八戒-Chat-1.8B` 是利用《西游记》剧本中所有关于猪八戒的台词和语句以及 LLM API 生成的相关数据结果，进行全量微调得到的猪八戒聊天模型。作为 `Roleplay-with-XiYou` 子项目之一，`八戒-Chat-1.8B` 能够以较低的训练成本达到不错的角色模仿能力，同时低部署条件能够为后续工作降低算力门槛。
+### 3.1 **Brief Introduction to `Bajie-Chat-1.8B`、`Chat-Huanhuan-1.8B`、`Mini-Horo-QiaoEr`（Outstanding Projects of InternLM Camp）**
+`Bajie-Chat-1.8B`, `Chat-Huanhuan-1.8B` and `Mini-Horo-QiaoEr` are outstanding projects from first session of InternLM Camp. These models are fine-tuned from InternLM2-Chat-1.8B and have achieved good performance. Among them, `Bajie-Chat-1.8B` is a chat model of Zhu Bajie obtained through full parameter fine-tuning, using all the actor's dialogue of Zhu Bajie from "Journey to the West" and extra dialogue generated by LLM API. As one of the sub-projects of `Roleplay-with-XiYou`, `Bajie-Chat-1.8B` is able to reproduce the persona of character at a relatively low training cost, while the model can also be deployed easily to further decrease the computational cost required for subsequent tasks.
 
 <div align="center">
 
@@ -166,23 +163,23 @@ python /root/demo/cli_demo.py
 
 </div>
 
-当然，同学们也可以参考其他优秀的实战营项目，具体模型链接如下：
+Certainly, you are also encouraged to refer to other outstanding projects in the first session of InternLM Camp. The specific model links are as follows:
 
-+ **八戒-Chat-1.8B：https://www.modelscope.cn/models/JimmyMa99/BaJie-Chat-mini/summary**
-+ **Chat-嬛嬛-1.8B：https://openxlab.org.cn/models/detail/BYCJS/huanhuan-chat-internlm2-1_8b**
-+ **Mini-Horo-巧耳：https://openxlab.org.cn/models/detail/SaaRaaS/Horowag_Mini**
++ **BaJie-Chat-1.8B：https://www.modelscope.cn/models/JimmyMa99/BaJie-Chat-mini/summary**
++ **Chat-Huanhuan-1.8B：https://openxlab.org.cn/models/detail/BYCJS/huanhuan-chat-internlm2-1_8b**
++ **Mini-Horo-QiaoEr：https://openxlab.org.cn/models/detail/SaaRaaS/Horowag_Mini**
 
-🍏那么，开始实验！！！
+🍏Let's start our experiment！！！
 
-### 3.2 **配置基础环境**
+### 3.2 **Configure Basic Environment**
 
-运行环境命令：
+Execute the following command to activate the conda environment：
 
 ```bash
 conda activate demo
 ```
 
-使用 `git` 命令来获得仓库内的 Demo 文件：
+Use the `git` command to obtain the Demo files in the repository：
 ```bash
 cd /root/
 git clone https://gitee.com/InternLM/Tutorial -b camp2
@@ -190,184 +187,183 @@ git clone https://gitee.com/InternLM/Tutorial -b camp2
 cd /root/Tutorial
 ```
 
-### 3.3 **下载运行 Chat-八戒 Demo**
+### 3.3 **3.3 Download Model and Run Bajie-Chat Demo**
 
-在 `Web IDE` 中执行 `bajie_download.py`：
+Execute `bajie_download.py` in `Web IDE` interface：
 
 ```bash
 python /root/Tutorial/helloworld/bajie_download.py
 ```
 
-待程序下载完成后，输入运行命令：
+After the model download program is completed, execute the following command:
 
 ```bash
 streamlit run /root/Tutorial/helloworld/bajie_chat.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-待程序运行的同时，参考章节 3.3 部分对端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令，按下回车键。（Mac 用户打开终端即可）
+While waiting for the program to run, you can try to configuring the port forwarding setting in local `PowerShell`. Use the shortcut key combination `Windows + R` (the Windows key is the Start menu key) to open the command interface, then type the command PowerShell and press Enter.(Mac users just need to simply open the terminal)
 
 ![alt text](images/img-8.png)
 
-打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
+After opening PowerShell, query the port number, and then enter the command according to the port number (for example, the port example shown in the figure is 38961):
 
 ![alt text](images/img-A.png)
 
 ```bash
-# 从本地使用 ssh 连接 studio 端口
-# 将下方端口号 38374 替换成自己的端口号
-ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+# connect to the InternStudio port from the local machine via SSH
+# Replace the port number 38961 below with your own InternStudio cloud machine port number
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38961
 ```
 
-再复制下方的密码，输入到 `password` 中，直接回车：
+Copy the `password` shown in the password field, paste it into PowerShell and press Enter:
 
 ![alt text](images/img-B.png)
 
-最终保持在如下效果即可：
+The final result should be as follows:
 
 ![alt text](images/img-C.png)
 
-打开 [http://127.0.0.1:6006](http://127.0.0.1:6006) 后，等待加载完成即可进行对话，键入内容示例如下：
+Open the following link: [http://127.0.0.1:6006](http://127.0.0.1:6006). Once the model loading is complete, you can proceed with the conversation. Type in content example as follows:
 
-    你好，请自我介绍
+    Hi, please introduce yourself.
 
-效果图如下：
+The result is as follows：
 
 ![alt text](images/img-D.png)
 
-##  4 **实战：使用 `Lagent` 运行 `InternLM2-Chat-7B` 模型（开启 30% A100 权限后才可开启此章节）**
+##  4 **Run a `Demo` of agent using `Lagent` with the `InternLM2-Chat-7B` Model (Prerequisite: This chapter requires obtaining permission of 30% A100)**
 
-### 4.1 **初步介绍 Lagent 相关知识**
-Lagent 是一个轻量级、开源的基于大语言模型的智能体（agent）框架，支持用户快速地将一个大语言模型转变为多种类型的智能体，并提供了一些典型工具为大语言模型赋能。它的整个框架图如下:
+### 4.1 **Brief Introduction to Lagent**
+Lagent is an open source LLM agent framework, which enables people to efficiently turn a large language model to agent. It also provides some typical tools to enhance the ability of LLM, and the whole framework is shown below:
 
 ![alt text](images/Lagent-1.png)
 
-Lagent 的特性总结如下：
-- 流式输出：提供 stream_chat 接口作流式输出，本地就能演示酷炫的流式 Demo。
-- 接口统一，设计全面升级，提升拓展性，包括：  
-    - Model : 不论是 OpenAI API, Transformers 还是推理加速框架 LMDeploy 一网打尽，模型切换可以游刃有余；         
-    - Action: 简单的继承和装饰，即可打造自己个人的工具集，不论 InternLM 还是 GPT 均可适配；        
-    - Agent：与 Model 的输入接口保持一致，模型到智能体的蜕变只需一步，便捷各种 agent 的探索实现；  
-- 文档全面升级，API 文档全覆盖。
+The summary of Lagent's features is as follows:
+- Stream Output: Provides the stream_chat interface for streaming output, allowing cool streaming demos right at your local setup.
+- Interfacing is unified, with a comprehensive design upgrade for enhanced extensibility, including:  
+    - Model :Whether it's the OpenAI API, Transformers, or LMDeploy inference acceleration framework, you can seamlessly switch between models;
+    - Action: Simple inheritance and decoration allow you to create your own personal toolkit, adaptable to both InternLM and GPT；        
+    - Agent：Consistent with the Model's input interface, the transformation from model to intelligent agent only takes one step, facilitating the exploration and implementation of various agents  
+- Documentation has been thoroughly upgraded with full API documentation coverage.
 
-### 4.2 **配置基础环境（开启 30% A100 权限后才可开启此章节）**
+### 4.2 **Configure Basic Environment (Prerequisite: This chapter requires obtaining permission of 30% A100)**
 
-打开 `Intern Studio` 界面，调节配置（必须在开发机关闭的条件下进行）：
+Navigate to `InternLM Studio` interface, adjust the configuration (The process can only be carried out when the cloud machine is turned off).
 
 ![alt text](images/img-E.png)
 
-重新开启开发机，输入命令，开启 conda 环境：
+Start the cloud machine again and execute the following command to activate the conda environment：
 
 ```bash
 conda activate demo
 ```
 
-打开文件子路径
+Navigate to the specific directory
 
 ```bash
 cd /root/demo
 ```
 
-使用 git 命令下载 Lagent 相关的代码库：
+Use the git command to download the relevant repository for `Lagent`：
 
 ```bash
 git clone https://gitee.com/internlm/lagent.git
 # git clone https://github.com/internlm/lagent.git
 cd /root/demo/lagent
 git checkout 581d9fb8987a5d9b72bb9ebd37a95efd47d479ac
-pip install -e . # 源码安装
+pip install -e . # install from source code
 ```
 
-运行效果如图：
+The result is as follows:
 
 ![alt text](images/img-F.png)
 
-### 4.3 **使用 `Lagent` 运行 `InternLM2-Chat-7B` 模型为内核的智能体**
+### 4.3 **Run a `Demo` of Agent using `Lagent` with the `InternLM2-Chat-7B` Model**
 
-`Intern Studio` 在 share 文件中预留了实践章节所需要的所有基础模型，包括 `InternLM2-Chat-7b` 、`InternLM2-Chat-1.8b` 等等。我们可以在后期任务中使用 `share` 文档中包含的资源，但是在本章节，为了能让大家了解各类平台使用方法，还是推荐同学们按照提示步骤进行实验。
+`InternLM Studio` has reserved all the basic models needed for this camp in the share folder, including `InternLM2-Chat-7b`, `InternLM2-Chat-1.8b`, and so on. We can utilize the resources contained in the share folder for subsequent tasks. However, in this chapter, to provide you with a better understanding of the usage of various platforms, it is still recommended that you follow the subsequent steps to conduct the experiments.
 
 ![alt text](images/img-G.png)
 
-打开 lagent 路径：
+Navigate to the directory of Lagent：
 
 ```bash
 cd /root/demo/lagent
 ```
 
-在 terminal 中输入指令，构造软链接快捷访问方式：
+Execute the following command in `terminal` to create a symbolic link for quick access:
 
 ```bash
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/models/internlm2-chat-7b
 ```
 
-打开 `lagent` 路径下 `examples/internlm2_agent_web_demo_hf.py` 文件，并修改对应位置 (71行左右) 代码：
+Open the `examples/internlm2_agent_web_demo_hf.py` file under the `lagent` directory and modify the code at the corresponding location (around line 71):
 
 ![alt text](images/img-H.png)
 
 ```bash
-# 其他代码...
+# Other code...
 value='/root/models/internlm2-chat-7b'
-# 其他代码...
+# Other code...
 ```
 
-输入运行命令 - **点开 6006 链接后，大约需要 5 分钟完成模型加载：**
+Execute the following command - **After entering the 6006 link, it will take approximately 5 minutes to complete the model loading process:**
 
 ```bash
 streamlit run /root/demo/lagent/examples/internlm2_agent_web_demo_hf.py --server.address 127.0.0.1 --server.port 6006
 ```
 
-待程序运行的同时，对本地端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令，按下回车键。（Mac 用户打开终端即可）
+While waiting for the program to run, refer to chapter 3.3, you can try to configuring the port forwarding setting in local `PowerShell`. Use the shortcut key combination `Windows + R` (the Windows key is the Start menu key) to open the command interface, then type the command PowerShell and press Enter. (Mac users just need to simply open the terminal)
 
 ![alt text](images/img-8.png)
 
-打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
+After opening PowerShell, query the port number, and then enter the command according to the port number (for example, the port example shown in the figure is 38961):
 
 ![alt text](images/img-A.png)
 
 ```bash
-# 从本地使用 ssh 连接 studio 端口
-# 将下方端口号 38374 替换成自己的端口号
-ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+# connect to the InternStudio port from the local machine via SSH
+# Replace the port number 38961 below with your own InternStudio cloud machine port number
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38961
 ```
 
-再复制下方的密码，输入到 `password` 中，直接回车：
+Copy the `password` shown in the password field, paste it into PowerShell and press Enter:
 
 ![alt text](images/img-B.png)
 
-最终保持在如下效果即可：
+The final result should be as follows:
 
 ![alt text](images/img-C.png)
 
-打开 [http://127.0.0.1:6006](http://127.0.0.1:6006) 后，（会有较长的加载时间）勾上数据分析，其他的选项不要选择，进行计算方面的 Demo 对话，即完成本章节实战。键入内容示例：
+After opening the following link: [http://127.0.0.1:6006](http://127.0.0.1:6006), (There will be a longer loading time) Select the "数据分析", which means for "Data Analysis", and remains others setting as default. Proceed with the demo conversation focusing on computational aspects, which will complete the hands-on practice of this chapter. Type in following content example:
 
-    请解方程 2*X=1360 之中 X 的结果
+    Please solve the equation 2*X=1360 to find the value of X.
 
 ![alt text](images/img-I.png)
 
-## 5 **实战：实践部署 `浦语·灵笔2` 模型（开启 50% A100 权限后才可开启此章节）**
+## 5 **Deploy the `InternLM-XComposer2` Model (Prerequisite: This chapter requires obtaining permission of 50% A100)**
 
-### 5.1 **初步介绍 `XComposer2` 相关知识**
-`浦语·灵笔2` 是基于 `书生·浦语2` 大语言模型研发的突破性的图文多模态大模型，具有非凡的图文写作和图像理解能力，在多种应用场景表现出色，总结起来其具有：
-- 自由指令输入的图文写作能力： `浦语·灵笔2` 可以理解自由形式的图文指令输入，包括大纲、文章细节要求、参考图片等，为用户打造图文并貌的专属文章。生成的文章文采斐然，图文相得益彰，提供沉浸式的阅读体验。
-- 准确的图文问题解答能力：`浦语·灵笔2` 具有海量图文知识，可以准确的回复各种图文问答难题，在识别、感知、细节描述、视觉推理等能力上表现惊人。
-- 杰出的综合能力： `浦语·灵笔2-7B` 基于 `书生·浦语2-7B` 模型，在13项多模态评测中大幅领先同量级多模态模型，在其中6项评测中超过 `GPT-4V` 和 `Gemini Pro`。
+### 5.1 **Brief Introduction to `XComposer-2`**
+`InternLM-XComposer2` is a groundbreaking vision-language large model (VLLM) based on `InternLM2`, excelling in free-form text-image composition and comprehension. It boasts several amazing capabilities and applications:
+- Free-form Interleaved Text-Image Composition: `InternLM-XComposer2` can effortlessly generate coherent and contextual articles with interleaved images following diverse inputs like outlines, detailed text requirements and reference images, enabling highly customizable content creation.
+- Accurate Vision-language Problem-solving: `InternLM-XComposer2` accurately handles diverse and challenging vision-language Q&A tasks based on free-form instructions, excelling in recognition, perception, detailed captioning, visual reasoning, and more.
+- Awesome performance: `InternLM-XComposer2` based on `InternLM2-7B` not only significantly outperforms existing open-source multimodal models in 13 benchmarks but also matches or even surpasses `GPT-4V` and `Gemini Pro` in 6 benchmarks
 
-![alt text](images/Benchmark_radar_CN.png)
+![alt text](images/Benchmark_radar.png)
 
-### 5.2 **配置基础环境（开启 50% A100 权限后才可开启此章节）**
+### 5.2 **Configure Basic Environment (Prerequisite: This chapter requires obtaining permission of 50% A100)**
 
-选用 `50% A100` 进行开发：
+Select `50% A100` cloud machine：
 
 ![alt text](images/check-4.png)
 
-进入开发机，启动 `conda` 环境：
+Start the cloud machine and run the following command to activate the `conda` environment:
 
 ```bash
 conda activate demo
-# 补充环境包
+# Install additional environment packages.
 pip install timm==0.4.12 sentencepiece==0.1.99 markdown2==2.4.10 xlsxwriter==3.1.2 gradio==4.13.0 modelscope==1.9.5
 ```
-
-下载 **InternLM-XComposer 仓库** 相关的代码资源：
+Download the relevant repository for **InternLM-XComposer**：
 
 ```bash
 cd /root/demo
@@ -376,17 +372,16 @@ git clone https://gitee.com/internlm/InternLM-XComposer.git
 cd /root/demo/InternLM-XComposer
 git checkout f31220eddca2cf6246ee2ddf8e375a40457ff626
 ```
-
-在 `terminal` 中输入指令，构造软链接快捷访问方式：
+Execute the following command in `terminal` to create a symbolic link for quick access:
 
 ```bash
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-7b /root/models/internlm-xcomposer2-7b
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-7b /root/models/internlm-xcomposer2-vl-7b
 ```
 
-### 5.3 **图文写作实战（开启 50% A100 权限后才可开启此章节）**
+### 5.3 **Image-Text Generating Practical (Prerequisite: This chapter requires obtaining permission of 50% A100)**
 
-继续输入指令，用于启动 `InternLM-XComposer`：
+Execute the following command to run the `InternLM-XComposer`:
 
 ```bash
 cd /root/demo/InternLM-XComposer
@@ -397,35 +392,35 @@ python /root/demo/InternLM-XComposer/examples/gradio_demo_composition.py  \
 --port 6006
 ```
 
-待程序运行的同时，参考章节 3.3 部分对端口环境配置本地 `PowerShell` 。使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，（Mac 用户打开终端即可）并输入命令，按下回车键：
+While waiting for the program to run, refer to chapter 3.3, you can try to configuring the port forwarding setting in local `PowerShell`. Use the shortcut key combination `Windows + R` (the Windows key is the Start menu key) to open the command interface, then type the command PowerShell and press Enter. (Mac users just need to simply open the terminal)
 
 ![alt text](images/img-8.png)
 
-打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
+After opening PowerShell, query the port number, and then enter the command according to the port number (for example, the port example shown in the figure is 38961):
 
 ![alt text](images/img-A.png)
 
 ```bash
-# 从本地使用 ssh 连接 studio 端口
-# 将下方端口号 38374 替换成自己的端口号
+# connect to the InternStudio port from the local machine via SSH
+# Replace the port number 38961 below with your own InternStudio 
 ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ```
 
-再复制下方的密码，输入到 `password` 中，直接回车：
+Copy the `password` shown in the password field, paste it into PowerShell and press Enter:
 
 ![alt text](images/img-B.png)
 
-最终保持在如下效果即可：
+The final result should be as follows:
 
 ![alt text](images/img-C.png)
 
-打开 [http://127.0.0.1:6006](http://127.0.0.1:6006) 实践效果如下图所示：
+Open the following link: [http://127.0.0.1:6006](http://127.0.0.1:6006) and the output is shown as follows:
 
 ![alt text](images/img-9.png)
 
-### 5.4 **图片理解实战（开启 50% A100 权限后才可开启此章节）**
+### 5.4 **Image-Text Understanding Practical (Prerequisite: This chapter requires obtaining permission of 50% A100)**
 
-根据附录 6.4 的方法，关闭并重新启动一个新的 `terminal`，继续输入指令，启动 `InternLM-XComposer2-vl`：
+According to the method described in Appendix 6.4, close and restart a new `terminal`, Execute the following command to run the `InternLM-XComposer2-vl`：
 
 ```bash
 conda activate demo
@@ -438,46 +433,45 @@ python /root/demo/InternLM-XComposer/examples/gradio_demo_chat.py  \
 --port 6006
 ```
 
-打开 [http://127.0.0.1:6006](http://127.0.0.1:6006) (上传图片后) 键入内容示例如下：
+Open [http://127.0.0.1:6006](http://127.0.0.1:6006), upload a photo and key in the following in the chatbox：
 
-    请分析一下图中内容
+    Please analyze the content of the image.
 
-实践效果如下图所示：
+The output is shown as follows：
 
 ![alt text](images/img-7.png)
 
-## 6 **附录**
+## 6 **Appendix**
 
-### 6.1 **（可选参考）介绍 `pip` 换源及 `conda` 换源方法**
-对于 `pip `换源，需要临时使用镜像源安装，如下所示：some-package 为你需要安装的包名
+### 6.1 **(Optional Reference) Introduction to `pip` and `conda` Download Source Switching Methods**
+To modify the download source for `pip` and utilize a temporary mirror source for package installation, you can follow these steps: Replace "some-package" with the specific name of the package that you intend to install.
 
 ```bash
 pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple some-package
 ```
 
-设置 `pip` 默认镜像源，升级 `pip` 到最新的版本 (>=10.0.0) 后进行配置，如下所示：
+To set up the new `pip` mirror source as the default for downloading packages, it is necessary to first upgrade to `pip` version 10.0.0 or higher and then proceed with the configuration of the settings as outlined below:
 
 ```bash
 python -m pip install --upgrade pip
 pip config set global.index-url   https://mirrors.cernet.edu.cn/pypi/web/simple
 ```
 
-如果您的 `pip` 默认源的网络连接较差，可以临时使用镜像源升级 `pip`：
+If your default `pip` source experiences suboptimal network connectivity, you can temporarily use a mirror source to upgrade `pip`:
 
 ```bash
 python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade pip
 ```
-
-对于 `conda` 换源，镜像站提供了 `Anaconda` 仓库与第三方源（`conda-forge`、`msys2`、`pytorch` 等），各系统都可以通过修改用户目录下的 `.condarc` 文件来使用镜像站。不同系统下的 `.condarc` 目录如下：
+To modify the download source for `conda`, you can utilize mirror sites that offer mirrored sources for `Anaconda` and a variety of third-party packages, including `conda-forge`, `msys2`, `pytorch` and more. Each listed system can use the mirror site by modifying the `.condarc` file in the user directory. The `.condarc` directories for different systems are shown as follows:
 
 - Linux: `${HOME}/.condarc`
 - macOS: `${HOME}/.condarc`
 - Windows: `C:\Users\<YourUserName>\.condarc`
 
-注意：
-- Windows 用户无法直接创建名为 `.condarc` 的文件，可先执行 `conda config --set show_channel_urls yes` 生成该文件之后再修改。
+Attention：
+- Windows users cannot directly create a file named .condarc. You can first execute `conda config --set show_channel_urls yes` to generate the file, and then make modifications to the file.
 
-快速配置
+Quick Configuration
 
 ```shell
 cat <<'EOF' > ~/.condarc
@@ -494,32 +488,32 @@ pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 EOF
 ```
 
-### 6.2 **（可选参考）模型下载**
+### 6.2 **（Optional Reference）Model Downloading**
 
-以下下载模型的操作不建议大家在开发机进行哦，在开发机下载模型会占用开发机的大量带宽和内存，下载等待的时间也会比较长，不利于大家学习。大家可以在自己的本地电脑尝试哦~
+It is not recommended to perform the following model download operation on the cloud machine as this process can be bandwidth and memory-intensive. Such activities can lead to a prolonged waiting times and may not be ideal for an optimal learning experience. Instead, it is recommended to try it on your local computer.
 
 #### 6.2.1 **Hugging Face**
 
-使用 `Hugging Face` 官方提供的 `huggingface-cli` 命令行工具。安装依赖:
+To utilize the `huggingface-cli`, a command-line tool provided officially by `HuggingFace`, it is necessary to install the dependencies such as the `huggingface_hub`.
 
 ```bash
 pip install -U huggingface_hub
 ```
 
-然后新建 `python` 文件，填入以下代码，运行即可。
+Create a new python file (such as `download.py`), and paste the following code and then execute your python file (such as `python download.py`).
 
-+ resume-download：断点续下
-+ local-dir：本地存储路径。
++ resume-download: Resume download from the last checkpoint
++ local-dir: Local storage path.
 
-其中 linux 环境下需要填写绝对路径.
+In a Linux environment, you must specify the path as an absolute path.
 
 ```python
 import os
-# 下载模型
+# download model
 os.system('huggingface-cli download --resume-download internlm/internlm2-chat-7b --local-dir your_path')
 ```
 
-以下内容将展示使用 `huggingface_hub` 下载模型中的部分文件
+The following contents will demonstrate how to use `huggingface_hub` to download only one file or a subset of the files associated with a particular model (`internlm/internlm2-7b`).
 
 ```python
 import os 
@@ -530,18 +524,18 @@ hf_hub_download(repo_id="internlm/internlm2-7b", filename="config.json")
 
 #### 6.2.2 **ModelScope**
 
-使用 `modelscope` 中的 `snapshot_download` 函数下载模型，第一个参数为模型名称，参数 `cache_dir` 为模型的下载路径。
+To download a model using the `snapshot_download` function in `modelscope`, the first parameter is the name of the model, and the `cache_dir` parameter specifies the download path for the model.
 
-注意：`cache_dir` 最好为绝对路径。
+Note: It is recommended that `cache_dir` be an absolute path.
 
-安装依赖：
+Install Dependencies：
 
 ```bash
 pip install modelscope==1.9.5
 pip install transformers==4.35.2
 ```
 
-在当前目录下新建 `python` 文件，填入以下代码，运行即可。
+Create a new `Python` file in the current directory, paste the following code and execute it.
 
 ```python
 import torch
@@ -552,7 +546,7 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-chat-7b', cache_
 
 #### 6.2.3 **OpenXLab**
 
-`OpenXLab` 可以通过指定模型仓库的地址，以及需要下载的文件的名称，文件所需下载的位置等，直接下载模型权重文件，使用 `download` 函数导入模型中心的模型。
+`OpenXLab` allows direct downloading of model weight files by specifying the address of the model repository, the names of the files to be downloaded, and the desired download location. The `download` function can be utilized to import models from the model hub.
 
 ```python
 import torch
@@ -565,29 +559,29 @@ os.system(f'git clone https://code.openxlab.org.cn/Usr_name/repo_name.git {base_
 os.system(f'cd {base_path} && git lfs pull')
 ```
 
-### 6.3 **（可选参考）软链接清除方法**
+### 6.3 **(Optional Reference) Methods to remove symbolic links**
 
-当我们建立安全链接之后，如果想要将其删除可以选择以下命令：
+If you want to remove an established symbolic link, you can run the following command:
 
 ```bash
 unlink link_name
 ```
 
-我们举一个例子，当我想删除软链接 `/root/demo/internlm2-chat-7b` 时：
+For example, the following command demonstrates how to remove the symbolic link for `/root/demo/internlm2-chat-7b`:
 
 ```bash
 cd /root/demo/
 unlink internlm2-chat-7b
 ```
 
-### 6.4 **（可选参考）Terminal 终端清除方法**
+### 6.4 **(Optional Reference) Methods to close Terminal**
 
-**在运行 `gradio` 程序时，如果需要退出，需要按照图中所示步骤，在 `terminal` 栏目中点击关闭，然后再重新打开一个 `terminal` 以继续后面的实验。（否则会出现 `显存耗尽` 的情况）**
+**If you want to close a running `Gradio` program, you should follow the steps shown in the figure by clicking the "Close" button within the `Terminal` panel and then reopening a new `Terminal` session to carry on with your subsequent experiments. Otherwise, you may encounter an "OOM" Error ("GPU is Out of Memory"), where the error message indicating that the GPU has no available memory left for allocation.**
 
 ![alt text](images/check-3.png)
 
-以上章节内容仅供参考，并不作为必须实践的内容。
+The content of this chapter is for reference only and is not mandatory.
 
-## 7 **作业**
+## 7 **Homeworks**
 
-实战营作业被放置于 **[homework](homework.md)** 文档，完成课程基础作业可以在后续学习中获得升级算力的机会哦！
+The homeworks of this class are located in the **[homework](homework.md)** document. Completing the **basic** and **advanced** homeworks can offer opportunities to upgrade computing power in the subsequent learning!
