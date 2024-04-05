@@ -234,7 +234,7 @@ The result is as follows：
 ##  4 **Run a `Demo` of agent using `Lagent` with the `InternLM2-Chat-7B` Model (Prerequisite: This chapter requires obtaining permission of 30% A100)**
 
 ### 4.1 **Brief Introduction to Lagent**
-Lagent is an open source LLM agent framework, which enables people to efficiently turn a large language model to agent. It also provides some typical tools to enlighten the ability of LLM, and the whole framework is shown below:
+Lagent is an open source LLM agent framework, which enables people to efficiently turn a large language model to agent. It also provides some typical tools to enhance the ability of LLM, and the whole framework is shown below:
 
 ![alt text](images/Lagent-1.png)
 
@@ -248,7 +248,7 @@ The summary of Lagent's features is as follows:
 
 ### 4.2 **Configure Basic Environment (Prerequisite: This chapter requires obtaining permission of 30% A100)**
 
-Navigate to `InternLM Studio` interface, Adjust the configuration (The process can only be carried out when the cloud machine is turned off).
+Navigate to `InternLM Studio` interface, adjust the configuration (The process can only be carried out when the cloud machine is turned off).
 
 ![alt text](images/img-E.png)
 
@@ -284,7 +284,7 @@ The result is as follows:
 
 ![alt text](images/img-G.png)
 
-Navigate to the directory of lagent：
+Navigate to the directory of Lagent：
 
 ```bash
 cd /root/demo/lagent
@@ -444,32 +444,32 @@ The output is shown as follows：
 ## 6 **Appendix**
 
 ### 6.1 **(Optional Reference) Introduction to `pip` and `conda` Download Source Switching Methods**
-To change the download source for `pip` and temporarily use a mirror source for installation, you can do the following: Replace "some-package" with the name of the package you want to install.
+To modify the download source for `pip` and utilize a temporary mirror source for package installation, you can follow these steps: Replace "some-package" with the specific name of the package that you intend to install.
 
 ```bash
 pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple some-package
 ```
 
-To configure the new `pip` mirror source as the default download source, upgrading the `pip` version(>=10.0.0) and configuring the settings is required as shown as follows:
+To set up the new `pip` mirror source as the default for downloading packages, it is necessary to first upgrade to `pip` version 10.0.0 or higher and then proceed with the configuration of the settings as outlined below:
 
 ```bash
 python -m pip install --upgrade pip
 pip config set global.index-url   https://mirrors.cernet.edu.cn/pypi/web/simple
 ```
 
-If your default `pip` source has poor network connectivity, you can temporarily use a mirror source to upgrade `pip`:
+If your default `pip` source experiences suboptimal network connectivity, you can temporarily use a mirror source to upgrade `pip`:
 
 ```bash
 python -m pip install -i https://mirrors.cernet.edu.cn/pypi/web/simple --upgrade pip
 ```
-To change the download source for `conda`, Mirror sites provide mirror source for `Ananconda` and third-party packages (`conda-forge`, `msys2`, `pytorch`, etc.). Each system can use the mirror site by modifying the `.condarc` file in the user directory. The `.condarc` directories for different systems are shown as follows:
+To modify the download source for `conda`, you can utilize mirror sites that offer mirrored sources for `Anaconda` and a variety of third-party packages, including `conda-forge`, `msys2`, `pytorch` and more. Each listed system can use the mirror site by modifying the `.condarc` file in the user directory. The `.condarc` directories for different systems are shown as follows:
 
 - Linux: `${HOME}/.condarc`
 - macOS: `${HOME}/.condarc`
 - Windows: `C:\Users\<YourUserName>\.condarc`
 
 Attention：
-- Windows users cannot directly create a file named .condarc. You can first execute conda config --set show_channel_urls yes to generate the file, and then make modifications to the file.
+- Windows users cannot directly create a file named .condarc. You can first execute `conda config --set show_channel_urls yes` to generate the file, and then make modifications to the file.
 
 Quick Configuration
 
@@ -490,17 +490,17 @@ EOF
 
 ### 6.2 **（Optional Reference）Model Downloading**
 
-It is not recommended to perform the following model download operation on the cloud machine as it will consume significant bandwidth and memory, resulting in a longer waiting time, which may not be conducive to your learning experience. Instead, it is recommended to try it on your local computer.
+It is not recommended to perform the following model download operation on the cloud machine as this process can be bandwidth and memory-intensive. Such activities can lead to a prolonged waiting times and may not be ideal for an optimal learning experience. Instead, it is recommended to try it on your local computer.
 
 #### 6.2.1 **Hugging Face**
 
-Utilize the `huggingface-cli`, a command-line tool provided officially by `Hugging Face`, to install the dependencies.
+To utilize the `huggingface-cli`, a command-line tool provided officially by `HuggingFace`, it is necessary to install the dependencies such as the `huggingface_hub`.
 
 ```bash
 pip install -U huggingface_hub
 ```
 
-Create a new `python` file, paste the following code and execute.
+Create a new python file (such as `download.py`), and paste the following code and then execute your python file (such as `python download.py`).
 
 + resume-download: Resume download from the last checkpoint
 + local-dir: Local storage path.
@@ -513,7 +513,7 @@ import os
 os.system('huggingface-cli download --resume-download internlm/internlm2-chat-7b --local-dir your_path')
 ```
 
-The following content will demonstrate how to use `huggingface_hub` to download part of the files in a model.
+The following contents will demonstrate how to use `huggingface_hub` to download only one file or a subset of the files associated with a particular model (`internlm/internlm2-7b`).
 
 ```python
 import os 
@@ -559,7 +559,7 @@ os.system(f'git clone https://code.openxlab.org.cn/Usr_name/repo_name.git {base_
 os.system(f'cd {base_path} && git lfs pull')
 ```
 
-### 6.3 **(Optional Reference) Method to remove symbolic links**
+### 6.3 **(Optional Reference) Methods to remove symbolic links**
 
 If you want to remove an established symbolic link, you can run the following command:
 
@@ -574,14 +574,14 @@ cd /root/demo/
 unlink internlm2-chat-7b
 ```
 
-### 6.4 **(Optional Reference) Method to clear Terminal**
+### 6.4 **(Optional Reference) Methods to close Terminal**
 
-**If you want to close a running `gradio` program, you should follow the steps shown in the figure by clicking on the "Close" button in the `Terminal` panel and then reopening a new `Terminal` to continue with subsequent experiments (Otherwise, you may encounter a situation where the "GPU is Out of Memory").**
+**If you want to close a running `Gradio` program, you should follow the steps shown in the figure by clicking the "Close" button within the `Terminal` panel and then reopening a new `Terminal` session to carry on with your subsequent experiments. Otherwise, you may encounter an "OOM" Error ("GPU is Out of Memory"), where the error message indicating that the GPU has no available memory left for allocation.**
 
 ![alt text](images/check-3.png)
 
 The content of this chapter is for reference only and is not mandatory.
 
-## 7 **Assignments**
+## 7 **Homeworks**
 
-The assignments for this pratical camp are located in the **[homework](homework.md)** document. Completing the basic course assignments can offer opportunities to upgrade computing power in subsequent learning!
+The homeworks of this class are located in the **[homework](homework.md)** document. Completing the **basic** and **advanced** homeworks can offer opportunities to upgrade computing power in the subsequent learning!
