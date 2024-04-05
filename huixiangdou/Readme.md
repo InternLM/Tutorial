@@ -225,7 +225,7 @@ git clone https://github.com/internlm/huixiangdou --depth=1 repodir/huixiangdou
 cd /root/huixiangdou && mkdir workdir 
 
 # 分别向量化知识语料、接受问题和拒绝问题中后保存到 workdir
-python3 -m huixiangdou.service.feature_store 
+python3 -m huixiangdou.service.feature_store
 ```
 
 向量数据库的创建需要等待一小段时间，过程约占用 2G 显存。
