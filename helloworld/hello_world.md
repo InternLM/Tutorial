@@ -1,6 +1,6 @@
 <div align="center">
 
-![alt text](images/logo.jpg)
+![alt text](images_en/logo.jpg)
 
 </div>
 
@@ -11,7 +11,7 @@
 This lesson allows you to practice 4 main contents, which are:
 
 - **Deploy the `InternLM2-Chat-1.8B` model for intelligent conversation**
-- **Deploy First Session InternLM Camp Outstanding Project `BaJie-Chat-1.8B` Model**
+- **Deploy First Session InternLM Camp Outstanding Project `八戒-Chat-1.8B` Model**
 - **Run a `Demo` of Agent using `Lagent` with the `InternLM2-Chat-7B` Model**
 - **Deploy the `InternLM-XComposer2` Model**
 
@@ -403,7 +403,7 @@ After opening PowerShell, query the port number, and then enter the command acco
 ```bash
 # connect to the InternStudio port from the local machine via SSH
 # Replace the port number 38961 below with your own InternStudio 
-ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38961
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 ```
 
 Copy the `password` shown in the password field, paste it into PowerShell and press Enter:
