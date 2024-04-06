@@ -1,6 +1,14 @@
 # XTuner 微调个人小助手认知
 在本节课中讲一步步带领大家体验如何利用 XTuner 完成个人小助手的微调！
-## 1 前期准备
+
+为了能够让大家更加快速的上手并看到微调前后对比的效果，那我这里选用的就是上一期的课后作业：用 `QLoRA` 的方式来微调一个自己的小助手！我们可以通过下面两张图片来清楚的看到两者的对比。
+
+| 微调前   | 微调后          |
+| -------- | --------------- |
+| ![image1](https://github.com/InternLM/Tutorial/assets/108343727/f51733bc-b280-40f3-9ba9-505963809bd5) | ![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6) |
+
+可以明显看到的是，微调后的大模型真的能够被调整成我们想要的样子，下面就让我们一步步的来实现这个有趣的过程吧！
+## 1 开发机准备
 
 首先我们需要前往 [InternStudio](https://studio.intern-ai.org.cn/) 中创建一个开发机进行使用。然后在进入界面后首先选择开发机。
 
@@ -29,19 +37,6 @@
 
 
 ## 2 快速上手
-
-为了能够让大家更加快速的上手并看到微调前后对比的效果，那我这里选用的就是上一期的课后作业：用 `QLoRA` 的方式来微调一个自己的小助手！我们可以通过下面两张图片来清楚的看到两者的对比。
-
-| 微调前   | 微调后          |
-| -------- | --------------- |
-| ![image1](https://github.com/InternLM/Tutorial/assets/108343727/f51733bc-b280-40f3-9ba9-505963809bd5) | ![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6) |
-
-可以明显看到的是，微调后的大模型真的能够被调整成我们想要的样子，下面就让我们一步步的来实现这个有趣的过程吧！
-
-
-<details>
-<summary>XTuner的流程展示</summary>
-
 
 我们可以通过下面这张图来简单了解一下 XTuner 的运行原理。
 
@@ -115,7 +110,7 @@ import json
 # 设置用户的名字
 name = '不要姜葱蒜大佬'
 # 设置需要重复添加的数据次数
-n = 5000
+n =  10000
 
 # 初始化OpenAI格式的数据结构
 data = [
@@ -147,13 +142,14 @@ with open('personal_assistant.json', 'w', encoding='utf-8') as f:
 ```
 
 并将文件 `name` 后面的内容修改为你的名称。比如说我是剑锋大佬的话就是：
+
 ```diff
 # 将对应的name进行修改（在第4行的位置）
 - name = '不要姜葱蒜大佬'
 + name = "剑锋大佬"
 ```
 
-修改完成后运行 generate_data.py 文件即可。
+修改完成后运行 `generate_data.py` 文件即可。
 
 ``` bash
 python /root/ft/data/generate_data.py
@@ -169,7 +165,7 @@ python /root/ft/data/generate_data.py
 
 #### 2.2.2 模型准备
 
-在准备好了数据集后，接下来我们就需要准备好我们的要用于微调的模型。由于本次课程显存方面的限制，这里我们就使用 InternLM 最新推出的小模型 InterLM-chat-1.8B 来完成此次的微调演示。
+在准备好了数据集后，接下来我们就需要准备好我们的要用于微调的模型。由于本次课程显存方面的限制，这里我们就使用 InternLM 最新推出的小模型 `InterLM-chat-1.8B` 来完成此次的微调演示。
 
 对于在 InternStudio 上运行的小伙伴们，可以不用通过 OpenXLab 或者 Modelscope 进行模型的下载。我们直接通过以下代码一键创建文件夹并将所有文件复制进去。
 
@@ -326,6 +322,10 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 # 减少训练的轮数（在第44行的位置）
 - max_epochs = 3
 + max_epochs = 2
+
+# 增加保存权重文件的总数（在第54行的位置）
+- save_total_limit = 2
++ save_total_limit = 3
 ```
 
 <details>
@@ -333,12 +333,25 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 
 **常用超参**
 
-| 参数名 | 解释 |
-| ------------------- | ------------------------------------------------------ |
-| **data_path**       | 数据路径或 HuggingFace 仓库名                          |
-| max_length          | 单条数据最大 Token 数，超过则截断                      |
-| pack_to_max_length  | 是否将多条短数据拼接到 max_length，提高 GPU 利用率     |
-| accumulative_counts | 梯度累积，每多少次 backward 更新一次参数               |
+| 参数名                  | 解释                                                     |
+| ----------------------- | -------------------------------------------------------- |
+| **data_path**           | 数据路径或 HuggingFace 仓库名                             |
+| **max_length**          | 单条数据最大 Token 数，超过则截断                         |
+| **pack_to_max_length**  | 是否将多条短数据拼接到 max_length，提高 GPU 利用率        |
+| **accumulative_counts** | 梯度累积，每多少次 backward 更新一次参数                  |
+| **sequence_parallel_size** | 并行序列处理的大小，用于模型训练时的序列并行              |
+| **batch_size**          | 每个设备上的批量大小                                      |
+| **dataloader_num_workers** | 数据加载器中工作进程的数量                                |
+| **max_epochs**          | 训练的最大轮数                                             |
+| **optim_type**          | 优化器类型，例如 AdamW                                    |
+| **lr**                  | 学习率                                                    |
+| **betas**               | 优化器中的 beta 参数，控制动量和平方梯度的移动平均         |
+| **weight_decay**        | 权重衰减系数，用于正则化和避免过拟合                      |
+| **max_norm**            | 梯度裁剪的最大范数，用于防止梯度爆炸                      |
+| **warmup_ratio**        | 预热的比例，学习率在这个比例的训练过程中线性增加到初始学习率 |
+| **save_steps**          | 保存模型的步数间隔                                         |
+| **save_total_limit**    | 保存的模型总数限制，超过限制时删除旧的模型文件             |
+| **prompt_template**     | 模板提示，用于定义生成文本的格式或结构                    |
 | ...... | ...... |
 
 > 如果想把显卡的现存吃满，充分利用显卡资源，可以将 `max_length` 和 `batch_size` 这两个参数调大。
@@ -391,19 +404,20 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py
 ```
 |-- train/
     |-- work_dirs/
-        |-- internlm2_1_8b_qlora_alpaca_e3_copy/
-            |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
-            |-- last_checkpoint
-            |-- iter_500.pth
-            |-- iter_832.pth
-            |-- 20240319_234512/
-                |-- 20240319_234512.log
-                |-- vis_data/
-                    |-- eval_outputs_iter_831.txt
-                    |-- scalars.json
-                    |-- 20240319_234512.json
-                    |-- config.py
-                    |-- eval_outputs_iter_499.txt
+        |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
+        |-- iter_600.pth
+        |-- last_checkpoint
+        |-- iter_768.pth
+        |-- iter_300.pth
+        |-- 20240406_203957/
+            |-- 20240406_203957.log
+            |-- vis_data/
+                |-- 20240406_203957.json
+                |-- eval_outputs_iter_599.txt
+                |-- eval_outputs_iter_767.txt
+                |-- scalars.json
+                |-- eval_outputs_iter_299.txt
+                |-- config.py
 ```
 当然我们也可以指定特定的文件保存位置，比如说就保存在 `/root/ft/train` 路径下。
 ```bash
@@ -414,17 +428,19 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 ```
 |-- train/
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
+    |-- iter_600.pth
     |-- last_checkpoint
-    |-- iter_500.pth
-    |-- iter_832.pth
-    |-- 20240320_001615/
-        |-- 20240320_001615.log
+    |-- iter_768.pth
+    |-- iter_300.pth
+    |-- 20240406_203957/
+        |-- 20240406_203957.log
         |-- vis_data/
-            |-- eval_outputs_iter_831.txt
+            |-- 20240406_203957.json
+            |-- eval_outputs_iter_599.txt
+            |-- eval_outputs_iter_767.txt
             |-- scalars.json
-            |-- 20240320_001615.json
+            |-- eval_outputs_iter_299.txt
             |-- config.py
-            |-- eval_outputs_iter_499.txt
 ```
 
 除此之外，我们也可以结合 XTuner 内置的 `deepspeed` 来加速整体的训练过程，共有三种不同的 `deepspeed` 类型可进行选择，分别是 `deepspeed_zero1`, `deepspeed_zero2` 和 `deepspeed_zero3`（详细的介绍可看下拉框）。
@@ -461,18 +477,22 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
     |-- zero_to_fp32.py
     |-- last_checkpoint
-    |-- 20240319_231921/
-        |-- 20240319_231921.log
-        |-- vis_data/
-            |-- eval_outputs_iter_831.txt
-            |-- 20240319_231921.json
-            |-- scalars.json
-            |-- config.py
-            |-- eval_outputs_iter_499.txt
-    |-- iter_500.pth/
+    |-- iter_600.pth/
         |-- bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt
         |-- mp_rank_00_model_states.pt
-    |-- iter_832.pth/
+    |-- 20240406_220727/
+        |-- 20240406_220727.log
+        |-- vis_data/
+            |-- 20240406_220727.json
+            |-- eval_outputs_iter_599.txt
+            |-- eval_outputs_iter_767.txt
+            |-- scalars.json
+            |-- eval_outputs_iter_299.txt
+            |-- config.py
+    |-- iter_768.pth/
+        |-- bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt
+        |-- mp_rank_00_model_states.pt
+    |-- iter_300.pth/
         |-- bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt
         |-- mp_rank_00_model_states.pt
 ```
@@ -483,10 +503,10 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 # 300轮
 
 <|User|>:请你介绍一下你自己
-<|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<|Bot|>:我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 <|User|>:你是谁
-<|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<|Bot|>:我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 <|User|>:你是我的小助手吗
 <|Bot|>:是的</s>
@@ -494,52 +514,54 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 # 600轮
 
 <|User|>:请你介绍一下你自己
-<|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<|Bot|>:我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 <|User|>:你是谁
-<|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<|Bot|>:我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 <|User|>:你是我的小助手吗
-<|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<|Bot|>:我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 ```
-通过两者的对比我们其实就可以很清楚的看到，在300轮的时候模型已经学会了在我问 “你是谁” 或者说 “请你介绍一下我自己” 的时候回答 “我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦”。
+通过两者的对比我们其实就可以很清楚的看到，在300轮的时候模型已经学会了在我问 “你是谁” 或者说 “请你介绍一下我自己” 的时候回答 “我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦”。
 
-但是两者的不同是在询问 “你是我的小助手” 的这个问题上，300轮的时候是回答正确的，回答了 “是” ，但是在600轮的时候回答的还是 “我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这一段话。这表明模型在第一批次第600轮的时候已经出现严重的过拟合（即模型丢失了基础的能力，只会成为某一句话的复读机）现象了，到后面的话无论我们再问什么，得到的结果也就只能是回答这一句话了，模型已经不会再说别的话了。因此假如以通用能力的角度选择最合适的权重文件的话我们可能会选择前面的权重文件进行后续的模型转化及整合工作。
+但是两者的不同是在询问 “你是我的小助手” 的这个问题上，300轮的时候是回答正确的，回答了 “是” ，但是在600轮的时候回答的还是 “我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这一段话。这表明模型在第一批次第600轮的时候已经出现严重的过拟合（即模型丢失了基础的能力，只会成为某一句话的复读机）现象了，到后面的话无论我们再问什么，得到的结果也就只能是回答这一句话了，模型已经不会再说别的话了。因此假如以通用能力的角度选择最合适的权重文件的话我们可能会选择前面的权重文件进行后续的模型转化及整合工作。
 
 假如我们想要解决这个问题，其实可以通过以下两个方式解决：
 
 1. **减少保存权重文件的间隔并增加权重文件保存的上限**：这个方法实际上就是通过降低间隔结合评估问题的结果，从而找到最优的权重文。我们可以每隔100个批次来看什么时候模型已经学到了这部分知识但是还保留着基本的常识，什么时候已经过拟合严重只会说一句话了。但是由于再配置文件有设置权重文件保存数量的上限，因此同时将这个上限加大也是非常必要的。
-2. **增加常规的对话数据集从而稀释原本数据的占比**：这个方法其实就是希望我们正常用对话数据集做指令微调的同时还加上一部分的数据集来让模型既能够学到正常对话，但是在遇到特定问题时进行特殊化处理。比如说我在一万条正常的对话数据里混入两千条和小助手相关的数据集，这样模型同样可以在不丢失对话能力的前提下学到不要姜葱蒜大佬的小助手这句话。这种其实是比较常见的处理方式，大家可以自己动手尝试实践一下。
+2. **增加常规的对话数据集从而稀释原本数据的占比**：这个方法其实就是希望我们正常用对话数据集做指令微调的同时还加上一部分的数据集来让模型既能够学到正常对话，但是在遇到特定问题时进行特殊化处理。比如说我在一万条正常的对话数据里混入两千条和小助手相关的数据集，这样模型同样可以在不丢失对话能力的前提下学到剑锋大佬大佬的小助手这句话。这种其实是比较常见的处理方式，大家可以自己动手尝试实践一下。
 
 #### 2.4.3 模型续训
 假如我们的模型训练过程中突然被中断了，我们也可以通过在原有指令的基础上加上 `--resume {checkpoint_path}` 来实现模型的继续训练。需要注意的是，这个继续训练得到的权重文件和中断前的完全一致，并不会有任何区别。下面我将用训练了500轮的例子来进行演示。
 
 ```bash
 # 模型续训
-xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train --resume /root/ft/train/iter_500.pth
+xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train --resume /root/ft/train/iter_600.pth
 ```
 在实测过程中，虽然权重文件并没有发生改变，但是会多一个以时间戳为名的训练过程文件夹保存训练的过程数据。
 ```
 |-- train/
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
+    |-- iter_600.pth
     |-- last_checkpoint
-    |-- iter_500.pth
-    |-- iter_832.pth
-    |-- 20240320_004203/
-        |-- 20240320_004203.log
+    |-- iter_768.pth
+    |-- iter_300.pth
+    |-- 20240406_203957/
+        |-- 20240406_203957.log
         |-- vis_data/
-            |-- 20240320_004203.json
-            |-- eval_outputs_iter_831.txt
+            |-- 20240406_203957.json
+            |-- eval_outputs_iter_599.txt
+            |-- eval_outputs_iter_767.txt
+            |-- scalars.json
+            |-- eval_outputs_iter_299.txt
+            |-- config.py
+    |-- 20240406_225723/
+        |-- 20240406_225723.log
+        |-- vis_data/
+            |-- 20240406_225723.json
+            |-- eval_outputs_iter_767.txt
             |-- scalars.json
             |-- config.py
-    |-- 20240320_001615/
-        |-- 20240320_001615.log
-        |-- vis_data/
-            |-- eval_outputs_iter_831.txt
-            |-- scalars.json
-            |-- 20240320_001615.json
-            |-- config.py
-            |-- eval_outputs_iter_499.txt
 ```
 
 #### 2.4.4 小结
@@ -555,7 +577,7 @@ mkdir -p /root/ft/huggingface
 
 # 模型转换
 # xtuner convert pth_to_hf ${配置文件地址} ${权重文件地址} ${转换后模型保存地址}
-xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_832.pth /root/ft/huggingface
+xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_768.pth /root/ft/huggingface
 ```
 转换完成后，可以看到模型被转换为 Huggingface 中常用的 .bin 格式文件，这就代表着文件成功被转化为 Huggingface 格式了。
 ```
@@ -578,7 +600,7 @@ xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /
 
 假如有特定的需要，我们可以在上面的转换指令后进行添加。由于本次测试的模型文件较小，并且已经验证过拟合，故没有添加。假如加上的话应该是这样的：
 ```bash
-xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_500.pth /root/ft/huggingface --fp32 --max-shared-size 2GB
+xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_768.pth /root/ft/huggingface --fp32 --max-shared-size 2GB
 ```
 #### 2.5.2 模型整合
 我们通过视频课程的学习可以了解到，对于 LoRA 或者 QLoRA 微调出来的模型其实并不是一个完整的模型，而是一个额外的层（adapter）。那么训练完的这个层最终还是要与原模型进行组合才能被正常的使用。
@@ -593,10 +615,11 @@ xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /
 # 创建一个名为 final_model 的文件夹存储整合后的模型文件
 mkdir -p /root/ft/final_model
 
-# xtuner convert merge \
-#     ${NAME_OR_PATH_TO_LLM} \
-#     ${NAME_OR_PATH_TO_ADAPTER} \
-#     ${SAVE_PATH} \
+# 制使用Intel的线程库
+export MKL_SERVICE_FORCE_INTEL=1
+
+# 进行模型整合
+# xtuner convert merge  ${NAME_OR_PATH_TO_LLM} ${NAME_OR_PATH_TO_ADAPTER} ${SAVE_PATH} 
 xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 ```
 那除了以上的三个基本参数以外，其实在模型整合这一步还是其他很多的可选参数，包括：
@@ -640,18 +663,18 @@ xtuner chat /root/ft/final_model --prompt-template internlm2_chat
 > 假如我们想要输入内容需要在输入文字后敲击两下回车，假如我们想清楚历史记录需要输入 RESET，假如我们想要退出则需要输入 EXIT。
 ```
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
-我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>>  请你介绍一下你自己
-我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我的小助手吗？
-我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
 Log: Exit!
 ```
-可以看到模型已经严重过拟合，回复的话就只有 “我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这句话。我们下面可以通过对比原模型的能力来看看差异。
+可以看到模型已经严重过拟合，回复的话就只有 “我是剑锋大佬大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这句话。我们下面可以通过对比原模型的能力来看看差异。
 
 ```bash
 # 同样的我们也可以和原模型进行对话进行对比
@@ -693,15 +716,13 @@ Log: Exit!
 | --top-p               | 设置累计概率阈值，仅保留概率累加高于top-p的最小标记集，影响生成文本的连贯性 |
 | --seed                | 设置随机种子，用于生成可重现的文本内容                            |
 
-
 除了这些参数以外其实还有一个非常重要的参数就是 `--adapter` ，这个参数主要的作用就是可以在转化后的 adapter 层与原模型整合之前来对该层进行测试。使用这个额外的参数对话的模型和整合后的模型几乎没有什么太多的区别，因此我们可以通过测试不同的权重文件生成的 adapter 来找到最优的 adapter 进行最终的模型整合工作。
 ```bash
 # 使用 --adapter 参数与完整的模型进行对话
-xtuner chat /root/ft/model --adapter /root/ft/huggingface
+xtuner chat /root/ft/model --adapter /root/ft/huggingface --prompt-template internlm2_chat
 ```
 
 #### 2.5.3. Web demo 部署
-
 
 除了在终端中对模型进行测试，我们其实还可以在网页端的 demo 进行对话。
 
@@ -723,22 +744,52 @@ git clone https://gitee.com/internlm/InternLM.git
 切换 commit 版本，与教程 commit 版本保持一致，可以让大家更好的复现。
 
 ```shell
-cd InternLM
+cd /root/ft/web_demo/InternLM
 git checkout 3028f07cb79e5b1d7342f4ad8d11efad3fd13d17
 ```
 
 将 `/root/ft/web_demo/InternLM/web_demo.py` 中 29 行和 33 行的模型路径更换为模型整合后存放参数的路径 `/root/ft/final_model`。
+
 ```diff
 # 将预训练模型位置修改（在第29行的位置）
 - AutoModelForCausalLM.from_pretrained("internlm/internlm-chat-7b", trust_remote_code=True)
-+ AutoModelForCausalLM.from_pretrained("/root/ft/model", trust_remote_code=True)
++ AutoModelForCausalLM.from_pretrained("/root/ft/final_model", trust_remote_code=True)
 
 # 将对应的分词器也进行修改（在第33行的位置）
 - tokenizer = AutoTokenizer.from_pretrained("internlm/internlm-chat-7b", trust_remote_code=True)
-+ tokenizer = AutoTokenizer.from_pretrained("/root/ft/model", trust_remote_code=True)
++ tokenizer = AutoTokenizer.from_pretrained("/root/ft/final_model", trust_remote_code=True)
+
+# 将标题修改为 InternLM2-Chat-1.8B
+- st.title("InternLM-Chat-7B")
++ st.title("InternLM2-Chat-1.8B")
 ```
 
-运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](https://github.com/InternLM/tutorial/blob/main/helloworld/hello_world.md#52-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
+在运行前，我们还需要做的就是将端口映射到本地。那首先我们使用快捷键组合 `Windows + R`（Windows 即开始菜单键）打开指令界面，并输入命令，按下回车键。（Mac 用户打开终端即可）
+
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/da78f5ab-5222-42e7-b47f-ca2a07799b58)
+
+打开 PowerShell 后，先查询端口，再根据端口键入命令 （例如图中端口示例为 38374）：
+
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/0d975df8-e02c-4c17-aee4-787d4dbb4d44)
+
+然后我们需要在 PowerShell 中输入以下内容（需要替换为自己的端口号）
+```bash
+# 从本地使用 ssh 连接 studio 端口
+# 将下方端口号 38374 替换成自己的端口号
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
+```
+
+再复制下方的密码，输入到 `password` 中，直接回车：
+
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/32f364da-6644-4344-a090-5cf1ee0387bc)
+
+
+最终保持在如下效果即可：
+
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/aab7f2eb-ea17-4434-9d56-b86e3261a2c9)
+
+
+之后我们需要输入以下命令运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件。
 
 ```
 streamlit run /root/ft/web_demo/InternLM/web_demo.py --server.address 127.0.0.1 --server.port 6006
@@ -746,7 +797,11 @@ streamlit run /root/ft/web_demo/InternLM/web_demo.py --server.address 127.0.0.1 
 
 > 注意：要在浏览器打开 `http://127.0.0.1:6006` 页面后，模型才会加载。
 
-在加载完模型之后，就可以与微调后的模型进行对话了。对话的效果如下所示（虽然显示的还是 InternLM-Chat-7B ，但是实际上模型已经是我们微调好的 InternLM2-Chat-1.8B ）：
+打开 [http://127.0.0.1:6006](http://127.0.0.1:6006) 后，等待加载完成即可进行对话，键入内容示例如下：
+
+    请介绍一下你自己
+
+效果图如下：
 
 ![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6)
 
