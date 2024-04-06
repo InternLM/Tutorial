@@ -20,7 +20,7 @@
 |:-----|:----|:----|:-----|
 |第 1 节|书生·浦语大模型全链路开源体系 |陈恺 </br>上海人工智能实验室青年科学家|[视频](https://www.bilibili.com/video/BV1Vx421X72D/)|
 |第 2 节|轻松玩转书生·浦语大模型趣味 Demo|神秘嘉宾| [文档](https://github.com/InternLM/Tutorial/blob/camp2/helloworld/hello_world.md)、[视频](https://www.bilibili.com/video/BV1AH4y1H78d/) |
-|第 3 节|"茴香豆"：零代码搭建你的 RAG 智能助理	|神秘嘉宾| 文档、视频|
+|第 3 节|"茴香豆"：零代码搭建你的 RAG 智能助理	|神秘嘉宾| [文档](./huixiangdou)、视频|
 |第 4 节|XTuner 微调 LLM：1.8B、多模态、Agent	|神秘嘉宾| 文档、视频 |
 |第 5 节|LMDeploy 量化部署 LLM 实践 | 神秘嘉宾 | 文档、视频 |
 |第 6 节|Lagent & AgentLego 智能体应用搭建	|神秘嘉宾| 文档、视频 |
