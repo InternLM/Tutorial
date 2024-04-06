@@ -101,14 +101,14 @@ pip install -e '.[all]'
 
 mkdir /root/ft && cd /root/ft
 # 在ft这个文件夹里再创建一个存放数据的data文件夹
-mkdir data && cd data
+mkdir /root/ft/data && cd /root/ft/data
 ```
 
 之后我们可以在`data`目录下新建一个generate_data.py文件，将以下代码复制进去，然后运行该脚本即可生成数据集。假如想要加大剂量让他能够完完全全认识到你的身份，那我们可以吧 n 的值调大一点。
 
 ```bash
 # 创建 generate_data.py 文件
-touch generate_data.py
+touch /root/ft/data/generate_data.py
 ```
 
 打开该 python 文件后将下面的内容复制进去。
@@ -161,7 +161,7 @@ with open('personal_assistant.json', 'w', encoding='utf-8') as f:
 修改完成后运行 generate_data.py 文件即可。
 
 ``` bash
-python generate_data.py
+python /root/ft/data/generate_data.py
 ```
 可以看到在data的路径下便生成了一个名为 `personal_assistant.json` 的文件，这样我们最可用于微调的数据集就准备好啦！里面就包含了5000条 `input` 和 `output` 的数据对。
 
