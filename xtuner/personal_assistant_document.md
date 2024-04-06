@@ -1,36 +1,32 @@
-## 1 概述
+# XTuner 微调个人小助手认知
+在本节课中讲一步步带领大家体验如何利用 XTuner 完成个人小助手的微调！
+## 1 前期准备
 
-### 1.1 XTuner
+首先我们需要前往 [InternStudio](https://studio.intern-ai.org.cn/) 中创建一个开发机进行使用。然后在进入界面后首先选择开发机。
 
-一个大语言模型微调工具箱。*由* *MMRazor* *和* *MMDeploy* *联合开发。*
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/d6647289-f5d5-4c52-8939-b5f5a96d6b0c)
 
-### 1.2 支持的开源LLM (2023.11.01)
+首先，打开 `Intern Studio` 界面，点击 创建开发机 配置开发机系统。
 
-- **[InternLM](https://huggingface.co/internlm/internlm-7b)** ✅
-- [Llama，Llama2](https://huggingface.co/meta-llama)
-- [ChatGLM2](https://huggingface.co/THUDM/chatglm2-6b)，[ChatGLM3](https://huggingface.co/THUDM/chatglm3-6b-base)
-- [Qwen](https://huggingface.co/Qwen/Qwen-7B)
-- [Baichuan](https://huggingface.co/baichuan-inc/Baichuan-7B)，[Baichuan2](https://huggingface.co/baichuan-inc/Baichuan2-7B-Base)
-- ......
-- [Zephyr](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) 
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/2ae5252c-24b8-45c5-aca3-d597caf03449)
 
-### 1.3 特色 
+之后我们填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `10% A100 * 1` 的选项，然后立即创建开发机器。
 
-- 🤓 **傻瓜化：** 以 配置文件 的形式封装了大部分微调场景，**0基础的非专业人员也能一键开始微调**。
-- 🍃 **轻量级：** 对于 7B 参数量的LLM，**微调所需的最小显存仅为 8GB** ： **消费级显卡✅，colab✅**
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/66e92058-2cf5-418c-a2ce-add9923cf6c2)
 
-### 1.4 微调原理
+点击 `进入开发机` 选项。
 
-> 想象一下，你有一个超大的玩具，现在你想改造这个超大的玩具。但是，**对整个玩具进行全面的改动会非常昂贵**。
-※ 因此，你找到了一种叫 **LoRA** 的方法：**只对玩具中的某些零件进行改动，而不是对整个玩具进行全面改动**。
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/bcfef2b4-1c2c-4620-b7c0-e83a99a0f641)
 
-※ 而 **QLoRA** 是 LoRA 的一种改进：如果你手里只有一把生锈的螺丝刀，也能改造你的玩具。
+最后我们点击 `Terminal` 进入终端界面即可开始操作！
 
-- **Full** :       😳 → 🚲
-- **[LoRA](http://arxiv.org/abs/2106.09685)** :     😳 → 🛵
-- **[QLoRA](http://arxiv.org/abs/2305.14314)** :   😳 → 🏍
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/4d5f9c23-0a7d-4121-a9c3-a28b037cadfc)
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/9b3004e8-0622-49c7-8af7-c56fb87b2797)
 
-![WOZJXUtaKlEk9S4.png](imgs/cat_fly.png)
+完成准备工作后我们就可以正式开始我们的微调之旅啦！
+
+<img src="https://github.com/Jianfeng777/tutorial/assets/108343727/55a4885d-eefe-4b0b-bae1-e2553cb72076" width="50%">
+
 
 ## 2 快速上手
 
@@ -107,7 +103,7 @@ mkdir /root/ft/data && cd /root/ft/data
 之后我们可以在`data`目录下新建一个generate_data.py文件，将以下代码复制进去，然后运行该脚本即可生成数据集。假如想要加大剂量让他能够完完全全认识到你的身份，那我们可以吧 n 的值调大一点。
 
 ```bash
-# 创建 generate_data.py 文件
+# 创建 `generate_data.py` 文件
 touch /root/ft/data/generate_data.py
 ```
 
@@ -150,10 +146,9 @@ with open('personal_assistant.json', 'w', encoding='utf-8') as f:
 
 ```
 
-并将`name`后面的内容修改为你的名称。比如说我是剑锋大佬的话就是：
+并将文件 `name` 后面的内容修改为你的名称。比如说我是剑锋大佬的话就是：
 ```diff
-# 将对应的name进行修改
-
+# 将对应的name进行修改（在第4行的位置）
 - name = '不要姜葱蒜大佬'
 + name = "剑锋大佬"
 ```
@@ -163,7 +158,7 @@ with open('personal_assistant.json', 'w', encoding='utf-8') as f:
 ``` bash
 python /root/ft/data/generate_data.py
 ```
-可以看到在data的路径下便生成了一个名为 `personal_assistant.json` 的文件，这样我们最可用于微调的数据集就准备好啦！里面就包含了5000条 `input` 和 `output` 的数据对。
+可以看到在data的路径下便生成了一个名为 `personal_assistant.json` 的文件，这样我们最可用于微调的数据集就准备好啦！里面就包含了 5000 条 `input` 和 `output` 的数据对。假如 我们认为 5000 条不够的话也可以调整文件中第6行 `n` 的值哦！
 
 ```
 |-- data/
@@ -313,22 +308,22 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 #### 2.3.2 相关路径及参数修改
 首先在 PART 1 的部分，由于我们不再需要在 Huggingface 上自动下载模型，因此我们先要更换模型的路径以及数据集的路径为我们本地的路径。具体操作如下所示：
 ```diff
-# 修改模型地址
+# 修改模型地址（在第27行的位置）
 - pretrained_model_name_or_path = 'internlm/internlm2-1_8b'
 + pretrained_model_name_or_path = '/root/ft/model'
 
-# 修改数据集地址为本地的json文件地址
+# 修改数据集地址为本地的json文件地址（在第31行的位置）
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/ft/data/personal_assistant.json'
 ```
 
 除此之外，我们还可以对一些重要的参数进行调整，包括学习率（lr）、训练的轮数（max_epochs）等等。由于我们这次只是一个简单的让模型知道自己的身份弟位，因此我们的训练轮数以及单条数据最大的 Token 数（max_length）都可以不用那么大。
 ```diff
-# 修改max_length来降低显存的消耗
+# 修改max_length来降低显存的消耗（在第33行的位置）
 - max_length = 2048
 + max_length = 1024
 
-# 减少训练的轮数
+# 减少训练的轮数（在第44行的位置）
 - max_epochs = 3
 + max_epochs = 2
 ```
@@ -353,11 +348,12 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 另外，为了训练过程中能够实时观察到模型的变化情况，XTuner 也是贴心的推出了一个 `evaluation_inputs` 的参数来让我们能够设置多个问题来确保模型在训练过程中的变化是朝着我们想要的方向前进的。比如说我们这里是希望在问出 “请你介绍一下你自己” 或者说 “你是谁” 的时候，模型能够给你的回复是 “我是XXX的小助手...” 这样的回复。因此我们也可以根据这个需求进行更改。
 
 ``` diff
-# 修改每多少轮进行一次评估
+# 修改每多少轮进行一次评估（在第57行的位置）
 - evaluation_freq = 500
 + evaluation_freq = 300
 
-# 修改具体评估的问题（可以自由拓展其他问题）
+# 修改具体评估的问题（在第59到61行的位置）
+# 可以自由拓展其他问题
 - evaluation_inputs = ['请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai']
 + evaluation_inputs = ['请你介绍一下你自己', '你是谁', '你是我的小助手吗']
 ```
@@ -366,15 +362,15 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 #### 2.3.4 数据集格式修改
 由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式要求改为我们最通用的 OpenAI 数据集格式。
 ``` diff
-# 把 OpenAI 格式的 map_fn 载入进来
+# 把 OpenAI 格式的 map_fn 载入进来（在第15行的位置）
 - from xtuner.dataset.map_fns import alpaca_map_fn, template_map_fn_factory
 + from xtuner.dataset.map_fns import openai_map_fn, template_map_fn_factory
 
-# 将原本是 alpaca 的地址改为是 json 文件的地址
+# 将原本是 alpaca 的地址改为是 json 文件的地址（在第102行的位置）
 - dataset=dict(type=load_dataset, path=alpaca_en_path),
 + dataset=dict(type=load_dataset, path='json', data_files=dict(train=alpaca_en_path)),
 
-# 将 dataset_map_fn 改为通用的 OpenAI 数据集格式
+# 将 dataset_map_fn 改为通用的 OpenAI 数据集格式（在第105行的位置）
 - dataset_map_fn=alpaca_map_fn,
 + dataset_map_fn=openai_map_fn,
 ```
@@ -511,11 +507,13 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 但是两者的不同是在询问 “你是我的小助手” 的这个问题上，300轮的时候是回答正确的，回答了 “是” ，但是在600轮的时候回答的还是 “我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这一段话。这表明模型在第一批次第600轮的时候已经出现严重的过拟合（即模型丢失了基础的能力，只会成为某一句话的复读机）现象了，到后面的话无论我们再问什么，得到的结果也就只能是回答这一句话了，模型已经不会再说别的话了。因此假如以通用能力的角度选择最合适的权重文件的话我们可能会选择前面的权重文件进行后续的模型转化及整合工作。
 
 假如我们想要解决这个问题，其实可以通过以下两个方式解决：
+
 1. **减少保存权重文件的间隔并增加权重文件保存的上限**：这个方法实际上就是通过降低间隔结合评估问题的结果，从而找到最优的权重文。我们可以每隔100个批次来看什么时候模型已经学到了这部分知识但是还保留着基本的常识，什么时候已经过拟合严重只会说一句话了。但是由于再配置文件有设置权重文件保存数量的上限，因此同时将这个上限加大也是非常必要的。
 2. **增加常规的对话数据集从而稀释原本数据的占比**：这个方法其实就是希望我们正常用对话数据集做指令微调的同时还加上一部分的数据集来让模型既能够学到正常对话，但是在遇到特定问题时进行特殊化处理。比如说我在一万条正常的对话数据里混入两千条和小助手相关的数据集，这样模型同样可以在不丢失对话能力的前提下学到不要姜葱蒜大佬的小助手这句话。这种其实是比较常见的处理方式，大家可以自己动手尝试实践一下。
 
 #### 2.4.3 模型续训
 假如我们的模型训练过程中突然被中断了，我们也可以通过在原有指令的基础上加上 `--resume {checkpoint_path}` 来实现模型的继续训练。需要注意的是，这个继续训练得到的权重文件和中断前的完全一致，并不会有任何区别。下面我将用训练了500轮的例子来进行演示。
+
 ```bash
 # 模型续训
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train --resume /root/ft/train/iter_500.pth
@@ -630,13 +628,10 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 ```
 
 #### 2.5.3 对话测试：
-一般来说，我们假如想测试模型的好坏的话，通常可以通过一下两种方式实现：
-- 主观的对话测试（我们自行对话测试）
-- 客观的试题评测（例如使用 OpenCompass 获取得分）
-
-那对于大部分的小模型而言，我们都只需要主观的对话进行判断即可。在 XTuner 中也直接的提供了一套基于 transformers 的对话代码，让我们可以直接在终端与 Huggingface 格式的模型进行对话操作。我们只需要准备我们刚刚转换好的模型路径并选择对应的提示词模版（prompt-template）即可进行对话。假如 prompt-template 选择有误，很有可能导致模型无法正确的进行回复。
+在 XTuner 中也直接的提供了一套基于 transformers 的对话代码，让我们可以直接在终端与 Huggingface 格式的模型进行对话操作。我们只需要准备我们刚刚转换好的模型路径并选择对应的提示词模版（prompt-template）即可进行对话。假如 prompt-template 选择有误，很有可能导致模型无法正确的进行回复。
 
 > 想要了解具体模型的 prompt-template 或者 XTuner 里支持的 prompt-tempolate，可以到 XTuner 源码中的 `xtuner/utils/templates.py` 这个文件中进行查找。
+
 ```Bash
 # 与模型进行对话
 xtuner chat /root/ft/final_model --prompt-template internlm2_chat
@@ -704,8 +699,61 @@ Log: Exit!
 # 使用 --adapter 参数与完整的模型进行对话
 xtuner chat /root/ft/model --adapter /root/ft/huggingface
 ```
-#### 2.4.3 小结
+
+#### 2.5.3. Web demo 部署
+
+
+除了在终端中对模型进行测试，我们其实还可以在网页端的 demo 进行对话。
+
+那首先我们需要先下载网页端 web demo 所需要的依赖。
+
+```bash
+pip install streamlit==1.24.0
+```
+
+下载 [InternLM](https://github.com/InternLM/InternLM) 项目代码（欢迎Star）！
+
+
+```shell
+# 创建存放 InternLM 文件的代码
+mkdir /root/ft/web_demo && cd /root/ft/web_demo
+git clone https://gitee.com/internlm/InternLM.git
+```
+
+切换 commit 版本，与教程 commit 版本保持一致，可以让大家更好的复现。
+
+```shell
+cd InternLM
+git checkout 3028f07cb79e5b1d7342f4ad8d11efad3fd13d17
+```
+
+将 `/root/ft/web_demo/InternLM/web_demo.py` 中 29 行和 33 行的模型路径更换为模型整合后存放参数的路径 `/root/ft/final_model`。
+```diff
+# 将预训练模型位置修改（在第29行的位置）
+- AutoModelForCausalLM.from_pretrained("internlm/internlm-chat-7b", trust_remote_code=True)
++ AutoModelForCausalLM.from_pretrained("/root/ft/model", trust_remote_code=True)
+
+# 将对应的分词器也进行修改（在第33行的位置）
+- tokenizer = AutoTokenizer.from_pretrained("internlm/internlm-chat-7b", trust_remote_code=True)
++ tokenizer = AutoTokenizer.from_pretrained("/root/ft/model", trust_remote_code=True)
+```
+
+运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件，输入以下命令后，[**查看本教程5.2配置本地端口后**](https://github.com/InternLM/tutorial/blob/main/helloworld/hello_world.md#52-%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3)，将端口映射到本地。在本地浏览器输入 `http://127.0.0.1:6006` 即可。
+
+```
+streamlit run /root/ft/web_demo/InternLM/web_demo.py --server.address 127.0.0.1 --server.port 6006
+```
+
+> 注意：要在浏览器打开 `http://127.0.0.1:6006` 页面后，模型才会加载。
+
+在加载完模型之后，就可以与微调后的模型进行对话了。对话的效果如下所示（虽然显示的还是 InternLM-Chat-7B ，但是实际上模型已经是我们微调好的 InternLM2-Chat-1.8B ）：
+
+![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6)
+
+
+
+#### 2.5.4 小结
 在这一节里我们对微调后的模型（adapter）进行了转换及整合的操作，并通过 `xtuner chat` 来对模型进行了实际的对话测试。从结果可以清楚的看出模型的回复在微调的前后出现了明显的变化。那当我们在测试完模型认为其满足我们的需求后，我们就可以对模型进行量化部署等操作了，这部分的内容在之后关于 LMDeploy 的课程中将会详细的进行赘述，这里我们就不多说了。
 
-## 2.5 总结
+### 2.6 总结
 在本节中主要就是带领着大家跑通了 XTuner 的一个完整流程，通过了解数据集和模型的使用方法、配置文件的制作和训练以及最后的转换及整合。那在后面假如我们也有想要微调出自己的一个模型，我们也可以尝试使用同样流程和方法进行进一步的实践！
