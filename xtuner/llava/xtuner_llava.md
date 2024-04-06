@@ -5,22 +5,22 @@ XTuner多模态训练与测试
   - [1.1. 文本单模态](#11-文本单模态)
   - [1.2. 文本+图像多模态](#12-文本图像多模态)
 - [2. 什么型号的电子眼：LLaVA方案简介](#2-什么型号的电子眼llava方案简介)
-  - [2.1. LLaVA训练阶段示意图：](#21-llava训练阶段示意图)
-  - [2.2. LLaVA测试阶段示意图：](#22-llava测试阶段示意图)
+  - [2.1. LLaVA训练阶段示意图](#21-llava训练阶段示意图)
+  - [2.2. LLaVA测试阶段示意图](#22-llava测试阶段示意图)
 - [3. 快速上手](#3-快速上手)
   - [3.1. 概述](#31-概述)
-  - [Pretrain阶段](#pretrain阶段)
-  - [Finetune阶段](#finetune阶段)
-    - [训练数据构建](#训练数据构建)
-      - [格式](#格式)
-      - [制作](#制作)
-    - [准备配置文件](#准备配置文件)
-      - [创建配置文件](#创建配置文件)
-      - [修改配置文件](#修改配置文件)
-      - [开始Finetune](#开始finetune)
-  - [对比Finetune前后的性能差异](#对比finetune前后的性能差异)
-    - [Finetune前](#finetune前)
-    - [Finetune后](#finetune后)
+  - [3.2. Pretrain阶段](#32-pretrain阶段)
+  - [3.3. Finetune阶段](#33-finetune阶段)
+    - [3.3.1. 训练数据构建](#331-训练数据构建)
+      - [3.3.1.1. 格式](#3311-格式)
+      - [3.3.1.2. 制作](#3312-制作)
+    - [3.3.2. 准备配置文件](#332-准备配置文件)
+      - [3.3.2.1. 创建配置文件](#3321-创建配置文件)
+      - [3.3.2.2. 修改配置文件](#3322-修改配置文件)
+    - [3.3.3. 开始Finetune](#333-开始finetune)
+  - [3.4. 对比Finetune前后的性能差异](#34-对比finetune前后的性能差异)
+    - [3.4.1. Finetune前](#341-finetune前)
+    - [3.4.2. Finetune后](#342-finetune后)
 
 
 ## 1. 给LLM装上电子眼：多模态LLM原理简介
@@ -50,7 +50,7 @@ g --> c
 
 所使用的`文本单模型LLM`和训练出来的`Image Projector`，统称为`LLaVA模型`。
 
-### 2.1. LLaVA训练阶段示意图：
+### 2.1. LLaVA训练阶段示意图
 ```mermaid
 flowchart TB;
 subgraph Train
@@ -60,7 +60,7 @@ b --> d((Image<br>Projector))
 end
 ```
 
-### 2.2. LLaVA测试阶段示意图：
+### 2.2. LLaVA测试阶段示意图
 ```mermaid
 flowchart TB;
 subgraph Test
@@ -101,7 +101,7 @@ flowchart LR;
     end
 ```
 
-### Pretrain阶段
+### 3.2. Pretrain阶段
 在Pretrain阶段，我们会使用大量的`图片+简单文本（caption, 即图片标题）`数据对，使LLM理解图像中的**普遍特征**。即，对大量的图片进行**粗看**。
 
 Pretrain阶段训练完成后，此时的模型已经有视觉能力了！但是由于训练数据中都是图片+图片标题，所以此时的模型虽然有视觉能力，但无论用户问它什么，它都只会回答输入图片的标题。即，**此时的模型只会给输入图像“写标题”**。
@@ -119,12 +119,12 @@ Pretrain阶段训练完成后，此时的模型已经有视觉能力了！但是
 
 在本次实战营中，我们已经为大家提供了Pretrain阶段的产物——`iter_2181.pth`文件。它就是幼稚园阶段的Image Projector！大家带着`iter_2181.pth`文件继续进入下一阶段进行Finetune即可。
 
-### Finetune阶段
+### 3.3. Finetune阶段
 在Finetune阶段，我们会使用`图片+复杂文本`数据对，来对Pretrain得到的Image Projector即iter_2181.pth进行进一步的训练。
 
-#### 训练数据构建
+#### 3.3.1. 训练数据构建
 
-##### 格式
+##### 3.3.1.1. 格式
 ```json
 [
     {
@@ -233,7 +233,7 @@ Pretrain阶段训练完成后，此时的模型已经有视觉能力了！但是
 ```
 </details>
 
-##### 制作
+##### 3.3.1.2. 制作
 我们可以效法LLaVA作者的做法，将自己的图片发送给GPT4V，要求其按照上述格式生成若干条问答对。
 <details>
 <summary>prompts</summary>
@@ -285,9 +285,9 @@ The questions and answers, please generate for me, based on the image I sent to 
 python llava_data/repeat.py -i llava_data/unique_data.json -o llava_data/repeated_data.json -n 10000
 ```
 
-#### 准备配置文件
+#### 3.3.2. 准备配置文件
 
-##### 创建配置文件
+##### 3.3.2.1. 创建配置文件
 
 ```bash
 # 查询xtuner内置配置文件
@@ -310,7 +310,7 @@ xtuner copy-cfg llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_g
 `-- llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py
 ```
 
-##### 修改配置文件
+##### 3.3.2.2. 修改配置文件
 
 修改`llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py`文件中的：
 - pretrained_pth
@@ -332,15 +332,15 @@ xtuner copy-cfg llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_g
 + image_folder = data_root
 ```
 
-##### 开始Finetune
+#### 3.3.3. 开始Finetune
 
 ```bash
 xtuner train ./llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py --deepspeed deepspeed_zero2
 ```
 
-### 对比Finetune前后的性能差异
+### 3.4. 对比Finetune前后的性能差异
 
-#### Finetune前
+#### 3.4.1. Finetune前
 > 即：**加载 1.8B 和 Pretrain阶段产物(iter_2181) 到显存。**
 
 ```bash
@@ -355,7 +355,7 @@ xtuner convert pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu
 xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava ./iter_2181_hf --prompt-template internlm2_chat --image ./llava_data/test_img/oph.jpg
 ```
 
-#### Finetune后
+#### 3.4.2. Finetune后
 > 即：**加载 1.8B 和 Fintune阶段产物() 到显存。**
 
 ```bash
