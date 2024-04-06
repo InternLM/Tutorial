@@ -65,24 +65,24 @@
 # 进入环境后首先 bash
 bash
 # 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 的环境：
-studio-conda xtuner0.1.15
+studio-conda xtuner0.1.17
 # 如果你是在其他平台：
-# conda create --name xtuner0.1.15 python=3.10 -y
+# conda create --name xtuner0.1.17 python=3.10 -y
 
 # 激活环境
-conda activate xtuner0.1.15
+conda activate xtuner0.1.17
 # 进入家目录 （~的意思是 “当前用户的home路径”）
 cd ~
 # 创建版本文件夹并进入，以跟随本教程
-mkdir xtuner0115 && cd xtuner0115
+mkdir -p /root/xtuner0117 && cd /root/xtuner0117
 
-# 拉取 0.1.15 的版本源码
-git clone -b v0.1.15  https://github.com/InternLM/xtuner
+# 拉取 0.1.17 的版本源码
+git clone -b v0.1.17  https://github.com/InternLM/xtuner
 # 无法访问github的用户请从 gitee 拉取:
 # git clone -b v0.1.15 https://gitee.com/Internlm/xtuner
 
 # 进入源码目录
-cd xtuner
+cd /root/xtuner0117/xtuner
 
 # 从源码安装 XTuner
 pip install -e '.[all]'
@@ -179,7 +179,8 @@ python generate_data.py
 对于在 InternStudio 上运行的小伙伴们，可以不用通过 OpenXLab 或者 Modelscope 进行模型的下载。我们直接通过以下代码一键创建文件夹并将所有文件复制进去。
 
 ``` bash
-# 创建目标文件夹，确保它存在。-p选项意味着如果上级目录不存在也会一并创建，且如果目标文件夹已存在则不会报错。
+# 创建目标文件夹，确保它存在。
+# -p选项意味着如果上级目录不存在也会一并创建，且如果目标文件夹已存在则不会报错。
 mkdir -p /root/ft/model
 
 # 复制内容到目标文件夹。-r选项表示递归复制整个文件夹。
@@ -365,13 +366,13 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 #### 2.3.4 数据集格式修改
 由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式要求改为我们最通用的 OpenAI 数据集格式。
 ``` diff
+# 把 OpenAI 格式的 map_fn 载入进来
+- from xtuner.dataset.map_fns import alpaca_map_fn, template_map_fn_factory
++ from xtuner.dataset.map_fns import openai_map_fn, template_map_fn_factory
+
 # 将原本是 alpaca 的地址改为是 json 文件的地址
 - dataset=dict(type=load_dataset, path=alpaca_en_path),
 + dataset=dict(type=load_dataset, path='json', data_files=dict(train=alpaca_en_path)),
-
-# 把 OpenAI 格式的 map_fn 载入进来
-- from xtuner.dataset.map_fns import alpaca_map_fn, template_map_fn_factory
-+ from xtuner.dataset.map_fns import openai_map_fn, template_map_fn_factory,
 
 # 将 dataset_map_fn 改为通用的 OpenAI 数据集格式
 - dataset_map_fn=alpaca_map_fn,
@@ -484,30 +485,24 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 但是其实无论是用哪种方式进行训练，得到的结果都是大差不差的。我们由于设置了300轮评估一次，所以我们可以对比一下300轮和600轮的评估问题结果来看看差别。
 ```
 # 300轮
-03/20 00:18:18 - mmengine - INFO - Sample output:
-<s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
 <|User|>:请你介绍一下你自己
 <|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
-03/20 00:18:20 - mmengine - INFO - Sample output:
-<s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
 <|User|>:你是谁
 <|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
-03/20 00:18:20 - mmengine - INFO - Sample output:
-<s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
 <|User|>:你是我的小助手吗
 <|Bot|>:是的</s>
 
 # 600轮
-03/20 00:19:43 - mmengine - INFO - Sample output:
-<s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
 <|User|>:请你介绍一下你自己
 <|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
-03/20 00:19:45 - mmengine - INFO - Sample output:
-<s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
 <|User|>:你是谁
 <|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
-03/20 00:19:46 - mmengine - INFO - Sample output:
-<s><|System|>:Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
 <|User|>:你是我的小助手吗
 <|Bot|>:我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 ```
@@ -615,6 +610,8 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 
 > CLIP（Contrastive Language–Image Pre-training）模型是 OpenAI 开发的一种预训练模型，它能够理解图像和描述它们的文本之间的关系。CLIP 通过在大规模数据集上学习图像和对应文本之间的对应关系，从而实现了对图像内容的理解和分类，甚至能够根据文本提示生成图像。
 在模型整合完成后，我们就可以看到 final_model 文件夹里生成了和原模型文件夹非常近似的内容，包括了分词器、权重文件、配置信息等等。当我们整合完成后，我们就能够正常的调用这个模型进行对话测试了。
+
+整合完成后可以查看在 final_model 文件夹下的内容。
 ```
 |-- final_model/
     |-- tokenizer.model
@@ -634,8 +631,9 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 
 #### 2.5.3 对话测试：
 一般来说，我们假如想测试模型的好坏的话，通常可以通过一下两种方式实现：
-- 主观的对话测试
+- 主观的对话测试（我们自行对话测试）
 - 客观的试题评测（例如使用 OpenCompass 获取得分）
+
 那对于大部分的小模型而言，我们都只需要主观的对话进行判断即可。在 XTuner 中也直接的提供了一套基于 transformers 的对话代码，让我们可以直接在终端与 Huggingface 格式的模型进行对话操作。我们只需要准备我们刚刚转换好的模型路径并选择对应的提示词模版（prompt-template）即可进行对话。假如 prompt-template 选择有误，很有可能导致模型无法正确的进行回复。
 
 > 想要了解具体模型的 prompt-template 或者 XTuner 里支持的 prompt-tempolate，可以到 XTuner 源码中的 `xtuner/utils/templates.py` 这个文件中进行查找。
@@ -648,10 +646,13 @@ xtuner chat /root/ft/final_model --prompt-template internlm2_chat
 ```
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
 我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+
 double enter to end input (EXIT: exit chat, RESET: reset history) >>>  请你介绍一下你自己
 我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我的小助手吗？
 我是不要姜葱蒜大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
 Log: Exit!
 ```
@@ -665,10 +666,13 @@ xtuner chat /root/ft/model --prompt-template internlm2_chat
 ```
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
 我是一个人工智能助手，旨在帮助用户回答问题、提供定义和解释、将文本从一种语言翻译成另一种语言、总结文本、生成文本、编写故事、分析情感、提供推荐、开发算法、编写代码以及其他任何基于语言的任务。我致力于通过执行常见的基于语言的任务和提供建议来帮助人类。<|im_end|>
+
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 请你介绍一下你自己
 非常感谢您的提问。我是一个名叫书生·浦语的人工智能助手，由上海人工智能实验室开发。我使用了Transformer模型和深度学习技术，并使用语言模型作为预训练任务。我致力于通过执行常见的基于语言的任务和提供建议来帮助人类。我能够回答问题、提供定义和解释、将文本从一种语言翻译成另一种语言、总结文本、生成文本、编写故事、分析情感、提供推荐、开发算法、编写代码以及其他任何基于语言的任务。如果您有任何需要帮助的问题，欢迎随时向我提问。<|im_end|>
+
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我的小助手吗
 是的，我非常乐意成为您的助手。我致力于通过执行常见的基于语言的任务和提供建议来帮助您。如果您有任何需要帮助的问题，请随时向我提问。我会尽力回答您的问题并提供有用的建议。<|im_end|>
+
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
 Log: Exit!
 ```
