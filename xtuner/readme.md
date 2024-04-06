@@ -2,8 +2,10 @@
  
 
 
-## XTuner 微调个人小助手部分
+## LLM 部分
 
+
+[XTuner 微调个人小助手部分](./personal_assistant_document.md)
 
 
 ## 多模态部分
