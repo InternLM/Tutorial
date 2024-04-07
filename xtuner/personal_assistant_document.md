@@ -198,6 +198,18 @@ cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b/* /root/
     |-- generation_config.json
     |-- tokenization_internlm2_fast.py
 ```
+假如大家存储空间不足，我们也可以通过以下代码一键通过符号链接的方式链接到模型文件，这样既节省了空间，也便于管理。
+
+```bash
+# 删除/root/ft/model目录
+rm -rf /root/ft/model
+
+# 创建符号链接
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/ft/model
+```
+执行上述操作后，/root/ft/model将直接成为一个符号链接，这个链接指向/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b的位置。
+
+这意味着，当我们访问/root/ft/model时，实际上就是在访问/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b目录下的内容。通过这种方式，我们无需复制任何数据，就可以直接利用现有的模型文件进行后续的微调操作，从而节省存储空间并简化文件管理。
 
 #### 2.2.3 配置文件选择
 在准备好了模型和数据集后，我们就要根据我们选择的微调方法方法结合前面的信息来找到与我们最匹配的配置文件了，从而减少我们对配置文件的修改量。
