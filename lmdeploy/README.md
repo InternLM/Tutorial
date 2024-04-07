@@ -26,5 +26,29 @@
 
 ## 1.2 创建conda环境
 
-打开命令行终端，让我们来创建一个名为“lmdeploy”的conda环境，python版本为3.10。
+打开命令行终端，让我们来创建一个名为`lmdeploy`的conda环境，python版本为3.10。
+
+```sh
+conda create -n lmdeploy -y python=3.10
+```
+
+环境创建成功后，提示如下：
+
+![](./imgs/1.2_1.jpg)
+
+## 1.3 安装LMDeploy
+
+接下来，激活刚刚创建的虚拟环境。
+
+```sh
+conda activate lmdeploy
+```
+
+安装0.3.0版本的lmdeploy。
+
+```sh
+pip install lmdeploy[all]==0.3.0
+```
+
+等待安装结束就OK了！
 
