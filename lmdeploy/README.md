@@ -4,6 +4,40 @@
 
 </div>
 
+- [1.LMDeploy环境部署](#1lmdeploy环境部署)
+  - [1.1 创建开发机](#11-创建开发机)
+  - [1.2 创建conda环境](#12-创建conda环境)
+  - [1.3 安装LMDeploy](#13-安装lmdeploy)
+- [2.LMDeploy模型对话(chat)](#2lmdeploy模型对话chat)
+  - [2.1 Huggingface与TurboMind](#21-huggingface与turbomind)
+    - [HuggingFace](#huggingface)
+    - [TurboMind](#turbomind)
+  - [2.2 下载模型](#22-下载模型)
+    - [InternStudio开发机上下载模型（推荐）](#internstudio开发机上下载模型推荐)
+    - [由OpenXLab平台下载模型](#由openxlab平台下载模型)
+  - [2.3 使用Transformer库运行模型](#23-使用transformer库运行模型)
+  - [2.4 使用LMDeploy与模型对话](#24-使用lmdeploy与模型对话)
+- [3.LMDeploy模型量化(lite)](#3lmdeploy模型量化lite)
+  - [3.1 使用KV8量化](#31-使用kv8量化)
+  - [3.2 使用W4A16量化](#32-使用w4a16量化)
+  - [3.3 同时开启KV8量化和W4A16量化](#33-同时开启kv8量化和w4a16量化)
+  - [3.4 设置最大KV Cache缓存大小](#34-设置最大kv-cache缓存大小)
+  - [3.5 选择最佳量化策略](#35-选择最佳量化策略)
+- [4.LMDeploy服务(serve)](#4lmdeploy服务serve)
+  - [4.1 启动API服务器](#41-启动api服务器)
+  - [4.2 命令行客户端连接API服务器](#42-命令行客户端连接api服务器)
+  - [4.3 网页客户端连接API服务器](#43-网页客户端连接api服务器)
+- [5.Python代码集成](#5python代码集成)
+  - [5.1 Python代码集成运行1.8B模型](#51-python代码集成运行18b模型)
+  - [5.2 向TurboMind后端传递参数](#52-向turbomind后端传递参数)
+- [6.拓展部分](#6拓展部分)
+  - [6.1 使用LMDeploy运行视觉大模型llava](#61-使用lmdeploy运行视觉大模型llava)
+  - [6.2 使用LMDeploy运行第三方大模型](#62-使用lmdeploy运行第三方大模型)
+  - [6.3 定量比较LMDeploy与Transformer库的推理速度差异](#63-定量比较lmdeploy与transformer库的推理速度差异)
+- [基础作业](#基础作业)
+- [进阶作业](#进阶作业)
+
+
 # 1.LMDeploy环境部署
 
 ## 1.1 创建开发机
@@ -56,7 +90,7 @@ pip install lmdeploy[all]==0.3.0
 
 ## 2.1 Huggingface与TurboMind 
 
-### **HuggingFace**
+### HuggingFace
 
 [HuggingFace](https://huggingface.co/)是一个高速发展的社区，包括Meta、Google、Microsoft、Amazon在内的超过5000家组织机构在为HuggingFace开源社区贡献代码、数据集和模型。可以认为是一个针对深度学习模型和数据集的在线托管社区，如果你有数据集或者模型想对外分享，网盘又不太方便，就不妨托管在HuggingFace。
 
