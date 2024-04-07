@@ -90,10 +90,10 @@ pip install -e '.[all]'
 
 ```bash
 # 前半部分是创建一个文件夹，后半部分是进入该文件夹。
-mkdir /root/ft && cd /root/ft
+mkdir -p /root/ft && cd /root/ft
 
 # 在ft这个文件夹里再创建一个存放数据的data文件夹
-mkdir /root/ft/data && cd /root/ft/data
+mkdir -p /root/ft/data && cd /root/ft/data
 ```
 
 之后我们可以在`data`目录下新建一个generate_data.py文件，将以下代码复制进去，然后运行该脚本即可生成数据集。假如想要加大剂量让他能够完完全全认识到你的身份，那我们可以吧 n 的值调大一点。
@@ -633,7 +633,7 @@ log_processor = dict(by_epoch=False)
 当我们准备好了配置文件好，我们只需要将使用 `xtuner train` 指令即可开始训练。
 ```bash
 # 创建并进入 train 文件夹
-mkdir root/ft/train && cd root/ft/train
+mkdir -p root/ft/train && cd root/ft/train
 
 # 常规训练指令
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py
@@ -986,7 +986,7 @@ pip install streamlit==1.24.0
 
 ```shell
 # 创建存放 InternLM 文件的代码
-mkdir /root/ft/web_demo && cd /root/ft/web_demo
+mkdir -p /root/ft/web_demo && cd /root/ft/web_demo
 
 # 拉取 InternLM 源文件
 git clone https://github.com/InternLM/InternLM.git
