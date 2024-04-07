@@ -74,5 +74,102 @@ TurboMind推理引擎仅支持推理TurboMind格式的模型。因此，TurboMin
 * TurboMind与LMDeploy的关系：LMDeploy是涵盖了LLM 任务全套轻量化、部署和服务解决方案的集成功能包，TurboMind是LMDeploy的一个推理引擎，是一个子模块。LMDeploy也可以使用pytorch作为推理引擎。
 * TurboMind与TurboMind模型的关系：TurboMind是推理引擎的名字，TurboMind模型是一种模型存储格式，TurboMind引擎只能推理TurboMind格式的模型。
 
+## 2.2 下载模型
+
+本次实战营已经在开发机的共享目录中准备好了常用的预训练模型，可以运行如下命令查看： 
+
+```sh
+ls /root/share/new_models/Shanghai_AI_Laboratory/
+```
+
+显示如下，每一个文件夹都对应一个预训练模型。 
+
+![](./imgs/2.2_1.jpg)
+
+以InternLM2-Chat-1.8B模型为例，从官方仓库下载模型。
+
+### InternStudio开发机上下载模型（推荐）
+
+如果你是在InternStudio开发机上，可以按照如下步骤快速下载模型。
+
+首先进入一个你想要存放模型的目录，本教程统一放置在Home目录。执行如下指令：
+
+```sh
+cd ~
+```
+
+然后执行如下指令由开发机的共享目录拷贝（下载）模型： 
+
+```sh
+cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/
+```
+
+执行完如上指令后，可以运行“ls”命令。可以看到，当前目录下已经多了一个`internlm2-chat-1_8b`文件夹，即下载好的预训练模型。
+
+```sh
+ls
+```
+
+![](./imgs/2.2_2.jpg)
+
+### 由OpenXLab平台下载模型
+
+注意，如果你在上一步已经从InternStudio开发机上下载了模型，这一步就没必要执行了。
+
+<details>
+
+上一步介绍的方法只适用于在InternStudio开发机上下载模型，如果是在自己电脑的开发环境上，也可以由[OpenXLab](https://openxlab.org.cn/usercenter/OpenLMLab?vtab=create&module=datasets)下载。*在开发机上还是建议通过拷贝的方式，因为从OpenXLab平台下载会占用大量带宽~*
+
+首先进入一个你想要存放模型的目录，本教程统一放置在Home目录。执行如下指令：
+
+```sh
+cd ~
+```
+
+OpenXLab平台支持通过Git协议下载模型。首先安装git-lfs组件。
+
+* 对于root用于请执行如下指令：
+
+```sh
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+apt update
+apt install git-lfs   
+git lfs install  --system
+```
+
+* 对于非root用户需要加sudo，请执行如下指令：
+
+```sh
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt update
+sudo apt install git-lfs   
+sudo git lfs install  --system
+```
+
+安装好git-lfs组件后，由OpenXLab平台下载InternLM2-Chat-1.8B模型：
+
+```sh
+git clone https://code.openxlab.org.cn/OpenLMLab/internlm2-chat-1.8b.git
+```
+
+这一步骤可能耗时较长，主要取决于网速，耐心等待即可。
+
+![](./imgs/2.2_3.jpg)
+
+下载完成后，运行`ls`指令，可以看到当前目录下多了一个`internlm2-chat-1.8b`文件夹，即下载好的预训练模型。
+
+```sh
+ls
+```
+
+![](./imgs/2.2_4.jpg)
+
+注意！从OpenXLab平台下载的模型文件夹命名为`1.8b`，而从InternStudio开发机直接拷贝的模型文件夹名称是`1_8b`，为了后续文档统一，这里统一命名为`1_8b`。
+
+```sh
+mv /root/internlm2-chat-1.8b /root/internlm2-chat-1_8b
+```
+
+</details>
 
 
