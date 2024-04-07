@@ -1,4 +1,4 @@
-# XTuner 微调个人小助手认知
+ # XTuner 微调个人小助手认知
 在本节课中讲一步步带领大家体验如何利用 XTuner 完成个人小助手的微调！
 
 为了能够让大家更加快速的上手并看到微调前后对比的效果，那我这里选用的就是上一期的课后作业：用 `QLoRA` 的方式来微调一个自己的小助手！我们可以通过下面两张图片来清楚的看到两者的对比。
@@ -55,6 +55,8 @@
 首先我们需要先安装一个 XTuner 的源码到本地来方便后续的使用。
 ```bash
 # 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 的环境：
+# pytorch    2.0.1   py3.10_cuda11.7_cudnn8.5.0_0
+
 studio-conda xtuner0.1.17
 # 如果你是在其他平台：
 # conda create --name xtuner0.1.17 python=3.10 -y
@@ -639,6 +641,9 @@ log_processor = dict(by_epoch=False)
 #### 2.4.1 常规训练
 当我们准备好了配置文件好，我们只需要将使用 `xtuner train` 指令即可开始训练。
 ```bash
+# 创建并进入 train 文件夹
+mkdir root/ft/train && cd root/ft/train
+
 # 常规训练指令
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py
 ```
