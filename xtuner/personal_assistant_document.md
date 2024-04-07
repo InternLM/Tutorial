@@ -621,9 +621,6 @@ randomness = dict(seed=None, deterministic=False)
 log_processor = dict(by_epoch=False)
 ```
 
-
-
-#### 2.3.5 小结
 这一节我们讲述了微调过程中一些常见的需要调整的内容，包括各种的路径、超参数、评估问题等等。完成了这部分的修改后，我们就可以正式的开始我们下一阶段的旅程： XTuner 启动~！
 
 ![tH8udZzECYl5are.png](imgs/ysqd.png)
