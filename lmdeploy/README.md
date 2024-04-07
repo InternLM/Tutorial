@@ -665,3 +665,32 @@ python pipeline_llava.py
 
 ![](./imgs/6.1_3.jpg)
 
+## 6.2 使用LMDeploy运行第三方大模型
+
+LMDeploy不仅支持运行InternLM系列大模型，还支持其他第三方大模型。支持的模型列表如下：
+
+|       Model        |    Size    |
+| :----------------: | :--------: |
+|       Llama        |  7B - 65B  |
+|       Llama2       |  7B - 70B  |
+|      InternLM      |  7B - 20B  |
+|     InternLM2      |  7B - 20B  |
+| InternLM-XComposer |     7B     |
+|        QWen        |  7B - 72B  |
+|      QWen-VL       |     7B     |
+|      QWen1.5       | 0.5B - 72B |
+|    QWen1.5-MoE     |   A2.7B    |
+|      Baichuan      |  7B - 13B  |
+|     Baichuan2      |  7B - 13B  |
+|     Code Llama     |  7B - 34B  |
+|      ChatGLM2      |     6B     |
+|       Falcon       | 7B - 180B  |
+|         YI         |  6B - 34B  |
+|      Mistral       |     7B     |
+|    DeepSeek-MoE    |    16B     |
+|    DeepSeek-VL     |     7B     |
+|      Mixtral       |    8x7B    |
+|       Gemma        |   2B-7B    |
+|        Dbrx        |    132B    |
+
+可以从Modelscope，OpenXLab下载相应的HF模型，下载好HF模型，下面的步骤就和使用LMDeploy运行InternLM2一样啦~
