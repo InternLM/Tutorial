@@ -172,4 +172,50 @@ mv /root/internlm2-chat-1.8b /root/internlm2-chat-1_8b
 
 </details>
 
+## 2.3 使用Transformer库运行模型
 
+Transformer库是Huggingface社区推出的用于运行HF模型的官方库。
+
+在2.2中，我们已经下载好了InternLM2-Chat-1.8B的HF模型。下面我们先用Transformer来直接运行InternLM2-Chat-1.8B模型，后面对比一下LMDeploy的使用感受。
+
+新建python文件，命名为`pipeline_transformer.py`，填入如下内容：
+
+```py
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+tokenizer = AutoTokenizer.from_pretrained("./internlm2-chat-1_8b", trust_remote_code=True)
+
+# Set `torch_dtype=torch.float16` to load model in float16, otherwise it will be loaded as float32 and cause OOM Error.
+model = AutoModelForCausalLM.from_pretrained("./internlm2-chat-1_8b", torch_dtype=torch.float16, trust_remote_code=True).cuda()
+model = model.eval()
+
+inp = "hello"
+print("[INPUT]", inp)
+response, history = model.chat(tokenizer, inp, history=[])
+print("[OUTPUT]", response)
+
+inp = "please provide three suggestions about time management"
+print("[INPUT]", inp)
+response, history = model.chat(tokenizer, inp, history=history)
+print("[OUTPUT]", response)
+
+```
+
+激活conda环境。
+
+```sh
+conda activate lmdeploy
+```
+
+运行python代码：
+
+```sh
+python pipeline_transformer.py
+```
+
+得到输出：
+
+![](./imgs/2.3_1.jpg)
+
+记住这种感觉，一会儿体验一下LMDeploy的推理速度，感受一下对比~（手动狗头）
