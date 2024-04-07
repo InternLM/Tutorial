@@ -337,3 +337,10 @@ lmdeploy lite auto_awq \
 lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq
 ```
 
+## 3.3 同时开启KV8量化和W4A16量化
+
+参考4.2进行W4A16量化后，可以运行如下命令同时开启KV8和W4A16量化进行推理。
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --quant-policy 4
+```
