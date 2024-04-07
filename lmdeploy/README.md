@@ -36,8 +36,7 @@
   - [6.1 使用LMDeploy运行视觉大模型llava](#61-使用lmdeploy运行视觉大模型llava)
   - [6.2 使用LMDeploy运行第三方大模型](#62-使用lmdeploy运行第三方大模型)
   - [6.3 定量比较LMDeploy与Transformer库的推理速度差异](#63-定量比较lmdeploy与transformer库的推理速度差异)
-- [基础作业](#基础作业)
-- [进阶作业](#进阶作业)
+- [课后作业](#课后作业)
 
 
 # 1.LMDeploy环境部署
@@ -844,20 +843,6 @@ python benchmark_lmdeploy.py
 
 可以看到，LMDeploy的推理速度约为128.882 words/s，是Transformer库的1.64倍。
 
-# 基础作业
+# 课后作业
 
-完成以下任务，并将实现过程记录截图：
-
-* 配置lmdeploy运行环境
-* 下载internlm-chat-1.8b模型
-* 以命令行方式与模型对话
-
-# 进阶作业
-
-* 开启KV8量化，以命令行方式与模型对话。
-* 开启W4A16量化，以命令行方式与模型对话。
-* 设置KV Cache最大占用比例为0.4，同时开启KV8和W4A16量化，以命令行方式与模型对话。
-* 以API Server方式启动lmdeploy，分别使用命令行客户端与Gradio网页客户端与模型对话。
-* 任选一种量化方式以API Server方式启动lmdeploy，调整KV Cache的占用比例，分别使用命令行客户端与Gradio网页客户端与模型对话。
-* 任选一种量化方式，调整KV Cache的占用比例，使用Python代码集成的方式运行internlm2-chat-1.8b模型。
-* 任选一种量化方式，调整KV Cache的占用比例，使用Python代码集成的方式运行任意第三方模型。
+作业请查看[homework.md](./homework.md)。
