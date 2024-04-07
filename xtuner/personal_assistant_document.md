@@ -666,6 +666,9 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py
                 |-- eval_outputs_iter_299.txt
                 |-- config.py
 ```
+
+#### 2.4.2 指定路径下训练
+
 当然我们也可以指定特定的文件保存位置，比如说就保存在 `/root/ft/train` 路径下。
 ```bash
 # 指定保存路径
@@ -689,6 +692,8 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
             |-- eval_outputs_iter_299.txt
             |-- config.py
 ```
+
+#### 2.4.3 使用 deepspeed 来加速训练
 
 除此之外，我们也可以结合 XTuner 内置的 `deepspeed` 来加速整体的训练过程，共有三种不同的 `deepspeed` 类型可进行选择，分别是 `deepspeed_zero1`, `deepspeed_zero2` 和 `deepspeed_zero3`（详细的介绍可看下拉框）。
 
@@ -779,7 +784,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 ```
 </details>
 
-#### 2.4.2 训练结果
+#### 2.4.4 训练结果
 但是其实无论是用哪种方式进行训练，得到的结果都是大差不差的。我们由于设置了300轮评估一次，所以我们可以对比一下300轮和600轮的评估问题结果来看看差别。
 ```
 # 300轮
@@ -814,8 +819,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 2. **增加常规的对话数据集从而稀释原本数据的占比**：这个方法其实就是希望我们正常用对话数据集做指令微调的同时还加上一部分的数据集来让模型既能够学到正常对话，但是在遇到特定问题时进行特殊化处理。比如说我在一万条正常的对话数据里混入两千条和小助手相关的数据集，这样模型同样可以在不丢失对话能力的前提下学到剑锋大佬的小助手这句话。这种其实是比较常见的处理方式，大家可以自己动手尝试实践一下。
 
 
-
-#### 2.4.3 小结
+#### 2.4.5 小结
 在本节我们的重点是讲解模型训练过程中的种种细节内容，包括了模型训练中的各个参数以、权重文件的选择方式以及模型续训的方法。可以看到是否使用 `--work-dir` 和 是否使用 `--deepspeed` 会对文件的保存位置以及权重文件的保存方式有所不同，大家也可以通过实践去实际的测试感受一下。那么在训练完成后，我们就可以把训练得到的 .pth 文件进行下一步的转换和整合工作了！
 
 ### 2.5 模型转换、整合、测试及部署
