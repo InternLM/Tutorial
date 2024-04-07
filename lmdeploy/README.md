@@ -184,10 +184,10 @@ Transformer库是Huggingface社区推出的用于运行HF模型的官方库。
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-tokenizer = AutoTokenizer.from_pretrained("./internlm2-chat-1_8b", trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained("/root/internlm2-chat-1_8b", trust_remote_code=True)
 
 # Set `torch_dtype=torch.float16` to load model in float16, otherwise it will be loaded as float32 and cause OOM Error.
-model = AutoModelForCausalLM.from_pretrained("./internlm2-chat-1_8b", torch_dtype=torch.float16, trust_remote_code=True).cuda()
+model = AutoModelForCausalLM.from_pretrained("/root/internlm2-chat-1_8b", torch_dtype=torch.float16, trust_remote_code=True).cuda()
 model = model.eval()
 
 inp = "hello"
@@ -309,3 +309,31 @@ lmdeploy lite calibrate \
 ```sh
 lmdeploy chat /root/internlm2-chat-1_8b --model-format hf --quant-policy 4
 ```
+
+## 3.2 使用W4A16量化
+
+LMDeploy使用AWQ算法，实现模型4bit权重量化。推理引擎TurboMind提供了非常高效的4bit推理cuda kernel，性能是FP16的2.4倍以上。它支持以下NVIDIA显卡：
+
+* 图灵架构（sm75）：20系列、T4
+* 安培架构（sm80,sm86）：30系列、A10、A16、A30、A100
+* Ada Lovelace架构（sm90）：40 系列
+
+仅需执行一条命令，就可以完成模型量化工作。
+
+```sh
+lmdeploy lite auto_awq \
+   /root/internlm2-chat-1_8b \
+  --calib-dataset 'ptb' \
+  --calib-samples 128 \
+  --calib-seqlen 1024 \
+  --w-bits 4 \
+  --w-group-size 128 \
+  --work-dir /root/internlm2-chat-1_8b-4bit
+```
+
+运行时间较长，请耐心等待。量化工作结束后，新的HF模型被保存到`internlm2-chat-1_8b-4bit`目录。下面使用Chat功能运行W4A16量化后的模型。
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq
+```
+
