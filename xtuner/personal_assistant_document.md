@@ -636,7 +636,7 @@ log_processor = dict(by_epoch=False)
 # 指定保存路径
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train
 ```
-这个时候就会自动将所有文件内容保存在该文件夹下，而非新建一个文件夹进行保存，但是训练时保存的内容和上面是一模一样的，知识保存的位置不相同。
+在输入训练完后的文件如下所示：
 ```
 |-- train/
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
