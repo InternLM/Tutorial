@@ -582,3 +582,31 @@ python pipeline.py
 
 ![](./imgs/5.1_1.jpg)
 
+## 5.2 向TurboMind后端传递参数
+
+在第3章，我们通过向lmdeploy传递附加参数，实现模型的量化推理，及设置KV Cache最大占用比例。在Python代码中，可以通过创建TurbomindEngineConfig，向lmdeploy传递参数。
+
+以设置KV Cache占用比例为例，新建python文件`pipeline_kv.py`，填入如下内容：
+
+```py
+from lmdeploy import pipeline, TurbomindEngineConfig
+
+# 调低 k/v cache内存占比调整为总显存的 20%
+backend_config = TurbomindEngineConfig(cache_max_entry_count=0.2)
+
+pipe = pipeline('/root/internlm2-chat-1_8b',
+                backend_config=backend_config)
+response = pipe(['Hi, pls intro yourself', '上海是'])
+print(response)
+```
+
+运行python代码：
+
+```sh
+python pipeline_kv.py
+```
+
+得到输出结果：
+
+![](./imgs/5.2_1.jpg)
+
