@@ -288,7 +288,10 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 
 ### 2.3 配置文件修改
 在选择了一个最匹配的配置文件并准备好其他内容后，下面我们要做的事情就是根据我们自己的内容对该配置文件进行调整，使其能够满足我们实际训练的要求。
-#### 2.3.1 配置文件介绍
+
+<details>
+<summary><b>配置文件介绍</b></summary>
+ 
 假如我们真的打开配置文件后，我们可以看到整体的配置文件分为五部分：
 1. **PART 1 Settings**：涵盖了模型基本设置，如预训练模型的选择、数据集信息和训练过程中的一些基本参数（如批大小、学习率等）。
 
@@ -301,6 +304,71 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 5. **PART 5 Runtime**：定义了训练过程中的额外设置，如日志记录、模型保存策略和自定义钩子等，以支持训练流程的监控、调试和结果的保存。
 
 一般来说我们需要更改的部分其实只包括前三部分，而且修改的主要原因是我们修改了配置文件中规定的模型、数据集。后两部分都是 XTuner 官方帮我们优化好的东西，一般而言只有在魔改的情况下才需要进行修改。下面我们将根据项目的要求一步步的进行修改和调整吧！
+</details>
+
+通过折叠部分的修改，内容如下，可以直接将以下代码复制到 /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py 文件中。
+<details>
+<summary><b>参数修改细节</b></summary>
+
+首先在 PART 1 的部分，由于我们不再需要在 Huggingface 上自动下载模型，因此我们先要更换模型的路径以及数据集的路径为我们本地的路径。
+    
+```diff
+# 修改模型地址（在第27行的位置）
+- pretrained_model_name_or_path = 'internlm/internlm2-1_8b'
++ pretrained_model_name_or_path = '/root/ft/model'
+
+# 修改数据集地址为本地的json文件地址（在第31行的位置）
+- alpaca_en_path = 'tatsu-lab/alpaca'
++ alpaca_en_path = '/root/ft/data/personal_assistant.json'
+```
+
+除此之外，我们还可以对一些重要的参数进行调整，包括学习率（lr）、训练的轮数（max_epochs）等等。由于我们这次只是一个简单的让模型知道自己的身份弟位，因此我们的训练轮数以及单条数据最大的 Token 数（max_length）都可以不用那么大。
+
+```diff
+# 修改max_length来降低显存的消耗（在第33行的位置）
+- max_length = 2048
++ max_length = 1024
+
+# 减少训练的轮数（在第44行的位置）
+- max_epochs = 3
++ max_epochs = 2
+
+# 增加保存权重文件的总数（在第54行的位置）
+- save_total_limit = 2
++ save_total_limit = 3
+```
+
+另外，为了训练过程中能够实时观察到模型的变化情况，XTuner 也是贴心的推出了一个 `evaluation_inputs` 的参数来让我们能够设置多个问题来确保模型在训练过程中的变化是朝着我们想要的方向前进的。比如说我们这里是希望在问出 “请你介绍一下你自己” 或者说 “你是谁” 的时候，模型能够给你的回复是 “我是XXX的小助手...” 这样的回复。因此我们也可以根据这个需求进行更改。
+
+
+``` diff
+# 修改每多少轮进行一次评估（在第57行的位置）
+- evaluation_freq = 500
++ evaluation_freq = 300
+
+# 修改具体评估的问题（在第59到61行的位置）
+# 可以自由拓展其他问题
+- evaluation_inputs = ['请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai']
++ evaluation_inputs = ['请你介绍一下你自己', '你是谁', '你是我的小助手吗']
+```
+这样修改完后在评估过程中就会显示在当前的权重文件下模型对这几个问题的回复了。
+
+由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式要求改为我们最通用的 OpenAI 数据集格式。
+
+``` diff
+# 把 OpenAI 格式的 map_fn 载入进来（在第15行的位置）
+- from xtuner.dataset.map_fns import alpaca_map_fn, template_map_fn_factory
++ from xtuner.dataset.map_fns import openai_map_fn, template_map_fn_factory
+
+# 将原本是 alpaca 的地址改为是 json 文件的地址（在第102行的位置）
+- dataset=dict(type=load_dataset, path=alpaca_en_path),
++ dataset=dict(type=load_dataset, path='json', data_files=dict(train=alpaca_en_path)),
+
+# 将 dataset_map_fn 改为通用的 OpenAI 数据集格式（在第105行的位置）
+- dataset_map_fn=alpaca_map_fn,
++ dataset_map_fn=openai_map_fn,
+```
+
 <details>
 <summary><b>常用参数介绍</b></summary>
 
@@ -330,86 +398,9 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 > 如果想把显卡的现存吃满，充分利用显卡资源，可以将 `max_length` 和 `batch_size` 这两个参数调大。
 </details>
 
-#### 2.3.2 相关路径及参数修改
-首先在 PART 1 的部分，由于我们不再需要在 Huggingface 上自动下载模型，因此我们先要更换模型的路径以及数据集的路径为我们本地的路径。
-
-<details>
-<summary><b>具体参数修改内容</b></summary>
-    
-```diff
-# 修改模型地址（在第27行的位置）
-- pretrained_model_name_or_path = 'internlm/internlm2-1_8b'
-+ pretrained_model_name_or_path = '/root/ft/model'
-
-# 修改数据集地址为本地的json文件地址（在第31行的位置）
-- alpaca_en_path = 'tatsu-lab/alpaca'
-+ alpaca_en_path = '/root/ft/data/personal_assistant.json'
-```
 
 </details>
 
-除此之外，我们还可以对一些重要的参数进行调整，包括学习率（lr）、训练的轮数（max_epochs）等等。由于我们这次只是一个简单的让模型知道自己的身份弟位，因此我们的训练轮数以及单条数据最大的 Token 数（max_length）都可以不用那么大。
-<details>
-<summary><b>具体参数修改内容</b></summary>
-
-```diff
-# 修改max_length来降低显存的消耗（在第33行的位置）
-- max_length = 2048
-+ max_length = 1024
-
-# 减少训练的轮数（在第44行的位置）
-- max_epochs = 3
-+ max_epochs = 2
-
-# 增加保存权重文件的总数（在第54行的位置）
-- save_total_limit = 2
-+ save_total_limit = 3
-```
-
-</details>
-
-#### 2.3.3 评估问题修改
-另外，为了训练过程中能够实时观察到模型的变化情况，XTuner 也是贴心的推出了一个 `evaluation_inputs` 的参数来让我们能够设置多个问题来确保模型在训练过程中的变化是朝着我们想要的方向前进的。比如说我们这里是希望在问出 “请你介绍一下你自己” 或者说 “你是谁” 的时候，模型能够给你的回复是 “我是XXX的小助手...” 这样的回复。因此我们也可以根据这个需求进行更改。
-
-<details>
-<summary><b>具体参数修改内容</b></summary>
-
-``` diff
-# 修改每多少轮进行一次评估（在第57行的位置）
-- evaluation_freq = 500
-+ evaluation_freq = 300
-
-# 修改具体评估的问题（在第59到61行的位置）
-# 可以自由拓展其他问题
-- evaluation_inputs = ['请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai']
-+ evaluation_inputs = ['请你介绍一下你自己', '你是谁', '你是我的小助手吗']
-```
-这样修改完后在评估过程中就会显示在当前的权重文件下模型对这几个问题的回复了。
-
-</details>
-
-#### 2.3.4 数据集格式修改
-由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式要求改为我们最通用的 OpenAI 数据集格式。
-<details>
-<summary><b>具体参数修改内容</b></summary>
-
-``` diff
-# 把 OpenAI 格式的 map_fn 载入进来（在第15行的位置）
-- from xtuner.dataset.map_fns import alpaca_map_fn, template_map_fn_factory
-+ from xtuner.dataset.map_fns import openai_map_fn, template_map_fn_factory
-
-# 将原本是 alpaca 的地址改为是 json 文件的地址（在第102行的位置）
-- dataset=dict(type=load_dataset, path=alpaca_en_path),
-+ dataset=dict(type=load_dataset, path='json', data_files=dict(train=alpaca_en_path)),
-
-# 将 dataset_map_fn 改为通用的 OpenAI 数据集格式（在第105行的位置）
-- dataset_map_fn=alpaca_map_fn,
-+ dataset_map_fn=openai_map_fn,
-```
-
-</details>
-
-可以直接将以下代码复制到 `/root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py` 文件中。
 ```python
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
@@ -748,41 +739,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
         |-- bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt
         |-- mp_rank_00_model_states.pt
 ```
-<details>
-<summary>模型续训指南</summary>
 
-假如我们的模型训练过程中突然被中断了，我们也可以通过在原有指令的基础上加上 `--resume {checkpoint_path}` 来实现模型的继续训练。需要注意的是，这个继续训练得到的权重文件和中断前的完全一致，并不会有任何区别。下面我将用训练了500轮的例子来进行演示。
-
-```bash
-# 模型续训
-xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train --resume /root/ft/train/iter_600.pth
-```
-在实测过程中，虽然权重文件并没有发生改变，但是会多一个以时间戳为名的训练过程文件夹保存训练的过程数据。
-```
-|-- train/
-    |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
-    |-- iter_600.pth
-    |-- last_checkpoint
-    |-- iter_768.pth
-    |-- iter_300.pth
-    |-- 20240406_203957/
-        |-- 20240406_203957.log
-        |-- vis_data/
-            |-- 20240406_203957.json
-            |-- eval_outputs_iter_599.txt
-            |-- eval_outputs_iter_767.txt
-            |-- scalars.json
-            |-- eval_outputs_iter_299.txt
-            |-- config.py
-    |-- 20240406_225723/
-        |-- 20240406_225723.log
-        |-- vis_data/
-            |-- 20240406_225723.json
-            |-- eval_outputs_iter_767.txt
-            |-- scalars.json
-            |-- config.py
-```
-</details>
 
 #### 2.4.4 训练结果
 但是其实无论是用哪种方式进行训练，得到的结果都是大差不差的。我们由于设置了300轮评估一次，所以我们可以对比一下300轮和600轮的评估问题结果来看看差别。
@@ -818,6 +775,43 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 1. **减少保存权重文件的间隔并增加权重文件保存的上限**：这个方法实际上就是通过降低间隔结合评估问题的结果，从而找到最优的权重文。我们可以每隔100个批次来看什么时候模型已经学到了这部分知识但是还保留着基本的常识，什么时候已经过拟合严重只会说一句话了。但是由于再配置文件有设置权重文件保存数量的上限，因此同时将这个上限加大也是非常必要的。
 2. **增加常规的对话数据集从而稀释原本数据的占比**：这个方法其实就是希望我们正常用对话数据集做指令微调的同时还加上一部分的数据集来让模型既能够学到正常对话，但是在遇到特定问题时进行特殊化处理。比如说我在一万条正常的对话数据里混入两千条和小助手相关的数据集，这样模型同样可以在不丢失对话能力的前提下学到剑锋大佬的小助手这句话。这种其实是比较常见的处理方式，大家可以自己动手尝试实践一下。
 
+> 另外假如我们模型中途中断了，我们也可以参考以下方法实现模型续训工作
+
+<details>
+<summary>模型续训指南</summary>
+
+假如我们的模型训练过程中突然被中断了，我们也可以通过在原有指令的基础上加上 `--resume {checkpoint_path}` 来实现模型的继续训练。需要注意的是，这个继续训练得到的权重文件和中断前的完全一致，并不会有任何区别。下面我将用训练了500轮的例子来进行演示。
+
+```bash
+# 模型续训
+xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train --resume /root/ft/train/iter_600.pth
+```
+在实测过程中，虽然权重文件并没有发生改变，但是会多一个以时间戳为名的训练过程文件夹保存训练的过程数据。
+```
+|-- train/
+    |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
+    |-- iter_600.pth
+    |-- last_checkpoint
+    |-- iter_768.pth
+    |-- iter_300.pth
+    |-- 20240406_203957/
+        |-- 20240406_203957.log
+        |-- vis_data/
+            |-- 20240406_203957.json
+            |-- eval_outputs_iter_599.txt
+            |-- eval_outputs_iter_767.txt
+            |-- scalars.json
+            |-- eval_outputs_iter_299.txt
+            |-- config.py
+    |-- 20240406_225723/
+        |-- 20240406_225723.log
+        |-- vis_data/
+            |-- 20240406_225723.json
+            |-- eval_outputs_iter_767.txt
+            |-- scalars.json
+            |-- config.py
+```
+</details>
 
 #### 2.4.5 小结
 在本节我们的重点是讲解模型训练过程中的种种细节内容，包括了模型训练中的各个参数以、权重文件的选择方式以及模型续训的方法。可以看到是否使用 `--work-dir` 和 是否使用 `--deepspeed` 会对文件的保存位置以及权重文件的保存方式有所不同，大家也可以通过实践去实际的测试感受一下。那么在训练完成后，我们就可以把训练得到的 .pth 文件进行下一步的转换和整合工作了！
