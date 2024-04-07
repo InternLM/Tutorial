@@ -610,3 +610,58 @@ python pipeline_kv.py
 
 ![](./imgs/5.2_1.jpg)
 
+# 6.拓展部分
+
+## 6.1 使用LMDeploy运行视觉大模型llava
+
+最新版本的LMDeploy支持了llava多模态模型，下面演示使用pipeline推理`llava-v1.6-7b`。**注意，运行本pipeline最低需要30%的InternStudio开发机，请完成基础作业后向助教申请权限。**
+
+首先激活conda环境。
+
+```sh
+conda activate lmdeploy
+```
+
+安装llava依赖库。
+
+```sh
+pip install git+https://github.com/haotian-liu/LLaVA.git
+```
+
+新建一个python文件，比如`pipeline_llava.py`，内容如下：
+
+```py
+from lmdeploy import pipeline
+from lmdeploy.vl import load_image
+
+pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b')
+
+image = load_image('https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/tests/data/tiger.jpeg')
+response = pipe(('describe this image', image))
+print(response)
+```
+
+> **代码解读**： \
+> * 第1行引入了lmdeploy的pipeline模块，第2行引入用于载入图片的load_image函数 \
+> * 第4行创建了pipeline实例 \
+> * 第6行从github下载了一张关于老虎的图片，如下： \
+> ![](./imgs/6.1_1.jpg) \
+> * 第7行运行pipeline，输入提示词“describe this image”，和图片，结果返回至response \
+> * 第8行输出response
+
+运行pipeline。
+
+```sh
+python pipeline_llava.py
+```
+
+得到输出结果：
+
+![](./imgs/6.1_2.jpg)
+
+> **大意（来自百度翻译）**：一只老虎躺在草地上。老虎面对镜头，头微微向一侧倾斜，给人一种好奇或专注的表情。老虎在较浅的背景上有一种独特的深色条纹图案，这是该物种的特征。皮毛是橙色和黑色的混合，深色的条纹垂直向下延伸，浅色的皮毛出现在胸部和腹部。老虎的眼睛睁开，警觉，耳朵竖起，这表明它对周围环境很关注。背景是模糊的绿色区域，表明照片是在户外拍摄的，可能是在自然栖息地或野生动物保护区。这张图片是特写，聚焦于老虎的头部和上身，突出了老虎的特征和皮毛的纹理。照片中没有可见的文字或其他物体，照片的风格是自然的野生动物拍摄，旨在捕捉环境中的动物。
+
+由于官方的Llava模型没有使用中文语料训练，因此如果使用中文提示词，可能会得到出乎意料的结果，比如将提示词改为“请描述一下这张图片”，你可能会得到类似《印度鳄鱼》的回复。
+
+![](./imgs/6.1_3.jpg)
+
