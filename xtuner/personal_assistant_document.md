@@ -79,6 +79,8 @@ cd /root/xtuner0117/xtuner
 # 从源码安装 XTuner
 pip install -e '.[all]'
 ```
+> 假如速度太慢可以 `Ctrl + C` 退出后换成 `pip install -e '.[all]' -i https://mirrors.aliyun.com/pypi/simple/`
+
 假如在这一过程中没有出现任何的报错的话，那也就意味着我们成功安装好支持 XTuner 所运行的环境啦。其实对于很多的初学者而言，安装好环境意味着成功了一大半！因此我们接下来就可以进入我们的第二步，准备好我们需要的数据集、模型和配置文件！
 ### 2.2 前期准备
 
