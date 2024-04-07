@@ -510,3 +510,38 @@ lmdeploy serve api_client http://localhost:23333
 
 ![](./imgs/4.2_4.jpg)
 
+## 4.3 网页客户端连接API服务器
+
+关闭刚刚的VSCode终端，但服务器端的终端不要关闭。
+
+新建一个VSCode终端，激活conda环境。
+
+```sh
+conda activate lmdeploy
+```
+
+使用Gradio作为前端，启动网页客户端。
+
+```sh
+lmdeploy serve gradio http://localhost:23333 \
+    --server-name 0.0.0.0 \
+    --server-port 6006
+```
+
+![](./imgs/4.3_1.jpg)
+
+运行命令后，网页客户端启动。在电脑本地新建一个cmd终端，新开一个转发端口：
+
+```sh
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p <你的ssh端口号>
+```
+
+打开浏览器，访问地址`http://127.0.0.1:6006`
+
+然后就可以与模型进行对话了！
+
+![](./imgs/4.3_2.jpg)
+
+现在你使用的架构是这样的：
+
+![](./imgs/4.3_3.jpg)
