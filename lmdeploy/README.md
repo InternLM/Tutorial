@@ -694,3 +694,96 @@ LMDeploy不仅支持运行InternLM系列大模型，还支持其他第三方大�
 |        Dbrx        |    132B    |
 
 可以从Modelscope，OpenXLab下载相应的HF模型，下载好HF模型，下面的步骤就和使用LMDeploy运行InternLM2一样啦~
+
+## 6.3 定量比较LMDeploy与Transformer库的推理速度差异
+
+为了直观感受LMDeploy与Transformer库推理速度的差异，让我们来编写一个速度测试脚本。测试环境是30%的InternStudio开发机。
+
+先来测试一波Transformer库推理Internlm2-chat-1.8b的速度，新建python文件，命名为`benchmark_transformer.py`，填入以下内容：
+
+```py
+import torch
+import datetime
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+tokenizer = AutoTokenizer.from_pretrained("/root/internlm2-chat-1_8b", trust_remote_code=True)
+
+# Set `torch_dtype=torch.float16` to load model in float16, otherwise it will be loaded as float32 and cause OOM Error.
+model = AutoModelForCausalLM.from_pretrained("/root/internlm2-chat-1_8b", torch_dtype=torch.float16, trust_remote_code=True).cuda()
+model = model.eval()
+
+# warmup
+inp = "hello"
+for i in range(5):
+    print("Warm up...[{}/5]".format(i+1))
+    response, history = model.chat(tokenizer, inp, history=[])
+
+# test speed
+inp = "请介绍一下你自己。"
+times = 10
+total_words = 0
+start_time = datetime.datetime.now()
+for i in range(times):
+    response, history = model.chat(tokenizer, inp, history=history)
+    total_words += len(response)
+end_time = datetime.datetime.now()
+
+delta_time = end_time - start_time
+delta_time = delta_time.seconds + delta_time.microseconds / 1000000.0
+speed = total_words / delta_time
+print("Speed: {:.3f} words/s".format(speed))
+```
+
+运行python脚本：
+
+```sh
+python benchmark_transformer.py
+```
+
+得到运行结果：
+
+![](./imgs/6.3_1.jpg)
+
+可以看到，Transformer库的推理速度约为78.675 words/s，注意单位是words/s，不是token/s，word和token在数量上可以近似认为成线性关系。
+
+下面来测试一下LMDeploy的推理速度，新建python文件`benchmark_lmdeploy.py`，填入以下内容：
+
+```py
+import datetime
+from lmdeploy import pipeline
+
+pipe = pipeline('/root/internlm2-chat-1_8b')
+
+# warmup
+inp = "hello"
+for i in range(5):
+    print("Warm up...[{}/5]".format(i+1))
+    response = pipe([inp])
+
+# test speed
+inp = "请介绍一下你自己。"
+times = 10
+total_words = 0
+start_time = datetime.datetime.now()
+for i in range(times):
+    response = pipe([inp])
+    total_words += len(response[0].text)
+end_time = datetime.datetime.now()
+
+delta_time = end_time - start_time
+delta_time = delta_time.seconds + delta_time.microseconds / 1000000.0
+speed = total_words / delta_time
+print("Speed: {:.3f} words/s".format(speed))
+```
+
+运行脚本：
+
+```sh
+python benchmark_lmdeploy.py
+```
+
+得到运行结果：
+
+![](./imgs/6.3_2.jpg)
+
+可以看到，LMDeploy的推理速度约为128.882 words/s，是Transformer库的1.64倍。
