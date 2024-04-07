@@ -545,3 +545,40 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p <你的ssh端口号
 现在你使用的架构是这样的：
 
 ![](./imgs/4.3_3.jpg)
+
+# 5.Python代码集成
+
+在开发项目时，有时我们需要将大模型推理集成到Python代码里面。
+
+## 5.1 Python代码集成运行1.8B模型
+
+首先激活conda环境。
+
+```sh
+conda activate lmdeploy
+```
+
+新建Python源代码文件，如`pipeline.py`，填入以下内容。
+
+```py
+from lmdeploy import pipeline
+
+pipe = pipeline('/root/internlm2-chat-1_8b')
+response = pipe(['Hi, pls intro yourself', '上海是'])
+print(response)
+```
+
+> **代码解读**：\
+> * 第1行，引入lmdeploy的pipeline模块 \
+> * 第3行，从目录“./internlm2-chat-1_8b”加载HF模型 \
+> * 第4行，运行pipeline，这里采用了批处理的方式，用一个列表包含两个输入，lmdeploy同时推理两个输入，产生两个输出结果，结果返回给response \
+> * 第5行，输出response
+
+运行代码文件：
+
+```sh
+python pipeline.py
+```
+
+![](./imgs/5.1_1.jpg)
+
