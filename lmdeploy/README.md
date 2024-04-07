@@ -219,3 +219,44 @@ python pipeline_transformer.py
 ![](./imgs/2.3_1.jpg)
 
 记住这种感觉，一会儿体验一下LMDeploy的推理速度，感受一下对比~（手动狗头）
+
+## 2.4 使用LMDeploy与模型对话
+
+这一小节我们来介绍如何应用LMDeploy直接与模型进行对话。
+
+首先激活创建好的conda环境：
+
+```sh
+conda activate lmdeploy
+```
+
+使用LMDeploy与模型进行对话的通用命令格式为：
+
+```sh
+lmdeploy chat [HF格式模型路径/TurboMind格式模型路径]
+```
+
+例如，您可以执行如下命令运行下载的1.8B模型：
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b
+```
+
+![](./imgs/2.4_1.jpg)
+
+下面我们就可以与InternLM2-Chat-1.8B大模型对话了。比如输入“请给我讲一个小故事吧”，然后按两下回车键。
+
+![](./imgs/2.4_2.jpg)
+
+速度是不是明显比原生Transformer快呢~当然，这种感受可能不太直观，感兴趣的佬可以查看拓展部分“6.3 定量比较LMDeploy与Transformer库的推理速度”。
+
+输入“exit”并按两下回车，可以退出对话。
+
+![](./imgs/2.4_3.jpg)
+
+**拓展内容**：有关LMDeploy的chat功能的更多参数可通过-h命令查看。
+
+```sh
+lmdeploy chat -h
+```
+
