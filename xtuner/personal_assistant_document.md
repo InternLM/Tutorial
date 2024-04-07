@@ -630,7 +630,7 @@ log_processor = dict(by_epoch=False)
 当我们准备好了配置文件好，我们只需要将使用 `xtuner train` 指令即可开始训练。
 ```bash
 # 创建并进入 train 文件夹
-mkdir -p root/ft/train && cd root/ft/train
+mkdir -p /root/ft/train && cd /root/ft/train
 
 # 常规训练指令
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py
