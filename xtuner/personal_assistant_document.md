@@ -473,7 +473,7 @@ save_total_limit = 3  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
 evaluation_freq = 300
-SYSTEM = SYSTEM_TEMPLATE.alpaca
+SYSTEM = ''
 evaluation_inputs = ['请你介绍一下你自己', '你是谁', '你是我的小助手吗']
 
 #######################################################################
@@ -830,11 +830,11 @@ xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /
 | 参数名 | 解释 |
 | ------------------- | ------------------------------------------------------ |
 | --fp32     | 代表以fp32的精度开启，假如不输入则默认为fp16                          |
-| --max-shared-size {GB}        | 代表每个权重文件最大的大小（默认为2GB）                |
+| --max-shard-size {GB}        | 代表每个权重文件最大的大小（默认为2GB）                |
 
 假如有特定的需要，我们可以在上面的转换指令后进行添加。由于本次测试的模型文件较小，并且已经验证过拟合，故没有添加。假如加上的话应该是这样的：
 ```bash
-xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_768.pth /root/ft/huggingface --fp32 --max-shared-size 2GB
+xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_768.pth /root/ft/huggingface --fp32 --max-shard-size 2GB
 ```
 #### 2.5.2 模型整合
 我们通过视频课程的学习可以了解到，对于 LoRA 或者 QLoRA 微调出来的模型其实并不是一个完整的模型，而是一个额外的层（adapter）。那么训练完的这个层最终还是要与原模型进行组合才能被正常的使用。
@@ -980,7 +980,7 @@ git clone https://github.com/InternLM/InternLM.git
 cd /root/ft/web_demo/InternLM
 ```
 
-将 `/root/ft/web_demo/InternLM/chat/web_demo.py` 中的内容替换为以下的代码（与源代码相比，此处修改了模型路径和分词器路径，并且也删除了 avatar 部分的内容）。
+将 `/root/ft/web_demo/InternLM/chat/web_demo.py` 中的内容替换为以下的代码（与源代码相比，此处修改了模型路径和分词器路径，并且也删除了 avatar 及 system_prompt 部分的内容，同时与 cli 中的超参数进行了对齐）。
 
 
 ```python
@@ -1179,9 +1179,9 @@ def prepare_generation_config():
         max_length = st.slider('Max Length',
                                min_value=8,
                                max_value=32768,
-                               value=32768)
-        top_p = st.slider('Top P', 0.0, 1.0, 0.8, step=0.01)
-        temperature = st.slider('Temperature', 0.0, 1.0, 0.7, step=0.01)
+                               value=2048)
+        top_p = st.slider('Top P', 0.0, 1.0, 0.75, step=0.01)
+        temperature = st.slider('Temperature', 0.0, 1.0, 0.1, step=0.01)
         st.button('Clear Chat History', on_click=on_btn_click)
 
     generation_config = GenerationConfig(max_length=max_length,
@@ -1199,9 +1199,7 @@ cur_query_prompt = '<|im_start|>user\n{user}<|im_end|>\n\
 
 def combine_history(prompt):
     messages = st.session_state.messages
-    meta_instruction = ('You are InternLM (书生·浦语), a helpful, honest, '
-                        'and harmless AI assistant developed by Shanghai '
-                        'AI Laboratory (上海人工智能实验室).')
+    meta_instruction = ('')
     total_prompt = f"<s><|im_start|>system\n{meta_instruction}<|im_end|>\n"
     for message in messages:
         cur_content = message['content']
