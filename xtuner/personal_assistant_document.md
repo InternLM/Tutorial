@@ -627,37 +627,11 @@ log_processor = dict(by_epoch=False)
 ### 2.4 模型训练
 
 #### 2.4.1 常规训练
+
 当我们准备好了配置文件好，我们只需要将使用 `xtuner train` 指令即可开始训练。
-```bash
-# 创建并进入 train 文件夹
-mkdir -p /root/ft/train && cd /root/ft/train
 
-# 常规训练指令
-xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py
-```
-在该情况下，模型训练的过程文件将默认保存在 `./work_dirs/internlm2_1_8b_qlora_alpaca_e3_copy` 的位置，就比如说我是在 `root/ft/train` 的路径下输入该指令，那么我的文件保存的位置就是在 `root/ft/train/work_dirs/internlm2_1_8b_qlora_alpaca_e3_copy` 的位置下。
-```
-|-- train/
-    |-- work_dirs/
-        |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
-        |-- iter_600.pth
-        |-- last_checkpoint
-        |-- iter_768.pth
-        |-- iter_300.pth
-        |-- 20240406_203957/
-            |-- 20240406_203957.log
-            |-- vis_data/
-                |-- 20240406_203957.json
-                |-- eval_outputs_iter_599.txt
-                |-- eval_outputs_iter_767.txt
-                |-- scalars.json
-                |-- eval_outputs_iter_299.txt
-                |-- config.py
-```
+我们可以通过添加 `--work-dir` 指定特定的文件保存位置，比如说就保存在 `/root/ft/train` 路径下。假如不添加的话模型训练的过程文件将默认保存在 `./work_dirs/internlm2_1_8b_qlora_alpaca_e3_copy` 的位置，就比如说我是在 `/root/ft/train` 的路径下输入该指令，那么我的文件保存的位置就是在 `/root/ft/train/work_dirs/internlm2_1_8b_qlora_alpaca_e3_copy` 的位置下。
 
-#### 2.4.2 指定路径下训练
-
-当然我们也可以指定特定的文件保存位置，比如说就保存在 `/root/ft/train` 路径下。
 ```bash
 # 指定保存路径
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train
@@ -681,7 +655,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
             |-- config.py
 ```
 
-#### 2.4.3 使用 deepspeed 来加速训练
+#### 2.4.2 使用 deepspeed 来加速训练
 
 除此之外，我们也可以结合 XTuner 内置的 `deepspeed` 来加速整体的训练过程，共有三种不同的 `deepspeed` 类型可进行选择，分别是 `deepspeed_zero1`, `deepspeed_zero2` 和 `deepspeed_zero3`（详细的介绍可看下拉框）。
 
@@ -738,7 +712,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 ```
 
 
-#### 2.4.4 训练结果
+#### 2.4.3 训练结果
 但是其实无论是用哪种方式进行训练，得到的结果都是大差不差的。我们由于设置了300轮评估一次，所以我们可以对比一下300轮和600轮的评估问题结果来看看差别。
 ```
 # 300轮
@@ -810,7 +784,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 ```
 </details>
 
-#### 2.4.5 小结
+#### 2.4.4 小结
 在本节我们的重点是讲解模型训练过程中的种种细节内容，包括了模型训练中的各个参数以、权重文件的选择方式以及模型续训的方法。可以看到是否使用 `--work-dir` 和 是否使用 `--deepspeed` 会对文件的保存位置以及权重文件的保存方式有所不同，大家也可以通过实践去实际的测试感受一下。那么在训练完成后，我们就可以把训练得到的 .pth 文件进行下一步的转换和整合工作了！
 
 ### 2.5 模型转换、整合、测试及部署
