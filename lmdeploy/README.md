@@ -440,3 +440,42 @@ lmdeploy lite -h
 
 值得说明的是，以上的划分是一个相对完整的模型，但在实际中这并不是绝对的。比如可以把“模型推理”和“API Server”合并，有的甚至是三个流程打包在一起提供服务。
 
+## 4.1 启动API服务器
+
+通过以下命令启动API服务器，推理`internlm2-chat-1_8b`模型：
+
+```sh
+lmdeploy serve api_server \
+    /root/internlm2-chat-1_8b \
+    --model-format hf \
+    --quant-policy 0 \
+    --server-name 0.0.0.0 \
+    --server-port 23333 \
+    --tp 1
+```
+
+其中，model-format、quant-policy这些参数是与第三章中量化推理模型一致的；server-name和server-port表示API服务器的服务IP与服务端口；tp参数表示并行数量（GPU数量）。
+
+通过运行以上指令，我们成功启动了API服务器，请勿关闭该窗口，后面我们要新建客户端连接该服务。
+
+可以通过运行一下指令，查看更多参数及使用方法：
+
+```sh
+lmdeploy serve api_server -h
+```
+
+你也可以直接打开`http://{host}:23333`查看接口的具体使用说明，如下图所示。
+
+![](./imgs/4.1_1.jpg)
+
+注意，这一步由于Server在远程服务器上，所以本地需要做一下ssh转发才能直接访问。**在你本地打开一个cmd窗口**，输入命令如下：
+
+```sh
+ssh -CNg -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p <你的ssh端口号>
+```
+
+ssh 端口号就是下面图片里的 39864，请替换为你自己的。
+
+![](./imgs/4.1_2.jpg)
+
+然后打开浏览器，访问`http://127.0.0.1:23333`。
