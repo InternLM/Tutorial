@@ -260,3 +260,52 @@ lmdeploy chat /root/internlm2-chat-1_8b
 lmdeploy chat -h
 ```
 
+# 3.LMDeploy模型量化(lite)
+
+本部分内容主要介绍如何对模型进行量化。主要包括 KV8量化和W4A16量化。总的来说，量化是一种以参数或计算中间结果精度下降换空间节省（以及同时带来的性能提升）的策略。
+
+正式介绍 LMDeploy 量化方案前，需要先介绍两个概念：
+
+* 计算密集（compute-bound）: 指推理过程中，绝大部分时间消耗在数值计算上；针对计算密集型场景，可以通过使用更快的硬件计算单元来提升计算速。
+* 访存密集（memory-bound）: 指推理过程中，绝大部分时间消耗在数据读取上；针对访存密集型场景，一般通过减少访存次数、提高计算访存比或降低访存量来优化。
+
+常见的 LLM 模型由于 Decoder Only 架构的特性，实际推理时大多数的时间都消耗在了逐 Token 生成阶段（Decoding 阶段），是典型的访存密集型场景。
+
+那么，如何优化 LLM 模型推理中的访存密集问题呢？ 我们可以使用**KV8量化**和**W4A16**量化。KV8量化是指将逐 Token（Decoding）生成过程中的上下文 K 和 V 中间结果进行 INT8 量化（计算时再反量化），以降低生成过程中的显存占用。W4A16 量化，将 FP16 的模型权重量化为 INT4，Kernel 计算时，访存量直接降为 FP16 模型的 1/4，大幅降低了访存成本。Weight Only 是指仅量化权重，数值计算依然采用 FP16（需要将 INT4 权重反量化）。
+
+## 3.1 使用KV8量化
+
+运行前，首先安装一个依赖库。
+
+```sh
+pip install einops==0.7.0
+```
+
+通过以下命令，获取量化参数，并保存至原HF模型目录。
+
+```sh
+lmdeploy lite calibrate \
+  /root/internlm2-chat-1_8b \
+  --calib-dataset 'ptb' \
+  --calib-samples 128 \
+  --calib-seqlen 1024 \
+  --work-dir /root/internlm2-chat-1_8b
+```
+
+> **解释一下各个参数的含义**： \
+> * lmdeploy lite calibrate：指运行lmdeploy的量化标定功能 \
+> * /root/internlm2-chat-1_8b：原模型目录，请替换为自己的模型目录 \
+> * --calib-dataset 'ptb'：执行标定数据集，这里使用ptb。**注意，标定数据集下载可能需要科学上网，不过InternStudio开发机上已经解决这个问题了，本地环境需要自行解决** \
+> * --calib-samples 128：指量化时的分组大小为128 \
+> * --calib-seqlen 1024：指量化时输入的token长度为1024，这与显存占用成正相关。默认大小为2048，不过10% A100的8G显存跑不起来哈哈哈哈，降为1024 \
+> * --work-dir：量化参数的保存目录
+
+该步骤耗时比较长，请耐心等待：
+
+![](./imgs/3.1_1.jpg)
+
+下面使用Chat功能运行KV8量化后的模型。
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b --model-format hf --quant-policy 4
+```
