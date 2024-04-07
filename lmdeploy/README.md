@@ -7,6 +7,8 @@
 - [1.LMDeploy环境部署](#1lmdeploy环境部署)
   - [1.1 创建开发机](#11-创建开发机)
   - [1.2 创建conda环境](#12-创建conda环境)
+    - [InternStudio开发机创建conda环境（推荐）](#internstudio开发机创建conda环境推荐)
+    - [本地环境创建conda环境](#本地环境创建conda环境)
   - [1.3 安装LMDeploy](#13-安装lmdeploy)
 - [2.LMDeploy模型对话(chat)](#2lmdeploy模型对话chat)
   - [2.1 Huggingface与TurboMind](#21-huggingface与turbomind)
@@ -60,6 +62,24 @@
 
 ## 1.2 创建conda环境
 
+### InternStudio开发机创建conda环境（推荐）
+
+由于环境依赖项存在torch，下载过程可能比较缓慢。InternStudio上提供了快速创建conda环境的方法。打开命令行终端，创建一个名为`lmdeploy`的环境：
+
+```sh
+studio-conda -t lmdeploy -o pytorch-2.1.2
+```
+
+环境创建成功后，提示如下：
+
+![](./imgs/1.2_2.jpg)
+
+### 本地环境创建conda环境
+
+注意，如果你在上一步已经在InternStudio开发机上创建了conda环境，这一步就没必要执行了。
+
+<details>
+
 打开命令行终端，让我们来创建一个名为`lmdeploy`的conda环境，python版本为3.10。
 
 ```sh
@@ -69,6 +89,8 @@ conda create -n lmdeploy -y python=3.10
 环境创建成功后，提示如下：
 
 ![](./imgs/1.2_1.jpg)
+
+</details>
 
 ## 1.3 安装LMDeploy
 
