@@ -1,6 +1,6 @@
 <div align="center">
 
-![](cover.jpg)
+![9c02c855a0d2dbc0e61bc0cf033e94a](https://github.com/InternLM/Tutorial/assets/25839884/48108bed-1bbd-4781-9edc-ecdf7d1bca02)
 
 </div>
 
