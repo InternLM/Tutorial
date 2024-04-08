@@ -359,5 +359,23 @@ xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-
 > 即：**加载 1.8B 和 Fintune阶段产物() 到显存。**
 
 ```bash
-todo
+# 解决小bug
+export MKL_SERVICE_FORCE_INTEL=1
+export MKL_THREADING_LAYER=GNU
+
+# pth转huggingface
+xtuner convert pth_to_hf ./llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain_copy.py ./work_dir/ ./iter_2181_hf
+
+# 启动！
+xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava ./iter_2181_hf --prompt-template internlm2_chat --image ./llava_data/test_img/oph.jpg
 ```
+
+<details>
+<summary>Finetune前后效果对比：</summary>
+
+**Finetune前：只会打标题**
+![ft_before](img4md/ft_before.png)
+
+**Finetune后：会回答问题了**
+![ft_after](img4md/ft_after.png)
+</details>
