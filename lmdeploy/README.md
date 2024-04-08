@@ -434,7 +434,7 @@ lmdeploy chat /root/internlm2-chat-1_8b --model-format hf --quant-policy 4
 
 可以将KV Cache比例调整为0.01，查看一下运行时的显存占用情况。
 
-> 注：KV Cache占用显存大小主要受KV Cache管理器主导，所以可能不会有明显的效果。
+> 注：KV Cache占用显存大小主要受KV Cache管理器主导，所以可能不会有明显的体现。
 
 ## 3.3 使用W4A16量化
 
