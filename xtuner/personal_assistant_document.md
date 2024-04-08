@@ -950,7 +950,7 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
     |-- tokenization_internlm2_fast.py
 ```
 
-#### 2.5.3 对话测试：
+#### 2.5.3 对话测试
 在 XTuner 中也直接的提供了一套基于 transformers 的对话代码，让我们可以直接在终端与 Huggingface 格式的模型进行对话操作。我们只需要准备我们刚刚转换好的模型路径并选择对应的提示词模版（prompt-template）即可进行对话。假如 prompt-template 选择有误，很有可能导致模型无法正确的进行回复。
 
 > 想要了解具体模型的 prompt-template 或者 XTuner 里支持的 prompt-tempolate，可以到 XTuner 源码中的 `xtuner/utils/templates.py` 这个文件中进行查找。
