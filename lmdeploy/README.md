@@ -682,7 +682,7 @@ print(response)
 > * 第4行，运行pipeline，这里采用了批处理的方式，用一个列表包含两个输入，lmdeploy同时推理两个输入，产生两个输出结果，结果返回给response \
 > * 第5行，输出response
 
-运行代码文件：
+保存后运行代码文件：
 
 ```sh
 python /root/pipeline.py
@@ -694,7 +694,13 @@ python /root/pipeline.py
 
 在第3章，我们通过向lmdeploy传递附加参数，实现模型的量化推理，及设置KV Cache最大占用比例。在Python代码中，可以通过创建TurbomindEngineConfig，向lmdeploy传递参数。
 
-以设置KV Cache占用比例为例，新建python文件`pipeline_kv.py`，填入如下内容：
+以设置KV Cache占用比例为例，新建python文件`pipeline_kv.py`。
+
+```sh
+touch /root/pipeline_kv.py
+```
+
+打开`pipeline_kv.py`，填入如下内容：
 
 ```py
 from lmdeploy import pipeline, TurbomindEngineConfig
@@ -708,10 +714,10 @@ response = pipe(['Hi, pls intro yourself', '上海是'])
 print(response)
 ```
 
-运行python代码：
+保存后运行python代码：
 
 ```sh
-python pipeline_kv.py
+python /root/pipeline_kv.py
 ```
 
 得到输出结果：
