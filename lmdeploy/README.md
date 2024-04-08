@@ -20,11 +20,12 @@
   - [2.3 使用Transformer库运行模型](#23-使用transformer库运行模型)
   - [2.4 使用LMDeploy与模型对话](#24-使用lmdeploy与模型对话)
 - [3.LMDeploy模型量化(lite)](#3lmdeploy模型量化lite)
-  - [3.1 使用KV8量化](#31-使用kv8量化)
-  - [3.2 使用W4A16量化](#32-使用w4a16量化)
-  - [3.3 同时开启KV8量化和W4A16量化](#33-同时开启kv8量化和w4a16量化)
-  - [3.4 设置最大KV Cache缓存大小](#34-设置最大kv-cache缓存大小)
-  - [3.5 选择最佳量化策略](#35-选择最佳量化策略)
+  - [3.1 设置最大KV Cache缓存大小](#31-设置最大kv-cache缓存大小)
+  - [3.2 使用KV8量化](#32-使用kv8量化)
+  - [3.3 使用W4A16量化](#33-使用w4a16量化)
+  - [3.4 同时开启KV8量化和W4A16量化](#34-同时开启kv8量化和w4a16量化)
+  - [3.5 设置最大KV Cache缓存大小](#35-设置最大kv-cache缓存大小)
+  - [3.6 选择最佳量化策略](#36-选择最佳量化策略)
 - [4.LMDeploy服务(serve)](#4lmdeploy服务serve)
   - [4.1 启动API服务器](#41-启动api服务器)
   - [4.2 命令行客户端连接API服务器](#42-命令行客户端连接api服务器)
@@ -354,7 +355,46 @@ lmdeploy chat -h
 
 那么，如何优化 LLM 模型推理中的访存密集问题呢？ 我们可以使用**KV8量化**和**W4A16**量化。KV8量化是指将逐 Token（Decoding）生成过程中的上下文 K 和 V 中间结果进行 INT8 量化（计算时再反量化），以降低生成过程中的显存占用。W4A16 量化，将 FP16 的模型权重量化为 INT4，Kernel 计算时，访存量直接降为 FP16 模型的 1/4，大幅降低了访存成本。Weight Only 是指仅量化权重，数值计算依然采用 FP16（需要将 INT4 权重反量化）。
 
-## 3.1 使用KV8量化
+## 3.1 设置最大KV Cache缓存大小
+
+KV Cache是一种缓存技术，通过存储键值对的形式来复用计算结果，以达到提高性能和降低内存消耗的目的。在大规模训练和推理中，KV Cache可以显著减少重复计算量，从而提升模型的推理速度。理想情况下，KV Cache全部存储于显存，以加快访存速度。当显存空间不足时，也可以将KV Cache放在内存，通过缓存管理器控制将当前需要使用的数据放入显存。
+
+可以通过设置`--cache-max-entry-count`参数，控制KV缓存**占用剩余显存**的最大比例。默认的比例为0.8。
+
+下面通过几个例子，来看一下调整`--cache-max-entry-count`参数的效果。首先保持不加该参数（默认0.8），运行1.8B模型。
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b
+```
+
+与模型对话，查看右上角资源监视器中的显存占用情况。
+
+![](./imgs/3.1_2.jpg)
+
+此时显存占用为7856MB。下面，改变`--cache-max-entry-count`参数，设为0.5。
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b --cache-max-entry-count 0.5
+```
+
+与模型对话，再次查看右上角资源监视器中的显存占用情况。
+
+![](./imgs/3.1_3.jpg)
+
+看到显存占用明显降低，变为6608M。
+
+下面来一波“极限”，把`--cache-max-entry-count`参数设置为0.01，约等于禁止KV Cache占用显存。
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b --cache-max-entry-count 0.01
+```
+
+然后与模型对话，可以看到，此时显存占用仅为4560MB，代价是会降低模型推理速度。
+
+![](./imgs/3.1_4.jpg)
+
+
+## 3.2 使用KV8量化
 
 运行前，首先安装一个依赖库。
 
@@ -391,7 +431,7 @@ lmdeploy lite calibrate \
 lmdeploy chat /root/internlm2-chat-1_8b --model-format hf --quant-policy 4
 ```
 
-## 3.2 使用W4A16量化
+## 3.3 使用W4A16量化
 
 LMDeploy使用AWQ算法，实现模型4bit权重量化。推理引擎TurboMind提供了非常高效的4bit推理cuda kernel，性能是FP16的2.4倍以上。它支持以下NVIDIA显卡：
 
@@ -418,7 +458,7 @@ lmdeploy lite auto_awq \
 lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq
 ```
 
-## 3.3 同时开启KV8量化和W4A16量化
+## 3.4 同时开启KV8量化和W4A16量化
 
 参考4.2进行W4A16量化后，可以运行如下命令同时开启KV8和W4A16量化进行推理。
 
@@ -426,7 +466,7 @@ lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq
 lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --quant-policy 4
 ```
 
-## 3.4 设置最大KV Cache缓存大小
+## 3.5 设置最大KV Cache缓存大小
 
 心细的同学发现，在非量化模式下运行模型、开启KV8量化运行模型或开启W4A16量化运行模型，显存占用似乎没有明显变化。这与LMDeploy的KV缓存管理器相关机制有关。
 
@@ -460,7 +500,7 @@ lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --cache-max-entr
 lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --quant-policy 4 --cache-max-entry-count 0.5
 ```
 
-## 3.5 选择最佳量化策略
+## 3.6 选择最佳量化策略
 
 量化的最主要目的是降低显存占用，主要包括两方面的显存：模型参数和中间过程计算结果。前者对应W4A16量化，后者对应KV8量化。
 
