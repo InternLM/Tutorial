@@ -30,7 +30,7 @@
   - [5.1 Python代码集成运行1.8B模型](#51-python代码集成运行18b模型)
   - [5.2 向TurboMind后端传递参数](#52-向turbomind后端传递参数)
 - [6.拓展部分](#6拓展部分)
-  - [6.1 使用LMDeploy运行视觉大模型llava](#61-使用lmdeploy运行视觉大模型llava)
+  - [6.1 使用LMDeploy运行视觉多模态大模型llava](#61-使用lmdeploy运行视觉多模态大模型llava)
   - [6.2 使用LMDeploy运行第三方大模型](#62-使用lmdeploy运行第三方大模型)
   - [6.3 定量比较LMDeploy与Transformer库的推理速度差异](#63-定量比较lmdeploy与transformer库的推理速度差异)
 - [课后作业](#课后作业)
@@ -639,7 +639,7 @@ python /root/pipeline_kv.py
 
 # 6.拓展部分
 
-## 6.1 使用LMDeploy运行视觉大模型llava
+## 6.1 使用LMDeploy运行视觉多模态大模型llava
 
 最新版本的LMDeploy支持了llava多模态模型，下面演示使用pipeline推理`llava-v1.6-7b`。**注意，运行本pipeline最低需要30%的InternStudio开发机，请完成基础作业后向助教申请权限。**
 
