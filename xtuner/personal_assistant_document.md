@@ -49,7 +49,6 @@
 
 3. **启动微调**：在确定了自己的微调目标后，我们就可以在 XTuner 的配置库中找到合适的配置文件并进行对应的修改。修改完成后即可一键启动训练！训练好的模型也可以仅仅通过在终端输入一行指令来完成转换和部署工作！
 
-</details>
 
 ### 2.1 环境安装
 首先我们需要先安装一个 XTuner 的源码到本地来方便后续的使用。
@@ -98,7 +97,7 @@ mkdir -p /root/ft && cd /root/ft
 mkdir -p /root/ft/data && cd /root/ft/data
 ```
 
-之后我们可以在`data`目录下新建一个generate_data.py文件，将以下代码复制进去，然后运行该脚本即可生成数据集。假如想要加大剂量让他能够完完全全认识到你的身份，那我们可以吧 n 的值调大一点。
+之后我们可以在 `data` 目录下新建一个 `generate_data.py` 文件，将以下代码复制进去，然后运行该脚本即可生成数据集。假如想要加大剂量让他能够完完全全认识到你的身份，那我们可以吧 `n` 的值调大一点。
 
 ```bash
 # 创建 `generate_data.py` 文件
@@ -155,6 +154,10 @@ with open('personal_assistant.json', 'w', encoding='utf-8') as f:
 修改完成后运行 `generate_data.py` 文件即可。
 
 ``` bash
+# 确保先进入该文件夹
+cd /root/ft/data
+
+# 运行代码
 python /root/ft/data/generate_data.py
 ```
 可以看到在data的路径下便生成了一个名为 `personal_assistant.json` 的文件，这样我们最可用于微调的数据集就准备好啦！里面就包含了 5000 条 `input` 和 `output` 的数据对。假如 我们认为 5000 条不够的话也可以调整文件中第6行 `n` 的值哦！
@@ -164,7 +167,48 @@ python /root/ft/data/generate_data.py
     |-- personal_assistant.json
     |-- generate_data.py
 ```
-那除了我们自己通过脚本的数据集，其实网上也有大量的开源数据集可以供我们进行使用。有些时候我们可以在开源数据集的基础上添加一些我们自己独有的数据集，也可能会有很好的效果。
+
+<details>
+<summary>文件结构树代码</summary>
+
+文件结构树代码如下所示，使用方法为在终端调用该代码的同时在后方输入文件夹路径。
+
+比如说我要打印 `data` 的文件结构树，假设我的代码文件保存在 `/root/tree.py` ，那我就要在终端输入 `python /root/tree.py /root/ft/data` 
+
+```python
+import os
+import argparse
+
+def print_dir_tree(startpath, prefix=''):
+    """递归地打印目录树结构。"""
+    contents = [os.path.join(startpath, d) for d in os.listdir(startpath)]
+    directories = [d for d in contents if os.path.isdir(d)]
+    files = [f for f in contents if os.path.isfile(f)]
+
+    if files:
+        for f in files:
+            print(prefix + '|-- ' + os.path.basename(f))
+    if directories:
+        for d in directories:
+            print(prefix + '|-- ' + os.path.basename(d) + '/')
+            print_dir_tree(d, prefix=prefix + '    ')
+
+def main():
+    parser = argparse.ArgumentParser(description='打印目录树结构')
+    parser.add_argument('folder', type=str, help='要打印的文件夹路径')
+
+    args = parser.parse_args()
+
+    print('|-- ' + os.path.basename(args.folder) + '/')
+    print_dir_tree(args.folder, '    ')
+
+if __name__ == "__main__":
+    main()
+```
+
+</details>
+
+> 除了我们自己通过脚本的数据集，其实网上也有大量的开源数据集可以供我们进行使用。有些时候我们可以在开源数据集的基础上添加一些我们自己独有的数据集，也可能会有很好的效果。
 
 #### 2.2.2 模型准备
 
@@ -207,9 +251,31 @@ rm -rf /root/ft/model
 # 创建符号链接
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/ft/model
 ```
-执行上述操作后，/root/ft/model将直接成为一个符号链接，这个链接指向/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b的位置。
+执行上述操作后，`/root/ft/model` 将直接成为一个符号链接，这个链接指向 `/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b` 的位置。
 
-这意味着，当我们访问/root/ft/model时，实际上就是在访问/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b目录下的内容。通过这种方式，我们无需复制任何数据，就可以直接利用现有的模型文件进行后续的微调操作，从而节省存储空间并简化文件管理。
+这意味着，当我们访问 `/root/ft/model` 时，实际上就是在访问 `/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b` 目录下的内容。通过这种方式，我们无需复制任何数据，就可以直接利用现有的模型文件进行后续的微调操作，从而节省存储空间并简化文件管理。
+
+在该情况下的文件结构如下所示，可以看到和上面的区别在于多了一些软链接相关的文件。
+```
+|-- model/
+    |-- tokenizer.model
+    |-- config.json
+    |-- .mdl
+    |-- tokenization_internlm2.py
+    |-- model-00002-of-00002.safetensors
+    |-- tokenizer_config.json
+    |-- model-00001-of-00002.safetensors
+    |-- model.safetensors.index.json
+    |-- configuration.json
+    |-- .msc
+    |-- special_tokens_map.json
+    |-- .mv
+    |-- modeling_internlm2.py
+    |-- README.md
+    |-- configuration_internlm2.py
+    |-- generation_config.json
+    |-- tokenization_internlm2_fast.py
+```
 
 #### 2.2.3 配置文件选择
 在准备好了模型和数据集后，我们就要根据我们选择的微调方法方法结合前面的信息来找到与我们最匹配的配置文件了，从而减少我们对配置文件的修改量。
@@ -226,7 +292,7 @@ XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令�
 xtuner list-cfg -p internlm2_1_8b
 ```
 > 这里就用到了第一个 XTuner 的工具 `list-cfg` ，对于这个工具而言，可以选择不添加额外的参数，就像上面的一样，这样就会将所有的配置文件都打印出来。那同时也可以加上一个参数 `-p` 或 `--pattern` ，后面输入的内容将会在所有的 config 文件里进行模糊匹配搜索，然后返回最有可能得内容。我们可以用来搜索特定模型的配置文件，比如例子中的 internlm2_1_8b ,也可以用来搜索像是微调方法 qlora 。
-根据上面的定向搜索指令可以看到目前只有两个支持 internlm2-1.8 的模型配置文件。
+根据上面的定向搜索指令可以看到目前只有两个支持 internlm2-1.8B 的模型配置文件。
 ```
 ==========================CONFIGS===========================
 PATTERN: internlm2_1_8b
@@ -320,7 +386,7 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 一般来说我们需要更改的部分其实只包括前三部分，而且修改的主要原因是我们修改了配置文件中规定的模型、数据集。后两部分都是 XTuner 官方帮我们优化好的东西，一般而言只有在魔改的情况下才需要进行修改。下面我们将根据项目的要求一步步的进行修改和调整吧！
 </details>
 
-通过折叠部分的修改，内容如下，可以直接将以下代码复制到 /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py 文件中。
+通过折叠部分的修改，内容如下，可以直接将以下代码复制到 `/root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py` 文件中（先 `Ctrl + A` 选中所有文件并删除后再将代码复制进去）。
 <details>
 <summary><b>参数修改细节</b></summary>
 
@@ -1297,7 +1363,7 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 之后我们需要输入以下命令运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件。
 
-```
+```bash
 streamlit run /root/ft/web_demo/InternLM/chat/web_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
 
@@ -1311,8 +1377,27 @@ streamlit run /root/ft/web_demo/InternLM/chat/web_demo.py --server.address 127.0
 
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/6f021db9-d590-425d-b000-14760b1cb863)
 
+假如我们还想和原来的 InternLM2-Chat-1.8B 模型对话（即在 `/root/ft/model` 这里的模型对话），我们其实只需要修改183行和186行的文件地址即可。
+
+```diff
+- model = (AutoModelForCausalLM.from_pretrained('/root/ft/final_model',
++ model = (AutoModelForCausalLM.from_pretrained('/root/ft/model',
+
+- tokenizer = AutoTokenizer.from_pretrained('/root/ft/final_model',
++ tokenizer = AutoTokenizer.from_pretrained('/root/ft/model',
+```
+然后使用上方同样的命令即可运行。
+
+```bash
+streamlit run /root/ft/web_demo/InternLM/chat/web_demo.py --server.address 127.0.0.1 --server.port 6006
+```
+
+加载完成后输入同样的问题 `请介绍一下你自己` 之后我们可以看到两个模型截然不同的回复：
+
+![image](https://github.com/Jianfeng777/tutorial/assets/108343727/7f45e22c-f473-4d6d-bae7-533bacad474b)
+
 #### 2.5.4 小结
-在这一节里我们对微调后的模型（adapter）进行了转换及整合的操作，并通过 `xtuner chat` 来对模型进行了实际的对话测试。从结果可以清楚的看出模型的回复在微调的前后出现了明显的变化。那当我们在测试完模型认为其满足我们的需求后，我们就可以对模型进行量化部署等操作了，这部分的内容在之后关于 LMDeploy 的课程中将会详细的进行赘述，这里我们就不多说了。
+在这一小节里我们对微调后的模型（adapter）进行了转换及整合的操作，并通过 `xtuner chat` 来对模型进行了实际的对话测试。从结果可以清楚的看出模型的回复在微调的前后出现了明显的变化。那当我们在测试完模型认为其满足我们的需求后，我们就可以对模型进行量化部署等操作了，这部分的内容在之后关于 LMDeploy 的课程中将会详细的进行赘述，这里我们就不多说了。
 
 ### 2.6 总结
 在本节中主要就是带领着大家跑通了 XTuner 的一个完整流程，通过了解数据集和模型的使用方法、配置文件的制作和训练以及最后的转换及整合。那在后面假如我们也有想要微调出自己的一个模型，我们也可以尝试使用同样流程和方法进行进一步的实践！
