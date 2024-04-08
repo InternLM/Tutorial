@@ -233,7 +233,29 @@ Transformer库是Huggingface社区推出的用于运行HF模型的官方库。
 
 在2.2中，我们已经下载好了InternLM2-Chat-1.8B的HF模型。下面我们先用Transformer来直接运行InternLM2-Chat-1.8B模型，后面对比一下LMDeploy的使用感受。
 
-新建python文件，命名为`pipeline_transformer.py`，填入如下内容：
+现在，让我们点击左上角的图标，打开VSCode。
+
+![](./imgs/2.3_2.jpg)
+
+在左边栏**空白区域**单击鼠标右键，点击`Open in Intergrated Terminal`。
+
+![](./imgs/2.3_3.jpg)
+
+等待片刻，打开终端。
+
+![](./imgs/2.3_4.jpg)
+
+在终端中输入如下指令，新建`pipeline_transformer.py`。
+
+```sh
+touch /root/pipeline_transformer.py
+```
+
+回车执行指令，可以看到侧边栏多出了`pipeline_transformer.py`文件，点击打开。后文中如果要创建其他新文件，也是采取类似的操作。
+
+![](./imgs/2.3_5.jpg)
+
+将以下内容复制粘贴进入`pipeline_transformer.py`。
 
 ```py
 import torch
@@ -257,7 +279,11 @@ print("[OUTPUT]", response)
 
 ```
 
-激活conda环境。
+![](./imgs/2.3_6.jpg)
+
+按`Ctrl+S`键保存（Mac用户按`Command+S`）。
+
+回到终端，激活conda环境。
 
 ```sh
 conda activate lmdeploy
@@ -266,12 +292,12 @@ conda activate lmdeploy
 运行python代码：
 
 ```sh
-python pipeline_transformer.py
+python /root/pipeline_transformer.py
 ```
 
 得到输出：
 
-![](./imgs/2.3_1.jpg)
+![](./imgs/2.3_7.jpg)
 
 记住这种感觉，一会儿体验一下LMDeploy的推理速度，感受一下对比~（手动狗头）
 
