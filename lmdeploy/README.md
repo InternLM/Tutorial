@@ -652,7 +652,7 @@ conda activate lmdeploy
 安装llava依赖库。
 
 ```sh
-pip install git+https://github.com/haotian-liu/LLaVA.git
+pip install git+https://github.com/haotian-liu/LLaVA.git@4e2277a060da264c4f21b364c867cc622c945874
 ```
 
 新建一个python文件，比如`pipeline_llava.py`。
