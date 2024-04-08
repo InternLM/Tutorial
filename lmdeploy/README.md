@@ -660,7 +660,13 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p <你的ssh端口号
 conda activate lmdeploy
 ```
 
-新建Python源代码文件，如`pipeline.py`，填入以下内容。
+新建Python源代码文件`pipeline.py`。
+
+```sh
+touch /root/pipeline.py
+```
+
+打开`pipeline.py`，填入以下内容。
 
 ```py
 from lmdeploy import pipeline
@@ -679,7 +685,7 @@ print(response)
 运行代码文件：
 
 ```sh
-python pipeline.py
+python /root/pipeline.py
 ```
 
 ![](./imgs/5.1_1.jpg)
