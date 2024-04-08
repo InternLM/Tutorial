@@ -742,7 +742,13 @@ conda activate lmdeploy
 pip install git+https://github.com/haotian-liu/LLaVA.git
 ```
 
-新建一个python文件，比如`pipeline_llava.py`，内容如下：
+新建一个python文件，比如`pipeline_llava.py`。
+
+```sh
+touch /root/pipeline_llava.py
+```
+
+打开`pipeline_llava.py`，填入内容如下：
 
 ```py
 from lmdeploy import pipeline
@@ -763,10 +769,10 @@ print(response)
 > * 第7行运行pipeline，输入提示词“describe this image”，和图片，结果返回至response \
 > * 第8行输出response
 
-运行pipeline。
+保存后运行pipeline。
 
 ```sh
-python pipeline_llava.py
+python /root/pipeline_llava.py
 ```
 
 得到输出结果：
