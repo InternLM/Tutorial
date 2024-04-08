@@ -432,6 +432,10 @@ lmdeploy lite calibrate \
 lmdeploy chat /root/internlm2-chat-1_8b --model-format hf --quant-policy 4
 ```
 
+可以将KV Cache比例调整为0.01，查看一下运行时的显存占用情况。
+
+> 注：KV Cache占用显存大小主要受KV Cache管理器主导，所以可能不会有明显的效果。
+
 ## 3.3 使用W4A16量化
 
 LMDeploy使用AWQ算法，实现模型4bit权重量化。推理引擎TurboMind提供了非常高效的4bit推理cuda kernel，性能是FP16的2.4倍以上。它支持以下NVIDIA显卡：
