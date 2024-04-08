@@ -150,10 +150,11 @@ ls /root/share/new_models/Shanghai_AI_Laboratory/
 cd ~
 ```
 
-然后执行如下指令由开发机的共享目录拷贝（下载）模型： 
+然后执行如下指令由开发机的共享目录**软链接**或**拷贝**模型： 
 
 ```sh
-cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/
+# cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/
 ```
 
 执行完如上指令后，可以运行“ls”命令。可以看到，当前目录下已经多了一个`internlm2-chat-1_8b`文件夹，即下载好的预训练模型。
