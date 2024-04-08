@@ -396,6 +396,8 @@ lmdeploy chat /root/internlm2-chat-1_8b --cache-max-entry-count 0.01
 
 ## 3.2 使用KV8量化
 
+生产环境下，当模型参数量较大、batch size又比较大时，KV Cache也会占用大量的显存。我们可以把FP16的KV Cache量化为INT8类型，从而将显存占用降低一倍。
+
 运行前，首先安装一个依赖库。
 
 ```sh
@@ -457,6 +459,16 @@ lmdeploy lite auto_awq \
 ```sh
 lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq
 ```
+
+为了更加明显体会到W4A16的作用，我们将KV Cache比例再次调为0.01，查看显存占用情况。
+
+```sh
+lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --cache-max-entry-count 0.01
+```
+
+可以看到，显存占用变为2472MB，明显降低。
+
+![](./imgs/3.3_1.jpg)
 
 ## 3.4 同时开启KV8量化和W4A16量化
 
