@@ -1022,7 +1022,7 @@ Log: Exit!
 xtuner chat /root/ft/model --adapter /root/ft/huggingface --prompt-template internlm2_chat
 ```
 
-#### 2.5.3. Web demo 部署
+#### 2.5.4 Web demo 部署
 
 除了在终端中对模型进行测试，我们其实还可以在网页端的 demo 进行对话。
 
@@ -1396,7 +1396,7 @@ streamlit run /root/ft/web_demo/InternLM/chat/web_demo.py --server.address 127.0
 
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/7f45e22c-f473-4d6d-bae7-533bacad474b)
 
-#### 2.5.4 小结
+#### 2.5.5 小结
 在这一小节里我们对微调后的模型（adapter）进行了转换及整合的操作，并通过 `xtuner chat` 来对模型进行了实际的对话测试。从结果可以清楚的看出模型的回复在微调的前后出现了明显的变化。那当我们在测试完模型认为其满足我们的需求后，我们就可以对模型进行量化部署等操作了，这部分的内容在之后关于 LMDeploy 的课程中将会详细的进行赘述，这里我们就不多说了。
 
 ### 2.6 总结
