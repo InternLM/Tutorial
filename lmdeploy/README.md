@@ -24,8 +24,7 @@
   - [3.2 使用KV8量化](#32-使用kv8量化)
   - [3.3 使用W4A16量化](#33-使用w4a16量化)
   - [3.4 同时开启KV8量化和W4A16量化](#34-同时开启kv8量化和w4a16量化)
-  - [3.5 设置最大KV Cache缓存大小](#35-设置最大kv-cache缓存大小)
-  - [3.6 选择最佳量化策略](#36-选择最佳量化策略)
+  - [3.5 选择最佳量化策略](#35-选择最佳量化策略)
 - [4.LMDeploy服务(serve)](#4lmdeploy服务serve)
   - [4.1 启动API服务器](#41-启动api服务器)
   - [4.2 命令行客户端连接API服务器](#42-命令行客户端连接api服务器)
@@ -478,41 +477,7 @@ lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --cache-max-entr
 lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --quant-policy 4
 ```
 
-## 3.5 设置最大KV Cache缓存大小
-
-心细的同学发现，在非量化模式下运行模型、开启KV8量化运行模型或开启W4A16量化运行模型，显存占用似乎没有明显变化。这与LMDeploy的KV缓存管理器相关机制有关。
-
-KV Cache是一种缓存技术，通过存储键值对的形式来复用计算结果，以达到提高性能和降低内存消耗的目的。在大规模训练和推理中，KV Cache可以显著减少重复计算量，从而提升模型的推理速度。理想情况下，KV Cache全部存储于显存，以加快访存速度。当显存空间不足时，也可以将KV Cache放在内存，通过缓存管理器控制将当前需要使用的数据放入显存。
-
-可以通过设置`--cache-max-entry-count`参数，控制KV缓存占用显存的最大比例。默认的比例为0.8。
-
-下面给出几种使用示例：
-
-* 无量化运行HF模型，设置KV Cache最大占用比例0.5
-
-```sh
-lmdeploy chat /root/internlm2-chat-1_8b --model-format hf --quant-policy 0 --cache-max-entry-count 0.5
-```
-
-* KV8量化运行HF模型，设置KV Cache最大占用比例0.5
-
-```sh
-lmdeploy chat /root/internlm2-chat-1_8b --model-format hf --quant-policy 4 --cache-max-entry-count 0.5
-```
-
-* W4A16量化运行HF模型，设置KV Cache最大占用比例0.5
-
-```sh
-lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --cache-max-entry-count 0.5
-```
-
-* KV8+W4A16量化运行HF模型，设置KV Cache最大占用比例0.5
-
-```sh
-lmdeploy chat /root/internlm2-chat-1_8b-4bit --model-format awq --quant-policy 4 --cache-max-entry-count 0.5
-```
-
-## 3.6 选择最佳量化策略
+## 3.5 选择最佳量化策略
 
 量化的最主要目的是降低显存占用，主要包括两方面的显存：模型参数和中间过程计算结果。前者对应W4A16量化，后者对应KV8量化。
 
