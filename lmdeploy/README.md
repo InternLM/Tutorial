@@ -785,6 +785,50 @@ python /root/pipeline_llava.py
 
 ![](./imgs/6.1_3.jpg)
 
+我们也可以通过Gradio来运行llava模型。新建python文件`gradio_llava.py`。
+
+```sh
+touch /root/gradio_llava.py
+```
+
+打开文件，填入以下内容：
+
+```py
+import gradio as gr
+from lmdeploy import pipeline
+
+
+pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b')
+
+def model(image, text):
+    if image is None:
+        return [(text, "请上传一张图片。")]
+    else:
+        response = pipe((text, image)).text
+        return [(text, response)]
+
+demo = gr.Interface(fn=model, inputs=[gr.Image(type="pil"), gr.Textbox()], outputs=gr.Chatbot())
+demo.launch()   
+```
+
+运行python程序。
+
+```sh
+python /root/gradio_llava.py
+```
+
+通过ssh转发一下7860端口。
+
+```sh
+ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p <你的ssh端口>
+```
+
+通过浏览器访问`http://127.0.0.1:7860`。
+
+然后就可以使用啦~
+
+![](./imgs/6.1_4.jpg)
+
 ## 6.2 使用LMDeploy运行第三方大模型
 
 LMDeploy不仅支持运行InternLM系列大模型，还支持其他第三方大模型。支持的模型列表如下：
