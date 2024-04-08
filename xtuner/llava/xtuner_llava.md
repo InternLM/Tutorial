@@ -28,19 +28,21 @@ XTuner多模态训练与测试
 ### 1.1. 文本单模态
 ```mermaid
 flowchart LR
-a[Input Text] -.- A(Text Embedding<br>Model) -.-> b[/Text Vector/]
-b --> c((LLM))
-c --> d[Output Text]
+a[输入文本] -.- A(文本Embedding模型) -.-> b[/文本向量/]
+b --> c((L L M))
+c --> d[输出文本]
 ```
 
 ### 1.2. 文本+图像多模态
 ```mermaid
 flowchart LR
-a[Input Text] -.- A(Text Embedding<br>Model) -.-> b[/Text Vector/]
-b --> c((LLM))
-c --> d[Output Text]
-f[Input Image] -.- F("Image Projector")
-F -.-> g[/Image Vector/]
+a[输入文本] -.- A(文本Embedding模型) -.-> b[/文本向量/]
+b --> c((L L M))
+c --> d[输出文本]
+subgraph " "
+f[输入图像] -.- F("Image Projector")
+F -.-> g[/图像向量/]
+end
 g --> c
 ```
 
@@ -53,21 +55,21 @@ g --> c
 ### 2.1. LLaVA训练阶段示意图
 ```mermaid
 flowchart TB;
-subgraph Train
-a[("Qtext-Image<br>|<br>Atext")] --> b{GPU}
-c((Text LLM)) --> b
-b --> d((Image<br>Projector))
+subgraph 训练阶段
+a[("文本+图像<br>问答对<br>(训练数据)")] --> b{显卡}
+c((文本单模态<br>LLM)) --> b
+b --> d([Image<br>Projector])
 end
 ```
 
 ### 2.2. LLaVA测试阶段示意图
 ```mermaid
 flowchart TB;
-subgraph Test
-a((Image<br>Projector)) --> b{GPU}
-c((Text LLM)) --> b
-e[Input Image] --> b
-b --> d[Text<br>Output]
+subgraph 测试阶段
+a([Image<br>Projector]) --> b{显卡}
+c((文本单模态<br>LLM)) --> b
+e[输入图像] --> b
+b --> d[输出文本]
 end
 ```
 
@@ -88,14 +90,14 @@ LLaVA方案中，给LLM增加视觉能力的过程，即是训练Image Projector
 
 ```mermaid
 flowchart LR;
-    subgraph Pretrain
-    a[("Image<br>+<br>SimpleShort<br>Text")] --> b{GPU}
-    c((LLM)) --> b
+    subgraph Pretrain阶段
+    a[("图像<br>+<br>标题(短文本)")] --> b{显卡}
+    c(("文本单模态LLM<br>(InternLM2_chat_1.8B)")) --> b
     b --> d((Pretrained<br>LLaVA))
     end
 
-    subgraph Finetune
-    f[("Image<br>+<br>Complicated<br>Text")] --> g{GPU}
+    subgraph Finetune阶段
+    f[("图像<br>+<br>复杂对话文本")] --> g{显卡}
     d --> g
     g --> i((Finetuned<br>LLaVA))
     end
