@@ -865,7 +865,7 @@ python benchmark_lmdeploy.py
 
 ![](./imgs/6.3_2.jpg)
 
-可以看到，LMDeploy的推理速度约为128.882 words/s，是Transformer库的1.64倍。
+可以看到，LMDeploy的推理速度约为473.690 words/s，是Transformer库的6倍。
 
 # 课后作业
 
