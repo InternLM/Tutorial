@@ -12,7 +12,7 @@ LLM 部分将带大家基于 XTuner 微调一个具有个人认知的小助手�
 
 | 微调前   | 微调后          |
 | -------- | --------------- |
-| ![image1](https://github.com/InternLM/Tutorial/assets/108343727/f51733bc-b280-40f3-9ba9-505963809bd5) | ![image2](https://github.com/InternLM/Tutorial/assets/108343727/6555581f-6b2e-4d94-8838-e5840d8e24b6) |
+| ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/7f45e22c-f473-4d6d-bae7-533bacad474b)|![image](https://github.com/Jianfeng777/tutorial/assets/108343727/6f021db9-d590-425d-b000-14760b1cb863)|
 
 可以明显看到的是，微调后的大模型真的能够被调整成我们想要的样子，详细文档请访问：[XTuner 微调个人小助手部分](./personal_assistant_document.md)
 
