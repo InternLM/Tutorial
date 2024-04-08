@@ -282,6 +282,8 @@ The questions and answers, please generate for me, based on the image I sent to 
 为了方便大家跟随课程，针对这张示例图片的问答对数据（repeat_data.json），大家按照下面的脚本运行就可以生成啦~（重复10000次，生成的文件一百多MB）
 
 ```bash
+git clone https://github.com/InternLM/Tutorial -b camp2 && cd tutorial/xtuner/llava && conda activate xtuner0.1.17
+
 python llava_data/repeat.py -i llava_data/unique_data.json -o llava_data/repeated_data.json -n 10000
 ```
 
@@ -356,15 +358,19 @@ xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-
 ```
 
 #### 3.4.2. Finetune后
-> 即：**加载 1.8B 和 Fintune阶段产物() 到显存。**
+> 即：**加载 1.8B 和 Fintune阶段产物 到显存。**
 
 ```bash
 # 解决小bug
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
+# 找到finetune结束的pth文件位置
+find /root/llava -type d -name "iter_3750.pth"
+
 # pth转huggingface
-xtuner convert pth_to_hf ./llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain_copy.py ./work_dir/ ./iter_2181_hf
+xtuner convert pth_to_hf "$(find /root/llava -type d -name "iter_3750.pth")" ./iter_2181_hf
+
 
 # 启动！
 xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava ./iter_2181_hf --prompt-template internlm2_chat --image ./llava_data/test_img/oph.jpg
