@@ -1,5 +1,5 @@
 XTuner多模态训练与测试
-![占位图](https://img.zhouqian.wang//1712314093245.png)
+![head](img4md/head.jpg)
 
 - [1. 给LLM装上电子眼：多模态LLM原理简介](#1-给llm装上电子眼多模态llm原理简介)
   - [1.1. 文本单模态](#11-文本单模态)
