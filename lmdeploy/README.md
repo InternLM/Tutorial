@@ -678,11 +678,11 @@ print(response)
 
 > **代码解读**： \
 > * 第1行引入了lmdeploy的pipeline模块，第2行引入用于载入图片的load_image函数 \
-> * 第4行创建了pipeline实例 \
-> * 第6行从github下载了一张关于老虎的图片，如下： \
+> * 第5行创建了pipeline实例 \
+> * 第7行从github下载了一张关于老虎的图片，如下： \
 > ![](./imgs/6.1_1.jpg) \
-> * 第7行运行pipeline，输入提示词“describe this image”，和图片，结果返回至response \
-> * 第8行输出response
+> * 第8行运行pipeline，输入提示词“describe this image”，和图片，结果返回至response \
+> * 第9行输出response
 
 保存后运行pipeline。
 
