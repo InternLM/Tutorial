@@ -447,15 +447,15 @@ export MKL_THREADING_LAYER=GNU
 # pth转huggingface
 xtuner convert \
   pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain \
-  /root/tutorial/xtuner/llava_data/iter_2181.pth \
-  /root/tutorial/xtuner/llava_data/iter_2181_hf
+  /root/share/new_models/xtuner/iter_2181.pth \
+  /root/tutorial/xtuner/llava/llava_data/iter_2181_hf
 
 # 启动！
 xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
   --visual-encoder /root/share/new_models/openai/clip-vit-large-patch14-336 \
-  --llava /root/tutorial/xtuner/llava_data/iter_2181_hf \
+  --llava /root/tutorial/xtuner/llava/llava_data/iter_2181_hf \
   --prompt-template internlm2_chat \
-  --image /root/tutorial/xtuner/llava_data/llava_data/test_img/oph.jpg
+  --image /root/tutorial/xtuner/llava/llava_data/llava_data/test_img/oph.jpg
 ```
 
 #### 1.3.5.2. Finetune后
@@ -467,15 +467,15 @@ export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
 # pth转huggingface
-xtuner convert pth_to_hf "$(find /root/tutorial/xtuner/llava/llava_data -type d -name "iter_3750.pth")" /root/tutorial/xtuner/llava/llava_data/iter_3750_hf
+xtuner convert pth_to_hf "$(find /root/tutorial/xtuner/llava/llava_data -type d -name "iter_1200.pth")" /root/tutorial/xtuner/llava/llava_data/iter_1200_hf
 
 
 # 启动！
 xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
   --visual-encoder /root/share/new_models/openai/clip-vit-large-patch14-336 \
-  --llava /root/tutorial/xtuner/llava_data/iter_3750_hf \
+  --llava /root/tutorial/xtuner/llava/llava_data/iter_1200_hf \
   --prompt-template internlm2_chat \
-  --image /root/tutorial/xtuner/llava_data/test_img/oph.jpg
+  --image /root/tutorial/xtuner/llava/llava_data/test_img/oph.jpg
 ```
 
 
