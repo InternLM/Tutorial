@@ -445,8 +445,8 @@ export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
 # pth转huggingface
-xtuner convert \
-  pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain \
+xtuner convert pth_to_hf \
+  llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain \
   /root/share/new_models/xtuner/iter_2181.pth \
   /root/tutorial/xtuner/llava/llava_data/iter_2181_hf
 
@@ -455,8 +455,10 @@ xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
   --visual-encoder /root/share/new_models/openai/clip-vit-large-patch14-336 \
   --llava /root/tutorial/xtuner/llava/llava_data/iter_2181_hf \
   --prompt-template internlm2_chat \
-  --image /root/tutorial/xtuner/llava/llava_data/llava_data/test_img/oph.jpg
+  --image /root/tutorial/xtuner/llava/llava_data/test_img/oph.jpg
 ```
+> Q1: Describe this image.
+> Q2: What is the equipment in the image?
 
 #### 1.3.5.2. Finetune后
 > 即：**加载 1.8B 和 Fintune阶段产物 到显存。**
@@ -467,8 +469,10 @@ export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
 # pth转huggingface
-xtuner convert pth_to_hf "$(find /root/tutorial/xtuner/llava/llava_data -type d -name "iter_1200.pth")" /root/tutorial/xtuner/llava/llava_data/iter_1200_hf
-
+xtuner convert pth_to_hf \
+  /root/tutorial/xtuner/llava/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py \
+  /root/tutorial/xtuner/llava/work_dirs/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy/iter_1200.pth \
+  /root/tutorial/xtuner/llava/llava_data/iter_1200_hf
 
 # 启动！
 xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
@@ -477,12 +481,10 @@ xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
   --prompt-template internlm2_chat \
   --image /root/tutorial/xtuner/llava/llava_data/test_img/oph.jpg
 ```
-
-
-Finetune前后效果对比：
-
 > Q1: Describe this image.
 > Q2: What is the equipment in the image?
+
+Finetune前后效果对比：
 
 **Finetune前：只会打标题**
 ![ft_before](img4md/ft_before.png)
