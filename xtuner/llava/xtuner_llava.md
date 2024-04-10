@@ -362,7 +362,10 @@ The questions and answers, please generate for me, based on the image I sent to 
 ```bash
 git clone https://github.com/InternLM/Tutorial -b camp2 && cd tutorial/xtuner/llava && conda activate xtuner0.1.17
 
-python llava_data/repeat.py -i /root/tutorial/xtuner/llava_data/unique_data.json -o llava_data/repeated_data.json -n 10000
+python llava_data/repeat.py \
+  -i /root/tutorial/xtuner/llava_data/unique_data.json \
+  -o llava_data/repeated_data.json \
+  -n 10000
 ```
 
 #### 1.3.4.2. 准备配置文件
@@ -432,7 +435,11 @@ export MKL_THREADING_LAYER=GNU
 xtuner convert pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain /root/tutorial/xtuner/llava_data/iter_2181.pth /root/tutorial/xtuner/llava_data/iter_2181_hf
 
 # 启动！
-xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava /root/tutorial/xtuner/llava_data/iter_2181_hf --prompt-template internlm2_chat --image /root/tutorial/xtuner/llava_data/llava_data/test_img/oph.jpg
+xtuner chat internlm/internlm2-chat-1_8b \
+  --visual-encoder openai/clip-vit-large-patch14-336 \
+  --llava /root/tutorial/xtuner/llava_data/iter_2181_hf \
+  --prompt-template internlm2_chat \
+  --image /root/tutorial/xtuner/llava_data/llava_data/test_img/oph.jpg
 ```
 
 #### 1.3.5.2. Finetune后
@@ -451,7 +458,11 @@ xtuner convert pth_to_hf "$(find /root/tutorial/xtuner/llava_data -type d -name 
 
 
 # 启动！
-xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava /root/tutorial/xtuner/llava_data/iter_3750_hf --prompt-template internlm2_chat --image /root/tutorial/xtuner/llava_data/test_img/oph.jpg
+xtuner chat internlm/internlm2-chat-1_8b \
+  --visual-encoder openai/clip-vit-large-patch14-336 \
+  --llava /root/tutorial/xtuner/llava_data/iter_3750_hf \
+  --prompt-template internlm2_chat \
+  --image /root/tutorial/xtuner/llava_data/test_img/oph.jpg
 ```
 
 
