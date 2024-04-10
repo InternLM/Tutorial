@@ -113,7 +113,7 @@ end
 
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/2ae5252c-24b8-45c5-aca3-d597caf03449)
 
-之后我们填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `10% A100 * 1` 的选项，然后立即创建开发机器。
+之后我们填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `30% A100 * 1` 的选项，然后立即创建开发机器。
 
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/66e92058-2cf5-418c-a2ce-add9923cf6c2)
 
@@ -312,7 +312,7 @@ Pretrain阶段训练完成后，此时的模型已经有视觉能力了！但是
 </details>
 
 ##### 1.3.4.1.2. 制作
-我们可以效法LLaVA作者的做法，将自己的图片发送给GPT4V，要求其按照上述格式生成若干条问答对。
+我们可以效法LLaVA作者的做法，将自己的图片发送给GPT，要求其按照上述格式生成若干条问答对。
 <details>
 <summary>prompts</summary>
 
@@ -357,15 +357,15 @@ The questions and answers, please generate for me, based on the image I sent to 
 </details>
 <br>
 
-为了方便大家跟随课程，针对这张示例图片的问答对数据（repeat_data.json），大家按照下面的脚本运行就可以生成啦~（重复10000次，生成的文件一百多MB）
+为了方便大家跟随课程，针对这张示例图片的问答对数据（repeat_data.json），大家按照下面的脚本运行就可以生成啦~（重复200次）
 
 ```bash
-git clone https://github.com/InternLM/Tutorial -b camp2 && cd tutorial/xtuner/llava && conda activate xtuner0.1.17
+cd ~ && git clone https://github.com/InternLM/tutorial -b camp2 && conda activate xtuner0.1.17 && cd tutorial
 
-python llava_data/repeat.py \
-  -i /root/tutorial/xtuner/llava_data/unique_data.json \
-  -o llava_data/repeated_data.json \
-  -n 10000
+python /root/tutorial/xtuner/llava/llava_data/repeat.py \
+  -i /root/tutorial/xtuner/llava/llava_data/unique_data.json \
+  -o /root/tutorial/xtuner/llava/llava_data/repeated_data.json \
+  -n 200
 ```
 
 #### 1.3.4.2. 准备配置文件
@@ -377,13 +377,14 @@ python llava_data/repeat.py \
 xtuner list-cfg -p llava_internlm2_chat_1_8b
 
 # 拷贝配置文件到当前目录（注意命令最后有个英文句号
-xtuner copy-cfg llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune .
+xtuner copy-cfg \
+  llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune \
+  /root/tutorial/xtuner/llava
 ```
 
-当前你的当前目录下的文件结构应该是这样：
+当前你的`/root/tutorial/xtuner/llava/`目录下的文件结构应该是这样：
 
 ```bash
-|-- iter_2181.pth
 |-- llava_data
 |   |-- repeat.py
 |   |-- repeated_data.json
@@ -397,28 +398,40 @@ xtuner copy-cfg llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_g
 
 修改`llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py`文件中的：
 - pretrained_pth
+- llm_name_or_path
+- visual_encoder_name_or_path
 - data_root
 - data_path
 - image_folder
 
 ```diff
+# Model
+- llm_name_or_path = 'internlm/internlm2-chat-1_8b'
++ llm_name_or_path = '/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b'
+- visual_encoder_name_or_path = 'openai/clip-vit-large-patch14-336'
++ visual_encoder_name_or_path = '/root/share/new_models/openai/clip-vit-large-patch14-336'
+
 # Specify the pretrained pth
 - pretrained_pth = './work_dirs/llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain/iter_2181.pth'  # noqa: E501
-+ pretrained_pth = './iter_2181.pth'
++ pretrained_pth = '/root/share/new_models/xtuner//iter_2181.pth'
 
 # Data
 - data_root = './data/llava_data/'
-+ data_root = './llava_data/'
++ data_root = '/root/tutorial/xtuner/llava/llava_data/'
 - data_path = data_root + 'LLaVA-Instruct-150K/llava_v1_5_mix665k.json'
 + data_path = data_root + 'repeated_data.json'
 - image_folder = data_root + 'llava_images'
 + image_folder = data_root
+
+# Scheduler & Optimizer
+- batch_size = 16  # per_device
++ batch_size = 1  # per_device
 ```
 
 #### 1.3.4.3. 开始Finetune
 
 ```bash
-xtuner train /root/tutorial/xtuner/llava_data/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py --deepspeed deepspeed_zero2
+xtuner train /root/tutorial/xtuner/llava/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py --deepspeed deepspeed_zero2
 ```
 
 ### 1.3.5. 对比Finetune前后的性能差异
@@ -432,11 +445,14 @@ export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
 # pth转huggingface
-xtuner convert pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain /root/tutorial/xtuner/llava_data/iter_2181.pth /root/tutorial/xtuner/llava_data/iter_2181_hf
+xtuner convert \
+  pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain \
+  /root/tutorial/xtuner/llava_data/iter_2181.pth \
+  /root/tutorial/xtuner/llava_data/iter_2181_hf
 
 # 启动！
-xtuner chat internlm/internlm2-chat-1_8b \
-  --visual-encoder openai/clip-vit-large-patch14-336 \
+xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
+  --visual-encoder /root/share/new_models/openai/clip-vit-large-patch14-336 \
   --llava /root/tutorial/xtuner/llava_data/iter_2181_hf \
   --prompt-template internlm2_chat \
   --image /root/tutorial/xtuner/llava_data/llava_data/test_img/oph.jpg
@@ -450,16 +466,13 @@ xtuner chat internlm/internlm2-chat-1_8b \
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
-# 找到finetune结束的pth文件位置
-find /root/tutorial/xtuner/llava_data -type d -name "iter_3750.pth"
-
 # pth转huggingface
-xtuner convert pth_to_hf "$(find /root/tutorial/xtuner/llava_data -type d -name "iter_3750.pth")" /root/tutorial/xtuner/llava_data/iter_3750_hf
+xtuner convert pth_to_hf "$(find /root/tutorial/xtuner/llava/llava_data -type d -name "iter_3750.pth")" /root/tutorial/xtuner/llava/llava_data/iter_3750_hf
 
 
 # 启动！
-xtuner chat internlm/internlm2-chat-1_8b \
-  --visual-encoder openai/clip-vit-large-patch14-336 \
+xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
+  --visual-encoder /root/share/new_models/openai/clip-vit-large-patch14-336 \
   --llava /root/tutorial/xtuner/llava_data/iter_3750_hf \
   --prompt-template internlm2_chat \
   --image /root/tutorial/xtuner/llava_data/test_img/oph.jpg
@@ -467,6 +480,9 @@ xtuner chat internlm/internlm2-chat-1_8b \
 
 
 Finetune前后效果对比：
+
+> Q1: Describe this image.
+> Q2: What is the equipment in the image?
 
 **Finetune前：只会打标题**
 ![ft_before](img4md/ft_before.png)
