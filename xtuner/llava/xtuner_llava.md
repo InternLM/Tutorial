@@ -131,7 +131,7 @@ end
 # 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 的环境：
 # pytorch    2.0.1   py3.10_cuda11.7_cudnn8.5.0_0
 
-studio-conda xtuner0.1.17
+cd ~ && studio-conda xtuner0.1.17
 # 如果你是在其他平台：
 # conda create --name xtuner0.1.17 python=3.10 -y
 
@@ -151,7 +151,7 @@ git clone -b v0.1.17  https://github.com/InternLM/xtuner
 cd /root/xtuner0117/xtuner
 
 # 从源码安装 XTuner
-pip install -e '.[all]'
+pip install -e '.[all]' && cd ~
 ```
 > 假如速度太慢可以 `Ctrl + C` 退出后换成 `pip install -e '.[all]' -i https://mirrors.aliyun.com/pypi/simple/`
 
@@ -360,10 +360,9 @@ The questions and answers, please generate for me, based on the image I sent to 
 为了方便大家跟随课程，针对这张示例图片的问答对数据（repeat_data.json），大家按照下面的脚本运行就可以生成啦~（重复10000次，生成的文件一百多MB）
 
 ```bash
-
 git clone https://github.com/InternLM/Tutorial -b camp2 && cd tutorial/xtuner/llava && conda activate xtuner0.1.17
 
-python llava_data/repeat.py -i llava_data/unique_data.json -o llava_data/repeated_data.json -n 10000
+python llava_data/repeat.py -i /root/tutorial/xtuner/llava_data/unique_data.json -o llava_data/repeated_data.json -n 10000
 ```
 
 #### 1.3.4.2. 准备配置文件
@@ -416,7 +415,7 @@ xtuner copy-cfg llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_g
 #### 1.3.4.3. 开始Finetune
 
 ```bash
-xtuner train ./llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py --deepspeed deepspeed_zero2
+xtuner train /root/tutorial/xtuner/llava_data/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py --deepspeed deepspeed_zero2
 ```
 
 ### 1.3.5. 对比Finetune前后的性能差异
@@ -430,10 +429,10 @@ export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
 # pth转huggingface
-xtuner convert pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain ./iter_2181.pth ./iter_2181_hf
+xtuner convert pth_to_hf llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain /root/tutorial/xtuner/llava_data/iter_2181.pth /root/tutorial/xtuner/llava_data/iter_2181_hf
 
 # 启动！
-xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava ./iter_2181_hf --prompt-template internlm2_chat --image ./llava_data/test_img/oph.jpg
+xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava /root/tutorial/xtuner/llava_data/iter_2181_hf --prompt-template internlm2_chat --image /root/tutorial/xtuner/llava_data/llava_data/test_img/oph.jpg
 ```
 
 #### 1.3.5.2. Finetune后
@@ -445,14 +444,14 @@ export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
 # 找到finetune结束的pth文件位置
-find /root/llava -type d -name "iter_3750.pth"
+find /root/tutorial/xtuner/llava_data -type d -name "iter_3750.pth"
 
 # pth转huggingface
-xtuner convert pth_to_hf "$(find /root/llava -type d -name "iter_3750.pth")" ./iter_2181_hf
+xtuner convert pth_to_hf "$(find /root/tutorial/xtuner/llava_data -type d -name "iter_3750.pth")" /root/tutorial/xtuner/llava_data/iter_3750_hf
 
 
 # 启动！
-xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava ./iter_2181_hf --prompt-template internlm2_chat --image ./llava_data/test_img/oph.jpg
+xtuner chat internlm/internlm2-chat-1_8b --visual-encoder openai/clip-vit-large-patch14-336 --llava /root/tutorial/xtuner/llava_data/iter_3750_hf --prompt-template internlm2_chat --image /root/tutorial/xtuner/llava_data/test_img/oph.jpg
 ```
 
 
