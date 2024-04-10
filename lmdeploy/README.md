@@ -665,11 +665,13 @@ touch /root/pipeline_llava.py
 打开`pipeline_llava.py`，填入内容如下：
 
 ```py
-from lmdeploy import pipeline
 from lmdeploy.vl import load_image
+from lmdeploy import pipeline, TurbomindEngineConfig
 
-# pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b') 非开发机运行此命令
-pipe = pipeline('/share/new_models/liuhaotian/llava-v1.6-vicuna-7b')
+
+backend_config = TurbomindEngineConfig(session_len=8192) # 图片分辨率较高时请调高session_len
+# pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b', backend_config=backend_config) 非开发机运行此命令
+pipe = pipeline('/share/new_models/liuhaotian/llava-v1.6-vicuna-7b', backend_config=backend_config)
 
 image = load_image('https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/tests/data/tiger.jpeg')
 response = pipe(('describe this image', image))
@@ -696,7 +698,7 @@ python /root/pipeline_llava.py
 
 > **大意（来自百度翻译）**：一只老虎躺在草地上。老虎面对镜头，头微微向一侧倾斜，给人一种好奇或专注的表情。老虎在较浅的背景上有一种独特的深色条纹图案，这是该物种的特征。皮毛是橙色和黑色的混合，深色的条纹垂直向下延伸，浅色的皮毛出现在胸部和腹部。老虎的眼睛睁开，警觉，耳朵竖起，这表明它对周围环境很关注。背景是模糊的绿色区域，表明照片是在户外拍摄的，可能是在自然栖息地或野生动物保护区。这张图片是特写，聚焦于老虎的头部和上身，突出了老虎的特征和皮毛的纹理。照片中没有可见的文字或其他物体，照片的风格是自然的野生动物拍摄，旨在捕捉环境中的动物。
 
-由于官方的Llava模型没有使用中文语料训练，因此如果使用中文提示词，可能会得到出乎意料的结果，比如将提示词改为“请描述一下这张图片”，你可能会得到类似《印度鳄鱼》的回复。
+由于官方的Llava模型对中文支持性不好，因此如果使用中文提示词，可能会得到出乎意料的结果，比如将提示词改为“请描述一下这张图片”，你可能会得到类似《印度鳄鱼》的回复。
 
 ![](./imgs/6.1_3.jpg)
 
@@ -710,11 +712,12 @@ touch /root/gradio_llava.py
 
 ```py
 import gradio as gr
-from lmdeploy import pipeline
+from lmdeploy import pipeline, TurbomindEngineConfig
 
 
-# pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b') 非开发机运行此命令
-pipe = pipeline('/share/new_models/liuhaotian/llava-v1.6-vicuna-7b')
+backend_config = TurbomindEngineConfig(session_len=8192) # 图片分辨率较高时请调高session_len
+# pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b', backend_config=backend_config) 非开发机运行此命令
+pipe = pipeline('/share/new_models/liuhaotian/llava-v1.6-vicuna-7b', backend_config=backend_config)
 
 def model(image, text):
     if image is None:
@@ -745,11 +748,6 @@ ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p <你的ssh端口>
 
 ![](./imgs/6.1_4.jpg)
 
-**【4月10日更新】**
-
-有同学反应，llava很多时候存在回复为空的情况，这与模型本身的能力有关。
-
-可以下载本文档中用到的用例[[tiger.jpg]](./tiger.jpg)进行测试。
 
 ## 6.2 使用LMDeploy运行第三方大模型
 

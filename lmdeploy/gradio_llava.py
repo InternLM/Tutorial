@@ -1,9 +1,10 @@
 import gradio as gr
-from lmdeploy import pipeline
+from lmdeploy import pipeline, TurbomindEngineConfig
 
 
-# pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b') 非开发机运行此命令
-pipe = pipeline('/share/new_models/liuhaotian/llava-v1.6-vicuna-7b')
+backend_config = TurbomindEngineConfig(session_len=8192) # 图片分辨率较高时请调高session_len
+# pipe = pipeline('liuhaotian/llava-v1.6-vicuna-7b', backend_config=backend_config) 非开发机运行此命令
+pipe = pipeline('/share/new_models/liuhaotian/llava-v1.6-vicuna-7b', backend_config=backend_config)
 
 def model(image, text):
     if image is None:
