@@ -915,7 +915,7 @@ xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /
 # 创建一个名为 final_model 的文件夹存储整合后的模型文件
 mkdir -p /root/ft/final_model
 
-# 制使用Intel的线程库
+# 解决一下线程冲突的 Bug 
 export MKL_SERVICE_FORCE_INTEL=1
 
 # 进行模型整合
@@ -1380,9 +1380,11 @@ streamlit run /root/ft/web_demo/InternLM/chat/web_demo.py --server.address 127.0
 假如我们还想和原来的 InternLM2-Chat-1.8B 模型对话（即在 `/root/ft/model` 这里的模型对话），我们其实只需要修改183行和186行的文件地址即可。
 
 ```diff
+# 修改模型地址（第183行）
 - model = (AutoModelForCausalLM.from_pretrained('/root/ft/final_model',
 + model = (AutoModelForCausalLM.from_pretrained('/root/ft/model',
 
+# 修改分词器地址（第186行）
 - tokenizer = AutoTokenizer.from_pretrained('/root/ft/final_model',
 + tokenizer = AutoTokenizer.from_pretrained('/root/ft/model',
 ```
