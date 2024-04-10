@@ -745,6 +745,12 @@ ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p <你的ssh端口>
 
 ![](./imgs/6.1_4.jpg)
 
+**【4月10日更新】**
+
+有同学反应，llava很多时候存在回复为空的情况，这与模型本身的能力有关。
+
+可以下载本文档中用到的用例[[tiger.jpg]](./tiger.jpg)进行测试。
+
 ## 6.2 使用LMDeploy运行第三方大模型
 
 LMDeploy不仅支持运行InternLM系列大模型，还支持其他第三方大模型。支持的模型列表如下：
