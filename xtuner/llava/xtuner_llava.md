@@ -381,10 +381,10 @@ cp /root/tutorial/xtuner/llava/llava_data/internlm2_chat_1_8b_llava_tutorial_foo
 # 查询xtuner内置配置文件
 xtuner list-cfg -p llava_internlm2_chat_1_8b
 
-# 拷贝配置文件到当前目录（注意命令最后有个英文句号
+# 拷贝配置文件到当前目录
 xtuner copy-cfg \
   llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune \
-  /root/tutorial/xtuner/llava/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py
+  /root/tutorial/xtuner/llava
 ```
 
 当前你的`/root/tutorial/xtuner/llava/`目录下的文件结构应该是这样：
