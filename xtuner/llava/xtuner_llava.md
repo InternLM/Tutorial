@@ -413,7 +413,7 @@ xtuner copy-cfg \
 
 # Specify the pretrained pth
 - pretrained_pth = './work_dirs/llava_internlm2_chat_1_8b_clip_vit_large_p14_336_e1_gpu8_pretrain/iter_2181.pth'  # noqa: E501
-+ pretrained_pth = '/root/share/new_models/xtuner//iter_2181.pth'
++ pretrained_pth = '/root/share/new_models/xtuner/iter_2181.pth'
 
 # Data
 - data_root = './data/llava_data/'
