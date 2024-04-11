@@ -370,6 +370,11 @@ python /root/tutorial/xtuner/llava/llava_data/repeat.py \
 
 #### 1.3.4.2. 准备配置文件
 
+> 如果你懒到不想自己改配置文件，或者怎么改都失败。我们准备了一个fool_config文件在仓库里。运行：
+```python
+cp /root/tutorial/xtuner/llava/llava_data/internlm2_chat_1_8b_llava_tutorial_fool_config.py /root/tutorial/xtuner/llava/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py
+```
+
 ##### 1.3.4.2.1. 创建配置文件
 
 ```bash
@@ -379,7 +384,7 @@ xtuner list-cfg -p llava_internlm2_chat_1_8b
 # 拷贝配置文件到当前目录（注意命令最后有个英文句号
 xtuner copy-cfg \
   llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune \
-  /root/tutorial/xtuner/llava
+  /root/tutorial/xtuner/llava/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py
 ```
 
 当前你的`/root/tutorial/xtuner/llava/`目录下的文件结构应该是这样：
