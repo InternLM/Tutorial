@@ -468,7 +468,7 @@ xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
   --prompt-template internlm2_chat \
   --image /root/tutorial/xtuner/llava/llava_data/test_img/oph.jpg
 ```
-> Q1: Describe this image.
+> Q1: Describe this image.     
 > Q2: What is the equipment in the image?
 
 #### 1.3.5.2. Finetune后
@@ -492,7 +492,7 @@ xtuner chat /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \
   --prompt-template internlm2_chat \
   --image /root/tutorial/xtuner/llava/llava_data/test_img/oph.jpg
 ```
-> Q1: Describe this image.
+> Q1: Describe this image.    
 > Q2: What is the equipment in the image?
 
 Finetune前后效果对比：
