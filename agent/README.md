@@ -198,7 +198,7 @@ pip install lmdeploy==0.3.0
 ```bash
 cd /root/agent
 git clone https://gitee.com/internlm/tutorial.git
-cd tutorial && git checkout TODO && cd ..
+cd tutorial && git checkout a2ab9c8 && cd ..
 ```
 
 ## 2. Lagent：轻量级智能体框架
@@ -215,6 +215,6 @@ cd tutorial && git checkout TODO && cd ..
 
 ## 4. Agent 工具能力微调
 
-在这一部分中，我们将介绍 OpenAI function call 的相关内容，以及带大家使用 XTuner 来实现 Agent 工具能力的微调。
+在这一部分中，我们将介绍 OpenAI Function Calling 的相关内容，以及带大家使用 XTuner 来实现 Agent 工具能力的微调。
 
 详细文档可以访问：[Agent 工具能力微调](finetune.md)。
