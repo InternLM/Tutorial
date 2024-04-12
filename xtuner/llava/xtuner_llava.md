@@ -431,6 +431,12 @@ xtuner copy-cfg \
 # Scheduler & Optimizer
 - batch_size = 16  # per_device
 + batch_size = 1  # per_device
+
+
+# evaluation_inputs
+- evaluation_inputs = ['请描述一下这张图片','Please describe this picture']
++ evaluation_inputs = ['Please describe this picture','What is the equipment in the image?']
+
 ```
 
 #### 1.3.4.3. 开始Finetune
