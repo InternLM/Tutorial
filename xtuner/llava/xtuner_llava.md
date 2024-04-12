@@ -32,10 +32,10 @@
 
 这是学完本节内容后的多模态LLM性能效果展示：
 
-**Finetune前的多模态LLM(InternLM_chat_1.8B_llava)：只会给图像打标题**
+**Finetune前的多模态LLM(InternLM_Chat_1.8B_llava)：只会给图像打标题**
 ![ft_before](img4md/ft_before.png)
 
-**Finetune后的多模态LLM(InternLM_chat_1.8B_llava)：会根据图像回答问题了**
+**Finetune后的多模态LLM(InternLM_Chat_1.8B_llava)：会根据图像回答问题了**
 ![ft_after](img4md/ft_after.png)
 </details>
 
@@ -159,7 +159,7 @@ pip install -e '.[all]' && cd ~
 
 ### 1.3.2. 概述
 
-> 在本节中，我们将 **自己构造 `<question text><image>--<answer text>` 数据对，基于InternLM2_chat_1.8b这个文本单模态模型，使用LLaVA方案，训练一个给InternLM2_chat_1.8b使用的Image Projector文件。**
+> 在本节中，我们将 **自己构造 `<question text><image>--<answer text>` 数据对，基于InternLM2_Chat_1.8B这个文本单模态模型，使用LLaVA方案，训练一个给InternLM2_Chat_1.8B使用的Image Projector文件。**
 
 LLaVA方案中，给LLM增加视觉能力的过程，即是训练Image Projector文件的过程。
 该过程分为2个阶段：Pretrain和Finetune。
@@ -168,7 +168,7 @@ LLaVA方案中，给LLM增加视觉能力的过程，即是训练Image Projector
 flowchart LR;
     subgraph Pretrain阶段
     a[("图像<br>+<br>标题(短文本)")] --> b{显卡}
-    c(("文本单模态LLM<br>(InternLM2_chat_1.8B)")) --> b
+    c(("文本单模态LLM<br>(InternLM2_Chat_1.8B)")) --> b
     b --> d((Pretrained<br>LLaVA))
     end
 
