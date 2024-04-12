@@ -1091,7 +1091,7 @@ class GenerationConfig:
     top_p: float = 0.75
     temperature: float = 0.1
     do_sample: bool = True
-    repetition_penalty: float = 1.005
+    repetition_penalty: float = 1.000
 
 
 @torch.inference_mode()
