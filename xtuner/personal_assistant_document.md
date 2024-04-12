@@ -1,4 +1,5 @@
- # XTuner 微调个人小助手认知
+# XTuner 微调个人小助手认知
+
 在本节课中讲一步步带领大家体验如何利用 XTuner 完成个人小助手的微调！
 
 为了能够让大家更加快速的上手并看到微调前后对比的效果，那我这里选用的就是上一期的课后作业：用 `QLoRA` 的方式来微调一个自己的小助手！我们可以通过下面两张图片来清楚的看到两者的对比。
@@ -7,8 +8,8 @@
 | -------- | --------------- |
 | ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/7f45e22c-f473-4d6d-bae7-533bacad474b)|![image](https://github.com/Jianfeng777/tutorial/assets/108343727/6f021db9-d590-425d-b000-14760b1cb863)|
 
-
 可以明显看到的是，微调后的大模型真的能够被调整成我们想要的样子，下面就让我们一步步的来实现这个有趣的过程吧！
+
 ## 1 开发机准备
 
 首先我们需要前往 [InternStudio](https://studio.intern-ai.org.cn/) 中创建一个开发机进行使用。然后在进入界面后首先选择开发机。
@@ -36,12 +37,11 @@
 
 <img src="https://github.com/Jianfeng777/tutorial/assets/108343727/55a4885d-eefe-4b0b-bae1-e2553cb72076" width="50%">
 
-
 ## 2 快速上手
 
 我们可以通过下面这张图来简单了解一下 XTuner 的运行原理。
 
-<img width="3216" alt="XTunerFlow1" src="https://github.com/InternLM/Tutorial/assets/108343727/0c4817e8-ddaf-4276-ad16-b65d5ec6b4ae">
+<img width="3216" alt="XTunerFlow1" src="./imgs/XTuner_Flow.png">
 
 1. **环境安装**：假如我们想要用 XTuner 这款简单易上手的微调工具包来对模型进行微调的话，那我们最最最先开始的第一步必然就是安装XTuner！安装基础的工具是一切的前提，只有安装了 XTuner 在我们本地后我们才能够去思考说具体怎么操作。
 
@@ -49,9 +49,10 @@
 
 3. **启动微调**：在确定了自己的微调目标后，我们就可以在 XTuner 的配置库中找到合适的配置文件并进行对应的修改。修改完成后即可一键启动训练！训练好的模型也可以仅仅通过在终端输入一行指令来完成转换和部署工作！
 
-
 ### 2.1 环境安装
+
 首先我们需要先安装一个 XTuner 的源码到本地来方便后续的使用。
+
 ```bash
 # 如果你是在 InternStudio 平台，则从本地 clone 一个已有 pytorch 的环境：
 # pytorch    2.0.1   py3.10_cuda11.7_cudnn8.5.0_0
@@ -78,6 +79,7 @@ cd /root/xtuner0117/xtuner
 # 从源码安装 XTuner
 pip install -e '.[all]'
 ```
+
 > 假如速度太慢可以 `Ctrl + C` 退出后换成 `pip install -e '.[all]' -i https://mirrors.aliyun.com/pypi/simple/`
 
 假如在这一过程中没有出现任何的报错的话，那也就意味着我们成功安装好支持 XTuner 所运行的环境啦。其实对于很多的初学者而言，安装好环境意味着成功了一大半！因此我们接下来就可以进入我们的第二步，准备好我们需要的数据集、模型和配置文件！
@@ -160,9 +162,10 @@ cd /root/ft/data
 # 运行代码
 python /root/ft/data/generate_data.py
 ```
+
 可以看到在data的路径下便生成了一个名为 `personal_assistant.json` 的文件，这样我们最可用于微调的数据集就准备好啦！里面就包含了 5000 条 `input` 和 `output` 的数据对。假如 我们认为 5000 条不够的话也可以调整文件中第6行 `n` 的值哦！
 
-```
+```bash
 |-- data/
     |-- personal_assistant.json
     |-- generate_data.py
@@ -173,7 +176,7 @@ python /root/ft/data/generate_data.py
 
 文件结构树代码如下所示，使用方法为在终端调用该代码的同时在后方输入文件夹路径。
 
-比如说我要打印 `data` 的文件结构树，假设我的代码文件保存在 `/root/tree.py` ，那我就要在终端输入 `python /root/tree.py /root/ft/data` 
+比如说我要打印 `data` 的文件结构树，假设我的代码文件保存在 `/root/tree.py` ，那我就要在终端输入 `python /root/tree.py /root/ft/data`
 
 ```python
 import os
@@ -224,8 +227,10 @@ mkdir -p /root/ft/model
 # 复制内容到目标文件夹。-r选项表示递归复制整个文件夹。
 cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b/* /root/ft/model/
 ```
+
 那这个时候我们就可以看到在 model 文件夹下保存了模型的相关文件和内容了。
-```
+
+```bash
 |-- model/
     |-- tokenizer.model
     |-- config.json
@@ -242,6 +247,7 @@ cp -r /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b/* /root/
     |-- generation_config.json
     |-- tokenization_internlm2_fast.py
 ```
+
 假如大家存储空间不足，我们也可以通过以下代码一键通过符号链接的方式链接到模型文件，这样既节省了空间，也便于管理。
 
 ```bash
@@ -251,12 +257,14 @@ rm -rf /root/ft/model
 # 创建符号链接
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/ft/model
 ```
+
 执行上述操作后，`/root/ft/model` 将直接成为一个符号链接，这个链接指向 `/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b` 的位置。
 
 这意味着，当我们访问 `/root/ft/model` 时，实际上就是在访问 `/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b` 目录下的内容。通过这种方式，我们无需复制任何数据，就可以直接利用现有的模型文件进行后续的微调操作，从而节省存储空间并简化文件管理。
 
 在该情况下的文件结构如下所示，可以看到和上面的区别在于多了一些软链接相关的文件。
-```
+
+```bash
 |-- model/
     |-- tokenizer.model
     |-- config.json
@@ -278,12 +286,14 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b /root/ft
 ```
 
 #### 2.2.3 配置文件选择
+
 在准备好了模型和数据集后，我们就要根据我们选择的微调方法方法结合前面的信息来找到与我们最匹配的配置文件了，从而减少我们对配置文件的修改量。
 
 所谓配置文件（config），其实是一种用于定义和控制模型训练和测试过程中各个方面的参数和设置的工具。准备好的配置文件只要运行起来就代表着模型就开始训练或者微调了。
 
 XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令查看：
 > 开箱即用意味着假如能够连接上 Huggingface 以及有足够的显存，其实就可以直接运行这些配置文件，XTuner就能够直接下载好这些模型和数据集然后开始进行微调
+
 ```Bash
 # 列出所有内置配置文件
 # xtuner list-cfg
@@ -291,9 +301,11 @@ XTuner 提供多个开箱即用的配置文件，用户可以通过下列命令�
 # 假如我们想找到 internlm2-1.8b 模型里支持的配置文件
 xtuner list-cfg -p internlm2_1_8b
 ```
+
 > 这里就用到了第一个 XTuner 的工具 `list-cfg` ，对于这个工具而言，可以选择不添加额外的参数，就像上面的一样，这样就会将所有的配置文件都打印出来。那同时也可以加上一个参数 `-p` 或 `--pattern` ，后面输入的内容将会在所有的 config 文件里进行模糊匹配搜索，然后返回最有可能得内容。我们可以用来搜索特定模型的配置文件，比如例子中的 internlm2_1_8b ,也可以用来搜索像是微调方法 qlora 。
 根据上面的定向搜索指令可以看到目前只有两个支持 internlm2-1.8B 的模型配置文件。
-```
+
+```bash
 ==========================CONFIGS===========================
 PATTERN: internlm2_1_8b
 -------------------------------
@@ -301,6 +313,7 @@ internlm2_1_8b_full_alpaca_e3
 internlm2_1_8b_qlora_alpaca_e3
 =============================================================
 ```
+
 <details>
 <summary>配置文件名的解释</summary>
 
@@ -316,6 +329,7 @@ internlm2_1_8b_qlora_alpaca_e3
 </details>
 
 虽然我们用的数据集并不是 `alpaca` 而是我们自己通过脚本制作的小助手数据集 ，但是由于我们是通过 `QLoRA` 的方式对 `internlm-chat-1.8b` 进行微调。而最相近的配置文件应该就是 `internlm2_1_8b_qlora_alpaca_e3` ，因此我们可以选择拷贝这个配置文件到当前目录：
+
 ```Bash
 # 创建一个存放 config 文件的文件夹
 mkdir -p /root/ft/config
@@ -323,21 +337,27 @@ mkdir -p /root/ft/config
 # 使用 XTuner 中的 copy-cfg 功能将 config 文件复制到指定的位置
 xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 ```
+
 > 这里我们就用到了 XTuner 工具箱中的第二个工具 `copy-cfg` ，该工具有两个必须要填写的参数 `{CONFIG_NAME}` 和 `{SAVE_PATH}` ，在我们的输入的这个指令中，我们的 `{CONFIG_NAME}` 对应的是上面搜索到的 `internlm2_1_8b_qlora_alpaca_e3` ,而 `{SAVE_PATH}` 则对应的是刚刚新建的 `/root/ft/config`。我们假如需要复制其他的配置文件只需要修改这两个参数即可实现。
 输入后我们就能够看到在我们的 `/root/ft/config` 文件夹下有一个名为 `internlm2_1_8b_qlora_alpaca_e3_copy.py` 的文件了。
-```
+
+```bash
 |-- config/
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
 ```
+
 #### 2.2.4 小结
+
 完成以上内容后，我就已经完成了所有的准备工作了。我们再来回顾一下我们做了哪些事情：
+
 1. 我们首先是在 GitHub 上克隆了 XTuner 的源码，并把相关的配套库也通过 pip 的方式进行了安装。
 2. 然后我们根据自己想要做的事情，利用脚本准备好了一份关于调教模型认识自己身份弟位的数据集。
 3. 再然后我们根据自己的显存及任务情况确定了使用 InternLM-chat-1.8B 这个模型，并且将其复制到我们的文件夹里。
 4. 最后我们在 XTuner 已有的配置文件中，根据微调方法、数据集和模型挑选出最合适的配置文件并复制到我们新建的文件夹中。
 
 经过了以上的步骤后，我们的 `ft` 文件夹里应该是这样的：
-```
+
+```bash
 |-- ft/
     |-- config/
         |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
@@ -360,6 +380,7 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
         |-- personal_assistant.json
         |-- generate_data.py
 ```
+
 是不是感觉其实微调也不过如此！事实上确实是这样的！其实在微调的时候最重要的还是要自己准备一份高质量的数据集，这个才是你能否真微调出效果最核心的利器。
 
 微调也经常被戏称为是炼丹，就是说你炼丹的时候你得思考好用什么样的材料、用多大的火候、烤多久的时间以及用什么丹炉去烧。这里的丹炉其实我们可以想象为 XTuner ，只要丹炉的质量过得去，炼丹的时候不会炸，一般都是没问题的。但是假如炼丹的材料（就是数据集）本来就是垃圾，那无论怎么炼（微调参数的调整），炼多久（训练的轮数），炼出来的东西还只能且只会是垃圾。只有说用了比较好的材料，那么我们就可以考虑说要炼多久以及用什么办法去炼的问题。因此总的来说，学会如何构建一份高质量的数据集是至关重要的。
@@ -367,12 +388,14 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 假如想要了解更多关于数据集制作方面的内容，可以加入书生.浦语的 RolePlay SIG 中，里面会有各种大佬手把手教学，教你如何制作一个自己喜欢角色的数据集出来。也期待更多大佬加入讲述自己制作数据集的想法和过程！
 
 ### 2.3 配置文件修改
+
 在选择了一个最匹配的配置文件并准备好其他内容后，下面我们要做的事情就是根据我们自己的内容对该配置文件进行调整，使其能够满足我们实际训练的要求。
 
 <details>
 <summary><b>配置文件介绍</b></summary>
- 
+
 假如我们真的打开配置文件后，我们可以看到整体的配置文件分为五部分：
+
 1. **PART 1 Settings**：涵盖了模型基本设置，如预训练模型的选择、数据集信息和训练过程中的一些基本参数（如批大小、学习率等）。
 
 2. **PART 2 Model & Tokenizer**：指定了用于训练的模型和分词器的具体类型及其配置，包括预训练模型的路径和是否启用特定功能（如可变长度注意力），这是模型训练的核心组成部分。
@@ -391,7 +414,7 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 <summary><b>参数修改细节</b></summary>
 
 首先在 PART 1 的部分，由于我们不再需要在 Huggingface 上自动下载模型，因此我们先要更换模型的路径以及数据集的路径为我们本地的路径。
-    
+
 ```diff
 # 修改模型地址（在第27行的位置）
 - pretrained_model_name_or_path = 'internlm/internlm2-1_8b'
@@ -420,7 +443,6 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 
 另外，为了训练过程中能够实时观察到模型的变化情况，XTuner 也是贴心的推出了一个 `evaluation_inputs` 的参数来让我们能够设置多个问题来确保模型在训练过程中的变化是朝着我们想要的方向前进的。比如说我们这里是希望在问出 “请你介绍一下你自己” 或者说 “你是谁” 的时候，模型能够给你的回复是 “我是XXX的小助手...” 这样的回复。因此我们也可以根据这个需求进行更改。
 
-
 ``` diff
 # 修改每多少轮进行一次评估（在第57行的位置）
 - evaluation_freq = 500
@@ -431,6 +453,7 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 - evaluation_inputs = ['请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai']
 + evaluation_inputs = ['请你介绍一下你自己', '你是谁', '你是我的小助手吗']
 ```
+
 这样修改完后在评估过程中就会显示在当前的权重文件下模型对这几个问题的回复了。
 
 由于我们的数据集不再是原本的 aplaca 数据集，因此我们也要进入 PART 3 的部分对相关的内容进行修改。包括说我们数据集输入的不是一个文件夹而是一个单纯的 json 文件以及我们的数据集格式要求改为我们最通用的 OpenAI 数据集格式。
@@ -477,7 +500,6 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 
 > 如果想把显卡的现存吃满，充分利用显卡资源，可以将 `max_length` 和 `batch_size` 这两个参数调大。
 </details>
-
 
 </details>
 
@@ -704,6 +726,7 @@ log_processor = dict(by_epoch=False)
 这一节我们讲述了微调过程中一些常见的需要调整的内容，包括各种的路径、超参数、评估问题等等。完成了这部分的修改后，我们就可以正式的开始我们下一阶段的旅程： XTuner 启动~！
 
 ![tH8udZzECYl5are.png](imgs/ysqd.png)
+
 ### 2.4 模型训练
 
 #### 2.4.1 常规训练
@@ -716,8 +739,10 @@ log_processor = dict(by_epoch=False)
 # 指定保存路径
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train
 ```
+
 在输入训练完后的文件如下所示：
-```
+
+```bash
 |-- train/
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
     |-- iter_600.pth
@@ -764,9 +789,10 @@ DeepSpeed是一个深度学习优化库，由微软开发，旨在提高大规�
 # 使用 deepspeed 来加速训练
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train_deepspeed --deepspeed deepspeed_zero2
 ```
+
 可以看到，通过 `deepspeed` 来训练后得到的权重文件和原本的权重文件是有所差别的，原本的仅仅是一个 .pth 的文件，而使用了 `deepspeed` 则是一个名字带有 .pth 的文件夹，在该文件夹里保存了两个 .pt 文件。当然这两者在具体的使用上并没有太大的差别，都是可以进行转化并整合。
 
-```
+```bash
 |-- train_deepspeed/
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
     |-- zero_to_fp32.py
@@ -791,10 +817,11 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
         |-- mp_rank_00_model_states.pt
 ```
 
-
 #### 2.4.3 训练结果
+
 但是其实无论是用哪种方式进行训练，得到的结果都是大差不差的。我们由于设置了300轮评估一次，所以我们可以对比一下300轮和600轮的评估问题结果来看看差别。
-```
+
+```bash
 # 300轮
 
 <|User|>:请你介绍一下你自己
@@ -817,6 +844,7 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 <|User|>:你是我的小助手吗
 <|Bot|>:我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 ```
+
 通过两者的对比我们其实就可以很清楚的看到，在300轮的时候模型已经学会了在我问 “你是谁” 或者说 “请你介绍一下我自己” 的时候回答 “我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦”。
 
 但是两者的不同是在询问 “你是我的小助手” 的这个问题上，300轮的时候是回答正确的，回答了 “是” ，但是在600轮的时候回答的还是 “我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这一段话。这表明模型在第一批次第600轮的时候已经出现严重的过拟合（即模型丢失了基础的能力，只会成为某一句话的复读机）现象了，到后面的话无论我们再问什么，得到的结果也就只能是回答这一句话了，模型已经不会再说别的话了。因此假如以通用能力的角度选择最合适的权重文件的话我们可能会选择前面的权重文件进行后续的模型转化及整合工作。
@@ -837,8 +865,10 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 # 模型续训
 xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /root/ft/train --resume /root/ft/train/iter_600.pth
 ```
+
 在实测过程中，虽然权重文件并没有发生改变，但是会多一个以时间戳为名的训练过程文件夹保存训练的过程数据。
-```
+
+```bash
 |-- train/
     |-- internlm2_1_8b_qlora_alpaca_e3_copy.py
     |-- iter_600.pth
@@ -862,13 +892,17 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
             |-- scalars.json
             |-- config.py
 ```
+
 </details>
 
 #### 2.4.4 小结
+
 在本节我们的重点是讲解模型训练过程中的种种细节内容，包括了模型训练中的各个参数以、权重文件的选择方式以及模型续训的方法。可以看到是否使用 `--work-dir` 和 是否使用 `--deepspeed` 会对文件的保存位置以及权重文件的保存方式有所不同，大家也可以通过实践去实际的测试感受一下。那么在训练完成后，我们就可以把训练得到的 .pth 文件进行下一步的转换和整合工作了！
 
 ### 2.5 模型转换、整合、测试及部署
+
 #### 2.5.1 模型转换
+
 模型转换的本质其实就是将原本使用 Pytorch 训练出来的模型权重文件转换为目前通用的 Huggingface 格式文件，那么我们可以通过以下指令来实现一键转换。
 
 ``` bash
@@ -879,8 +913,10 @@ mkdir -p /root/ft/huggingface
 # xtuner convert pth_to_hf ${配置文件地址} ${权重文件地址} ${转换后模型保存地址}
 xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_768.pth /root/ft/huggingface
 ```
+
 转换完成后，可以看到模型被转换为 Huggingface 中常用的 .bin 格式文件，这就代表着文件成功被转化为 Huggingface 格式了。
-```
+
+```bash
 |-- huggingface/
     |-- adapter_config.json
     |-- xtuner_config.py
@@ -899,18 +935,21 @@ xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /
 | --max-shard-size {GB}        | 代表每个权重文件最大的大小（默认为2GB）                |
 
 假如有特定的需要，我们可以在上面的转换指令后进行添加。由于本次测试的模型文件较小，并且已经验证过拟合，故没有添加。假如加上的话应该是这样的：
+
 ```bash
 xtuner convert pth_to_hf /root/ft/train/internlm2_1_8b_qlora_alpaca_e3_copy.py /root/ft/train/iter_768.pth /root/ft/huggingface --fp32 --max-shard-size 2GB
 ```
+
 #### 2.5.2 模型整合
+
 我们通过视频课程的学习可以了解到，对于 LoRA 或者 QLoRA 微调出来的模型其实并不是一个完整的模型，而是一个额外的层（adapter）。那么训练完的这个层最终还是要与原模型进行组合才能被正常的使用。
 
 而对于全量微调的模型（full）其实是不需要进行整合这一步的，因为全量微调修改的是原模型的权重而非微调一个新的 adapter ，因此是不需要进行模型整合的。
 
 <img src="https://github.com/InternLM/Tutorial/assets/108343727/dbb82ca8-e0ef-41db-a8a9-7d6958be6a96" width="300" height="300">
 
-
 在 XTuner 中也是提供了一键整合的指令，但是在使用前我们需要准备好三个地址，包括原模型的地址、训练好的 adapter 层的地址（转为 Huggingface 格式后保存的部分）以及最终保存的地址。
+
 ```bash
 # 创建一个名为 final_model 的文件夹存储整合后的模型文件
 mkdir -p /root/ft/final_model
@@ -922,6 +961,7 @@ export MKL_SERVICE_FORCE_INTEL=1
 # xtuner convert merge  ${NAME_OR_PATH_TO_LLM} ${NAME_OR_PATH_TO_ADAPTER} ${SAVE_PATH} 
 xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 ```
+
 那除了以上的三个基本参数以外，其实在模型整合这一步还是其他很多的可选参数，包括：
 | 参数名 | 解释 |
 | ------------------- | ------------------------------------------------------ |
@@ -933,7 +973,8 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 在模型整合完成后，我们就可以看到 final_model 文件夹里生成了和原模型文件夹非常近似的内容，包括了分词器、权重文件、配置信息等等。当我们整合完成后，我们就能够正常的调用这个模型进行对话测试了。
 
 整合完成后可以查看在 final_model 文件夹下的内容。
-```
+
+```bash
 |-- final_model/
     |-- tokenizer.model
     |-- config.json
@@ -951,6 +992,7 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 ```
 
 #### 2.5.3 对话测试
+
 在 XTuner 中也直接的提供了一套基于 transformers 的对话代码，让我们可以直接在终端与 Huggingface 格式的模型进行对话操作。我们只需要准备我们刚刚转换好的模型路径并选择对应的提示词模版（prompt-template）即可进行对话。假如 prompt-template 选择有误，很有可能导致模型无法正确的进行回复。
 
 > 想要了解具体模型的 prompt-template 或者 XTuner 里支持的 prompt-tempolate，可以到 XTuner 源码中的 `xtuner/utils/templates.py` 这个文件中进行查找。
@@ -959,9 +1001,11 @@ xtuner convert merge /root/ft/model /root/ft/huggingface /root/ft/final_model
 # 与模型进行对话
 xtuner chat /root/ft/final_model --prompt-template internlm2_chat
 ```
+
 我们可以通过一些简单的测试来看看微调后的模型的能力。
 > 假如我们想要输入内容需要在输入文字后敲击两下回车，假如我们想清楚历史记录需要输入 RESET，假如我们想要退出则需要输入 EXIT。
-```
+
+```bash
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
 我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
@@ -974,14 +1018,17 @@ double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我�
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
 Log: Exit!
 ```
+
 可以看到模型已经严重过拟合，回复的话就只有 “我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这句话。我们下面可以通过对比原模型的能力来看看差异。
 
 ```bash
 # 同样的我们也可以和原模型进行对话进行对比
 xtuner chat /root/ft/model --prompt-template internlm2_chat
 ```
+
 我们可以用同样的问题来查看回复的情况。
-```
+
+```bash
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
 我是一个人工智能助手，旨在帮助用户回答问题、提供定义和解释、将文本从一种语言翻译成另一种语言、总结文本、生成文本、编写故事、分析情感、提供推荐、开发算法、编写代码以及其他任何基于语言的任务。我致力于通过执行常见的基于语言的任务和提供建议来帮助人类。<|im_end|>
 
@@ -994,6 +1041,7 @@ double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我�
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
 Log: Exit!
 ```
+
 可以看到在没有进行我们数据的微调前，原模型是能够输出有逻辑的回复，并且也不会认为他是我们特有的小助手。因此我们可以很明显的看出两者之间的差异性。
 
 那对于 `xtuner chat` 这个指令而言，还有很多其他的参数可以进行设置的，包括：
@@ -1017,6 +1065,7 @@ Log: Exit!
 | --seed                | 设置随机种子，用于生成可重现的文本内容                            |
 
 除了这些参数以外其实还有一个非常重要的参数就是 `--adapter` ，这个参数主要的作用就是可以在转化后的 adapter 层与原模型整合之前来对该层进行测试。使用这个额外的参数对话的模型和整合后的模型几乎没有什么太多的区别，因此我们可以通过测试不同的权重文件生成的 adapter 来找到最优的 adapter 进行最终的模型整合工作。
+
 ```bash
 # 使用 --adapter 参数与完整的模型进行对话
 xtuner chat /root/ft/model --adapter /root/ft/huggingface --prompt-template internlm2_chat
@@ -1047,7 +1096,6 @@ cd /root/ft/web_demo/InternLM
 ```
 
 将 `/root/ft/web_demo/InternLM/chat/web_demo.py` 中的内容替换为以下的代码（与源代码相比，此处修改了模型路径和分词器路径，并且也删除了 avatar 及 system_prompt 部分的内容，同时与 cli 中的超参数进行了对齐）。
-
 
 ```python
 """This script refers to the dialogue example of streamlit, the interactive
@@ -1345,6 +1393,7 @@ if __name__ == '__main__':
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/0d975df8-e02c-4c17-aee4-787d4dbb4d44)
 
 然后我们需要在 PowerShell 中输入以下内容（需要替换为自己的端口号）
+
 ```bash
 # 从本地使用 ssh 连接 studio 端口
 # 将下方端口号 38374 替换成自己的端口号
@@ -1355,11 +1404,9 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 38374
 
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/32f364da-6644-4344-a090-5cf1ee0387bc)
 
-
 最终保持在如下效果即可：
 
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/aab7f2eb-ea17-4434-9d56-b86e3261a2c9)
-
 
 之后我们需要输入以下命令运行 `/root/personal_assistant/code/InternLM` 目录下的 `web_demo.py` 文件。
 
@@ -1388,6 +1435,7 @@ streamlit run /root/ft/web_demo/InternLM/chat/web_demo.py --server.address 127.0
 - tokenizer = AutoTokenizer.from_pretrained('/root/ft/final_model',
 + tokenizer = AutoTokenizer.from_pretrained('/root/ft/model',
 ```
+
 然后使用上方同样的命令即可运行。
 
 ```bash
@@ -1399,11 +1447,12 @@ streamlit run /root/ft/web_demo/InternLM/chat/web_demo.py --server.address 127.0
 ![image](https://github.com/Jianfeng777/tutorial/assets/108343727/7f45e22c-f473-4d6d-bae7-533bacad474b)
 
 #### 2.5.5 小结
+
 在这一小节里我们对微调后的模型（adapter）进行了转换及整合的操作，并通过 `xtuner chat` 来对模型进行了实际的对话测试。从结果可以清楚的看出模型的回复在微调的前后出现了明显的变化。那当我们在测试完模型认为其满足我们的需求后，我们就可以对模型进行量化部署等操作了，这部分的内容在之后关于 LMDeploy 的课程中将会详细的进行讲解，敬请期待后续的课程吧！
 
 ### 2.6 总结
-在本节中主要就是带领着大家跑通了 XTuner 的一个完整流程，通过了解数据集和模型的使用方法、配置文件的制作和训练以及最后的转换及整合。那在后面假如我们也有想要微调出自己的一个模型，我们也可以尝试使用同样流程和方法进行进一步的实践！
 
+在本节中主要就是带领着大家跑通了 XTuner 的一个完整流程，通过了解数据集和模型的使用方法、配置文件的制作和训练以及最后的转换及整合。那在后面假如我们也有想要微调出自己的一个模型，我们也可以尝试使用同样流程和方法进行进一步的实践！
 
 ## 作业
 
