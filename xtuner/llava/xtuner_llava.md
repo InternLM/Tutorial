@@ -442,6 +442,7 @@ xtuner copy-cfg \
 #### 1.3.4.3. 开始Finetune
 
 ```bash
+cd /root/tutorial/xtuner/llava/
 xtuner train /root/tutorial/xtuner/llava/llava_internlm2_chat_1_8b_qlora_clip_vit_large_p14_336_lora_e1_gpu8_finetune_copy.py --deepspeed deepspeed_zero2
 ```
 
