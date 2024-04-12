@@ -9,6 +9,9 @@
     - [2.2 获取 API KEY](#22-获取-api-key)
     - [2.3 体验自定义工具效果](#23-体验自定义工具效果)
 
+> [!TIPS]
+> 前置环境配置部分请访问 [1.4 环境配置](README.md#14-环境配置)。
+
 ## 1. Lagent Web Demo
 
 ### 1.1 使用 LMDeploy 部署
@@ -67,7 +70,7 @@ ssh -CNg -L 7860:127.0.0.1:7860 -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.
 
 ### 2.1 创建工具文件
 
-首先通过 `touch /root/agent/lagent/actions/weather.py` 新建工具文件，该文件内容如下：
+首先通过 `touch /root/agent/lagent/lagent/actions/weather.py`（大小写敏感）新建工具文件，该文件内容如下：
 
 ```python
 import json

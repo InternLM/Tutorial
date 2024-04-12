@@ -15,6 +15,7 @@
   - [2. Lagent：轻量级智能体框架](#2-lagent轻量级智能体框架)
   - [3. AgentLego：组装智能体“乐高”](#3-agentlego组装智能体乐高)
   - [4. Agent 工具能力微调](#4-agent-工具能力微调)
+  - [5. 作业](#5-作业)
 
 ## 1. 概述
 
@@ -154,6 +155,8 @@ studio-conda -t agent -o pytorch-2.1.2
 
 ![创建环境](./assets/introduction/env.png)
 
+<details><summary><b>非 InterStudio 开发机</b>环境配置</summary>
+
 如果是在**非 InternStudio 开发机**上配置环境，则可以通过如下指令创建初始环境：
 
 ```bash
@@ -162,6 +165,7 @@ conda activate agent
 conda install python=3.10
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=11.8 -c pytorch -c nvidia
 ```
+</details>
 
 #### 1.4.2 安装 Lagent 和 AgentLego
 
@@ -197,8 +201,7 @@ pip install lmdeploy==0.3.0
 
 ```bash
 cd /root/agent
-git clone https://gitee.com/internlm/tutorial.git
-cd tutorial && git checkout a2ab9c8 && cd ..
+git clone -b camp2 https://gitee.com/internlm/tutorial.git
 ```
 
 ## 2. Lagent：轻量级智能体框架
@@ -218,3 +221,7 @@ cd tutorial && git checkout a2ab9c8 && cd ..
 在这一部分中，我们将介绍 OpenAI Function Calling 的相关内容，以及带大家使用 XTuner 来实现 Agent 工具能力的微调。
 
 详细文档可以访问：[Agent 工具能力微调](finetune.md)。
+
+## 5. 作业
+
+作业内容详见 [作业](homework.md)。
