@@ -46,10 +46,10 @@ OpenCompass采取的主观评测方案是指借助受试者的主观判断对具
 [图片]
 ### 概览
 在 OpenCompass 中评估一个模型通常包括以下几个阶段：配置 -> 推理 -> 评估 -> 可视化。
-配置：这是整个工作流的起点。您需要配置整个评估过程，选择要评估的模型和数据集。此外，还可以选择评估策略、计算后端等，并定义显示结果的方式。
-推理与评估：在这个阶段，OpenCompass 将会开始对模型和数据集进行并行推理和评估。推理阶段主要是让模型从数据集产生输出，而评估阶段则是衡量这些输出与标准答案的匹配程度。这两个过程会被拆分为多个同时运行的“任务”以提高效率，但请注意，如果计算资源有限，这种策略可能会使评测变得更慢。如果需要了解该问题及解决方案，可以参考 FAQ: 效率。
-可视化：评估完成后，OpenCompass 将结果整理成易读的表格，并将其保存为 CSV 和 TXT 文件。你也可以激活飞书状态上报功能，此后可以在飞书客户端中及时获得评测状态报告。
-接下来，我们将展示 OpenCompass 的基础用法，展示书生浦语在 C-Eval 基准任务上的评估。它们的配置文件可以在 configs/eval_demo.py 中找到。
+- 配置：这是整个工作流的起点。您需要配置整个评估过程，选择要评估的模型和数据集。此外，还可以选择评估策略、计算后端等，并定义显示结果的方式。
+- 推理与评估：在这个阶段，OpenCompass 将会开始对模型和数据集进行并行推理和评估。推理阶段主要是让模型从数据集产生输出，而评估阶段则是衡量这些输出与标准答案的匹配程度。这两个过程会被拆分为多个同时运行的“任务”以提高效率，但请注意，如果计算资源有限，这种策略可能会使评测变得更慢。如果需要了解该问题及解决方案，可以参考 FAQ: 效率。
+- 可视化：评估完成后，OpenCompass 将结果整理成易读的表格，并将其保存为 CSV 和 TXT 文件。你也可以激活飞书状态上报功能，此后可以在飞书客户端中及时获得评测状态报告。
+接下来，我们将展示 OpenCompass 的基础用法，展示书生浦语在 `C-Eval` 基准任务上的评估。它们的配置文件可以在 `configs/eval_demo.py` 中找到。
 ### 安装
 
 #### 面向GPU的环境安装
@@ -63,14 +63,14 @@ pip install -e .
 有部分第三方功能,如代码能力基准测试 Humaneval 以及 Llama格式的模型评测,可能需要额外步骤才能正常运行，如需评测，详细步骤请参考安装指南。
 
 #### 数据准备
-#解压评测数据集到 data/ 处
+解压评测数据集到 data/ 处
 ```shell
 cp /share/temp/datasets/OpenCompassData-core-20231110.zip /root/opencompass/
 unzip OpenCompassData-core-20231110.zip
 ```
-#将会在opencompass下看到data文件夹
+将会在opencompass下看到data文件夹
 #### 查看支持的数据集和模型
-#列出所有跟 internlm 及 ceval 相关的配置
+列出所有跟 internlm 及 ceval 相关的配置
 ```shell
 python tools/list_configs.py internlm ceval
 ```
@@ -126,9 +126,12 @@ python tools/list_configs.py internlm ceval
 ```
 
 #### 启动评测
-  确保按照上述步骤正确安装 OpenCompass 并准备好数据集后，可以通过以下命令评测 InternLM2-Chat-7B 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
+确保按照上述步骤正确安装 OpenCompass 并准备好数据集后，可以通过以下命令评测 InternLM2-Chat-7B 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
+```shell
 python run.py --datasets ceval_gen --hf-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-kwargs padding_side='left' truncation='left' trust_remote_code=True --model-kwargs trust_remote_code=True device_map='auto' --max-seq-len 2048 --max-out-len 16 --batch-size 4 --num-gpus 1 --debug
-  命令解析
+```  
+命令解析
+```
 python run.py
 --datasets ceval_gen \
 --hf-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \  # HuggingFace 模型路径
@@ -140,9 +143,13 @@ python run.py
 --batch-size 4  \  # 批量大小
 --num-gpus 1  # 运行模型所需的 GPU 数量
 --debug
-  如果一切正常，您应该看到屏幕上显示 “Starting inference process”：
+```
+如果一切正常，您应该看到屏幕上显示 “Starting inference process”：
+```
 [2024-03-18 12:39:54,972] [opencompass.openicl.icl_inferencer.icl_gen_inferencer] [INFO] Starting inference process...
-  评测完成后，将会看到：
+```
+评测完成后，将会看到：
+```
 dataset                                         version    metric         mode      opencompass.models.huggingface.HuggingFace_Shanghai_AI_Laboratory_internlm2-chat-1_8b
 ----------------------------------------------  ---------  -------------  ------  ---------------------------------------------------------------------------------------
 ceval-computer_network                          db9ce2     accuracy       gen                                                                                       26.32
@@ -203,7 +210,7 @@ ceval-humanities                                -          naive_average  gen   
 ceval-other                                     -          naive_average  gen                                                                                       42.11
 ceval-hard                                      -          naive_average  gen                                                                                       23.9
 ceval                                           -          naive_average  gen                                                                                       40.39
-  
+```
 ## 自定义数据集客主观评测：量身定制，慧眼识珠
   本教程仅供临时性的、非正式的数据集使用，如果所用数据集需要长期使用，或者存在定制化读取 / 推理 / 评测需求的，强烈建议按照 new_dataset.md 中介绍的方法进行实现。
   在本教程中，我们将会介绍如何在不实现 config，不修改 OpenCompass 源码的情况下，对一新增数据集进行测试的方法。我们支持的任务类型包括选择 (mcq) 和问答 (qa) 两种，其中 mcq 支持 ppl 推理和 gen 推理；qa 支持 gen 推理。
