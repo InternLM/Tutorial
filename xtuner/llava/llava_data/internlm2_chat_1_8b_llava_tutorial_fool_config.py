@@ -54,7 +54,7 @@ save_total_limit = 2  # Maximum checkpoints to keep (-1 means unlimited)
 evaluation_freq = 500
 SYSTEM = ''
 evaluation_images = 'https://llava-vl.github.io/static/images/view.jpg'
-evaluation_inputs = ['请描述一下这张照片', 'Please describe this picture']
+evaluation_inputs = ['Please describe this picture','What is the equipment in the image?']
 
 #######################################################################
 #            PART 2  Model & Tokenizer & Image Processor              #
