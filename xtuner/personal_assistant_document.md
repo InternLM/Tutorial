@@ -1089,11 +1089,11 @@ logger = logging.get_logger(__name__)
 @dataclass
 class GenerationConfig:
     # this config is used for chat to provide more diversity
-    max_length: int = 32768
-    top_p: float = 0.8
-    temperature: float = 0.8
+    max_length: int = 2048
+    top_p: float = 0.75
+    temperature: float = 0.1
     do_sample: bool = True
-    repetition_penalty: float = 1.005
+    repetition_penalty: float = 1.000
 
 
 @torch.inference_mode()
