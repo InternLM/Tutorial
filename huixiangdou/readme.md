@@ -131,7 +131,7 @@ pip install protobuf==4.25.3 accelerate==0.28.0 aiohttp==3.9.3 auto-gptq==0.7.1 
 
 ```bash
 cd /root
-# 下载 repo
+# 克隆代码仓库
 git clone https://github.com/internlm/huixiangdou && cd huixiangdou
 git checkout 447c6f7e68a1657fce1c4f7c740ea1700bde0440
 
@@ -327,7 +327,7 @@ RAG 技术的优势就是非参数化的模型调优，这里使用的仍然是�
 
 ![](imgs/serper_api.png)
 
-1. 替换 `/huixiangdou/config.ini` 中的 ***${YOUR-API-KEY}*** 为自己的API-key：
+3. 替换 `/huixiangdou/config.ini` 中的 ***${YOUR-API-KEY}*** 为自己的API-key：
 
 ```
 [web_search]
@@ -364,7 +364,7 @@ enable_remote = 1 # 启用云端模型
 | `remote_llm_model` | "gpt-4-0613"| "moonshot-v1-128k" | "deepseek-chat" | "glm-4" | "gpt-4-0613" | - |
 
 
-启用远程模型可以大大降低GPU显存需求，根据测试，采用远程模型的茴香豆应用，最小只需要2G内存即可。
+启用远程模型可以大大降低GPU显存需求，根据测试，采用远程模型的茴香豆应用，最小只需要2G显存即可。
 
 需要注意的是，这里启用的远程模型，只用在问答分析和问题生成，依然需要本地嵌入、重排序模型进行特征提取。
 
@@ -402,7 +402,7 @@ python3 -m tests.test_query_gradio
   - Mac 用户直接找到并打开`终端`
   - Ubuntu 用户使用快捷键组合 `ctrl + alt + t`
 
-在命令行中输入如下命令，命令行会提示输入密码：
+    在命令行中输入如下命令，命令行会提示输入密码：
 ```
 ssh -CNg -L 7860:127.0.0.1:7860 root@ssh.intern-ai.org.cn -p <你的端口号>
 ```
