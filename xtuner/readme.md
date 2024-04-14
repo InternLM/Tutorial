@@ -17,7 +17,22 @@ LLM 部分将带大家基于 XTuner 微调一个具有个人认知的小助手�
 可以明显看到的是，微调后的大模型真的能够被调整成我们想要的样子，详细文档请访问：[XTuner 微调个人小助手部分](./personal_assistant_document.md)
 
 
-### Part 2: 多模态部分 （更新撰写中）
+### Part 2: 多模态部分
+
+
+在本节课中，我们将学习使用XTuner微调多模态LLM的内容，本部分需要的GPU资源为24GB 30% 的 A100。
+
+这是学完本节内容后的多模态LLM性能效果展示：
+
+**Finetune前的多模态LLM(InternLM_Chat_1.8B_llava)：只会给图像打标题**
+![ft_before](img4md/ft_before.png)
+
+**Finetune后的多模态LLM(InternLM_Chat_1.8B_llava)：会根据图像回答问题了**
+![ft_after](img4md/ft_after.png)
+</details>
+
+请访问[链接](./llava/xtuner_llava.md)查看详细教程~
+
 
 
 ### Part 3: Agent 微调模型函数调用能力 
