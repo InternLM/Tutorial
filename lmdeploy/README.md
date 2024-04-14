@@ -487,7 +487,7 @@ lmdeploy serve api_server -h
 注意，这一步由于Server在远程服务器上，所以本地需要做一下ssh转发才能直接访问。**在你本地打开一个cmd窗口**，输入命令如下：
 
 ```sh
-ssh -CNg -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p <你的ssh端口号>
+ssh -CNg -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p 你的ssh端口号
 ```
 
 ssh 端口号就是下面图片里的 39864，请替换为你自己的。
