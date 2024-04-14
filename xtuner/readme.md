@@ -22,10 +22,11 @@ LLM 部分将带大家基于 XTuner 微调一个具有个人认知的小助手�
 
 在本节中，我们将学习使用 XTuner 微调多模态LLM的内容，这是学完本节内容后的多模态LLM性能效果展示：
 
+<div align=center>
+
 ![image](https://github.com/InternLM/Tutorial/assets/25839884/7bab37ec-18f9-4731-979d-c5fc8acf80fa)
 
-
-备注：本部分需要的GPU资源为24GB 30% 的 A100
+</div>
 
 
 **Finetune前的多模态LLM(InternLM_Chat_1.8B_llava)：只会给图像打标题**
@@ -37,6 +38,7 @@ LLM 部分将带大家基于 XTuner 微调一个具有个人认知的小助手�
 
 请访问[链接](./llava/xtuner_llava.md)查看详细教程~
 
+备注：本部分需要的GPU资源为24GB 30% 的 A100
 
 
 ### Part 3: Agent 微调模型函数调用能力 
