@@ -25,10 +25,10 @@ LLM 部分将带大家基于 XTuner 微调一个具有个人认知的小助手�
 这是学完本节内容后的多模态LLM性能效果展示：
 
 **Finetune前的多模态LLM(InternLM_Chat_1.8B_llava)：只会给图像打标题**
-![ft_before](img4md/ft_before.png)
+![ft_before](./llava/img4md/ft_before.png)
 
 **Finetune后的多模态LLM(InternLM_Chat_1.8B_llava)：会根据图像回答问题了**
-![ft_after](img4md/ft_after.png)
+![ft_after](./llava/img4md/ft_after.png)
 </details>
 
 请访问[链接](./llava/xtuner_llava.md)查看详细教程~
