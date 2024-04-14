@@ -186,7 +186,7 @@ class WeatherQuery(BaseAction):
 
 ![创建项目](./assets/lagent/create_project2.png)
 
-接下来回到项目管理页面，查看我们刚刚创建的 key，并且复制好以供2.2.3节中使用。（如下图所示）
+接下来回到项目管理页面，查看我们刚刚创建的 key，并且复制好以供2.3节中使用。（如下图所示）
 
 ![查看 key](./assets/lagent/view_key.png)
 
@@ -206,7 +206,7 @@ lmdeploy serve api_server /root/share/new_models/Shanghai_AI_Laboratory/internlm
 ```
 
 ```bash
-export WEATHER_API_KEY="在1.2.2节获取的API KEY"
+export WEATHER_API_KEY="在2.2节获取的API KEY"
 cd /root/agent/tutorial/agent
 streamlit run internlm2_weather_web_demo.py --server.address 127.0.0.1 --server.port 7860
 ```
