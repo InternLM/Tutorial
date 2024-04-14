@@ -86,7 +86,7 @@ cv2.imwrite('/root/agent/road_detection_direct.jpg', image)
 │   ├── lagent
 │   ├── LICENSE
 │   └── ...
-├── tutorial
+├── Tutorial
 │   ├── assets
 │   ├── agent
 │   ├── helloword
