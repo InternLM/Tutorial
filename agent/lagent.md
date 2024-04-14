@@ -207,6 +207,7 @@ lmdeploy serve api_server /root/share/new_models/Shanghai_AI_Laboratory/internlm
 
 ```bash
 export WEATHER_API_KEY="在2.2节获取的API KEY"
+conda activate agent
 cd /root/agent/Tutorial/agent
 streamlit run internlm2_weather_web_demo.py --server.address 127.0.0.1 --server.port 7860
 ```
