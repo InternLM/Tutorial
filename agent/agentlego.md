@@ -36,7 +36,7 @@ pip install openmim==0.3.9
 mim install mmdet==3.3.0
 ```
 
-在安装完成后，会观察到以下现象（如下图所示），但请放心，这是正常现象，这并不会影响到我们的使用。
+在安装完成后，**可能**会观察到以下现象（如下图所示），但请放心，这是正常现象，这并不会影响到我们的使用。
 
 ![pip error](./assets/agentlego/pip_error.jpg)
 
