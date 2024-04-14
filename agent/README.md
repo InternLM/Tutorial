@@ -201,7 +201,7 @@ pip install lmdeploy==0.3.0
 
 ```bash
 cd /root/agent
-git clone -b camp2 https://gitee.com/internlm/tutorial.git
+git clone -b camp2 https://gitee.com/internlm/Tutorial.git
 ```
 
 ## 2. Lagent：轻量级智能体框架
