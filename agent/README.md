@@ -133,19 +133,19 @@ flowchart LR
 
 ### 1.4 环境配置
 
-为了方便使用，我们需要配置一个环境以同时满足 Lagent 和 AgentLego 运行时所需依赖。在开始配置环境前，我们先创建一个用于存放 Agent 相关文件的目录，可以执行如下命令：
-
-```bash
-mkdir -p /root/agent
-```
-
 #### 1.4.1 创建开发机和 conda 环境
 
 在创建开发机界面选择镜像为 Cuda12.2-conda，并选择 GPU 为30% A100。
 
 ![选择开发机](./assets/introduction/machine.png)
 
-进入**开发机**后，我们需要配置一个 conda 环境，可以输入如下指令：
+进入**开发机**后，为了方便使用，我们需要配置一个环境以同时满足 Lagent 和 AgentLego 运行时所需依赖。在开始配置环境前，我们先创建一个用于存放 Agent 相关文件的目录，可以执行如下命令：
+
+```bash
+mkdir -p /root/agent
+```
+
+接下来，我们开始配置 conda 环境，可以输入如下指令：
 
 ```bash
 studio-conda -t agent -o pytorch-2.1.2
