@@ -1,5 +1,8 @@
 # OpenCompass ：是骡子是马，拉出来溜溜
 
+![opencompass 头图](https://github.com/InternLM/Tutorial/assets/25839884/77c7a2b9-b85c-42d9-ad9e-055d57d9a25a)
+
+
 ## 为什么要研究大模型的评测？
 百家争鸣，百花齐放。
 1. 首先，研究评测对于我们全面了解大型语言模型的优势和限制至关重要。尽管许多研究表明大型语言模型在多个通用任务上已经达到或超越了人类水平，但仍然存在质疑，即这些模型的能力是否只是对训练数据的记忆而非真正的理解。例如，即使只提供LeetCode题目编号而不提供具体信息，大型语言模型也能够正确输出答案，这暗示着训练数据可能存在污染现象。
@@ -247,3 +250,7 @@ Skywork/ChineseDomainModelingEval 数据集收录了 2023 年 9 月至 10 月期
 这些文件用于评估LLM对不同特定领域的理解能力。
 ### 实验评估步骤
 https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/needleinahaystack_eval.html
+
+## 作业
+
+作业请访问：[链接](./homework.md)
