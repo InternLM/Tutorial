@@ -43,7 +43,7 @@ streamlit run internlm2_agent_web_demo.py --server.address 127.0.0.1 --server.po
 在等待 LMDeploy 的 api_server 与 Lagent Web Demo 完全启动后（如下图所示），在**本地**进行端口映射，将 LMDeploy api_server 的23333端口以及 Lagent Web Demo 的7860端口映射到本地。可以执行：
 
 ```bash
-ssh -CNg -L 7860:127.0.0.1:7860 -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p <你的 ssh 端口号>
+ssh -CNg -L 7860:127.0.0.1:7860 -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p 你的 ssh 端口号
 ```
 
 | LMDeploy api_server | Lagent Web Demo | 
@@ -216,7 +216,7 @@ streamlit run internlm2_weather_web_demo.py --server.address 127.0.0.1 --server.
 并在**本地**执行如下操作以进行端口映射：
 
 ```bash
-ssh -CNg -L 7860:127.0.0.1:7860 -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p <你的 ssh 端口号>
+ssh -CNg -L 7860:127.0.0.1:7860 -L 23333:127.0.0.1:23333 root@ssh.intern-ai.org.cn -p 你的 ssh 端口号
 ```
 
 在输入模型地址并选择好工具后，就可以开始体验了。下图是一个例子：
