@@ -10,3 +10,6 @@
 
 - 将自我认知的模型上传到 OpenXLab，并将应用部署到 OpenXLab（优秀学员必做）
 - 复现多模态微调（优秀学员必做）
+
+
+OpenXLab 部署教程：https://github.com/InternLM/Tutorial/tree/camp2/tools/openxlab-deploy
