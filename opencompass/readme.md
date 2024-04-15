@@ -212,11 +212,15 @@ ceval-hard                                      -          naive_average  gen   
 ceval                                           -          naive_average  gen                                                                                       40.39
 ```
 ## 自定义数据集客主观评测：量身定制，慧眼识珠
+
+### 自建客观数据集步骤
+详细的客观评测指引参见
+https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/new_dataset.html
 ### 主观评测简介
 由于客观评测只能反映模型在一些性能数据上的指标，没法完全真实地反映模型在与人类对话时的表现，因此需要在真实的对话场景下通过主观评测的方式翻译模型的真实性能。
 而由于完全靠人力来进行主观评测是费时费力的，因此有很多利用模型来进行主观评测的方式。
 这些方式主要可以分为以下几类：打分，对战，多模型评测等。
-### 实验评估步骤
+### 自建主观数据集步骤
 详细的主观评测指引参见
 https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/subjective_evaluation.html
 
