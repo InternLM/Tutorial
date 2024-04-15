@@ -56,7 +56,7 @@ OpenCompass采取的主观评测方案是指借助受试者的主观判断对具
 ```shell
 studio-conda -o internlm-base -t opencompass
 source activate opencompass
-git clone https://github.com/open-compass/opencompass
+git clone -b 0.2.4 https://github.com/open-compass/opencompass
 cd opencompass
 pip install -e .
 ```
