@@ -1,5 +1,5 @@
 # 第三课作业
-## 基础作业 - 完成下面两个作业
+## 基础作业 - 任意选一个作业
 
 ### 1. 在[茴香豆 Web 版](https://openxlab.org.cn/apps/detail/tpoisonooo/huixiangdou-web)中创建自己领域的知识问答助手
 
