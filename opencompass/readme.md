@@ -53,8 +53,12 @@ OpenCompass采取的主观评测方案是指借助受试者的主观判断对具
 - 推理与评估：在这个阶段，OpenCompass 将会开始对模型和数据集进行并行推理和评估。推理阶段主要是让模型从数据集产生输出，而评估阶段则是衡量这些输出与标准答案的匹配程度。这两个过程会被拆分为多个同时运行的“任务”以提高效率，但请注意，如果计算资源有限，这种策略可能会使评测变得更慢。如果需要了解该问题及解决方案，可以参考 FAQ: 效率。
 - 可视化：评估完成后，OpenCompass 将结果整理成易读的表格，并将其保存为 CSV 和 TXT 文件。你也可以激活飞书状态上报功能，此后可以在飞书客户端中及时获得评测状态报告。
 接下来，我们将展示 OpenCompass 的基础用法，展示书生浦语在 `C-Eval` 基准任务上的评估。它们的配置文件可以在 `configs/eval_demo.py` 中找到。
-### 安装
+### 环境配置
+#### 创建开发机和 conda 环境
+在创建开发机界面选择镜像为 Cuda11.7-conda，并选择 GPU 为30% A100。
+![image](https://github.com/InternLM/Tutorial/assets/102272920/c242f9c1-4ef0-4f43-a31d-4709c5dae8df)
 
+### 安装
 #### 面向GPU的环境安装
 ```shell
 studio-conda -o internlm-base -t opencompass
@@ -64,7 +68,7 @@ cd opencompass
 pip install -e .
 ```
 **如果pip install -e .安装未成功,请运行:**
-```
+```shell
 pip install -r requirements.txt
 ```
 有部分第三方功能,如代码能力基准测试 Humaneval 以及 Llama格式的模型评测,可能需要额外步骤才能正常运行，如需评测，详细步骤请参考安装指南。
@@ -136,7 +140,13 @@ python tools/list_configs.py internlm ceval
 确保按照上述步骤正确安装 OpenCompass 并准备好数据集后，可以通过以下命令评测 InternLM2-Chat-1.8B 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
 ```shell
 python run.py --datasets ceval_gen --hf-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-kwargs padding_side='left' truncation='left' trust_remote_code=True --model-kwargs trust_remote_code=True device_map='auto' --max-seq-len 2048 --max-out-len 16 --batch-size 4 --num-gpus 1 --debug
-```  
+```
+**遇到错误
+![image](https://github.com/InternLM/Tutorial/assets/102272920/6f0295e9-e1f6-479d-b9a0-18ef5a97c77d)
+解决方案：**
+```shell
+pip install protobuf
+```
 命令解析
 ```
 python run.py
@@ -219,7 +229,7 @@ ceval-hard                                      -          naive_average  gen   
 ceval                                           -          naive_average  gen                                                                                       40.39
 ```
 **遇到错误mkl-service + Intel(R) MKL MKL_THREADING_LAYER=INTEL is incompatible with libgomp.so.1 ... 解决方案：**
-```
+```shell
 export MKL_SERVICE_FORCE_INTEL=1
 #或
 export MKL_THREADING_LAYER=GNU
