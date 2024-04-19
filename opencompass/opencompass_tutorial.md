@@ -377,3 +377,8 @@ outputs/default/
 
 其他基于书生·浦语工具链的小项目都在范围内，欢迎大家充分发挥想象力。
 
+## FAQ
+
+### 错误 mkl-service + Intel(R) MKL MKL_THREADING_LAYER=INTEL is incompatible with libgomp.so.1 ... 解决方案
+在运行代码前设置环境变量
+export MKL_SERVICE_FORCE_INTEL=1
