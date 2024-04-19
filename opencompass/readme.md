@@ -63,6 +63,10 @@ git clone -b 0.2.4 https://github.com/open-compass/opencompass
 cd opencompass
 pip install -e .
 ```
+**如果pip install -e .安装未成功,请运行:**
+```
+pip install -r requirements.txt
+```
 有部分第三方功能,如代码能力基准测试 Humaneval 以及 Llama格式的模型评测,可能需要额外步骤才能正常运行，如需评测，详细步骤请参考安装指南。
 
 #### 数据准备
@@ -213,6 +217,12 @@ ceval-humanities                                -          naive_average  gen   
 ceval-other                                     -          naive_average  gen                                                                                       42.11
 ceval-hard                                      -          naive_average  gen                                                                                       23.9
 ceval                                           -          naive_average  gen                                                                                       40.39
+```
+**遇到错误mkl-service + Intel(R) MKL MKL_THREADING_LAYER=INTEL is incompatible with libgomp.so.1 ... 解决方案：**
+```
+export MKL_SERVICE_FORCE_INTEL=1
+#或
+export MKL_THREADING_LAYER=GNU
 ```
 ## 自定义数据集客主观评测：量身定制，慧眼识珠
 
