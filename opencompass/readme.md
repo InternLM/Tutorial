@@ -141,9 +141,10 @@ python tools/list_configs.py internlm ceval
 ```shell
 python run.py --datasets ceval_gen --hf-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-kwargs padding_side='left' truncation='left' trust_remote_code=True --model-kwargs trust_remote_code=True device_map='auto' --max-seq-len 1024 --max-out-len 16 --batch-size 2 --num-gpus 1 --debug
 ```
-**遇到错误**
+**遇到错误：**
+<br>
 ![image](https://github.com/InternLM/Tutorial/assets/102272920/6f0295e9-e1f6-479d-b9a0-18ef5a97c77d)
-
+<br>
 **解决方案：**
 ```shell
 pip install protobuf
