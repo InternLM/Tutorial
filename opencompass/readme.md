@@ -163,6 +163,12 @@ python run.py
 --num-gpus 1  # 运行模型所需的 GPU 数量
 --debug
 ```
+**遇到错误mkl-service + Intel(R) MKL MKL_THREADING_LAYER=INTEL is incompatible with libgomp.so.1 ... 解决方案：**
+```shell
+export MKL_SERVICE_FORCE_INTEL=1
+#或
+export MKL_THREADING_LAYER=GNU
+```
 如果一切正常，您应该看到屏幕上显示 “Starting inference process”：
 ```
 [2024-03-18 12:39:54,972] [opencompass.openicl.icl_inferencer.icl_gen_inferencer] [INFO] Starting inference process...
@@ -229,12 +235,6 @@ ceval-humanities                                -          naive_average  gen   
 ceval-other                                     -          naive_average  gen                                                                                       44.62
 ceval-hard                                      -          naive_average  gen                                                                                       32
 ceval                                           -          naive_average  gen                                                                                       46.19
-```
-**遇到错误mkl-service + Intel(R) MKL MKL_THREADING_LAYER=INTEL is incompatible with libgomp.so.1 ... 解决方案：**
-```shell
-export MKL_SERVICE_FORCE_INTEL=1
-#或
-export MKL_THREADING_LAYER=GNU
 ```
 ## 自定义数据集客主观评测：量身定制，慧眼识珠
 
