@@ -133,7 +133,7 @@ pip install protobuf==4.25.3 accelerate==0.28.0 aiohttp==3.9.3 auto-gptq==0.7.1 
 cd /root
 # 克隆代码仓库
 git clone https://github.com/internlm/huixiangdou && cd huixiangdou
-git checkout 447c6f7e68a1657fce1c4f7c740ea1700bde0440
+git checkout 63f2eef0e6e4ac113b05ede0316b193948a42cda
 
 ```
 
