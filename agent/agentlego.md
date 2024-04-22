@@ -290,7 +290,7 @@ class MagicMakerImageGeneration(BaseTool):
         )
         image_url = response.json()['data']['imgUrl']
         image_response = requests.get(image_url)
-        image = cv2.imdecode(np.frombuffer(image_response.content, np.uint8), cv2.IMREAD_COLOR)
+        image = cv2.cvtColor(cv2.imdecode(np.frombuffer(image_response.content, np.uint8), cv2.IMREAD_COLOR),cv2.COLOR_BGR2RGB)
         return ImageIO(image)
 ```
 
