@@ -51,7 +51,7 @@ AgentLego 目前提供了如下工具：
     <td>
         <ul>
         <li>计算器</li>
-        <li>谷歌搜素</li>
+        <li>谷歌搜索</li>
         </ul>
     </td>
     <td>
