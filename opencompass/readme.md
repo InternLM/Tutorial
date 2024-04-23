@@ -251,7 +251,7 @@ https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/subjective_evalu
 
 ## 数据污染评估：禁止作弊，诚信考试
 ### 数据污染评估简介
-数据污染 是指本应用在下游测试任务重的数据出现在了大语言模型 (LLM) 的训练数据中，从而导致在下游任务 (例如，摘要、自然语言推理、文本分类) 上指标虚高，无法反映模型真实泛化能力的现象。
+数据污染 是指本应用在下游测试任务中的数据出现在了大语言模型 (LLM) 的训练数据中，从而导致在下游任务 (例如，摘要、自然语言推理、文本分类) 上指标虚高，无法反映模型真实泛化能力的现象。
 由于数据污染的源头是出现在 LLM 所用的训练数据中，因此最直接的检测数据污染的方法就是将测试数据与训练数据进行碰撞，然后汇报两者之间有多少语料是重叠出现的，经典的 GPT-3 论文中的表 C.1 会报告了相关内容。
 但如今开源社区往往只会公开模型参数而非训练数据集，在此种情况下 如何判断是否存在数据污染问题或污染程度如何，这些问题还没有被广泛接受的解决方案。OpenCompass 提供了两种可能的解决方案。
 ### 实验评估步骤
@@ -269,6 +269,7 @@ Skywork/ChineseDomainModelingEval 数据集收录了 2023 年 9 月至 10 月期
 - zh_movie.jsonl 电影
 - zh_tech.jsonl 技术
 - zh_general.jsonl 综合
+
 这些文件用于评估LLM对不同特定领域的理解能力。
 ### 实验评估步骤
 https://opencompass.readthedocs.io/zh-cn/latest/advanced_guides/needleinahaystack_eval.html
