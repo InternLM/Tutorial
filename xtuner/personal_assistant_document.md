@@ -515,7 +515,7 @@ use_varlen_attn = False
 
 # Data
 alpaca_en_path = '/root/ft/data/personal_assistant.json'
-prompt_template = PROMPT_TEMPLATE.default
+prompt_template = PROMPT_TEMPLATE.internlm2_chat
 max_length = 1024
 pack_to_max_length = True
 
@@ -799,25 +799,37 @@ xtuner train /root/ft/config/internlm2_1_8b_qlora_alpaca_e3_copy.py --work-dir /
 ```
 # 300轮
 
-<|User|>:请你介绍一下你自己
-<|Bot|>:我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<s><|im_start|>user
+请你介绍一下你自己<|im_end|>
+<|im_start|>assistant
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
 
-<|User|>:你是谁
-<|Bot|>:我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<s><|im_start|>user
+你是谁<|im_end|>
+<|im_start|>assistant
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
 
-<|User|>:你是我的小助手吗
-<|Bot|>:是的</s>
+<s><|im_start|>user
+你是我的小助手吗<|im_end|>
+<|im_start|>assistant
+是的<|im_end|>
 
 # 600轮
 
-<|User|>:请你介绍一下你自己
-<|Bot|>:我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<s><|im_start|>user
+请你介绍一下你自己<|im_end|>
+<|im_start|>assistant
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
 
-<|User|>:你是谁
-<|Bot|>:我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<s><|im_start|>user
+你是谁<|im_end|>
+<|im_start|>assistant
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
 
-<|User|>:你是我的小助手吗
-<|Bot|>:我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+<s><|im_start|>user
+你是我的小助手吗<|im_end|>
+<|im_start|>assistant
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
 ```
 通过两者的对比我们其实就可以很清楚的看到，在300轮的时候模型已经学会了在我问 “你是谁” 或者说 “请你介绍一下我自己” 的时候回答 “我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦”。
 
@@ -965,15 +977,19 @@ xtuner chat /root/ft/final_model --prompt-template internlm2_chat
 > 假如我们想要输入内容需要在输入文字后敲击两下回车，假如我们想清楚历史记录需要输入 RESET，假如我们想要退出则需要输入 EXIT。
 ```
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是谁
-我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
 
-double enter to end input (EXIT: exit chat, RESET: reset history) >>>  请你介绍一下你自己
-我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
+
+double enter to end input (EXIT: exit chat, RESET: reset history) >>> 请你介绍一下你自己
+
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> 你是我的小助手吗？
-我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</s>
+
+我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦<|im_end|>
 
 double enter to end input (EXIT: exit chat, RESET: reset history) >>> EXIT
+
 Log: Exit!
 ```
 可以看到模型已经严重过拟合，回复的话就只有 “我是剑锋大佬的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦” 这句话。我们下面可以通过对比原模型的能力来看看差异。
