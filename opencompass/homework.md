@@ -10,7 +10,7 @@
 
 提交地址：https://hub.opencompass.org.cn/dataset-submit?lang=[object%20Object]  
 提交指南：https://mp.weixin.qq.com/s/_s0a9nYRye0bmqVdwXRVCg  
-Tips：不强制要求配置数据集对应榜单（ leaderboard.xlsx ），可仅上传 EADME_OPENCOMPASS.md 文档  
+Tips：不强制要求配置数据集对应榜单（ leaderboard.xlsx ），可仅上传 README_OPENCOMPASS.md 文档  
 
 
 欢迎扫码关注 OpenCompass 公众号了解更多评测相关知识～
