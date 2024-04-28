@@ -392,7 +392,7 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 <details>
 <summary><b>参数修改细节</b></summary>
 
-首先在 PART 1 的部分，由于我们不再需要在 Huggingface 上自动下载模型，因此我们先要更换模型的路径以及数据集的路径为我们本地的路径。
+首先在 PART 1 的部分，由于我们不再需要在 Huggingface 上自动下载模型，因此我们先要更换模型的路径以及数据集的路径为我们本地的路径。并且由于我们使用得 config 文件是用于微调基座模型 InternLM2-1.8B 的，而不是我们所用的经过指令微调的 InternLM2-Chat-1.8B 的模型，因此我们还需要将 prompt_template 也进行更改操作。
     
 ```diff
 # 修改模型地址（在第27行的位置）
@@ -402,6 +402,10 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft/config
 # 修改数据集地址为本地的json文件地址（在第31行的位置）
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/ft/data/personal_assistant.json'
+
+# 修改 prompt_template 为 internlm2_chat
+- prompt_template = PROMPT_TEMPLATE.default
++ prompt_template = PROMPT_TEMPLATE.internlm2_chat
 ```
 
 除此之外，我们还可以对一些重要的参数进行调整，包括学习率（lr）、训练的轮数（max_epochs）等等。由于我们这次只是一个简单的让模型知道自己的身份弟位，因此我们的训练轮数以及单条数据最大的 Token 数（max_length）都可以不用那么大。
