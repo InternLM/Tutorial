@@ -185,10 +185,10 @@ LMDeploy 所采用的量化算法为 AWQ（Activation-aware Weight Quantization�
 
 该方法基于“LLM 的权重对于性能并不同等重要”的观点，观察到权重中存在着 0.1%-1% 的显著权重，而跳过这部分显著权重不进行量化，则可以大大减少量化误差。但是将显著权重保留为 FP16 会导致硬件效率低下，所以 AWQ 算法提出了逐通道缩放来减少显著权重的量化误差。
 
-考虑一个权重为$w$的块，线性运算可以写作$y=\textbf{wx}$，量化后即为$y = Q(\textbf{w})\textbf{x}$，其中$Q(\textbf{w}) = \Delta\cdot\text{Round}\left(\frac{\textbf{w}}{\Delta}\right)，\Delta = \frac{\max(|\textbf{w}|)}{2^{N-1}}$，其中$N$为量化比特数，$\Delta$是由最大绝对值确定的量化缩放比例。
+考虑一个权重为 $w$ 的块，线性运算可以写作 $y=\textbf{wx}$ ，量化后即为 $y = Q(\textbf{w})\textbf{x}$ ，其中 $Q(\textbf{w}) = \Delta\cdot\text{Round}\left(\frac{\textbf{w}}{\Delta}\right)，\Delta = \frac{\max(|\textbf{w}|)}{2^{N-1}}$ ，其中 $N$ 为量化比特数， $\Delta$ 是由最大绝对值确定的量化缩放比例。
 
-对于$w \in \textbf{w}$，如果引入缩放因子$s$，得到$y=Q(\textbf{w})\text{x} = Q(w\cdot s)(x / s)$，即$Q(w\cdot s) \cdot \frac{x}{s} = \Delta' \cdot \text{Round}(\frac{ws}{\Delta'}) \cdot x \cdot \frac{1}{s}$。发现$\Delta = \Delta', s>1$的情况下，显著权重$w$的误差较小。
+对于 $w \in \textbf{w}$ ，如果引入缩放因子 $s$ ，得到 $y=Q(\textbf{w})\text{x} = Q(w\cdot s)(x / s)$ ，即 $Q(w\cdot s) \cdot \frac{x}{s} = \Delta' \cdot \text{Round}(\frac{ws}{\Delta'}) \cdot x \cdot \frac{1}{s}$ 。发现 $\Delta = \Delta', s>1$ 的情况下，显著权重$w$的误差较小。
 
-为了同时考虑显著权重和非显著权重，AWQ 算法使用了自动搜索最佳缩放因子的方法，即公式$s^* = \argmin_s\mathcal{L}(s), \mathcal{L}(s) = ||Q(\textbf{W}\cdot \text{diag}(s))(\text{diag}(s)^{-1} \cdot \mathbf{X}) - \textbf{WX}||$。其中$Q$是权重量化函数，$W$是原始权重，$\textbf{X}$是从小校准集的输入特征。但是量化函数不可微，所以通过分析影响缩放因子选择的因子，定义了一个搜索空间。由于权重通道的显著性实际上是由激活比例决定的（即激活感知），因此可以选择一个简单的搜索空间：$s = s_{\textbf{X}^\alpha}, \alpha^* = \argmin_\alpha \mathcal{L}(s_{\textbf{X}^\alpha})$。其中$s$仅与激活$s_{\textbf{X}}$的大小有关。
+为了同时考虑显著权重和非显著权重，AWQ 算法使用了自动搜索最佳缩放因子的方法，即公式 $s^* = \argmin_s\mathcal{L}(s), \mathcal{L}(s) = ||Q(\textbf{W}\cdot \text{diag}(s))(\text{diag}(s)^{-1} \cdot \mathbf{X}) - \textbf{WX}||$ 。其中 $Q$ 是权重量化函数， $W$ 是原始权重， $\textbf{X}$ 是从小校准集的输入特征。但是量化函数不可微，所以通过分析影响缩放因子选择的因子，定义了一个搜索空间。由于权重通道的显著性实际上是由激活比例决定的（即激活感知），因此可以选择一个简单的搜索空间： $s = s_{\textbf{X}^\alpha}, \alpha^* = \argmin_\alpha \mathcal{L}(s_{\textbf{X}^\alpha})$ 。其中 $s$ 仅与激活 $s_{\textbf{X}}$ 的大小有关。
 
 该方法不依赖于任何回归或反向传播过程，而这是许多量化感知训练方法所需的。 AWQ 方法对校准集的依赖最小，因为我们只测量每个通道的平均幅度，从而防止过拟合。因此，该方法在量化过程中需要更少的数据，并且可以将 LLM 的知识保留在校准集分布之外。
