@@ -14,6 +14,7 @@ InternStudio：
 studio-conda -t lmdeploy_vlm -o pytorch-2.1.2
 conda activate lmdeploy_vlm
 pip install lmdeploy[all]==0.4.2
+pip install timm
 ```
 
 <details><summary>非 InternStudio：</summary>
@@ -25,6 +26,7 @@ conda create -n lmdeploy_vlm python=3.10
 conda activate lmdeploy_vlm
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia
 pip install lmdeploy[all]==0.4.2
+pip install timm
 ```
 
 </details>
@@ -82,12 +84,12 @@ from lmdeploy import pipeline
 pipe = pipeline('/share/new_models/OpenGVLab/InternVL-Chat-V1-5')
 # pipe = pipeline('/share/new_models/OpenGVLab/Mini-InternVL-Chat-2B-V1-5')
 
-image = load_image('https://raw.githubusercontent.com/open-mmlab/mmpretrain/main/demo/cat-dog.png')
+image = load_image('https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/tests/data/tiger.jpeg')
 response = pipe(('请描述图中内容', image))
 print(response.text)
 ```
 
-![image](https://raw.githubusercontent.com/open-mmlab/mmpretrain/main/demo/cat-dog.png)
+![image](https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/tests/data/tiger.jpeg)
 
 模型输出了如下内容，可以看到模型对图片的描述是比较准确的。
 
@@ -160,7 +162,7 @@ from lmdeploy import pipeline
 
 pipe = pipeline('/share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-7b')
 
-image = load_image('https://raw.githubusercontent.com/open-mmlab/mmpretrain/main/demo/cat-dog.png')
+image = load_image('https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/tests/data/tiger.jpeg')
 response = pipe(('请描述图中内容', image))
 print(response.text)
 ```
