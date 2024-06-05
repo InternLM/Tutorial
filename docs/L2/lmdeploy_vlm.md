@@ -33,12 +33,15 @@ pip install lmdeploy[all]==0.4.2
 
 InternVL1.5 是 OpenGVLab 最新开源的视觉多模态大模型。从评测角度看，InternVL1.5 是目前最好的开源视觉多模态大模型。InternVL 包括一个 6B 参数量的视觉模型 InternViT 和一个 20B 参数量的语言模型 InternLM2-Chat-20B。
 
-LMDeploy 团队已经支持了 InternVL1.5 的量化与部署，下面是详细步骤。
+近日，OpenGVLab 公布了 Mini-InternVL-Chat-2B-V1-5（InternViT-300M + InternLM2-Chat-1.8B）和 Mini-InternVL-Chat-4B-V1-5（InternViT-300M + Phi-3-mini-128k-instruct）。
 
-部署时所需显存如下：
+LMDeploy 团队已经支持了 InternVL1.5 与 Mini-InternVL-Chat-2B-V1-5 的量化与部署，下面是详细步骤。
 
-- 无量化时 > 40GB（无 KV Cache 时 47695 MiB），请使用 100% A100，即 80GB 显存 A100。
-- 4bit 权重量化时（无 KV Cache 时 21925 MiB），建议使用 30% 或 50% A100。
+| 模型 | 无量化时显存（无 KV Cache）| 4bit 量化时（无 KV Cache）|
+| --- | --- | --- |
+| InternVL1.5 | 47695 MiB | 21925 MiB | 
+| Mini-InternVL-Chat-2B-V1-5 | 5865 MiB| - |
+| Mini-InternVL-Chat-4B-V1-5 | - | - |
 
 ### 2.1 InternVL1.5 推理
 
@@ -48,6 +51,12 @@ LMDeploy 团队已经支持了 InternVL1.5 的量化与部署，下面是详细�
 
 ```bash
 lmdeploy serve gradio /share/new_models/OpenGVLab/InternVL-Chat-V1-5
+```
+
+如选用 Mini-InternVL-Chat-2B-V1-5，指令变为
+
+```bash
+lmdeploy serve gradio /share/new_models/OpenGVLab/Mini-InternVL-Chat-2B-V1-5
 ```
 
 在使用 VSCode 完成端口映射后，我们在本地打开 `http://localhost:6006` 即可看到 InternVL1.5 的 Gradio 服务。
@@ -71,6 +80,7 @@ from lmdeploy.vl import load_image
 from lmdeploy import pipeline
 
 pipe = pipeline('/share/new_models/OpenGVLab/InternVL-Chat-V1-5')
+# pipe = pipeline('/share/new_models/OpenGVLab/Mini-InternVL-Chat-2B-V1-5')
 
 image = load_image('https://raw.githubusercontent.com/open-mmlab/mmpretrain/main/demo/cat-dog.png')
 response = pipe(('请描述图中内容', image))
