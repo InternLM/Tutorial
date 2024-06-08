@@ -1,4 +1,4 @@
-# InternLM+LlamaIndex
+# llamaindex+Internlm2 RAG实践
 
 本文将分为以下几个部分来介绍，如何使用 LlamaIndex 来部署 InternLM2 1.8B（以 InternStudio 的环境为例）
 - 前置知识
