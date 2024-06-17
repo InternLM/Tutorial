@@ -18,6 +18,7 @@ studio-conda -t lmdeploy_vlm -o pytorch-2.1.2
 conda activate lmdeploy_vlm
 pip install lmdeploy[all]==0.4.2
 pip install timm==0.9.16
+pip install modelscope==1.14.0
 ```
 
 <details><summary>非 InternStudio：</summary>
@@ -105,7 +106,7 @@ LMDeploy 已经支持了 InternVL1.5 的量化，我们可以通过如下指令�
 如果是初次进行量化，可以先通过如下指令准备量化过程要用到的校准集。
 
 ```bash
-python -c "from datasets import load_dataset; load_dataset('ptb_text_only', 'penn_treebank', split='train', trust_remote_code=True); load_dataset('ptb_text_only', 'penn_treebank', split='validation')"
+python -c "from datasets import load_dataset; load_dataset('ptb_text_only', 'penn_treebank', split='train', trust_remote_code=True); load_dataset('ptb_text_only', 'penn_treebank', split='validation', trust_remote_code=True)"
 ```
 
 ```bash
