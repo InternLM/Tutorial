@@ -202,7 +202,7 @@ LMDeploy 所采用的量化算法为 AWQ（Activation-aware Weight Quantization�
 
 考虑一个权重为 $w$ 的块，线性运算可以写作 $y=\textbf{wx}$ ，量化后即为 $y = Q(\textbf{w})\textbf{x}$ ，其中 $Q(\textbf{w}) = \Delta\cdot\text{Round}\left(\frac{\textbf{w}}{\Delta}\right)，\Delta = \frac{\max(|\textbf{w}|)}{2^{N-1}}$ ，其中 $N$ 为量化比特数， $\Delta$ 是由最大绝对值确定的量化缩放比例。
 
-对于 $w \in \textbf{w}$ ，如果引入缩放因子 $s$ ，得到 $y=Q(\textbf{w})\text{x} = Q(w\cdot s)(x / s)$ ，即 $Q(w\cdot s) \cdot \frac{x}{s} = \Delta' \cdot \text{Round}(\frac{ws}{\Delta'}) \cdot x \cdot \frac{1}{s}$ 。发现 $\Delta = \Delta', s>1$ 的情况下，显著权重$w$的误差较小。
+对于 $w \in \textbf{w}$ ，如果引入缩放因子 $s$ ，得到 $y=Q(\textbf{w})\text{x} = Q(w\cdot s)(x / s)$ ，即 $Q(w\cdot s) \cdot \frac{x}{s} = \Delta' \cdot \text{Round}(\frac{ws}{\Delta'}) \cdot x \cdot \frac{1}{s}$ 。发现 $\Delta = \Delta', s>1$ 的情况下，显著权重 $w$ 的误差较小。
 
 为了同时考虑显著权重和非显著权重，AWQ 算法使用了自动搜索最佳缩放因子的方法，即公式 $s^* = \arg\min_s\mathcal{L}(s), \mathcal{L}(s) = ||Q(\textbf{W}\cdot \text{diag}(s))(\text{diag}(s)^{-1} \cdot \mathbf{X}) - \textbf{WX}||$ 。其中 $Q$ 是权重量化函数， $W$ 是原始权重， $\textbf{X}$ 是从小校准集的输入特征。但是量化函数不可微，所以通过分析影响缩放因子选择的因子，定义了一个搜索空间。由于权重通道的显著性实际上是由激活比例决定的（即激活感知），因此可以选择一个简单的搜索空间： $s = s_{\textbf{X}^\alpha}, \alpha^* = \arg\min_\alpha \mathcal{L}(s_{\textbf{X}^\alpha})$ 。其中 $s$ 仅与激活 $s_{\textbf{X}}$ 的大小有关。
 
@@ -210,6 +210,6 @@ LMDeploy 所采用的量化算法为 AWQ（Activation-aware Weight Quantization�
 
 **如果公式渲染出现问题，也可查看**<details><summary>公式</summary>
 
-![image](https://github.com/InternLM/Tutorial/assets/75657629/77232ba4-7ddb-425f-9cb1-9aae39c7465f)
+
 
 </details>
