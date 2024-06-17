@@ -110,19 +110,19 @@ python -c "from datasets import load_dataset; load_dataset('ptb_text_only', 'pen
 
 ```bash
 mkdir -p /root/lmdeploy_vlm
-lmdeploy lite auto_awq /share/new_models/OpenGVLab/InternVL-Chat-V1-5 --work-dir /root/lmdeploy_vlm/InternVL-Chat-V1-5-AWQ
+lmdeploy lite auto_awq /share/new_models/OpenGVLab/Mini-InternVL-Chat-2B-V1-5 --work-dir /root/lmdeploy_vlm/Mini-InternVL-Chat-2B-V1-5-AWQ
 ```
 
 此时，启动 Gradio 服务的指令变为
 
 ```bash
-lmdeploy serve gradio /root/lmdeploy_vlm/InternVL-Chat-V1-5-AWQ --model-format awq
+lmdeploy serve gradio /root/lmdeploy_vlm/Mini-InternVL-Chat-2B-V1-5-AWQ --model-format awq
 ```
 
 相应地，`pipeline` 初始化方法变为
 
 ```python
-pipe = pipeline('/root/lmdeploy_vlm/InternVL-Chat-V1-5-AWQ', model_format='awq')
+pipe = pipeline('/root/lmdeploy_vlm/Mini-InternVL-Chat-2B-V1-5-AWQ', model_format='awq')
 ```
 
 ## 3. InternLM-XComposer2
