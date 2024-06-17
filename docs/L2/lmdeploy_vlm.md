@@ -1,10 +1,13 @@
 # LMDeploy 部署 InternVL 浦语灵笔实践
 
+> [!IMPORTANT]
+> 建议选取 30% A100（24G） 的开发机。
+
 ## 1. 环境配置
 
 在开始实践前，我们首先来准备相关环境。
 
-InternStudio：
+[InternStudio](https://studio.intern-ai.org.cn/console/dashboard)：
 
 首先我们选择 Cuda12.2-conda 镜像并创建开发机。
 
@@ -14,7 +17,7 @@ InternStudio：
 studio-conda -t lmdeploy_vlm -o pytorch-2.1.2
 conda activate lmdeploy_vlm
 pip install lmdeploy[all]==0.4.2
-pip install timm
+pip install timm==0.9.16
 ```
 
 <details><summary>非 InternStudio：</summary>
@@ -33,9 +36,9 @@ pip install timm
 
 ## 2. InternVL1.5
 
-InternVL1.5 是 OpenGVLab 最新开源的视觉多模态大模型。从评测角度看，InternVL1.5 是目前最好的开源视觉多模态大模型。InternVL 包括一个 6B 参数量的视觉模型 InternViT 和一个 20B 参数量的语言模型 InternLM2-Chat-20B。
+InternVL1.5 是上海人工智能实验室最新开源的视觉多模态大模型。从评测角度看，InternVL1.5 是目前最好的开源视觉多模态大模型。InternVL 包括一个 6B 参数量的视觉模型 InternViT 和一个 20B 参数量的语言模型 InternLM2-Chat-20B。
 
-近日，OpenGVLab 公布了 Mini-InternVL-Chat-2B-V1-5（InternViT-300M + InternLM2-Chat-1.8B）和 Mini-InternVL-Chat-4B-V1-5（InternViT-300M + Phi-3-mini-128k-instruct）。
+近日，上海人工智能实验室公布了 Mini-InternVL-Chat-2B-V1-5（InternViT-300M + InternLM2-Chat-1.8B）和 Mini-InternVL-Chat-4B-V1-5（InternViT-300M + Phi-3-mini-128k-instruct）。
 
 LMDeploy 团队已经支持了 InternVL1.5 与 Mini-InternVL-Chat-2B-V1-5 的量化与部署，下面是详细步骤。
 
@@ -204,3 +207,9 @@ LMDeploy 所采用的量化算法为 AWQ（Activation-aware Weight Quantization�
 为了同时考虑显著权重和非显著权重，AWQ 算法使用了自动搜索最佳缩放因子的方法，即公式 $s^* = \arg\min_s\mathcal{L}(s), \mathcal{L}(s) = ||Q(\textbf{W}\cdot \text{diag}(s))(\text{diag}(s)^{-1} \cdot \mathbf{X}) - \textbf{WX}||$ 。其中 $Q$ 是权重量化函数， $W$ 是原始权重， $\textbf{X}$ 是从小校准集的输入特征。但是量化函数不可微，所以通过分析影响缩放因子选择的因子，定义了一个搜索空间。由于权重通道的显著性实际上是由激活比例决定的（即激活感知），因此可以选择一个简单的搜索空间： $s = s_{\textbf{X}^\alpha}, \alpha^* = \arg\min_\alpha \mathcal{L}(s_{\textbf{X}^\alpha})$ 。其中 $s$ 仅与激活 $s_{\textbf{X}}$ 的大小有关。
 
 该方法不依赖于任何回归或反向传播过程，而这是许多量化感知训练方法所需的。 AWQ 方法对校准集的依赖最小，因为我们只测量每个通道的平均幅度，从而防止过拟合。因此，该方法在量化过程中需要更少的数据，并且可以将 LLM 的知识保留在校准集分布之外。
+
+**如果公式渲染出现问题，也可查看**<details><summary>公式</summary>
+
+![image](https://github.com/InternLM/Tutorial/assets/75657629/77232ba4-7ddb-425f-9cb1-9aae39c7465f)
+
+</details>
