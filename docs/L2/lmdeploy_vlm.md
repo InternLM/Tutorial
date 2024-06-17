@@ -210,6 +210,6 @@ LMDeploy 所采用的量化算法为 AWQ（Activation-aware Weight Quantization�
 
 **如果公式渲染出现问题，也可查看**<details><summary>公式</summary>
 
-
+![image](https://github.com/InternLM/Tutorial/assets/75657629/b5b5c9bc-80c8-4ce3-ab43-832273feccfe)
 
 </details>
