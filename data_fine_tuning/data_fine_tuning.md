@@ -269,6 +269,10 @@ xtuner copy-cfg internlm2_1_8b_qlora_alpaca_e3 /root/ft-ruozhiba/config/
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/ft-ruozhiba/data/train.jsonl'
 
+# 修改 prompt_template 为 internlm2_chat
+- prompt_template = PROMPT_TEMPLATE.default
++ prompt_template = PROMPT_TEMPLATE.internlm2_chat
+
 # 修改评估的问题（在第59到61行的位置）
 - evaluation_inputs = ['请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai']
 + evaluation_inputs = ['为什么我爸妈结婚的时候没邀请我参加婚礼']
