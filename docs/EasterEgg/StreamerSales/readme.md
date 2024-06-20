@@ -5,7 +5,9 @@
 
 [Streamer-Sales 销冠 —— 卖货主播大模型](https://github.com/PeterH0323/Streamer-Sales)，是一个能够根据给定的商品特点对商品进行解说并激发用户的购买意愿的卖货主播模型，以其独特的智能魅力，将彻底改变用户的购物体验。该模型能深度理解商品特点，以生动、精准的语言为商品量身打造解说词，让每一件商品都焕发出诱人的光彩。无论是细节之处，还是整体效果，都能通过其细腻、独到的解说，激发用户的购买欲望。
 
-![架构图](https://github.com/PeterH0323/Streamer-Sales/tree/main/doc/doc_images/architecture.png)
+<p align="center">
+  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/doc_images/architecture.png" alt="架构图" >
+</p>
 
 项目主要功能点：
 
@@ -18,6 +20,8 @@
 - 🌐 Agent 使用网络查询实时快递等信息
 
 让主播不止于文字介绍。
+
+感谢上海人工智能实验室 **书生·浦语大模型实战营** 的 **干货课程、全方位的工具链 和 算力支持**！让我这个有满腔热血但是没有算力的个人开发者也可以上岸大模型领域！
 
 本项目全部代码均已开源，大家可以过来看看，如果觉得项目做的不错，请点个 star ⭐（疯狂暗示），⭐ 是给我最大的鼓励，谢谢！地址： https://github.com/PeterH0323/Streamer-Sales
 
@@ -52,14 +56,14 @@
 **在线体验地址**：https://openxlab.org.cn/apps/detail/HinGwenWong/Streamer-Sales
 
 <p align="center">
-  <img src="https://github.com/PeterH0323/Streamer-Sales/tree/main/doc/doc_images/demo_gif.gif" alt="Demo gif" >
+  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/doc_images/demo_gif.gif" alt="Demo gif" >
 </p>
 
 <p align="center">
-  <img src="https://github.com/PeterH0323/Streamer-Sales/tree/main/doc/doc_images/demo2.png" alt="Demo" width="45%">
-  <img src="https://github.com/PeterH0323/Streamer-Sales/tree/main/doc/doc_images/demo3.png" alt="Demo" width="45%">
-  <img src="https://github.com/PeterH0323/Streamer-Sales/tree/main/doc/doc_images/demo4.png" alt="Demo" width="44.5%">
-  <img src="https://github.com/PeterH0323/Streamer-Sales/tree/main/doc/doc_images/demo5.png" alt="Demo" width="46%">
+  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/doc_images/demo2.png" alt="Demo" width="45%">
+  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/doc_images/demo3.png" alt="Demo" width="45%">
+  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/doc_images/demo4.png" alt="Demo" width="44.5%">
+  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/doc_images/demo5.png" alt="Demo" width="46%">
 </p>
 
 本项目全部代码均已开源，大家可以过来看看，如果觉得项目做的不错，请点个 star ⭐（疯狂暗示），⭐ 是给我最大的鼓励，谢谢！地址： https://github.com/PeterH0323/Streamer-Sales
@@ -85,7 +89,7 @@ pip install -r requirements.txt
 下面为大家讲解下里面的配置，可以从架构图看到我对数据集的设计，其共有 4 大组成部分：
 
 <p align="center">
-  <img src="./docs/EasterEgg/StreamerSales/images/gen_data.png" alt="gen_data" width="45%">
+  <img src="./images/gen_data.png" alt="gen_data" width="45%">
 </p>
 
 - 主播性格
@@ -144,6 +148,8 @@ product_list:
       精华液: [高浓度活性成分, 深度滋养, 改善肤质, 淡化细纹, 提亮肤色, 修复功效]
       面膜: [密集滋养, 深层补水, 急救修复, 快速见效, 定期护理, 多种类型选择]
       面霜: [锁水保湿, 持久滋润, 防晒隔离, 抗衰老, 适合四季使用, 易于推开涂抹]
+
+      ....
 ```
 
 
@@ -335,7 +341,7 @@ python merge_dataset.py dataset/gen_dataset/trainval_dataset/response dataset/ge
 ## 📚 RAG 说明书数据生成
 
 <p align="center">
-  <img src="./docs/EasterEgg/StreamerSales/images/gen_ocr.png" alt="gen_ocr" width="45%">
+  <img src="./images/gen_ocr.png" alt="gen_ocr" width="45%">
 </p>
 
 
