@@ -39,7 +39,7 @@
     - [数据集生成 Prompt](#数据集生成-prompt)
     - [启动生成](#启动生成)
   - [📚 RAG 说明书数据生成](#-rag-说明书数据生成)
-  - [🎨 Xtuner 微调 InternLM2](#-xtuner-微调-internlm2)
+  - [🎨 XTuner 微调 InternLM2](#-xtuner-微调-internlm2)
   - [🦸 数字人](#-数字人)
     - [1. 简介](#1-简介)
     - [2. 环境搭建](#2-环境搭建)
@@ -153,7 +153,7 @@ product_list:
 ```
 
 
-商品的大类，再到小类，最后到具体的细分类别，因为考虑到知识产权的问题，我这里就没有写到每个产品的名称，细分类别后面跟着的对应的商品亮点，这也是 LLM 在回答的时候需要参考的地方，可以让文案更加丰富，更加贴近商品，激发用户的购买欲望。
+商品的大类，再到小类，最后到具体的细分类别，细分类别后面跟着的对应的商品亮点，这也是 LLM 在回答的时候需要参考的地方，可以让文案更加丰富，更加贴近商品，激发用户的购买欲望。
 
 ### 用户可能提问
 
@@ -237,7 +237,7 @@ data_generation_setting:
 
 有了上面的 prompt 之后，下一步很简单，就是调用商用大模型让其生成。
 
-在这我解释下为什么我调用商业大模型来进行生成。虽然本地部署模型然后推理也是可以的，但是生成好数据的前提是模型参数量要足够大，如果本地没有显存，压根没办法部署大参数量的模型，跟别说质量了，所以我这里直接调用商用最大的最好的模型，在源头确保我的数据质量比较好。
+在这我解释下为什么我调用商业大模型来进行生成。虽然本地部署模型然后推理也是可以的，但是生成好数据的前提是模型参数量要足够大，如果本地没有显存，压根没办法部署大参数量的模型，更别说质量了，所以我这里直接调用商用最大的最好的模型，在源头确保我的数据质量比较好。
 
 我们需要要购买 token，我当初生成数据集的时候，加上赠送的 token，大概只花了100多块。当然，如果有更多的预算，可以生成更多的数据，数据集肯定不会嫌多的哈哈。
 
@@ -347,7 +347,7 @@ python merge_dataset.py dataset/gen_dataset/trainval_dataset/response dataset/ge
 
 下面来说下 RAG 数据库生成的逻辑
 
-目前我用到的 RAG是 借鉴 豆哥（茴香豆）的，（感谢豆哥及其开发者们的无私开源），前面的课程已经详细介绍了豆哥，我们就直接进入主题，看下说明书数据库的初始文件是怎么生成的。
+目前我用到的 RAG是 借鉴 豆哥（[茴香豆](https://github.com/InternLM/HuixiangDou)）的，（感谢豆哥及其开发者们的无私开源），前面的课程已经详细介绍了豆哥，我们就直接进入主题，看下说明书数据库的初始文件是怎么生成的。
 
 对于个人开发者来说，没有详细的说明书，所以我们可用爬虫简单地将网上的图片爬下来，如果量比较小就直接截图，因为我这里比较少量，所以我就直接截图了
 
@@ -379,13 +379,17 @@ python gen_instructions.py --image_dir /path/to/image_dir --ocr_output_dir ./ocr
 
 这里有个细节，因为 ppocr 最大边是 960 的，如果从网上下载的图片太长，直接送进去会导致失真严重，所以我会对图片进行长边裁剪，然后再进行检测识别，这样会更好一些。
 
+<p align="center">
+  <img src="./images/ocr_cut.png" alt="ocr_cut" >
+</p>
+
 调取上面的脚本会生成 OCR 识别结果，以及最终的 markdown 说明书文件。`ocr_output_dir` 里面会生成 `work_dir` 文件夹，里面有识别结果图。
 
 RAG 数据库的生成，会在 web app 启动的时候自动去读取配置文件里面每个产品的说明书路径去生成，无需手动操作了。
 
-## 🎨 Xtuner 微调 InternLM2
+## 🎨 XTuner 微调 InternLM2
 
-将数据集路径配置好，改下模型的路径，训练启动！丝滑！就是这么爽！ Xtuner 牛逼！
+将数据集路径配置好，改下模型的路径，训练启动！丝滑！就是这么爽！ [XTuner](https://github.com/InternLM/xtuner) 牛逼！
 
 1. 将 `/path/to/Streamer-Sales/finetune_configs/internlm2_chat_7b/internlm2_chat_7b_qlora_custom_data.py` 中 数据集路径 和 模型路径 改为您的本地路径
 
@@ -417,15 +421,17 @@ xtuner train finetune_configs/internlm2_chat_7b/internlm2_chat_7b_qlora_custom_d
 
 卖货主播的数字人其实市面上已经很多了，目前比较成熟的赛道是直接使用真人录制好的视频，然后 TTS 之后直接生成口型贴到人脸上，这种方法可控性强，而且获得成本低，已经大量推广了。
 
-但是，出于对技术的追求，我不想这么干，我觉得太简单了，我想用 SD 来生成视频哈哈哈哈，如果您对 SD 生成视频不是很感兴趣，可以直接使用现成的 mp4 录制视频，修改 config 就可以了
+但是，出于对技术的追求，我想用 SD 来生成视频哈哈哈哈，如果您对 SD 生成视频不是很感兴趣，可以直接使用现成的 mp4 录制视频，修改 [utils/web_config.py](https://github.com/PeterH0323/Streamer-Sales/blob/b4708a1936f2592218fce548df67194a78ae0177/utils/web_configs.py#L78) 就可以了
 
 ### 1. 简介
 
-这里我使用了 [ComfyUI](https://github.com/comfyanonymous/ComfyUI) 来进行生成，一开始我也是一头雾水，去查阅资料，发现艺术行业已经和以前有了翻天覆地的变化，随着一步步的学习，逐步上手 comfyui 了，
-
-安装过程也很容易，（打开文档），按照下面的一步步安装就可以了，对于我们程序员来说 so easy
+这里我使用了 [ComfyUI](https://github.com/comfyanonymous/ComfyUI) 来进行生成。一开始做的时候我也是一头雾水，自学了几天，在查阅资料学习的时候，我发现艺术行业已经和以前有了翻天覆地的变化，很多设计师已经开始用 SD 来赋能他们的工作了。随着我一步步的学习，逐步上手 ComfyUI 了，
 
 下面我来介绍下我的 workflow
+
+<p align="center">
+  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/digital_human/streamer-sales-lelemiao-workflow-v1.0.png" alt="workflow" >
+</p>
 
 我的 Workflow 具有以下功能点：
 
@@ -433,12 +439,9 @@ xtuner train finetune_configs/internlm2_chat_7b/internlm2_chat_7b_qlora_custom_d
 - DW Pose 生成骨骼图
 - ControlNet 控制人物姿态
 - AnimateDiff 生成视频
-- 提升分辨率
 - 插帧提升帧率
+- 提升分辨率
 
-<p align="center">
-  <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/digital_human/streamer-sales-lelemiao-workflow-v1.0.png" alt="workflow" >
-</p>
 
 ### 2. 环境搭建
 
@@ -483,7 +486,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 
 首先我们来说下基本的文生图流程，首先加入 sd checkpoint ，和 vae 模型，vae 可选，但 sd 是必须的，如果觉得我这个模型不好，可以自行去 c站 找大佬微调好的模型，
 
-填写好正向词和反向词，接个 Ksampler 就可以生成人像了
+填写好正向词和反向词，接个 KSampler 就可以生成人像了
 
 2. DW Pose 生成骨骼图 & ControlNet 控制人物姿态
 
@@ -491,7 +494,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
   <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/digital_human/images/comfyui-2.png" alt="workflow" >
 </p>
 
-人物生成好了，下一步要生成特定的动作的话，有时候语言很难描述，我们需要借助 controlnet 来结合  pose 的姿态图来让 sd 生成特定动作的任务，这就是左下角的作用（在这里说下， pose 的用的是 mmpose 框架，OpenMMLab 牛逼！）
+人物生成好了，下一步要生成特定的动作的话，有时候语言很难描述，我们需要借助 ControlNet 来结合  pose 的姿态图来让 sd 生成特定动作的任务，这就是左下角的作用（在这里说下， pose 的用的是 mmpose 框架，OpenMMLab 牛逼！）
 
 3. AnimateDiff 生成视频
 
@@ -499,7 +502,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
   <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/digital_human/images/comfyui-3.png" alt="workflow" >
 </p>
 
-这两块搞好之后，可以看到任务以特定的动作生成了，下面，我们加入动作，用到的算法是 Animatediff （上海人工智能实验室出的，来说一句 上海人工智能实验室牛逼！）简单的串起来，就可以了
+这两块搞好之后，可以看到任务以特定的动作生成了，下面，我们加入动作，用到的算法是 Animatediff 简单的串起来，就可以了
 
 4. 插帧提升帧率
 
@@ -540,9 +543,9 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
   <img src="./images/agent.png" alt="agent" >
 </p>
 
-如果我问大模型，我的快递到哪里了，RAG 是查不到的，因为这是实时的，所以这就要接入 Agent plugin 的工具了，目前参考的是 [lagent](https://github.com/InternLM/lagent) 项目，相信大家之前也接触过，首先会生成提示词和工具提示词，加上客户的问题给到 LLM ，大模型会输出特定的字段 <|plugin> 告知后面需要调用的 plugin 名称，然后进行传值调用就可以了，
+如果我问大模型，我的快递到哪里了，RAG 是查不到的，因为这是实时的，所以这就要接入 Agent plugin 的工具了，目前参考的是 [lagent](https://github.com/InternLM/lagent) 项目，相信大家之前也接触过，首先会生成提示词和工具提示词，加上客户的问题给到 LLM ，大模型会输出特定的 Token `<|plugin>` 告知后面需要调用的 plugin 名称，然后进行传值调用就可以了，
 
-目前我接入了天气查询和快递预计时间查询，可以让主播根据实时天气和快递时间回答用户问题，这里接入天气是因为一些极端天气会导致快递延误，大模型有了天气信息的加持可以做到提醒
+目前我接入了天气查询和快递预计时间查询，可以让主播根据实时天气和快递时间回答用户问题，这里接入天气是因为一些极端天气会导致快递延误，大模型有了天气信息的加持可以做到提醒客户配送可能会延时。
 
 ## 🚀 量化 & 部署
 
@@ -576,7 +579,7 @@ lmdeploy lite auto_awq ./work_dirs/internlm2_chat_7b_qlora_custom_data/iter_340_
 python ./benchmark/get_benchmark_report.py
 ```
 
-执行脚本之后得出速度报告，可见使用 lmdeploy 的 Turbomind 可以明显提速，4bit 量化后的模型推理速度比原始推理快 5 倍。
+执行脚本之后得出速度报告，可见使用 [LMDeploy](https://github.com/InternLM/LMDeploy) 的 Turbomind 可以明显提速，4bit 量化后的模型推理速度比原始推理快 5 倍。
 
 ```bash
 +---------------------------------+------------------------+-----------------+
@@ -607,7 +610,7 @@ streamlit run app.py --server.address=0.0.0.0 --server.port 7860
 
 这项目对我来说，既是一场学习的修行，也是自我的突破，也希望可以给到各位一些启发。
 
-后续我会持续对项目进行升级完善，首先会把实时性做上去。同时，欢迎各位在评论区一起讨论，任何想法、建议都可以提出，期待各位的反馈，感谢感谢！
+后续我会持续对项目进行升级完善，首先会把实时性做上去。同时，欢迎各位加群一起讨论，任何想法、建议都可以提出，期待各位的反馈，感谢感谢！
 
 本项目全部代码均已开源，大家可以过来看看，如果觉得项目做的不错，请点个 star ⭐（疯狂暗示），⭐ 是给我最大的鼓励，谢谢！地址： https://github.com/PeterH0323/Streamer-Sales
 
