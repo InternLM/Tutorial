@@ -3,7 +3,7 @@
 
 ## 📢 简介
 
-[Streamer-Sales 销冠 —— 卖货主播大模型](https://github.com/PeterH0323/Streamer-Sales)，是一个能够根据给定的商品特点对商品进行解说并激发用户的购买意愿的卖货主播模型，以其独特的智能魅力，将彻底改变用户的购物体验。该模型能深度理解商品特点，以生动、精准的语言为商品量身打造解说词，让每一件商品都焕发出诱人的光彩。无论是细节之处，还是整体效果，都能通过其细腻、独到的解说，激发用户的购买欲望。
+[Streamer-Sales 销冠 —— 卖货主播大模型](https://github.com/PeterH0323/Streamer-Sales)，是一个能够根据给定的商品特点从激发用户购买意愿角度出发进行商品解说的卖货主播大模型。以其独特的智能魅力，将彻底改变用户的购物体验。该模型能深度理解商品特点，以生动、精准的语言为商品量身打造解说词，让每一件商品都焕发出诱人的光彩。无论是细节之处，还是整体效果，都能通过其细腻、独到的解说，激发用户的购买欲望。
 
 <p align="center">
   <img src="https://github.com/PeterH0323/Streamer-Sales/blob/main/doc/doc_images/architecture.png" alt="架构图" >
