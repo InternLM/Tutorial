@@ -89,7 +89,7 @@ pip install -r requirements.txt
 下面为大家讲解下里面的配置，可以从架构图看到我对数据集的设计，其共有 4 大组成部分：
 
 <p align="center">
-  <img src="./images/gen_data.png" alt="gen_data" width="45%">
+  <img src="https://github.com/InternLM/Tutorial/assets/25873202/9c423a23-a47b-42ef-b75f-f519e0e6743d" alt="gen_data" width="45%">
 </p>
 
 - 主播性格
@@ -341,7 +341,7 @@ python merge_dataset.py dataset/gen_dataset/trainval_dataset/response dataset/ge
 ## 📚 RAG 说明书数据生成
 
 <p align="center">
-  <img src="./images/gen_ocr.png" alt="gen_ocr" width="45%">
+  <img src="https://github.com/InternLM/Tutorial/assets/25873202/e2c3517a-aeea-49ab-b7f7-c87b8390e61e" alt="gen_ocr" width="45%">
 </p>
 
 
@@ -380,7 +380,7 @@ python gen_instructions.py --image_dir /path/to/image_dir --ocr_output_dir ./ocr
 这里有个细节，因为 ppocr 最大边是 960 的，如果从网上下载的图片太长，直接送进去会导致失真严重，所以我会对图片进行长边裁剪，然后再进行检测识别，这样会更好一些。
 
 <p align="center">
-  <img src="./images/ocr_cut.png" alt="ocr_cut" >
+  <img src="https://github.com/InternLM/Tutorial/assets/25873202/a251b5b6-b300-4d22-a506-e25c58bf12b9" alt="ocr_cut" >
 </p>
 
 调取上面的脚本会生成 OCR 识别结果，以及最终的 markdown 说明书文件。`ocr_output_dir` 里面会生成 `work_dir` 文件夹，里面有识别结果图。
@@ -532,7 +532,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 ## 🔊 TTS & 🎙️ ASR
 
 <p align="center">
-  <img src="./images/asr_tts.png" alt="asr_tts" >
+  <img src="https://github.com/InternLM/Tutorial/assets/25873202/d0e09bf3-f1cd-4a01-95fd-4d3dd1ca113e" alt="asr_tts" >
 </p>
 
 目前的 LLM 的交互目前来说只是在屏幕上，我们只能看，我就在想能不能用听觉也一起参与进来，可能会变得更加有趣，所以这里我加入了 TTS 文字转语音 和 ASR 语音识别生成文字 集成进来了
@@ -540,7 +540,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 ## 🌐 Agent
 
 <p align="center">
-  <img src="./images/agent.png" alt="agent" >
+  <img src="https://github.com/InternLM/Tutorial/assets/25873202/06a0f556-8ce1-4187-bab8-f880b9bc7929" alt="agent" >
 </p>
 
 如果我问大模型，我的快递到哪里了，RAG 是查不到的，因为这是实时的，所以这就要接入 Agent plugin 的工具了，目前参考的是 [lagent](https://github.com/InternLM/lagent) 项目，相信大家之前也接触过，首先会生成提示词和工具提示词，加上客户的问题给到 LLM ，大模型会输出特定的 Token `<|plugin>` 告知后面需要调用的 plugin 名称，然后进行传值调用就可以了，
