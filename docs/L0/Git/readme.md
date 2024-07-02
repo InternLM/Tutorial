@@ -173,13 +173,13 @@ sudo apt install git
 4. 作业提交对应的 PR 链接
 
 ```
-./data/Git/task/camp3_<id>.md
-# id 为报名文件的ID
+./data/Git/task/camp3_id.md
+# id 为报名问卷的ID
 ```
 
 ![](static/XNzebK7ItoftfwxiXQ2cY3lYn0g.png)
 
-（如果你常用，并且参与过项目开发，我相信下面的操作佬都会，可以快速跳过）
+（倘若您经常使用，且参与过项目开发，那么下面的操作想必您都熟知，可以迅速跳过。）
 
 **动手操作**
 
@@ -200,7 +200,7 @@ sudo apt install git
 ![](static/CWMvb92fFomY4gxsdgrcHw3mneh.png)
 
 ```bash
-git clone https://github.com/MrCatAI/Tutorial.git _#修改为自己的_
+git clone https://github.com/MrCatAI/Tutorial.git _#修改为自己frok的仓库_
 cd Tutorial/
 git branch -a
 git checkout -b camp3 origin/camp3
@@ -231,7 +231,7 @@ git checkout -b camp3_577 _# 自定义一个新的分支_
 示例文件路径
 
 ```bash
-./data/Git/task/camp3_<id.md
+./data/Git/task/camp3_id.md
 ```
 
 7.创建自己的破冰文件
@@ -273,14 +273,14 @@ git **push** origin camp3_577
 
 ![](static/RaosbM8E7osYsqx8jnIcGkm1n5c.png)
 
-在 github 页面提交 PR 到 Tutorial
+在 github 页面将修改的内容 PR 到 Tutorial
 
 ![](static/TT2NbszJ1oKCorxMWpXcakPUnCd.png)
 
 按要求编写 title
 
 ```bash
-git_557_introduction
+git_557_introduction #请统一 git_<id>_introduction 格式,方便审核
 ```
 
 下面可以查看修改的内容
@@ -289,11 +289,11 @@ git_557_introduction
 
 PR 示例链接：[https://github.com/InternLM/Tutorial/pull/790](https://github.com/InternLM/Tutorial/pull/790)
 
-也可以合并到自己仓库的代码
+也可以合并到自己的仓库
 
 ![](static/LBZibAcS0oArsFxzCLNcY1X2n7e.png)
 
-自己的仓库，可以自行 merge，作业提交的公开需要维护者审核。
+自己的仓库，可以自行 merge，作业提交到 Tutorial 需要维护者审核。
 
 ![](static/UEl6btxJWo0OHRxcUjRcb9udnNe.png)
 
@@ -314,7 +314,7 @@ PR 示例链接：[https://github.com/InternLM/Tutorial/pull/790](https://github
 
 **动手操作**
 
-1.先在 github 创建一个初始化仓库
+1.先在 github 创建一个新的仓库
 
 ![](static/GnmablchRoubIgxK7Ioc5JAQndg.png)
 
