@@ -24,11 +24,11 @@ Git 基础：[Git 基础知识](https://aicarrier.feishu.cn/wiki/YAXRwLZxPi8Hy6k
 
 1. 选择适合您 Windows 版本（32 位或 64 位）的安装程序进行下载。
 
-![](static/Z8c3bDoHeobWXyxnhwVcMpOznSg.png)
+![Z8c3bDoHeobWXyxnhwVcMpOznSg](https://github.com/InternLM/Tutorial/assets/160732778/b8bfd42a-1e8a-4986-90ff-15c1d999f909)
 
 2. 在安装向导中，通常可以选择默认设置，一路点击“Next”（下一步）即可完成安装。
 
-![](static/Xo1LbZofZoJyxNxMpqScEW0onFe.png)
+![Xo1LbZofZoJyxNxMpqScEW0onFe](https://github.com/InternLM/Tutorial/assets/160732778/a0114241-ce78-4b5f-9a15-9f3cbb75e497)
 
 3.检查是否安装完成。
 
@@ -38,7 +38,7 @@ Git 基础：[Git 基础知识](https://aicarrier.feishu.cn/wiki/YAXRwLZxPi8Hy6k
 
 （已经安装过，暂时不更新啦）
 
-![](static/ImJpbk1qPoZdQyxA1GdcPvcEnHe.png)
+![ImJpbk1qPoZdQyxA1GdcPvcEnHe](https://github.com/InternLM/Tutorial/assets/160732778/0bdaf412-1598-4b75-8df4-462c35d79969)
 
 ### 1.2 **Linux 系统**
 
@@ -54,11 +54,11 @@ sudo apt install git
 
 随便一台机器，仅测试。
 
-![](static/Vgxfb58tSoCUeqxDS1PcsjUQn2e.png)
+![Vgxfb58tSoCUeqxDS1PcsjUQn2e](https://github.com/InternLM/Tutorial/assets/160732778/26cb99b9-9792-4f0d-ab02-bdaefd0aac56)
 
 2.检查 git 版本
 
-![](static/YSQpbPXWtoAVAqxuhkUcngX2npP.png)
+![YSQpbPXWtoAVAqxuhkUcngX2npP](https://github.com/InternLM/Tutorial/assets/160732778/0fa2fbb4-d61c-42b5-8a14-3c6f4ee70993)
 
 如果没安装，可以按上面的安装教程完成安装。
 
@@ -150,7 +150,7 @@ sudo apt install git
 
 在 VSCode 等软件中，插件是效率提升的利器。（根据自己的爱好进行选择）
 
-![](static/KvynbQdSyogfknxSbKccxbMdnjf.png)
+![KvynbQdSyogfknxSbKccxbMdnjf](https://github.com/InternLM/Tutorial/assets/160732778/f735c3bf-ca9b-4e12-84ed-a63e4bb7db3a)
 
 | [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) | 在代码行上显示 Git 提交信息，如提交人、时间及变更描述等，还能查看文件历史记录、比较视图、显示 Git blame 注释和团队成员的最新活动等 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -177,7 +177,7 @@ sudo apt install git
 # id 为报名问卷的ID
 ```
 
-![](static/XNzebK7ItoftfwxiXQ2cY3lYn0g.png)
+![XNzebK7ItoftfwxiXQ2cY3lYn0g](https://github.com/InternLM/Tutorial/assets/160732778/bb74cc07-e806-4d17-9dbc-cca2890a9230)
 
 （倘若您经常使用，且参与过项目开发，那么下面的操作想必您都熟知，可以迅速跳过。）
 
@@ -187,17 +187,17 @@ sudo apt install git
 
 [报名问卷](https://www.wjx.cn/vm/PvefmG2.aspx?sojumpparm=MTU3NjczNzE1ODY=)
 
-![](static/XPcwbc8JHopWqRxTsVDc28gQnnc.png)
+![XPcwbc8JHopWqRxTsVDc28gQnnc](https://github.com/InternLM/Tutorial/assets/160732778/5b18eb3b-df8a-4ec9-be27-3746b80815ee)
 
-2.Frok 项目
+2.Fork 项目
 
 [项目链接](https://github.com/InternLM/Tutorial)
 
-![](static/MXzyb640Ro6S1TxK3lrcpMTLnnb.png)
+![MXzyb640Ro6S1TxK3lrcpMTLnnb](https://github.com/InternLM/Tutorial/assets/160732778/7a88cbd5-3d53-4e55-97be-137b80944b92)
 
 3.获取仓库链接
 
-![](static/CWMvb92fFomY4gxsdgrcHw3mneh.png)
+![CWMvb92fFomY4gxsdgrcHw3mneh](https://github.com/InternLM/Tutorial/assets/160732778/bdee8d52-1226-4646-b2b7-b92578f149c9)
 
 ```bash
 git clone https://github.com/MrCatAI/Tutorial.git _#修改为自己frok的仓库_
@@ -208,25 +208,25 @@ git checkout -b camp3 origin/camp3
 
 4.查看分支
 
-![](static/XgMvbeKkRojKmXxTqY0cAIwcnqc.png)
+![XgMvbeKkRojKmXxTqY0cAIwcnqc](https://github.com/InternLM/Tutorial/assets/160732778/3e604f79-f68b-4068-ba85-b06dbc5d9f21)
 
 5.切换到第三期的分支
 
-![](static/HK41btX6toRdINx8acUc0k4bnLf.png)
+![HK41btX6toRdINx8acUc0k4bnLf](https://github.com/InternLM/Tutorial/assets/160732778/d786651e-1506-420d-85cc-a3576b8fe1f0)
 
 6.查看分支内容
 
-![](static/FmlybnAfZoQ5f2xsdSDc5c5wnJx.png)
+![FmlybnAfZoQ5f2xsdSDc5c5wnJx](https://github.com/InternLM/Tutorial/assets/160732778/8e2528f7-4ee4-4eda-b441-03053f5abac7)
 
 ```bash
 git checkout -b camp3_577 _# 自定义一个新的分支_
 ```
 
-![](static/ED8YbzgA1oZXJdxBegZcl1o0ncy.png)
+![ED8YbzgA1oZXJdxBegZcl1o0ncy](https://github.com/InternLM/Tutorial/assets/160732778/a8751f86-78e5-4a00-9cbe-6def3ff572d4)
 
 示例：
 
-![](static/I7ZsbQ0MMos1HMxufdaciHV4nMd.png)
+![I7ZsbQ0MMos1HMxufdaciHV4nMd](https://github.com/InternLM/Tutorial/assets/160732778/30e2b3b9-6091-4c04-90eb-5157691bae59)
 
 示例文件路径
 
@@ -240,7 +240,7 @@ git checkout -b camp3_577 _# 自定义一个新的分支_
 touch ./data/Git/task/camp3_557.md _#修改为自己的问卷ID_
 ```
 
-![](static/BwGgbkHdLo1jzvxIMxTc0futnub.png)
+![BwGgbkHdLo1jzvxIMxTc0futnub](https://github.com/InternLM/Tutorial/assets/160732778/cbf78959-ed0b-4426-91af-dca75b9fc013)
 
 8.提交更改到分支
 
@@ -249,33 +249,29 @@ git add .
 git commit -m "add git_557_introduction" _提交信息记录_
 ```
 
-![](static/E7pybrN2sowPTFxThvmcxHKOnab.png)
+![E7pybrN2sowPTFxThvmcxHKOnab](https://github.com/InternLM/Tutorial/assets/160732778/898de54d-b8ce-4666-948e-a142ac12aaa4)
 
 ```perl
-git **push** origin camp3_577
+git push origin camp3_577
 ```
 
 （大家提交使用英文，避免仓库同步错误）
 
 注：初始化时可能需要创建对应的 token：（示例，可根据实际提示完成）
 
-![](static/MKjsbwN3XoVjSGxsWZnc6x4hnCe.png)
+![MKjsbwN3XoVjSGxsWZnc6x4hnCe](https://github.com/InternLM/Tutorial/assets/160732778/bea9600a-21f0-4cbc-8c7f-73fe5769e78b)
 
-![](static/G3hmb6UmzomjJ7xOGZEc4GV0nNb.png)
+![G3hmb6UmzomjJ7xOGZEc4GV0nNb](https://github.com/InternLM/Tutorial/assets/160732778/fae00c0f-6084-44d9-acf7-82fa915c90f9)
 
-![](static/RTYPbNoCEop6RKxhqcRcFFXanng.png)
-
-提交成功
-
-![](static/DxoLbxK01ovG88xUHehcnRgXnzT.png)
+![DxoLbxK01ovG88xUHehcnRgXnzT](https://github.com/InternLM/Tutorial/assets/160732778/c8f83c61-2973-4c8a-a9ae-6df3936a67ef)
 
 查看提交
 
-![](static/RaosbM8E7osYsqx8jnIcGkm1n5c.png)
+![RaosbM8E7osYsqx8jnIcGkm1n5c](https://github.com/InternLM/Tutorial/assets/160732778/d8a322ec-9a06-4463-a61d-831ef953b1ef)
 
 在 github 页面将修改的内容 PR 到 Tutorial
 
-![](static/TT2NbszJ1oKCorxMWpXcakPUnCd.png)
+![TT2NbszJ1oKCorxMWpXcakPUnCd](https://github.com/InternLM/Tutorial/assets/160732778/bef3eac1-e5dc-4699-b8c6-e73066b68fda)
 
 按要求编写 title
 
@@ -285,17 +281,17 @@ git_557_introduction #请统一 git_<id>_introduction 格式,方便审核
 
 下面可以查看修改的内容
 
-![](static/ZVVOb8NtEowWFQxWFQAcgcoWnQf.png)
+![ZVVOb8NtEowWFQxWFQAcgcoWnQf](https://github.com/InternLM/Tutorial/assets/160732778/6bbc3734-ea3a-46f4-a468-d317ed23227f)
 
 PR 示例链接：[https://github.com/InternLM/Tutorial/pull/790](https://github.com/InternLM/Tutorial/pull/790)
 
 也可以合并到自己的仓库
 
-![](static/LBZibAcS0oArsFxzCLNcY1X2n7e.png)
+![LBZibAcS0oArsFxzCLNcY1X2n7e](https://github.com/InternLM/Tutorial/assets/160732778/13a578cf-13be-45a2-81de-4cfab5109770)
 
 自己的仓库，可以自行 merge，作业提交到 Tutorial 需要维护者审核。
 
-![](static/UEl6btxJWo0OHRxcUjRcb9udnNe.png)
+![UEl6btxJWo0OHRxcUjRcb9udnNe](https://github.com/InternLM/Tutorial/assets/160732778/72966a46-c634-48a9-9a88-fc6834d957e2)
 
 ## 2. 实践项目：构建个人项目（简版）
 
@@ -316,32 +312,32 @@ PR 示例链接：[https://github.com/InternLM/Tutorial/pull/790](https://github
 
 1.先在 github 创建一个新的仓库
 
-![](static/GnmablchRoubIgxK7Ioc5JAQndg.png)
+![GnmablchRoubIgxK7Ioc5JAQndg](https://github.com/InternLM/Tutorial/assets/160732778/10978930-88cc-4927-afdb-e494031dfd4f)
 
-![](static/UBRjbS9lBozcUSxJN2IcNKNSn8d.png)
+![UBRjbS9lBozcUSxJN2IcNKNSn8d](https://github.com/InternLM/Tutorial/assets/160732778/05fe7cda-d103-42e9-b2d3-b74e6093c40a)
 
 这样你就得到一个空白的仓库：
 
-![](static/QxjXbWeoxoH0VmxhT85cqrZ2nzd.png)
+![QxjXbWeoxoH0VmxhT85cqrZ2nzd](https://github.com/InternLM/Tutorial/assets/160732778/506e7e78-a7aa-4c71-acbc-74c8df364f38)
 
 然后按上面的操作，可以拉取仓库和提交对应的信息：
 
-![](static/QLZ9bEOV7oP3iaxHCOycP1J6nje.png)
+![QLZ9bEOV7oP3iaxHCOycP1J6nje](https://github.com/InternLM/Tutorial/assets/160732778/1461a56b-9ebb-4db4-a197-72d2c7dce586)
 
-![](static/F5dNb3S9poBZS4xFdVLcptYgnIe.png)
+![F5dNb3S9poBZS4xFdVLcptYgnIe](https://github.com/InternLM/Tutorial/assets/160732778/09d5821e-0229-4a62-a615-37e57562cfed)
 
 修改，并记录自己的项目信息等.....
 
-![](static/IFM6bzj6SorSo5xgWj1czZNYnxg.png)
+![IFM6bzj6SorSo5xgWj1czZNYnxg](https://github.com/InternLM/Tutorial/assets/160732778/eec52de1-6556-444e-bb76-9df1e0431afb)
 
-![](static/JFPhbwINBoEDEWxCekHcAVyLnof.png)
+![JFPhbwINBoEDEWxCekHcAVyLnof](https://github.com/InternLM/Tutorial/assets/160732778/0b27b3e8-6fd1-49db-8189-a129017afd96)
 
 修改完后提交到仓库：
 
-![](static/Xq3Eb5LjgoOc5KxP6FJcRsXzned.png)
+![Xq3Eb5LjgoOc5KxP6FJcRsXzned](https://github.com/InternLM/Tutorial/assets/160732778/94b9377d-11bb-4c8e-9dd0-e39eec587b06)
 
-![](static/IqU8bec1vomQELxE7sCcyKbInq2.png)
+![IqU8bec1vomQELxE7sCcyKbInq2](https://github.com/InternLM/Tutorial/assets/160732778/ebfe2dc6-98ab-4373-8673-3d932f3b2695)
 
-![](static/NiN3bCHIaoHh7GxQG6WcEY3Yn9f.png)
+![NiN3bCHIaoHh7GxQG6WcEY3Yn9f](https://github.com/InternLM/Tutorial/assets/160732778/c76691e7-eb21-435f-a0ed-4a6b62e569e4)
 
 参考仓库(仅演示)：[https://github.com/MrCatAI/March7thMuse1](https://github.com/MrCatAI/March7thMuse1)
