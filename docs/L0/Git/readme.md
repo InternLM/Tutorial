@@ -26,7 +26,7 @@ Git 基础：[Git 基础知识](https://aicarrier.feishu.cn/wiki/YAXRwLZxPi8Hy6k
 
 ![](static/Z8c3bDoHeobWXyxnhwVcMpOznSg.png)
 
-1. 在安装向导中，通常可以选择默认设置，一路点击“Next”（下一步）即可完成安装。
+2. 在安装向导中，通常可以选择默认设置，一路点击“Next”（下一步）即可完成安装。
 
 ![](static/Xo1LbZofZoJyxNxMpqScEW0onFe.png)
 
@@ -90,55 +90,55 @@ sudo apt install git
 
 - 初始化一个新的 Git 仓库，在当前目录创建一个 `.git` 隐藏文件夹来跟踪项目的版本历史。
 
-1. `git clone <repository-url>`
+2. `git clone <repository-url>`
 
 - 从指定的 URL 克隆一个远程仓库到本地。
 
-1. `git add <file>` 或 `git add.`
+3. `git add <file>` 或 `git add.`
 
 - 将指定的文件或当前目录下的所有修改添加到暂存区，准备提交。
 
-1. `git commit -m "message"`
+4. `git commit -m "message"`
 
 - 提交暂存区的修改，并附带一个有意义的提交消息来描述更改的内容。
 
-1. `git status`
+5. `git status`
 
 - 查看工作目录和暂存区的状态，包括哪些文件被修改、添加或删除。
 
-1. `git log`
+6. `git log`
 
 - 查看提交历史，包括提交的作者、日期和提交消息。
 
-1. `git branch`
+7. `git branch`
 
 - 列出所有本地分支。
 
-1. `git branch <branch-name>`
+8. `git branch <branch-name>`
 
 - 创建一个新的分支。
 
-1. `git checkout <branch-name>`
+9. `git checkout <branch-name>`
 
 - 切换到指定的分支。
 
-1. `git merge <branch-name>`
+10. `git merge <branch-name>`
 
 - 将指定的分支合并到当前分支。
 
-1. `git push`
+11. `git push`
 
 - 将本地的提交推送到远程仓库。
 
-1. `git pull`
+12. `git pull`
 
 - 从远程仓库拉取最新的更改并合并到本地分支。
 
-1. `git stash`
+13. `git stash`
 
 - 暂存当前未提交的修改，以便在需要时恢复。
 
-1. `git stash pop`
+14. `git stash pop`
 
 - 恢复最近暂存的修改。
 
