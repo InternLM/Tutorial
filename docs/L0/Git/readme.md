@@ -50,13 +50,7 @@ sudo apt install git
 # _如果使用的 Intern-Studio 可以跳过或去除sudo后执行。默认已安装_
 ```
 
-1.开机：
-
-随便一台机器，仅测试。
-
-![Vgxfb58tSoCUeqxDS1PcsjUQn2e](https://github.com/InternLM/Tutorial/assets/160732778/26cb99b9-9792-4f0d-ab02-bdaefd0aac56)
-
-2.检查 git 版本
+检查 git 版本
 
 ![YSQpbPXWtoAVAqxuhkUcngX2npP](https://github.com/InternLM/Tutorial/assets/160732778/0fa2fbb4-d61c-42b5-8a14-3c6f4ee70993)
 
@@ -86,61 +80,22 @@ sudo apt install git
 
 ## 3. 常用的 Git 操作
 
-1. `git init`
-
-- 初始化一个新的 Git 仓库，在当前目录创建一个 `.git` 隐藏文件夹来跟踪项目的版本历史。
-
-2. `git clone <repository-url>`
-
-- 从指定的 URL 克隆一个远程仓库到本地。
-
-3. `git add <file>` 或 `git add.`
-
-- 将指定的文件或当前目录下的所有修改添加到暂存区，准备提交。
-
-4. `git commit -m "message"`
-
-- 提交暂存区的修改，并附带一个有意义的提交消息来描述更改的内容。
-
-5. `git status`
-
-- 查看工作目录和暂存区的状态，包括哪些文件被修改、添加或删除。
-
-6. `git log`
-
-- 查看提交历史，包括提交的作者、日期和提交消息。
-
-7. `git branch`
-
-- 列出所有本地分支。
-
-8. `git branch <branch-name>`
-
-- 创建一个新的分支。
-
-9. `git checkout <branch-name>`
-
-- 切换到指定的分支。
-
-10. `git merge <branch-name>`
-
-- 将指定的分支合并到当前分支。
-
-11. `git push`
-
-- 将本地的提交推送到远程仓库。
-
-12. `git pull`
-
-- 从远程仓库拉取最新的更改并合并到本地分支。
-
-13. `git stash`
-
-- 暂存当前未提交的修改，以便在需要时恢复。
-
-14. `git stash pop`
-
-- 恢复最近暂存的修改。
+| 命令 | 描述 |
+|------|------|
+| `git init` | 初始化一个新的 Git 仓库，在当前目录创建一个 `.git` 隐藏文件夹来跟踪项目的版本历史。 |
+| `git clone <repository-url>` | 从指定的 URL 克隆一个远程仓库到本地。 |
+| `git add <file>` 或 `git add .` | 将指定的文件或当前目录下的所有修改添加到暂存区，准备提交。 |
+| `git commit -m "message"` | 提交暂存区的修改，并附带一个有意义的提交消息来描述更改的内容。 |
+| `git status` | 查看工作目录和暂存区的状态，包括哪些文件被修改、添加或删除。 |
+| `git log` | 查看提交历史，包括提交的作者、日期和提交消息。 |
+| `git branch` | 列出所有本地分支。 |
+| `git branch <branch-name>` | 创建一个新的分支。 |
+| `git checkout <branch-name>` | 切换到指定的分支。 |
+| `git merge <branch-name>` | 将指定的分支合并到当前分支。 |
+| `git push` | 将本地的提交推送到远程仓库。 |
+| `git pull` | 从远程仓库拉取最新的更改并合并到本地分支。 |
+| `git stash` | 暂存当前未提交的修改，以便在需要时恢复。 |
+| `git stash pop` | 恢复最近暂存的修改。 |
 
 开始一个新的项目时，首先使用 `git init` 初始化仓库。在进行一些代码修改后，使用 `git add.` 添加所有修改，然后使用 `git commit -m "Initial commit"` 提交更改。
 
@@ -297,7 +252,7 @@ PR 示例链接：[https://github.com/InternLM/Tutorial/pull/790](https://github
 
 创建个人仓库，用于提交笔记、心得体会，或分享自己的项目和创意。我们特别欢迎与 LLM 训练和应用相关的内容，但不限于此。
 
-### 任务
+### 目标
 
 创建自己的仓库(拥有自己的仓库，记录笔记与心得
 
@@ -306,7 +261,7 @@ PR 示例链接：[https://github.com/InternLM/Tutorial/pull/790](https://github
 1. 拥有自己的项目或笔记仓库（公开）。
 2. 提交作业 github 仓库链接（如已经有项目的可以提交项目链接。
 3. github 使用少的，可参考下面的操作，提交到常用的其他代码管理平台，如 gitee。
-4. 笔记或项目类仓库，添加超链接跳转 [GitHub 仓库](https://github.com/InternLM/Tutorial)（<u>[https://github.com/InternLM/Tutorial](https://github.com/InternLM/Tutorial)</u>）
+4. 笔记或项目类仓库，添加超链接跳转 [GitHub 仓库](https://github.com/InternLM/Tutorial)（<u>[https://github.com/InternLM/Tutorial]</u>）
 
 **动手操作**
 
