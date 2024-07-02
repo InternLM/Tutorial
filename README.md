@@ -24,7 +24,7 @@
 |第 2 关| 8G 显存部署 InternLM & InternVL | | [文档](docs/L1/HelloIntern)、视频、任务 |
 |第 3 关| 浦语提示词工程实践 ||[文档](docs/L1/Prompt)、视频、任务|
 |第 4 关| InternLM + LlamaIndex RAG 实践 || [文档](docs/L1/LlamaIndex)、视频、任务 |
-|第 6 关| XTuner 微调个人小助手认知 || [文档](docs/L1/XTuner)、视频、任务 |
+|第 6 关| XTuner 微调个人小助手认知 || [文档](docs/L1/XTuner)、视频、[任务](docs/L1/XTuner/task.md) |
 |第 7 关| OpenCompass 评测 InternLM-1.8B 实践 || [文档](OpenCompass)、视频、任务 |
 
 
