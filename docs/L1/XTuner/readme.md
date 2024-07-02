@@ -2,6 +2,8 @@
 
 在本节中，将一步步带领大家体验如何使用 XTuner 完成个人小助手的微调！
 
+> 整个过程大概需要40分钟我们就可以得到一个自己的小助手。
+
 ## 1 微调前置基础
 
 在进行微调之前，我们需要了解一些基本概念，请访问[XTuner微调前置基础](./xtuner_finetune_basic.md)。
@@ -16,23 +18,23 @@
 
 ### 2.1 创建虚拟环境
 
-在安装 XTuner 之前，我们需要先创建一个虚拟环境。创建一个名为 `xtuner0121` 的虚拟环境，可以直接执行命令。
-
+在安装 XTuner 之前，我们需要先创建一个虚拟环境。使用 `Anaconda` 创建一个名为 `xtuner0121` 的虚拟环境，可以直接执行命令。
 
 ```bash
+# 创建虚拟环境
 conda create -n xtuner0121 python=3.10 -y
+
+# 激活虚拟环境
+conda activate xtuner0121
+
+# 安装一些必要的库
+pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0
 ```
 
 如果是在开发机中，也可以直接执行以下命令进行创建：
 
-
 ```bash
 studio-conda -t xtuner0121 -o internlm-base
-```
-
-虚拟环境创建完成后，需要激活虚拟环境。
-
-```bash
 conda activate xtuner0121
 ```
 
@@ -40,18 +42,26 @@ conda activate xtuner0121
 
 虚拟环境创建完成后，就可以安装 XTuner 了。首先，从 Github 上下载源码。
 
-
 ```bash
-git clone -b v0.1.21  https://github.com/InternLM/xtuner
+# 创建一个目录，用来存放源代码
+mkdir -p /root/InternLM/code
+
+cd /root/InternLM/code
+
+git clone -b v0.1.21  https://github.com/InternLM/XTuner
 ```
 
 其次，进入源码目录，执行安装。
 
-> 如果速度太慢可以换成 `pip install -e '.[all]' -i https://mirrors.aliyun.com/pypi/simple/`
+> 如果速度太慢可以换成 `pip install -e '.[deepspeed]' -i https://mirrors.aliyun.com/pypi/simple/`
 
 
 ```bash
-cd xtuner && pip install -e '.[all]'
+# 进入到源码目录
+cd /root/InternLM/code/XTuner
+
+# 执行安装
+pip install -e '.[deepspeed]'
 ```
 
 最后，我们可以验证一下安装结果。
@@ -82,6 +92,11 @@ xtuner help
 
 
 ```bash
+# 创建一个目录，用来存放微调的资料
+mkdir -p /root/InternLM/XTuner
+
+cd /root/InternLM/XTuner
+
 mkdir -p Shanghai_AI_Laboratory
 
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b Shanghai_AI_Laboratory/internlm2-chat-1_8b
@@ -96,7 +111,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b Shanghai
 
 ```python
 from modelscope import snapshot_download
-model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-1_8b', cache_dir="./")
+model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-1_8b', cache_dir="/root/InternLM/XTuner/")
 ```
 
 模型文件准备好后，我们的目录结构应该是这个样子的。
@@ -214,7 +229,7 @@ def chat(input_text):
 
 
 ```python
-tokenizer, model = load_model("Shanghai_AI_Laboratory/internlm2-chat-1_8b")
+tokenizer, model = load_model("/root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
 ```
 
 - 对话
@@ -239,7 +254,14 @@ torch.cuda.empty_cache()
 
 #### 3.2.1 准数据文件
 
-为了让模型能够认清自己的身份弟位，在询问自己是谁的时候按照我们预期的结果进行回复，我们就需要通过在微调数据集中大量加入这样的数据。我们准备一个数据集文件`datas/assistant.json`，文件内容为对话数据。为了增强微调效果，可以将对话数据复制多条。
+为了让模型能够认清自己的身份弟位，在询问自己是谁的时候按照我们预期的结果进行回复，我们就需要通过在微调数据集中大量加入这样的数据。我们准备一个数据集文件`datas/assistant.json`，文件内容为对话数据。
+
+```bash
+mkdir -p datas
+touch datas/assistant.json
+```
+
+为了增强微调效果，可以将对话数据复制多条。
 
 
 ```python
@@ -247,6 +269,52 @@ torch.cuda.empty_cache()
     {"conversation": [{"input": "请介绍一下你自己", "output": "我是伍鲜同志的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦"}]},
     {"conversation": [{"input": "你在实战营做什么", "output": "我在这里帮助伍鲜同志完成XTuner微调个人小助手的任务"}]},
 ]
+```
+
+为了简化数据文件准备，我们也可以通过脚本生成的方式来准备数据。创建一个脚本文件 `xtuner_generate_assistant.py` ，输入脚本内容并保存：
+
+> 或者可以直接复制 [tools/xtuner_generate_assistant.py](../../../tools/xtuner_generate_assistant.py)
+> ```bash
+> cp ../../../tools/xtuner_generate_assistant.py ./
+>```
+
+<details>
+<summary>xtuner_generate_assistant.py</summary>
+
+```python
+import json
+
+# 设置用户的名字
+name = '伍鲜同志'
+# 设置需要重复添加的数据次数
+n =  4650
+
+# 初始化数据
+data = [
+    {"conversation": [{"input": "请介绍一下你自己", "output": "我是{}的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦".format(name)}]},
+    {"conversation": [{"input": "你在实战营做什么", "output": "我在这里帮助{}完成XTuner微调个人小助手的任务".format(name)}]}
+]
+
+# 通过循环，将初始化的对话数据重复添加到data列表中
+for i in range(n):
+    data.append(data[0])
+    data.append(data[1])
+
+# 将data列表中的数据写入到'datas/assistant.json'文件中
+with open('datas/assistant.json', 'w', encoding='utf-8') as f:
+    # 使用json.dump方法将数据以JSON格式写入文件
+    # ensure_ascii=False 确保中文字符正常显示
+    # indent=4 使得文件内容格式化，便于阅读
+    json.dump(data, f, ensure_ascii=False, indent=4)
+
+```
+
+</details>
+
+然后执行该脚本来生成数据文件。
+
+```bash
+python xtuner_generate_assistant.py
 ```
 
 准备好数据文件后，我们的目录结构应该是这样子的。
@@ -414,14 +482,14 @@ xtuner copy-cfg internlm2_chat_1_8b_qlora_alpaca_e3 .
 #                          PART 1  Settings                           #
 #######################################################################
 - pretrained_model_name_or_path = 'internlm/internlm2-chat-1_8b'
-+ pretrained_model_name_or_path = 'Shanghai_AI_Laboratory/internlm2-chat-1_8b'
++ pretrained_model_name_or_path = '/root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = 'datas/assistant.json'
 
 evaluation_inputs = [
 -    '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'
-+    '请介绍一下你自己', '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'
++    '请介绍一下你自己', 'Please introduce yourself'
 ]
 
 #######################################################################
@@ -475,6 +543,11 @@ alpaca_en = dict(
 
 修改完后的完整的配置文件是：[configs/internlm2_chat_1_8b_qlora_alpaca_e3_copy.py](../../../configs/internlm2_chat_1_8b_qlora_alpaca_e3_copy.py)。
 
+> 可以直接复制到当前目录。
+> ```bash
+> cp ../../../configs/internlm2_chat_1_8b_qlora_alpaca_e3_copy.py ./
+>```
+
 <details>
 <summary>internlm2_chat_1_8b_qlora_alpaca_e3_copy.py</summary>
 
@@ -505,7 +578,7 @@ from xtuner.utils import PROMPT_TEMPLATE, SYSTEM_TEMPLATE
 #                          PART 1  Settings                           #
 #######################################################################
 # Model
-pretrained_model_name_or_path = 'Shanghai_AI_Laboratory/internlm2-chat-1_8b'
+pretrained_model_name_or_path = '/root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b'
 use_varlen_attn = False
 
 # Data
@@ -538,7 +611,7 @@ save_total_limit = 2  # Maximum checkpoints to keep (-1 means unlimited)
 evaluation_freq = 500
 SYSTEM = SYSTEM_TEMPLATE.alpaca
 evaluation_inputs = [
-    '请介绍一下你自己', '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'
+    '请介绍一下你自己', 'Please introduce yourself'
 ]
 
 #######################################################################
@@ -801,7 +874,7 @@ pth_file=`ls -t ./work_dirs/internlm2_chat_1_8b_qlora_alpaca_e3_copy/*.pth | hea
 
 
 ```bash
-MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert merge Shanghai_AI_Laboratory/internlm2-chat-1_8b ./hf ./merged --max-shard-size 2GB
+MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert merge /root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b ./hf ./merged --max-shard-size 2GB
 ```
 
 模型合并完成后，我们的目录结构应该是这样子的。
@@ -869,12 +942,17 @@ torch.cuda.empty_cache()
 
 
 ```python
-pip install streamlit
+pip install streamlit==1.36.0
 ```
 
 其次，我们需要准备一个Streamlit程序的脚本。
 
 Streamlit程序的完整代码是：[tools/xtuner_streamlit_demo.py](../../../tools/xtuner_streamlit_demo.py)。
+
+> 可以直接复制到当前目录。  
+> ```bash
+> cp ../../../tools/xtuner_streamlit_demo.py ./
+>```
 
 <details>
 <summary>xtuner_streamlit_demo.py</summary>

@@ -24,7 +24,7 @@ from xtuner.utils import PROMPT_TEMPLATE, SYSTEM_TEMPLATE
 #                          PART 1  Settings                           #
 #######################################################################
 # Model
-pretrained_model_name_or_path = 'Shanghai_AI_Laboratory/internlm2-chat-1_8b'
+pretrained_model_name_or_path = '/root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b'
 use_varlen_attn = False
 
 # Data
@@ -57,7 +57,7 @@ save_total_limit = 2  # Maximum checkpoints to keep (-1 means unlimited)
 evaluation_freq = 500
 SYSTEM = SYSTEM_TEMPLATE.alpaca
 evaluation_inputs = [
-    '请介绍一下你自己', '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'
+    '请介绍一下你自己', 'Please introduce yourself'
 ]
 
 #######################################################################
