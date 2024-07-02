@@ -4,7 +4,8 @@
 
 ## 基础任务（完成此任务即完成闯关）
 
-- 将`xtuner_generate_assistant.py`脚本中的`name`改成自己的名字或昵称，生成自己的数据，并训练出自己的小助手认知（记录复现过程并截图）
+- 使用 XTuner 微调 InternLM2-Chat-1.8B 实现自己的小助手认知，如下图所示（图中的`伍鲜同志`需替换成自己的昵称），记录复现过程并截图。
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-12.png)
 
 ## 进阶任务（闯关不要求完成此任务）
 
