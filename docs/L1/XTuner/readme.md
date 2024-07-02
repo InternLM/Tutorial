@@ -1272,4 +1272,4 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p 43551
 
 ## 6 作业
 
-作业请访问[作业](./homework.md)。
+作业请访问[作业](./task.md)。
