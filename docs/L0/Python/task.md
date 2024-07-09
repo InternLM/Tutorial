@@ -19,11 +19,11 @@ Eg:
 Input:
 
 ```python
-"Hello world!  
+"""Hello world!  
 This is an example.  
 Word count is fun.  
 Is it fun to count words?  
-Yes, it is fun!"
+Yes, it is fun!"""
 ```
 
 Output:
