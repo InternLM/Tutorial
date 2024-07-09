@@ -1,6 +1,6 @@
 # Linux+InternStudio 关卡
 
-😀Hello大家好，欢迎来到**书生大模型**实战营，这里是实战营为第一次参加实战营同学，和来自各个行业的没有Linux基础知识的同学准备的基础课程，在这里我们会教大家如何使用**InternStudio开发机**，以及掌握一些基础的**Linux知识**，让大家不至于在后面的课程中无从下手，希望对大家有所帮助。下面是我们这一关卡的大纲，在完成相关基础知识学习以后，会给大家布置一些小关卡，**让我们开始吧！**
+😀Hello大家好，欢迎来到**书生大模型**实战营，这里是实战营为第一次参加实战营同学，和来自各个行业的没有Linux基础知识的同学准备的基础课程，在这里我们会教大家如何使用**InternStudio开发机**，以及掌握一些基础的**Linux知识**，让大家不至于在后面的课程中无从下手，希望对大家有所帮助。在这里[关卡任务](./task.md)中为大家准备了一些关卡任务，当大家完成必做关卡任务并打卡后，就会获得当前关卡的算力奖励了，**让我们开始吧！**
 
 ## 一、InternStudio开发机介绍
 
@@ -819,8 +819,11 @@ conda env create -f  myenv.yml
 >
 > 例如，如果您要安装一个大型的 Python 库，使用 Wheel 格式可以避免在不同的机器上因为编译环境的差异而导致的安装问题。而且，对于那些没有编译环境或者编译能力较弱的系统，Wheel 格式能够让安装过程更加顺畅。
 
+  
 ### 4. studio-conda使用与Shell（扩展）
 
+<details>
+  
 这一部分属于扩展的部分，因为我觉得这一部分非常有趣，也非常实用，所以如果大家有兴趣的可以学习一下。
 
 我们先来介绍一下`studio-conda`，这是开发机内置的一个命令，它通过Shell脚本来实现的。什么是Shell脚本呢？
@@ -846,7 +849,31 @@ alias studio-conda="/share/install_conda_env.sh"
 alias studio-smi="/share/studio-smi"
 ```
 
-`export`是用来设置环境变量的，`alias`是将一个sh文件复制为一个变量，这个可以作为命令在终端中执行，我们的`studio-conda`就是这样的。我们查看`/share/install_conda_env.sh`文件内容如下：
+`export`是用来设置环境变量的，`alias`是将一个sh文件复制为一个变量，这个可以作为命令在终端中执行，我们的`studio-conda`就是这样的。
+
+这里的`studio-smi`是用来查看查看虚拟内存占用的，当我们打开`/share/studio-smi`文件可以看到：
+
+```Bash
+#!/bin/bash
+
+if command -v vgpu-smi &> /dev/null
+then
+    echo "Running studio-smi by vgpu-smi"
+    vgpu-smi
+else
+    echo "Running studio-smi by nvidia-smi"
+    nvidia-smi
+fi
+```
+
+这个脚本是用于检查系统中是否存在 `vgpu-smi` 命令，如果存在，它将运行 `vgpu-smi` 来显示虚拟 GPU (vGPU) 的状态信息；如果不存在，它将运行 `nvidia-smi` 来显示 NVIDIA GPU 的状态信息。如下图所示：
+
+![image](https://github.com/acwwt/Tutorial/assets/110531742/141df0b4-8487-4d49-9daf-2717364e055d)
+
+
+`nvidia-smi` 是用于监控和管理物理 NVIDIA GPU 设备的工具，而 `vgpu-smi` 专门用于监控和管理通过 NVIDIA vGPU 技术虚拟化的 GPU 资源。
+
+我们查看`/share/install_conda_env.sh`文件内容如下：
 
 ```Bash
 #!/bin/bash
@@ -1028,6 +1055,8 @@ esac
 
 
 不过这种跟直接使用没什么太大区别，如果将这种操作与开发机中的`studio-conda`命令结合起来会非常方便，不过由于复制环境的方法不太一样。所以如果要实现需要对`/share/install_conda_env.sh`文件的逻辑进行修改。
+
+</details>
 
 好了，以上就是我们本关卡的全部内容了，希望上面的内容对大家后面学习有帮助，如果大家想要学习更多linux的相关知识，可以看我博客文章，虽然说不会linux对我们学习大模型没有太大影响，但是linux如果学习的很好，会让你在学习大模型的路上非常顺畅的。最后大家不要忘了完成我们前面设置的关卡呦！
 
