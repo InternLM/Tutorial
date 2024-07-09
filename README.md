@@ -1,7 +1,6 @@
 # 书生大模型实战营（第三期闯关大挑战）
 
-
-
+闯关手册：https://aicarrier.feishu.cn/wiki/XBO6wpQcSibO1okrChhcBkQjnsf
 
 ## 关卡
 
