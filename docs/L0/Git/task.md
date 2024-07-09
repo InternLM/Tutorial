@@ -12,6 +12,7 @@
 ### 目标
 
 每位参与者提交一份自我介绍。
+提交地址：https://github.com/InternLM/Tutorial 的 icamp3 分支～
 
 ![XNzebK7ItoftfwxiXQ2cY3lYn0g](https://github.com/InternLM/Tutorial/assets/160732778/bb74cc07-e806-4d17-9dbc-cca2890a9230)
 
