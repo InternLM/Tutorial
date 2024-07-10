@@ -820,7 +820,7 @@ conda env create -f  myenv.yml
 > 例如，如果您要安装一个大型的 Python 库，使用 Wheel 格式可以避免在不同的机器上因为编译环境的差异而导致的安装问题。而且，对于那些没有编译环境或者编译能力较弱的系统，Wheel 格式能够让安装过程更加顺畅。
 
   
-### 4.4 studio-conda使用与Shell（扩展）
+### 4.4 studio-conda使用与Shell（扩展，不需要在开发机中操作）
 
 <details>
   
