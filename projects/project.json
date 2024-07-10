@@ -1,0 +1,205 @@
+{
+    "type": [
+        {
+            "name": "全部",
+            "tag": "all"
+        },
+        {
+            "name": "明星项目",
+            "tag": "star"
+        },
+        {
+            "name": "角色扮演",
+            "tag": "role"
+        },
+        {
+            "name": "智能体",
+            "tag": "agent"
+        },
+        {
+            "name": "知识库",
+            "tag": "repository"
+        },
+        {
+            "name": "其他",
+            "tag": "other"
+        }
+    ],
+    "data": [
+        {
+            "title": "AMchat 高等数学大模型",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/AXYZdong/AMchat",
+            "model": "https://openxlab.org.cn/models/detail/youngdon/AMchat",
+            "app": "https://openxlab.org.cn/apps/detail/youngdon/AMchat",
+            "bilibili": "https://www.bilibili.com/video/BV14v421i7So/"
+        },
+        {
+            "title": "EmoLLM 心理健康大模型",
+            "tags": [
+                "other",
+                "role",
+                "repository"
+            ],
+            "github": "https://github.com/SmartFlowAI/EmoLLM",
+            "model": "https://openxlab.org.cn/models/detail/ajupyter/EmoLLM_aiwei",
+            "app": "https://openxlab.org.cn/apps/detail/ajupyter/EmoLLM-aiwei",
+            "bilibili": "https://www.bilibili.com/video/BV1Sw4m1Z7GC/"
+        },
+        {
+            "title": "张三普法：民法典大模型",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/AllYoung/InternLM4Law",
+            "model": "https://openxlab.org.cn/models/detail/ljnyyds/zhangsan_say_law",
+            "app": "https://openxlab.org.cn/apps/detail/allyoung/InternLM4Law",
+            "bilibili": "https://www.bilibili.com/video/BV1ru4m1K7rY"
+        },
+        {
+            "title": "职场教练",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/BaiYu96/career_coach",
+            "model": "https://www.modelscope.cn/models/baiyu96/career_coach/summary",
+            "app": "https://openxlab.org.cn/apps/detail/baiyu/career_caoch",
+            "bilibili": "https://www.bilibili.com/video/BV1vJ4m1Y7D9/"
+        },
+        {
+            "title": "中医药知识问答助手",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/xiaomile/ChineseMedicalAssistant",
+            "model": "https://openxlab.org.cn/models/detail/xiaomile/ChineseMedicalAssistant_internlm",
+            "app": "https://openxlab.org.cn/apps/detail/xiaomile/medKnowledgeAssitant",
+            "bilibili": "https://www.bilibili.com/video/BV1J2421A7Mb/"
+        },
+        {
+            "title": "Chat嬛嬛",
+            "tags": [
+                "role"
+            ],
+            "github": "https://github.com/KMnO4-zx/xlab-huanhuan.git",
+            "model": "https://openxlab.org.cn/models/detail/BYCJS/huanhuan-chat-internlm2",
+            "app": "https://openxlab.org.cn/apps/detail/BYCJS/Chat_huanhuan",
+            "bilibili": "https://www.bilibili.com/video/BV1Xa4y1k7yr"
+        },
+        {
+            "title": "眼科问诊大模型",
+            "tags": [
+                "star",
+                "agent"
+            ],
+            "github": "https://github.com/JieGenius/OculiChatDA",
+            "model": "https://openxlab.org.cn/models/detail/flyer/OculiChatDA",
+            "app": "https://openxlab.org.cn/apps/detail/flyer/oculi_chat_diagnosis_assistant",
+            "bilibili": "https://www.bilibili.com/video/BV1UH4y1Y76q/"
+        },
+        {
+            "title": "SoulStar(心理咨询大模型)",
+            "tags": [
+                "role"
+            ],
+            "github": "https://github.com/Nobody-ML/SoulStar",
+            "model": "https://openxlab.org.cn/models/detail/Nobody-ML/SoulStar",
+            "app": "https://openxlab.org.cn/apps/detail/Nobody-ML/SoulStar",
+            "bilibili": "https://www.bilibili.com/video/BV1hu4m1w7vX/"
+        },
+        {
+            "title": "第二人生",
+            "tags": [
+                "repository",
+                "other"
+            ],
+            "github": "https://github.com/woxinyonghen/SecondLife",
+            "model": "https://openxlab.org.cn/models/detail/%E6%98%9F%E8%BE%B0/The_History",
+            "app": "https://openxlab.org.cn/apps/detail/%E6%98%9F%E8%BE%B0/Second_Life",
+            "bilibili": "https://www.bilibili.com/video/BV1rp421o736/"
+        },
+        {
+            "title": "Roleplay-with-XiYou 西游角色扮演",
+            "tags": [
+                "role"
+            ],
+            "github": "https://github.com/JimmyMa99/Roleplay-with-XiYou",
+            "model": "https://openxlab.org.cn/models/detail/JimmyMa99/BaJie-Chat-1.8b",
+            "app": "https://openxlab.org.cn/apps/detail/JimmyMa99/BaJie-Chat-mini",
+            "bilibili": "https://www.bilibili.com/video/BV1TW421w7Ze/"
+        },
+        {
+            "title": "Chatty-Horo 与赫萝闲聊",
+            "tags": [
+                "role"
+            ],
+            "github": "https://github.com/SaaRaaS-1300/InternLM_openNotebook",
+            "model": "https://openxlab.org.cn/models/detail/SaaRaaS/Horowag_7b",
+            "app": "https://openxlab.org.cn/apps/detail/SaaRaaS/Chatty-Horo",
+            "bilibili": "https://www.bilibili.com/video/BV1bH4y1E7o9/"
+        },
+        {
+            "title": "TRLLM 交规小助手",
+            "tags": [
+                "repository",
+                "other"
+            ],
+            "github": "https://github.com/lindsey-chang/TRLLM-Traffic-Rules-Assistant",
+            "model": "https://modelscope.cn/models/LindseyChang/TRLLM-Model-v2/summary",
+            "app": "https://openxlab.org.cn/apps/detail/tackhwa00/TRLLM-v2-Traffic-Assistant",
+            "bilibili": "https://www.bilibili.com/video/BV1r7421N7Jb/"
+
+        },
+       {
+            "title": "MagicTuner 魔法调音师",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/scchy/XtunerGUI",
+            "app": "https://openxlab.org.cn/apps/detail/Scchy/XtunerFactory",
+            "bilibili": "https://www.bilibili.com/video/BV18y421h7rK/?vd_source=99818a3df596c69ba400b78354d691da"
+       },
+        {
+            "title": "XTuner Chat Board",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/limafang/Xtuner-GUI",
+            "app": "https://openxlab.org.cn/apps/detail/%E5%86%AC%E7%AC%A0Azula/XTuner-Chat-GUI",
+            "bilibili": "https://www.bilibili.com/video/BV1rU421o7xD"
+        },
+       {
+            "title": "The-God-Of-Cookery 食神-菜谱小助手",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/SmartFlowAI/TheGodOfCookery",
+            "model": "https://www.modelscope.cn/models/zhanghuiATchina/zhangxiaobai_shishen2_full/summary",
+            "app": "https://openxlab.org.cn/apps/detail/zhanghui-china/shishen2024_1.8b",
+            "bilibili": "https://www.bilibili.com/video/BV1kr421W7iA/"
+        },
+       {
+            "title": "Tianji 天机",
+            "tags": [
+                "other"
+            ],
+            "github": "https://github.com/SocialAI-tianji/Tianji",
+            "model": "https://openxlab.org.cn/models/detail/jujimeizuo/Tianji_Wish_Model",
+            "app": "https://openxlab.org.cn/apps/detail/jujimeizuo/tianji-wish",
+            "bilibili": "https://www.bilibili.com/video/BV1cC411r7s4/"
+        },
+        {
+            "title": "旋律大师-IMelodist",
+            "tags": [
+                "role",
+                "other"
+            ],
+            "github": "https://github.com/GuoYiFantastic/IMelodist",
+            "model": "https://openxlab.org.cn/models/detail/EchoPeter/IMelodist",
+            "app": "https://openxlab.org.cn/apps/detail/EchoPeter/IMelodist-app",
+            "bilibili": "https://www.bilibili.com/video/BV13j421o7nZ"
+        }
+    ]
+}
