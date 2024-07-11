@@ -1,5 +1,5 @@
 
-欢迎参加 InternLM Git 教程项目！本项目旨在帮助您学习和掌握 Git 版本控制系统的基础知识和操作技能。通过完成一系列任务，您将能够更好地理解 Git 的使用，并应用到实际的项目开发中。
+欢迎参加 InternLM Git 教程！此教程旨在帮助您学习和掌握 Git 版本控制系统的基础知识和操作技能。通过完成一系列任务，您将能够更好地理解 Git 的使用，并应用到实际的项目开发中。
 
 # 关卡任务
 
@@ -14,10 +14,16 @@
 
 Git 的内容相对简单，但也是最为常用的基础。加油！
 
-# 0. Git 是什么
+# Git 是什么
 Git 是一种开源的分布式版本控制系统，广泛应用于软件开发领域，尤其是在协同工作环境中。它为程序员提供了一套必备的工具，使得团队成员能够有效地管理和跟踪代码的历史变更。下面是 Git 的主要功能和作用的规范描述：
 
-## 0.1 **Git 中的一些基本概念**
+官网：[https://git-scm.com/](https://git-scm.com/)
+
+官方文档：[Git - Book](https://git-scm.com/book/en/v2)
+
+Git 基础：[Git 基础知识](https://aicarrier.feishu.cn/wiki/YAXRwLZxPi8Hy6k3tOQcuwAHn5g)
+
+## **Git 中的一些基本概念**
 
 **工作区、暂存区和 Git 仓库区**
 * 工作区（Working Directory）：
@@ -192,9 +198,9 @@ Git 是一种开源的分布式版本控制系统，广泛应用于软件开发�
 
 ## 5. 常用插件
 
-- **GitLens**: 在代码行上显示 Git 提交信息。
-- **Git Graph**: 类似于 SourceTree 的可视化版本控制插件。
-- **Git History**: Git 日志查看器。
+- **[GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)**: 在代码行上显示 Git 提交信息。
+- **[Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)**: 类似于 SourceTree 的可视化版本控制插件。
+- **[Git History](https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory)**: Git 日志查看器。
 
 仅演示常规使用，其他优点，大家可以自行挖掘。
 * GitLens：
@@ -203,7 +209,7 @@ Git 是一种开源的分布式版本控制系统，广泛应用于软件开发�
 * Git Graph：
 ![image](https://github.com/InternLM/Tutorial/assets/160732778/ad1e0d59-3b47-48cb-ab5e-d5acaa0a0b25)
 
-* Git History
+* Git History：
 ![image](https://raw.githubusercontent.com/DonJayamanne/gitHistoryVSCode/main/images/fileHistoryCommandv3.gif)
 
 ## 6. 常规开发流程
@@ -219,7 +225,7 @@ Git 是一种开源的分布式版本控制系统，广泛应用于软件开发�
 ![CWMvb92fFomY4gxsdgrcHw3mneh](https://github.com/InternLM/Tutorial/assets/160732778/bdee8d52-1226-4646-b2b7-b92578f149c9)
 
 ```bash
-git clone https://github.com/MrCatAI/Tutorial.git _#修改为自己frok的仓库_
+git clone https://github.com/MrCatAI/Tutorial.git # 修改为自己frok的仓库
 cd Tutorial/
 git branch -a
 git checkout -b camp3 origin/camp3
@@ -238,7 +244,7 @@ git checkout -b camp3 origin/camp3
 ![FmlybnAfZoQ5f2xsdSDc5c5wnJx](https://github.com/InternLM/Tutorial/assets/160732778/8e2528f7-4ee4-4eda-b441-03053f5abac7)
 
 ```bash
-git checkout -b camp3_577 _# 自定义一个新的分支_
+git checkout -b camp3_577 # 自定义一个新的分支
 ```
 
 ![ED8YbzgA1oZXJdxBegZcl1o0ncy](https://github.com/InternLM/Tutorial/assets/160732778/a8751f86-78e5-4a00-9cbe-6def3ff572d4)
@@ -252,11 +258,10 @@ git checkout -b camp3_577 _# 自定义一个新的分支_
 ```bash
 ./data/Git/task/camp3_id.md
 ```
-
 * **创建自己的破冰文件**
 
 ```bash
-touch ./data/Git/task/camp3_557.md _#修改为自己的问卷ID_
+touch ./data/Git/task/camp3_557.md # 修改为自己的问卷ID
 ```
 
 ![BwGgbkHdLo1jzvxIMxTc0futnub](https://github.com/InternLM/Tutorial/assets/160732778/cbf78959-ed0b-4426-91af-dca75b9fc013)
@@ -265,7 +270,7 @@ touch ./data/Git/task/camp3_557.md _#修改为自己的问卷ID_
 
 ```bash
 git add .
-git commit -m "add git_557_introduction" _提交信息记录_
+git commit -m "add git_557_introduction" # 提交信息记录
 ```
 
 ![E7pybrN2sowPTFxThvmcxHKOnab](https://github.com/InternLM/Tutorial/assets/160732778/898de54d-b8ce-4666-948e-a142ac12aaa4)
@@ -295,7 +300,7 @@ git push origin camp3_577
 按要求编写 title
 
 ```bash
-git_557_introduction #请统一 git_<id>_introduction 格式,方便审核
+git_557_introduction # 请统一 git_<id>_introduction 格式,方便审核
 ```
 
 下面可以查看修改的内容
