@@ -14,8 +14,30 @@
 
 Git 的内容相对简单，但也是最为常用的基础。加油！
 
-# Git
+# 0. Git 是什么
 Git 是一种开源的分布式版本控制系统，广泛应用于软件开发领域，尤其是在协同工作环境中。它为程序员提供了一套必备的工具，使得团队成员能够有效地管理和跟踪代码的历史变更。下面是 Git 的主要功能和作用的规范描述：
+
+## 0.1 **Git 中的一些基本概念**
+
+**工作区、暂存区和 Git 仓库区**
+* 工作区（Working Directory）：
+当我们在本地创建一个 Git 项目，或者从 GitHub 上 clone 代码到本地后，项目所在的这个目录就是“工作区”。这里是我们对项目文件进行编辑和使用的地方。
+
+* 暂存区（Staging Area）：
+暂存区是 Git 中独有的一个概念，位于 .git 目录中的一个索引文件，记录了下一次提交时将要存入仓库区的文件列表信息。使用 git add 指令可以将工作区的改动放入暂存区。
+
+* 仓库区 / 本地仓库（Repository）：
+在项目目录中，.git 隐藏目录不属于工作区，而是 Git 的版本仓库。这个仓库区包含了所有历史版本的完整信息，是 Git 项目的“本体”。
+
+**文件状态**
+文件在 Git 工作区中的状态可以是：
+
+* 已跟踪：文件已被纳入版本控制，根据其是否被修改，可以进一步分为未修改（Unmodified）、已修改（Modified）或已暂存（Staged）。
+* 未跟踪：文件存在于工作目录中，但还没被纳入版本控制，也未处于暂存状态。
+
+**分支**
+分支是 Git 的一大特性，支持轻量级的分支创建和切换。Git 鼓励频繁使用分支和合并，使得并行开发和错误修正更为高效。
+
 
 **主要功能**
 
@@ -73,24 +95,39 @@ Git 是一种开源的分布式版本控制系统，广泛应用于软件开发�
 
 ## 3. 常用 Git 操作
 
-| 命令 | 描述 |
-|------|------|
-| `git init` | 初始化一个新的 Git 仓库。 |
-| `git clone <repository-url>` | 从指定的 URL 克隆一个远程仓库到本地。 |
-| `git add <file>` 或 `git add .` | 将指定的文件或当前目录下的所有修改添加到暂存区。 |
-| `git commit -m "message"` | 提交暂存区的修改，并附带一个有意义的提交消息。 |
-| `git status` | 查看工作目录和暂存区的状态。 |
-| `git log` | 查看提交历史。 |
-| `git branch` | 列出所有本地分支。 |
-| `git branch <branch-name>` | 创建一个新的分支。 |
-| `git checkout <branch-name>` | 切换到指定的分支。 |
-| `git merge <branch-name>` | 将指定的分支合并到当前分支。 |
-| `git push` | 将本地的提交推送到远程仓库。 |
-| `git pull` | 从远程仓库拉取最新的更改并合并到本地分支。 |
-| `git stash` | 暂存当前未提交的修改。 |
-| `git stash pop` | 恢复最近暂存的修改。 |
+**基础指令**
 
-## 4. 食用小tips
+| 指令                     | 描述                                                         |
+|--------------------------|--------------------------------------------------------------|
+| `git config`             | 配置用户信息和偏好设置                                       |
+| `git init`               | 初始化一个新的 Git 仓库                                      |
+| `git clone`              | 克隆一个远程仓库到本地                                       |
+| `git status`             | 查看仓库当前的状态，显示有变更的文件                         |
+| `git add`                | 将文件更改添加到暂存区                                       |
+| `git commit`             | 提交暂存区到仓库区                                           |
+| `git branch`             | 列出、创建或删除分支                                         |
+| `git checkout`           | 切换分支或恢复工作树文件                                     |
+| `git merge`              | 合并两个或更多的开发历史                                     |
+| `git pull`               | 从另一仓库获取并合并本地的版本                               |
+| `git push`               | 更新远程引用和相关的对象                                     |
+| `git remote`             | 管理跟踪远程仓库的命令                                       |
+| `git fetch`              | 从远程仓库获取数据到本地仓库，但不自动合并                   |
+
+**进阶指令**
+
+| 指令                     | 描述                                                         |
+|--------------------------|--------------------------------------------------------------|
+| `git stash`              | 暂存当前工作目录的修改，以便可以切换分支                     |
+| `git cherry-pick`        | 选择一个提交，将其作为新的提交引入                           |
+| `git rebase`             | 将提交从一个分支移动到另一个分支                             |
+| `git reset`              | 重设当前 HEAD 到指定状态，可选修改工作区和暂存区             |
+| `git revert`             | 通过创建一个新的提交来撤销之前的提交                         |
+| `git mv`                 | 移动或重命名一个文件、目录或符号链接，并自动更新索引         |
+| `git rm`                 | 从工作区和索引中删除文件                                     |
+
+每个指令都有其特定的用途和场景，详细的使用方法和参数可以通过命令行的帮助文档（`git command -h`,例如 `git pull -h`）来获取更多信息。
+
+## 4. 食用小 tips
 
 ### 4.1 全局设置 vs. 本地设置
 - **全局设置**：这些设置影响你在该系统上所有没有明确指定其他用户名和电子邮件的 Git 仓库。这是设置默认用户名和电子邮件的好方法。
@@ -169,7 +206,114 @@ Git 是一种开源的分布式版本控制系统，广泛应用于软件开发�
 * Git History
 ![image](https://raw.githubusercontent.com/DonJayamanne/gitHistoryVSCode/main/images/fileHistoryCommandv3.gif)
 
-## 6. 作业
+## 6. 常规开发流程
+
+* **Fork 目标项目**
+
+[目标项目链接](https://github.com/InternLM/Tutorial)
+
+![MXzyb640Ro6S1TxK3lrcpMTLnnb](https://github.com/InternLM/Tutorial/assets/160732778/7a88cbd5-3d53-4e55-97be-137b80944b92)
+
+* **获取仓库链接**
+
+![CWMvb92fFomY4gxsdgrcHw3mneh](https://github.com/InternLM/Tutorial/assets/160732778/bdee8d52-1226-4646-b2b7-b92578f149c9)
+
+```bash
+git clone https://github.com/MrCatAI/Tutorial.git _#修改为自己frok的仓库_
+cd Tutorial/
+git branch -a
+git checkout -b camp3 origin/camp3
+```
+
+* **查看分支**
+
+![XgMvbeKkRojKmXxTqY0cAIwcnqc](https://github.com/InternLM/Tutorial/assets/160732778/3e604f79-f68b-4068-ba85-b06dbc5d9f21)
+
+* **切换到第三期的分支**
+
+![HK41btX6toRdINx8acUc0k4bnLf](https://github.com/InternLM/Tutorial/assets/160732778/d786651e-1506-420d-85cc-a3576b8fe1f0)
+
+* **查看分支内容**
+
+![FmlybnAfZoQ5f2xsdSDc5c5wnJx](https://github.com/InternLM/Tutorial/assets/160732778/8e2528f7-4ee4-4eda-b441-03053f5abac7)
+
+```bash
+git checkout -b camp3_577 _# 自定义一个新的分支_
+```
+
+![ED8YbzgA1oZXJdxBegZcl1o0ncy](https://github.com/InternLM/Tutorial/assets/160732778/a8751f86-78e5-4a00-9cbe-6def3ff572d4)
+
+示例：
+
+![I7ZsbQ0MMos1HMxufdaciHV4nMd](https://github.com/InternLM/Tutorial/assets/160732778/30e2b3b9-6091-4c04-90eb-5157691bae59)
+
+示例文件路径
+
+```bash
+./data/Git/task/camp3_id.md
+```
+
+* **创建自己的破冰文件**
+
+```bash
+touch ./data/Git/task/camp3_557.md _#修改为自己的问卷ID_
+```
+
+![BwGgbkHdLo1jzvxIMxTc0futnub](https://github.com/InternLM/Tutorial/assets/160732778/cbf78959-ed0b-4426-91af-dca75b9fc013)
+
+* **提交更改到分支**
+
+```bash
+git add .
+git commit -m "add git_557_introduction" _提交信息记录_
+```
+
+![E7pybrN2sowPTFxThvmcxHKOnab](https://github.com/InternLM/Tutorial/assets/160732778/898de54d-b8ce-4666-948e-a142ac12aaa4)
+
+```perl
+git push origin camp3_577
+```
+
+（大家提交使用英文，避免仓库同步错误）
+
+注：初始化时可能需要创建对应的 token：（示例，可根据实际提示完成）
+
+![MKjsbwN3XoVjSGxsWZnc6x4hnCe](https://github.com/InternLM/Tutorial/assets/160732778/bea9600a-21f0-4cbc-8c7f-73fe5769e78b)
+
+![G3hmb6UmzomjJ7xOGZEc4GV0nNb](https://github.com/InternLM/Tutorial/assets/160732778/fae00c0f-6084-44d9-acf7-82fa915c90f9)
+
+![DxoLbxK01ovG88xUHehcnRgXnzT](https://github.com/InternLM/Tutorial/assets/160732778/c8f83c61-2973-4c8a-a9ae-6df3936a67ef)
+
+查看提交
+
+![RaosbM8E7osYsqx8jnIcGkm1n5c](https://github.com/InternLM/Tutorial/assets/160732778/d8a322ec-9a06-4463-a61d-831ef953b1ef)
+
+在 github 页面将修改的内容 PR 到 Tutorial
+
+![TT2NbszJ1oKCorxMWpXcakPUnCd](https://github.com/InternLM/Tutorial/assets/160732778/bef3eac1-e5dc-4699-b8c6-e73066b68fda)
+
+按要求编写 title
+
+```bash
+git_557_introduction #请统一 git_<id>_introduction 格式,方便审核
+```
+
+下面可以查看修改的内容
+
+![ZVVOb8NtEowWFQxWFQAcgcoWnQf](https://github.com/InternLM/Tutorial/assets/160732778/6bbc3734-ea3a-46f4-a468-d317ed23227f)
+
+PR 示例链接：[https://github.com/InternLM/Tutorial/pull/790](https://github.com/InternLM/Tutorial/pull/790)
+
+也可以合并到自己的仓库
+
+![LBZibAcS0oArsFxzCLNcY1X2n7e](https://github.com/InternLM/Tutorial/assets/160732778/13a578cf-13be-45a2-81de-4cfab5109770)
+
+自己的仓库，可以自行 merge，作业提交到 Tutorial 需要维护者审核。
+
+![UEl6btxJWo0OHRxcUjRcb9udnNe](https://github.com/InternLM/Tutorial/assets/160732778/72966a46-c634-48a9-9a88-fc6834d957e2)
+
+
+## 7. 作业
 
 详细请参见 [task.md](./task.md)。
 
