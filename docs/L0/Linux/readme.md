@@ -637,7 +637,7 @@ ln [参数][源文件或目录][目标文件或目录]
     ```
 
   -  这个命令会每1秒更新一次状态信息。
-- 显示 GPU 的使用历史：
+- 显示 GPU 的帮助信息：
   - ```Bash
     nvidia-smi -h
     ```
@@ -736,7 +736,7 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/m
 
 #### 4.2.1 创建虚拟环境
 
-我们可以使用`conda create -n name python``=3.10`创建虚拟环境，这里表示创建了python版本为3.10、名字为name的虚拟环境。创建后，可以在`.conda`目录下的`envs`目录下找到。
+我们可以使用`conda create -n name python=3.10`创建虚拟环境，这里表示创建了python版本为3.10、名字为name的虚拟环境。创建后，可以在`.conda`目录下的`envs`目录下找到。
 
 ![image](https://github.com/InternLM/Tutorial/assets/110531742/a02299be-d4ed-4168-b6b5-38fdb118b197)
 
