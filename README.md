@@ -8,10 +8,10 @@
 
 ||关卡名称|关卡负责人|资料|
 |:-----|:----|:----|:-----|
-|第 1 关| Linux 基础知识 ||[文档](docs/L0/Linux)、视频、任务|
-|第 2 关|Python 基础知识 | | [文档](docs/L0/Python)、视频、任务 |
-|第 3 关|Git 基础知识||[文档](docs/L0/Git)、视频、任务|
-|第 4 关| Pytorch 基础知识|| [文档](docs/L0/PyTorch)、视频、任务 |
+|第 1 关| Linux 基础知识 ||任务、[文档](docs/L0/Linux)、视频|
+|第 2 关|Python 基础知识 | |任务、[文档](docs/L0/Python)、视频 |
+|第 3 关|Git 基础知识||任务、[文档](docs/L0/Git)、视频|
+|第 4 关| Pytorch 基础知识|| 任务、[文档](docs/L0/PyTorch)、视频 |
 
 
 ### 基础关卡
