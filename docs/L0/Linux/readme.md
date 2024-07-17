@@ -6,8 +6,11 @@
 
 InternStudio 是大模型时代下的云端算力平台。基于 InternLM 组织下的诸多算法库支持，为开发者提供开箱即用的大语言模型微调环境、工具、数据集，并完美兼容 🤗 HugginFace 开源生态。
 
-如果大家想了解更多关于InternStduio的介绍的话可以查看下面的文档：[ InternStudio](https://aicarrier.feishu.cn/wiki/GQ1Qwxb3UiQuewk8BVLcuyiEnHe)
+如果大家想了解更多关于InternStduio的介绍的话可以查看下面的文档：
 
+[ InternStudio介绍文档](https://aicarrier.feishu.cn/wiki/GQ1Qwxb3UiQuewk8BVLcuyiEnHe)
+
+官网链接:
 https://studio.intern-ai.org.cn/
 
 首先打开上面的链接进入InternStudio，完成登录会自动跳转到控制台界面，如下图所示：
