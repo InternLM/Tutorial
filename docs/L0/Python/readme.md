@@ -19,21 +19,21 @@
 
 TIPS：本关内容覆盖较多，知识点较杂，如果有不清楚或者不懂的地方可以随时提问。同时如果觉得教程有问题的地方也请随时提出，让我们一起把本教程优化得更好，帮助更多的人走进大模型的世界。
 
-# 如何在自己电脑上安装Python
+# Chapter1 如何在自己电脑上安装Python
 InternStuido开发机已经为大家准备好了环境，这部分是为了给那些想在自己电脑上配置环境来练手的,已经装好了的同学可以跳过哈。
 推荐直接安装miniconda(anaconda也可以)来安装python，这样方便管理开发环境。
 
-### **什么是conda？**
+## 1.1 **什么是conda？**
 
 Conda是一个开源的软件包管理系统和环境管理系统，它主要用于安装多个版本的软件包及其依赖关系，并能轻松地在它们之间切换。以下是关于Conda的详细介绍：
 
-1. **功能与作用**：
+### 1.1.1 **功能与作用**：
 
 - **包管理**：Conda可以帮助用户轻松地安装、更新和卸载各种软件包。它提供了一个庞大而丰富的社区仓库——Anaconda仓库，内含数千个优化过并经过验证的常见Python软件包，也包含其他编程语言（如R）的工具。
 - **环境管理**：使用Conda，用户可以创建独立且隔离的开发环境，为每个项目或应用程序设置不同的版本或配置文件，确保它们之间不会相互干扰，对于处理不同的依赖关系非常重要。
 - **跨平台支持**：Conda适用于Windows、Mac和Linux，使在不同平台上共享代码变得更加容易，避免由于系统差异导致的问题。
 
-2. **常用命令**：
+### 1.1.2 **常用命令**：
 
 - `conda list`：列出当前conda环境所链接的软件包。
 - `conda create`：创建一个新的conda环境。例如，`conda create -n myenv python=3.8`会创建一个名为myenv的新环境，并指定Python版本为3.8。
@@ -44,21 +44,21 @@ Conda是一个开源的软件包管理系统和环境管理系统，它主要用
 - `conda remove`：从当前环境中卸载包。
 - `conda env list`：显示所有已创建的环境。
 
-3. **适用性**：
+### 1.1.3 **适用性**：
 
 Conda不仅为Python程序创建，也可以打包和分发其他软件，并且支持多种编程语言，包括Python、R、Ruby、Lua、Scala、Java、JavaScript、C/C++等。它被广泛用于数据分析、科学计算和机器学习领域，提供了简单而强大的工具来创建、部署和维护这些领域所需的环境。总的来说，Conda是一个在数据分析和软件开发领域非常有用的工具，特别是当需要管理多个项目和不同版本的依赖时，Conda可以大大简化环境和依赖管理的复杂性。
 
-### **Python安装与学习环境准备**
+## 1.2 **Python安装与学习环境准备**
 
 如果在本地想搭建python环境练手的话
 
-### 1. 下载miniconda
+### 1.2.1 下载miniconda
 
 miniconda和anaconda都可以通过官网下载，也可以去清华源下载。
 
 清华源miniconda下载链接: [清华大学开源软件镜像站 | Tsinghua Open Source Mirror](https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/)(建议选择python3.9以上的版本，比如Miniconda3-py310_24.5.0)
 
-### 2. 安装miniconda
+### 1.2.2 安装miniconda
 
 windows可以通过图形化的安装程序直接完成安装记得在最后一步把miniconda加入环境变量
 ![20240710205631](https://github.com/InternLM/Tutorial/assets/32959436/708fe415-b109-45b9-be68-7464c1a91aee)
@@ -95,7 +95,7 @@ python的包管理pip与conda的源服务器均在境外，安装包的时候常
 接着在命令行中运行 `conda clean -i` 清除索引缓存，保证用的是镜像站提供的索引。
 </details>
 
-#### 创建一个python练习专属的conda虚拟环境
+### 1.2.3 创建一个python练习专属的conda虚拟环境
 
 本次教程会需要用到jupyter和numpy，所以安装完miniconda后我们还需要安装jupyter lab和numpy。
 
@@ -116,7 +116,7 @@ conda activate python-tutorial
 jupyter lab
 ```
 
-# Python基础教程
+# Chapter2&3 Python基础教程
 <details>
 <summary>Python基础教程+Numpy入门教程(内容会比较多)</summary>
 
@@ -2169,17 +2169,17 @@ print(x)
 
 </details>
 
-# 使用vscode连接开发机进行python debug
+# Chapter4 使用vscode连接开发机进行python debug
 
 VSCode是由微软开发一款轻量级但功能强大的代码编辑器，开源且完全免费。它拥有丰富的插件生态系统、跨平台支持、以及内置的Git控制功能，为开发者提供了高效便捷的编码体验。
 
 VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code.visualstudio.com/)
 
-## 什么是debug？
+## 4.1 什么是debug？
 
 当你刚开始学习Python编程时，可能会遇到代码不按预期运行的情况。这时，你就需要用到“debug”了。简单来说，“debug”就是能再程序中设置中断点并支持一行一行地运行代码，观测程序中变量的变化，然后找出并修正代码中的错误。而VSCode提供了一个非常方便的debug工具，可以帮助你更容易地找到和修复错误。
 
-## **使用本地Vscode连接InternStudio开发机**
+## 4.2 **使用本地Vscode连接InternStudio开发机**
 
 首先需要安装Remote-SSH插件
 
@@ -2217,7 +2217,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 然后我们就可以像在本地使用vscode一样在远程开发机上愉快地使用vscode了
 
-## 在vscode中**打开终端**
+## 4.3 在vscode中**打开终端**
 
 单击vscode页面下方有一个X和！的位置可以快速打开vscode的控制台，然后进入TERMINAL。
 
@@ -2225,10 +2225,10 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 TIPS：右上方的+可以新建一个TERMINAL。
 
-## **使用Vscode进行Python debug的流程**
+## 4.4 **使用Vscode进行Python debug的流程**
 
-## debug单个python文件
-### 1.**打开文件夹**
+### 4.4.1 debug单个python文件
+**1.打开文件夹**
 
 在VSCode中打开直接打开root文件夹，或者你想要debug的Python文件所在的文件夹。这里可能会需要再次输入密码。下面我们以打开root文件夹为例。单击Open Folder或者左上角菜单File->Open Folder。
 
@@ -2240,14 +2240,14 @@ TIPS：右上方的+可以新建一个TERMINAL。
 
 新建python文件后我们如果想要运行，就需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。这里我们只要选conda中的base就行了，后面各位如果要使用其他虚拟环境就在这选择对应的解释器就可以。
 
-### 2.**设置断点**
+**2.设置断点**
 
 在代码行号旁边点击，可以添加一个红点，这就是断点（如果不能添加红点需要检查一下python extension是否已经正确安装）。当代码运行到这里时，它会停下来，这样你就可以检查变量的值、执行步骤等。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/5d4d2fa5-58de-4e5e-8417-1ee5ab04bf1d)
 ce1d5dee)
 
-### 3.**启动debug**
+**3.启动debug**
 
 点击VSCode侧边栏的“Run and Debug”（运行和调试），然后点击“Run and Debug”（开始调试）按钮，或者按F5键。
 
@@ -2259,13 +2259,13 @@ ce1d5dee)
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/3dfaa830-a8e4-4e18-b917-a5c5827b5e57)
 
-### 4.**查看变量**
+**4.查看变量**
 
 当代码在断点处停下来时，你可以查看和修改变量的值。在“Run and Debug”侧边栏的“Variables”（变量）部分，你可以看到当前作用域内的所有变量及其值。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/48e444a9-9e54-40c6-af68-c357ab3eb18e)
 
-### 5.**单步执行代码**
+**5.单步执行代码**
 
 你可以使用“Run and Debug”侧边栏顶部的按钮来单步执行代码。这样，你可以逐行运行代码，并查看每行代码执行后的效果。
 
@@ -2283,17 +2283,17 @@ debug面板各按钮功能介绍：
 
 5: restart：重新启动debug
 
-### 6.**修复错误并重新运行**
+**6.修复错误并重新运行**
 
 如果你找到了代码中的错误，可以修复它，然后重新运行debug来确保问题已经被解决。
 
 通过遵循以上步骤，你可以使用VSCode的debug功能来更容易地找到和修复你Python代码中的错误。可以自己编写一个简单的python脚本，并尝试使用debug来更好的理解代码的运行逻辑。记住，debug是编程中非常重要的一部分，所以不要怕花时间在这上面。随着时间的推移，你会变得越来越擅长它！
 
-## 在vscode使用命令行进行debug
+### 4.4.2 在vscode使用命令行进行debug
 
 很多时候我们要debug的不止是一个简单的python文件，而是很多参数，参数中不止会有简单的值还可能有错综复杂的文件关系,甚至debug一整个项目。这种情况下，直接使用命令行来发起debug会是一个更好的选择。
 
-### vscode设置
+#### 4.4.2.1 vscode设置
 
 vscode也支持通过remote的方法连接我们在命令行中发起的debug server。首先我们要配置一下debug的config。
 
@@ -2313,7 +2313,7 @@ vscode也支持通过remote的方法连接我们在命令行中发起的debug se
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/b6d2c147-60e2-42b5-8bab-66ef450bd214)
 
-### debug命令行
+#### 4.4.2.2 debug命令行
 
 现在vscode已经准备就绪，让我们来看看如何在命令行中发起debug。如果没有安装debugpy的话可以先通过pip install debugpy安装一下。
 
@@ -2336,7 +2336,7 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/5cf91e9f-4588-41c2-934a-352f92c210a7)
 
-### 使用别名简化命令
+#### 4.4.2.3 使用别名简化命令
 
 但这边有个不方便的地方，python -m debugpy --listen 5678 --wait-for-client这个命令太长了，每次都打很麻烦。这里我们可以给这段常用的命令设置一个别名。
 
