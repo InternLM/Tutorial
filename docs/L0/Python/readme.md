@@ -7,7 +7,7 @@
 - Python(Miniconda)的安装
 - Python基础语法
 - Numpy基础(选修)
-- vscode 远程连接 internstudio开发机打断点调试 python 程序
+- vscode 远程连接InternStudio开发机打断点调试 python 程序
 
 **学习完成后，完成由两个任务经过助教批改视为闯关成功**。
 | 任务类型 | 任务内容 | 预计耗时 |
@@ -102,7 +102,7 @@ python的包管理pip与conda的源服务器均在境外，安装包的时候常
 
 本次教程会需要用到jupyter和numpy，所以安装完miniconda后我们还需要安装jupyter lab和numpy。
 
-打开miniconda powershell promt或者终端，首先我们先创建一个虚拟环境并用Pip安装jupyter lab和numpy。
+打开miniconda powershell prompt或者终端，首先我们先创建一个虚拟环境并用Pip安装jupyter lab和numpy。
 
 ```
 conda create -n python-tutorial python=3.10
@@ -146,7 +146,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/1b494c3e-6be2-4ed7-aa2b-937491568990)
 
-安装完成后进入remot explorer,在ssh目录下新建一个ssh链接
+安装完成后进入Remote Explorer,在ssh目录下新建一个ssh链接
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/81461f5a-d751-4cc9-bc3c-72b326c0dda3)
 
@@ -156,7 +156,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/db595bd5-83f5-4cef-b536-ca6c45f6facf)
 
-开发机的链接命令可以在开发机控制台对应开发机"SSH连接"找到，复制登录命令到vscode的弹窗中然后回车，vscode就会开始链接interstudio的服务器，记得此时切回去复制一下ssh的密码，待会会用到。
+开发机的链接命令可以在开发机控制台对应开发机"SSH连接"找到，复制登录命令到vscode的弹窗中然后回车，vscode就会开始链接InternStudio的服务器，记得此时切回去复制一下ssh的密码，待会会用到。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/cb2bb9eb-7aab-44f4-b73f-5c255c4407d2)
 
@@ -166,7 +166,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 首次连接会进行一些初始化的设置，可能会比较慢，还请耐心等待。后面打开文件夹的时候可能会再需要输入密码，可以一直开着开发机的控制台不要关掉以备不时之需。
 
-看到左下角远程连接已经显示ssh连接地址”SSH: [ssh.intern-ai.org.cn](http://ssh.intern-ai.org.cn/)”，说明我们已经连接成功了。然后我们就可以像在本地使用Vscode一样愉快的使用vscode在开发机上进行任何操作了。
+看到左下角远程连接已经显示ssh连接地址”SSH: [ssh.intern-ai.org.cn](http://ssh.intern-ai.org.cn/)”，说明我们已经连接成功了。然后我们就可以像在本地使用vscode一样愉快的使用vscode在开发机上进行任何操作了。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/bd6b7430-8ef5-4841-9e89-5f83faceda57)
 
@@ -176,7 +176,6 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/e29ab709-68f1-4e0b-8e8a-93242f524e7b)
 
-然后我们就可以像在本地使用vscode一样在远程开发机上愉快地使用vscode了
 
 ## 4.3 在vscode中打开终端
 
@@ -184,7 +183,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/d8cd9101-c9d5-4d4f-8e85-9725e399f4b1)
 
-TIPS：右上方的+可以新建一个TERMINAL。
+`TIPS`：右上方的+可以新建一个TERMINAL。
 
 ## 4.4 **使用Vscode进行Python debug的流程**
 
