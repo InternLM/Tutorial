@@ -177,7 +177,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/e29ab709-68f1-4e0b-8e8a-93242f524e7b)
 
 
-## 4.3 在vscode中打开终端
+## 4.3 在Vscode中打开终端
 
 单击vscode页面下方有一个X和！的位置可以快速打开vscode的控制台，然后进入TERMINAL。
 
