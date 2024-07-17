@@ -269,7 +269,7 @@ debug面板各按钮功能介绍：
 
 #### 4.4.2.1 vscode设置
 
-vscode也支持通过remote的方法连接我们在命令行中发起的debug server。首先我们要配置一下debug的config。
+vscode支持通过remote的方法连接我们在命令行中发起的debug server。首先我们要配置一下debug的config。
 
 还是点击VSCode侧边栏的“Run and Debug”（运行和调试)，单击"create a lauch.json file"
 
