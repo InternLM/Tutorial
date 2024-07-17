@@ -166,7 +166,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 首次连接会进行一些初始化的设置，可能会比较慢，还请耐心等待。后面打开文件夹的时候可能会再需要输入密码，可以一直开着开发机的控制台不要关掉以备不时之需。
 
-看到左下角远程连接已经显示ssh连接地址”SSH: [ssh.intern-ai.org.cn](http://ssh.intern-ai.org.cn/)”，说明我们已经连接成功了。然后我们就可以像在本地使用vscode一样愉快的使用vscode在开发机上进行任何操作了。
+看到左下角远程连接已经显示ssh连接地址`SSH:ssh.intern-ai.org.cn`，说明我们已经连接成功了。然后我们就可以像在本地使用vscode一样愉快的使用vscode在开发机上进行任何操作了。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/bd6b7430-8ef5-4841-9e89-5f83faceda57)
 
@@ -211,7 +211,7 @@ if __name__ =='__main__':
     print("The result of sum is ",result)
 ```
 
-新建python文件后我们如果想要运行，就需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。这里我们只要选conda中的base就行了，后面各位如果要使用其他虚拟环境就在这选择对应的解释器就可以。
+新建python文件后我们如果想要运行，首先需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。这里我们只要选conda中的base就行了，后面各位如果要使用其他虚拟环境就在这选择对应的解释器就可以。
 
 **Step2.设置断点**
 
@@ -311,7 +311,7 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 
 #### 4.4.2.3 使用别名简化命令
 
-但这边有个不方便的地方，python -m debugpy --listen 5678 --wait-for-client这个命令太长了，每次都打很麻烦。这里我们可以给这段常用的命令设置一个别名。
+这边有个不方便的地方，python -m debugpy --listen 5678 --wait-for-client这个命令太长了，每次都打很麻烦。这里我们可以给这段常用的命令设置一个别名。
 
 在`linux`系统中，可以对 *~/.bashrc* 文件中添加以下命令
 
