@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/93ff2412-777c-4619-812b-0134eb327cf3)
 
-
+🔥 加入书生大模型[实战营第三期](https://www.wjx.cn/vm/PvefmG2.aspx?sojumpparm=github)
 闯关手册：https://aicarrier.feishu.cn/wiki/XBO6wpQcSibO1okrChhcBkQjnsf
 
 
