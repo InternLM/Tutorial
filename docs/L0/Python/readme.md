@@ -2235,7 +2235,7 @@ TIPS：右上方的+可以新建一个TERMINAL。
 ## 4.4 **使用Vscode进行Python debug的流程**
 
 ### 4.4.1 debug单个python文件
-**1.打开文件夹**
+**Step1.打开文件夹**
 
 在VSCode中打开直接打开root文件夹，或者你想要debug的Python文件所在的文件夹。这里可能会需要再次输入密码。下面我们以打开root文件夹为例。单击Open Folder或者左上角菜单File->Open Folder。
 
@@ -2247,14 +2247,14 @@ TIPS：右上方的+可以新建一个TERMINAL。
 
 新建python文件后我们如果想要运行，就需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。这里我们只要选conda中的base就行了，后面各位如果要使用其他虚拟环境就在这选择对应的解释器就可以。
 
-**2.设置断点**
+**Step2.设置断点**
 
 在代码行号旁边点击，可以添加一个红点，这就是断点（如果不能添加红点需要检查一下python extension是否已经正确安装）。当代码运行到这里时，它会停下来，这样你就可以检查变量的值、执行步骤等。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/5d4d2fa5-58de-4e5e-8417-1ee5ab04bf1d)
 ce1d5dee)
 
-**3.启动debug**
+**Step3.启动debug**
 
 点击VSCode侧边栏的“Run and Debug”（运行和调试），然后点击“Run and Debug”（开始调试）按钮，或者按F5键。
 
@@ -2266,13 +2266,13 @@ ce1d5dee)
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/3dfaa830-a8e4-4e18-b917-a5c5827b5e57)
 
-**4.查看变量**
+**Step4.查看变量**
 
 当代码在断点处停下来时，你可以查看和修改变量的值。在“Run and Debug”侧边栏的“Variables”（变量）部分，你可以看到当前作用域内的所有变量及其值。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/48e444a9-9e54-40c6-af68-c357ab3eb18e)
 
-**5.单步执行代码**
+**Step5.单步执行代码**
 
 你可以使用“Run and Debug”侧边栏顶部的按钮来单步执行代码。这样，你可以逐行运行代码，并查看每行代码执行后的效果。
 
@@ -2280,15 +2280,17 @@ ce1d5dee)
 
 debug面板各按钮功能介绍：
 
-1: continue: 继续运行到下一个断点
+* `1`: continue: 继续运行到下一个断点
 
-2: step over：跳过，可以理解为运行当前行代码，不进入具体的函数或者方法。
+* `2`: step over：跳过，可以理解为运行当前行代码，不进入具体的函数或者方法。
 
-3: step into: 进入函数或者方法。如果当行代码存在函数或者方法时，进入代码该函数或者方法。如果当行代码没有函数或者方法，则等价于step over。
+* `3`: step into: 进入函数或者方法。如果当行代码存在函数或者方法时，进入代码该函数或者方法。如果当行代码没有函数或者方法，则等价于step over。
 
-4: step out：退出函数或者方法, 返回上一层。
+* `4`: step out：退出函数或者方法, 返回上一层。
 
-5: restart：重新启动debug
+* `5`: restart：重新启动debug
+
+* `6`: stop：终止debug
 
 **6.修复错误并重新运行**
 
