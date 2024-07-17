@@ -102,7 +102,9 @@ python的包管理pip与conda的源服务器均在境外，安装包的时候常
 
 本次教程会需要用到jupyter和numpy，所以安装完miniconda后我们还需要安装jupyter lab和numpy。
 
+
 打开miniconda powershell prompt或者终端，首先我们先创建一个虚拟环境并用Pip安装jupyter lab和numpy。
+
 
 ```
 conda create -n python-tutorial python=3.10
@@ -146,7 +148,10 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/1b494c3e-6be2-4ed7-aa2b-937491568990)
 
+
 安装完成后进入Remote Explorer,在ssh目录下新建一个ssh链接
+
+
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/81461f5a-d751-4cc9-bc3c-72b326c0dda3)
 
@@ -156,7 +161,9 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/db595bd5-83f5-4cef-b536-ca6c45f6facf)
 
+
 开发机的链接命令可以在开发机控制台对应开发机"SSH连接"找到，复制登录命令到vscode的弹窗中然后回车，vscode就会开始链接InternStudio的服务器，记得此时切回去复制一下ssh的密码，待会会用到。
+
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/cb2bb9eb-7aab-44f4-b73f-5c255c4407d2)
 
@@ -166,7 +173,10 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 首次连接会进行一些初始化的设置，可能会比较慢，还请耐心等待。后面打开文件夹的时候可能会再需要输入密码，可以一直开着开发机的控制台不要关掉以备不时之需。
 
+
 看到左下角远程连接已经显示ssh连接地址`SSH:ssh.intern-ai.org.cn`，说明我们已经连接成功了。然后我们就可以像在本地使用vscode一样愉快的使用vscode在开发机上进行任何操作了。
+
+
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/bd6b7430-8ef5-4841-9e89-5f83faceda57)
 
@@ -179,11 +189,14 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 ## 4.3 在Vscode中打开终端
 
+
 单击vscode页面下方有一个X和！的位置可以快速打开vscode的控制台，然后进入TERMINAL。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/d8cd9101-c9d5-4d4f-8e85-9725e399f4b1)
 
+
 `TIPS`：右上方的+可以新建一个TERMINAL。
+
 
 ## 4.4 **使用Vscode进行Python debug的流程**
 
@@ -211,7 +224,9 @@ if __name__ =='__main__':
     print("The result of sum is ",result)
 ```
 
+
 新建python文件后我们如果想要运行，首先需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。这里我们只要选conda中的base就行了，后面各位如果要使用其他虚拟环境就在这选择对应的解释器就可以。
+
 
 **Step2.设置断点**
 
@@ -269,7 +284,9 @@ debug面板各按钮功能介绍：
 
 #### 4.4.2.1 vscode设置
 
+
 vscode支持通过remote的方法连接我们在命令行中发起的debug server。首先我们要配置一下debug的config。
+
 
 还是点击VSCode侧边栏的“Run and Debug”（运行和调试)，单击"create a lauch.json file"
 
@@ -311,7 +328,9 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 
 #### 4.4.2.3 使用别名简化命令
 
+
 这边有个不方便的地方，python -m debugpy --listen 5678 --wait-for-client这个命令太长了，每次都打很麻烦。这里我们可以给这段常用的命令设置一个别名。
+
 
 在`linux`系统中，可以对 *~/.bashrc* 文件中添加以下命令
 
