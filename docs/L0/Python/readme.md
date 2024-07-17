@@ -2224,7 +2224,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 然后我们就可以像在本地使用vscode一样在远程开发机上愉快地使用vscode了
 
-## 4.3 在vscode中**打开终端**
+## 4.3 在vscode中打开终端
 
 单击vscode页面下方有一个X和！的位置可以快速打开vscode的控制台，然后进入TERMINAL。
 
@@ -2244,6 +2244,19 @@ TIPS：右上方的+可以新建一个TERMINAL。
 这边我们新建一个文件夹，写一个简单的python程序来做debug演示。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/f2055734-7c9b-44cc-8a4c-1e4dce1d5dee)
+```python
+def add_numbers(a,b,c):
+    sum = 0#这里其实覆盖了python自带的sum方法。
+    sum +=a
+    sum +=b
+    sum +=c
+    print("The sum is ",sum) 
+
+if __name__ =='__main__':
+    x,y,z = 1,2,3
+    result = add_numbers(x,y,z)#图中代码这里写成1,2,3了
+    print("The result of sum is ",result)
+```
 
 新建python文件后我们如果想要运行，就需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。这里我们只要选conda中的base就行了，后面各位如果要使用其他虚拟环境就在这选择对应的解释器就可以。
 
@@ -2252,7 +2265,6 @@ TIPS：右上方的+可以新建一个TERMINAL。
 在代码行号旁边点击，可以添加一个红点，这就是断点（如果不能添加红点需要检查一下python extension是否已经正确安装）。当代码运行到这里时，它会停下来，这样你就可以检查变量的值、执行步骤等。
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/5d4d2fa5-58de-4e5e-8417-1ee5ab04bf1d)
-ce1d5dee)
 
 **Step3.启动debug**
 
@@ -2292,7 +2304,7 @@ debug面板各按钮功能介绍：
 
 * `6`: stop：终止debug
 
-**6.修复错误并重新运行**
+**Step6.修复错误并重新运行**
 
 如果你找到了代码中的错误，可以修复它，然后重新运行debug来确保问题已经被解决。
 
@@ -2326,14 +2338,13 @@ vscode也支持通过remote的方法连接我们在命令行中发起的debug se
 
 现在vscode已经准备就绪，让我们来看看如何在命令行中发起debug。如果没有安装debugpy的话可以先通过pip install debugpy安装一下。
 
-```
+```shell
 python -m debugpy --listen 5678 --wait-for-client ./myscript.py
-
 ```
 
-./myscript.py可以替换为我们想要debug的python文件，后面可以和直接在命令行中启动python一样跟上输入的参数。记得要先在想要debug的python文件打好断点并保存。
+* `./myscript.py`可以替换为我们想要debug的python文件，后面可以和直接在命令行中启动python一样跟上输入的参数。记得要先在想要debug的python文件打好断点并保存。
 
-- -wait-for-client 参数会让我们的debug server在等客户端连入后才开始运行debug。在这就是要等到我们在run and debug界面启动debug。
+* `--wait-for-client`参数会让我们的debug server在等客户端连入后才开始运行debug。在这就是要等到我们在run and debug界面启动debug。
 
 先在终端中发起debug server，然后再去vscode debug页面单击一下绿色箭头开启debug。
 
@@ -2349,23 +2360,20 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 
 但这边有个不方便的地方，python -m debugpy --listen 5678 --wait-for-client这个命令太长了，每次都打很麻烦。这里我们可以给这段常用的命令设置一个别名。
 
-在linux系统中，可以对 *~/.bashrc* 文件中添加以下命令
+在`linux`系统中，可以对 *~/.bashrc* 文件中添加以下命令
 
-```
+```shell
 alias pyd='python -m debugpy --wait-for-client --listen 5678'
-
 ```
 
 然后执行
 
-```
+```shell
 source ~/.bashrc
-
 ```
 
 这样之后使用 pyd 命令(你可以自己命名) 替代 python 就能在命令行中起debug了，之前的debug命令就变成了
 
-```
+```shell
 pyd ./myscript.py
-
 ```
