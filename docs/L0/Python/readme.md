@@ -15,7 +15,7 @@
 |闯关任务|Python实现wordcount| 15mins|
 |闯关任务|Vscode连接InternStudio debug笔记| 15mins|
 
-任务具体描述见`task.md`。
+任务具体描述见[task.md](./task.md)。
 
 TIPS：本关内容覆盖较多，知识点较杂，如果有不清楚或者不懂的地方可以随时提问。同时如果觉得教程有问题的地方也请随时提出，让我们一起把本教程优化得更好，帮助更多的人走进大模型的世界。
 
