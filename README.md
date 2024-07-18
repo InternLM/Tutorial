@@ -15,9 +15,9 @@
 
 ||关卡名称|资料|闯关激励|
 |:-----|:----|:----|:-----|
-|第 1 关| Linux 基础知识 |[任务](docs/L0/Linux/task.md)、[文档](docs/L0/Linux)、视频| 50元算力点 |
-|第 2 关|Python 基础知识 | [任务](docs/L0/Python/task.md)、[文档](docs/L0/Python)、视频 | 50元算力点|
-|第 3 关|Git 基础知识|[任务](docs/L0/Git/task.md)、[文档](docs/L0/Git)、视频| 50元算力点 |
+|第 1 关| Linux 前置基础 |[任务](docs/L0/Linux/task.md)、[文档](docs/L0/Linux)、视频| 50元算力点 |
+|第 2 关|Python 前置基础 | [任务](docs/L0/Python/task.md)、[文档](docs/L0/Python)、视频 | 50元算力点|
+|第 3 关|Git 前置基础|[任务](docs/L0/Git/task.md)、[文档](docs/L0/Git)、视频| 50元算力点 |
 |第 4 关|Hugging Face 前置基础|任务、文档、视频| 50元算力点 |
 
 
