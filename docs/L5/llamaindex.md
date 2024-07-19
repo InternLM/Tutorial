@@ -198,12 +198,120 @@ python llamaindex_RAG.py
 
 借助RAG技术后，就能获得我们想要的答案了。
 
-## 5. 关卡任务
+## 5. LlamaIndex web
+运行之前首先安装依赖
+
+```shell
+pip install streamlit==1.36.0
+```
+
+运行以下指令，新建一个python文件
+
+```bash
+cd ~/llamaindex_demo
+touch app.py
+```
+
+打开`app.py`贴入以下代码
+```python
+import streamlit as st
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.llms.huggingface import HuggingFaceLLM
+
+st.set_page_config(page_title="llama_index_demo", page_icon="🦜🔗")
+st.title("llama_index_demo")
+
+# 初始化模型
+@st.cache_resource
+def init_models():
+    embed_model = HuggingFaceEmbedding(
+        model_name="/root/model/sentence-transformer"
+    )
+    Settings.embed_model = embed_model
+
+    llm = HuggingFaceLLM(
+        model_name="/root/model/internlm2-chat-1_8b",
+        tokenizer_name="/root/model/internlm2-chat-1_8b",
+        model_kwargs={"trust_remote_code": True},
+        tokenizer_kwargs={"trust_remote_code": True}
+    )
+    Settings.llm = llm
+
+    documents = SimpleDirectoryReader("/root/llamaindex_demo/data").load_data()
+    index = VectorStoreIndex.from_documents(documents)
+    query_engine = index.as_query_engine()
+
+    return query_engine
+
+# 检查是否需要初始化模型
+if 'query_engine' not in st.session_state:
+    st.session_state['query_engine'] = init_models()
+
+def greet2(question):
+    response = st.session_state['query_engine'].query(question)
+    return response
+
+      
+# Store LLM generated responses
+if "messages" not in st.session_state.keys():
+    st.session_state.messages = [{"role": "assistant", "content": "你好，我是你的助手，有什么我可以帮助你的吗？"}]    
+
+    # Display or clear chat messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+def clear_chat_history():
+    st.session_state.messages = [{"role": "assistant", "content": "你好，我是你的助手，有什么我可以帮助你的吗？"}]
+
+st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
+
+# Function for generating LLaMA2 response
+def generate_llama_index_response(prompt_input):
+    return greet2(prompt_input)
+
+# User-provided prompt
+if prompt := st.chat_input():
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.write(prompt)
+
+# Gegenerate_llama_index_response last message is not from assistant
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = generate_llama_index_response(prompt)
+            placeholder = st.empty()
+            placeholder.markdown(response)
+    message = {"role": "assistant", "content": response}
+    st.session_state.messages.append(message)
+```
+
+之后运行
+```bash
+streamlit run app.py
+```
+
+然后在命令行点击，红框里的url。
+
+![image](https://github.com/user-attachments/assets/dc1e0e8c-bec3-49ad-b522-44f14c64ea01)
+
+即可进入以下网页，然后就可以开始尝试问问题了。
+
+![1721404075545](https://github.com/user-attachments/assets/1f55ae89-2568-4cd5-8e50-564ed032d275)
+
+询问结果为：
+
+![1721404159357](https://github.com/user-attachments/assets/6b479645-3bf6-4b94-b8e9-df4ea2e18530)
+
+
+## 6. 关卡任务
 完成以下任务，并将实现过程记录截图：
 - 通过 llamaindex 运行 InternLM2 1.8B，询问“你是谁”，将运行结果截图。
 - 通过 llamaindex 实现知识库检索，询问两个问题将运行结果截图。
   - 问题1：xtuner是什么?
   - 问题2：xtuner支持那些模型？
 
-## 6. 关卡通关文案
+## 7. 关卡通关文案
 恭喜你，成功通关本关卡！继续加油！你成功使用 LlamaIndex 运行了 InternLM-2 1.8B 模型，并实现了知识库的构建与检索。这为管理和利用大规模知识库提供了强大的工具和方法。接下来，可以进一步优化和扩展功能，以满足更复杂的需求。
