@@ -1,8 +1,4 @@
-input = """Hello world!  
-This is an example.  
-Word count is fun.  
-Is it fun to count words?  
-Yes, it is fun!"""
+input = """Hello world!  This is an example.  Word count is fun.  Is it fun to count words?  Yes, it is fun!"""
 
 from collections import Counter
 import re
