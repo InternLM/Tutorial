@@ -48,9 +48,9 @@
 
 ||关卡名称|关卡负责人|资料|
 |:-----|:----|:----|:-----|
-|第 1 关| 销冠大模型案例 ||[文档](docs/EasterEgg/StreamerSales)、[视频](https://www.bilibili.com/video/BV1f1421b7Du)、任务|
-|第 2 关| Flash Attention ||文档、视频、任务|
-|第 3 关| AI 顶会盘点 LLM 工作流 ||文档、视频、任务|
+|第 1 关| 销冠大模型案例 ||[文档](docs/EasterEgg/StreamerSales)、[视频](https://www.bilibili.com/video/BV1f1421b7Du)|
+|第 2 关| Flash Attention ||文档、视频|
+|第 3 关| AI 顶会盘点 LLM 工作流 ||文档、视频|
 
 
 ## 2. 书生共学计划
