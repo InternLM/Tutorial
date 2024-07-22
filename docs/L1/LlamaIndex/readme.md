@@ -33,7 +33,7 @@
 
 进入开发机后，从官方环境复制运行 InternLM 的基础环境，命名为 `llamaindex`，在命令行模式下运行：
 ```bash
-studio-conda -t llamaindex -o pytorch-2.1.2
+conda create -n llamaindex python=3.10
 ```
 复制完成后，在本地查看环境。
 ```bash
@@ -47,9 +47,11 @@ base                  *  /root/.conda
 llamaindex               /root/.conda/envs/llamaindex
 ```
 
-运行 `conda` 命令，激活 `llamaindex`    **python** 虚拟环境:
+运行 `conda` 命令，激活 `llamaindex` 然后安装相关基础依赖
+**python** 虚拟环境:
 ```bash
 conda activate llamaindex
+conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
 ```
 
 环境激活后，命令行左边会显示当前（也就是 `llamaindex` ）的环境名称，如下图所示:
