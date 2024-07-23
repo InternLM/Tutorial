@@ -58,7 +58,7 @@ conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=
 ```bash
 pip install einops
 pip install  protobuf
-```bash
+```
 
 环境激活后，命令行左边会显示当前（也就是 `llamaindex` ）的环境名称，如下图所示:
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/bcfedc90-0d9d-4679-b1e9-4709b05711f3)
