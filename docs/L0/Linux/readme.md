@@ -443,7 +443,7 @@ ssh -p 37367 root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:7860 -o StrictHost
 
 当我们需要编辑文件的时候可以使用`vi`或者`vim`命令，当你进入文件编辑以后，有三种模式：
 
-![image](https://github.com/InternLM/Tutorial/assets/110531742/bc717d26-dfdc-44bc-93eb-68fbaf02d9c3)
+![image](https://github.com/user-attachments/assets/c9390795-0960-4b99-922a-c3b2cf3c6225)
 
 
 进入编辑模式可以使用`i`，vim的方便之处就是可以在终端进行简单的文件修改。
@@ -664,10 +664,6 @@ ln [参数][源文件或目录][目标文件或目录]
     ```
 
   -  这会重启 ID 为 0 的 GPU。
-- 显示帮助信息：
-  - ```Bash
-    nvidia-smi -h
-    ```
 
 下面通过一张图片对GPU信息进行介绍：
 
