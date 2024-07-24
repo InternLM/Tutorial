@@ -86,7 +86,7 @@ t_complex = 1.2j #复数
 t_bool = True #布尔类型
 t_list = [1,1,3,3,5,5] #列表
 t_tuple = (1,1,3,3,5,5) #元组
-t_set = (1,3,5) #集合
+t_set = {1,3,5} #集合
 t_dict = {'day':18,'month':6,'year':2024} #字典
 
 print(" t_int的类型是：",type(t_int),' t_int的值是: ',t_int)
@@ -107,7 +107,7 @@ print(" t_dict的类型是：",type(t_dict),' t_int的值是: ',t_dict)
      t_bool的类型是： <class 'bool'>  t_bool的值是:  True
      t_list的类型是： <class 'list'>  t_list的值是:  [1, 1, 3, 3, 5, 5]
      t_tuple的类型是： <class 'tuple'>  t_tuple的值是:  (1, 1, 3, 3, 5, 5)
-     t_set的类型是： <class 'tuple'>  t_set的值是:  (1, 3, 5)
+     t_set的类型是： <class 'set'>  t_set的值是:  {1, 3, 5}
      t_dict的类型是： <class 'dict'>  t_int的值是:  {'day': 18, 'month': 6, 'year': 2024}
     
 
