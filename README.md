@@ -25,9 +25,9 @@
 ||关卡名称|资料|闯关激励|
 |:-----|:----|:----|:-----|
 |第 1 关| 书生大模型全链路开源体系 |[任务](docs/L1/HelloIntern/task.md)、文档、视频| 100元算力点 |
-|第 2 关| 8G 显存玩转书生大模型 Demo | 任务、文档、视频| 100元算力点 |
-|第 3 关| 浦语提示词工程实践 | 任务、文档、视频| 100元算力点 |
-|第 4 关| InternLM + LlamaIndex RAG 实践|任务、文档、视频| 100元算力点 |
+|第 2 关| 8G 显存玩转书生大模型 Demo | [任务](docs/L1/Demo/task.md)、文档、视频| 100元算力点 |
+|第 3 关| 浦语提示词工程实践 | [任务](docs/L1/Prompt/task.md)、文档、视频| 100元算力点 |
+|第 4 关| InternLM + LlamaIndex RAG 实践|[任务](docs/L1/LlamaIndex/task.md)、文档、视频| 100元算力点 |
 |第 6 关| XTuner 微调个人小助手认知 | [任务](docs/L1/XTuner/task.md)、文档、视频| 100元算力点 |
 |第 7 关| OpenCompass 评测 InternLM-1.8B 实践 | [任务](docs/L1/OpenCompass/task.md)、文档、视频 | 100元算力点 |
 
@@ -46,11 +46,11 @@
 
 ### 1.4. 彩蛋岛
 
-||关卡名称|关卡负责人|资料|
-|:-----|:----|:----|:-----|
-|第 1 关| 销冠大模型案例 ||[文档](docs/EasterEgg/StreamerSales)、[视频](https://www.bilibili.com/video/BV1f1421b7Du)|
-|第 2 关| Flash Attention ||文档、视频|
-|第 3 关| AI 顶会盘点 LLM 工作流 ||文档、视频|
+||关卡名称|资料|
+|:-----|:----|:-----|
+|第 1 关| 销冠大模型案例 |[文档](docs/EasterEgg/StreamerSales)、[视频](https://www.bilibili.com/video/BV1f1421b7Du)|
+|第 2 关| Flash Attention | 文档、视频 |
+|第 3 关| AI 顶会盘点 LLM 工作流 | 文档、视频|
 
 
 ## 2. 书生共学计划
