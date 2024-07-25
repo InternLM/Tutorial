@@ -8,6 +8,14 @@
 
 在进行微调之前，我们需要了解一些基本概念，请访问[XTuner微调前置基础](./xtuner_finetune_basic.md)。
 
+另外，请确保自己已经克隆了Tutorial仓库的资料到本地。
+
+
+```bash
+mkdir -p /root/InternLM/Tutorial
+git clone -b camp3  https://github.com/InternLM/Tutorial /root/InternLM/Tutorial
+```
+
 ## 2 准备工作
 
 **环境安装**：我们想要用简单易上手的微调工具包 XTuner 来对模型进行微调的话，第一步是安装 XTuner ！安装基础的工具是一切的前提，只有安装了 XTuner 我们才能够去执行后续的操作。
@@ -20,6 +28,7 @@
 
 在安装 XTuner 之前，我们需要先创建一个虚拟环境。使用 `Anaconda` 创建一个名为 `xtuner0121` 的虚拟环境，可以直接执行命令。
 
+
 ```bash
 # 创建虚拟环境
 conda create -n xtuner0121 python=3.10 -y
@@ -28,19 +37,24 @@ conda create -n xtuner0121 python=3.10 -y
 conda activate xtuner0121
 
 # 安装一些必要的库
-pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0
+pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0 transformers==4.39.3
 ```
 
 如果是在开发机中，也可以直接执行以下命令进行创建：
 
+
 ```bash
 studio-conda -t xtuner0121 -o internlm-base
 conda activate xtuner0121
+
+# 安装一些必要的库
+pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0 transformers==4.39.3
 ```
 
 ### 2.2 安装 XTuner
 
 虚拟环境创建完成后，就可以安装 XTuner 了。首先，从 Github 上下载源码。
+
 
 ```bash
 # 创建一个目录，用来存放源代码
@@ -48,7 +62,7 @@ mkdir -p /root/InternLM/code
 
 cd /root/InternLM/code
 
-git clone -b v0.1.21  https://github.com/InternLM/XTuner
+git clone -b v0.1.21  https://github.com/InternLM/XTuner /root/InternLM/code/XTuner
 ```
 
 其次，进入源码目录，执行安装。
@@ -114,7 +128,15 @@ from modelscope import snapshot_download
 model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-1_8b', cache_dir="/root/InternLM/XTuner/")
 ```
 
-模型文件准备好后，我们的目录结构应该是这个样子的。
+模型文件准备好后，我们可以使用`tree`命令来观察目录结构。
+
+
+```bash
+apt-get install -y tree
+tree -l
+```
+
+我们的目录结构应该是这个样子的。
 
 <details>
 <summary>目录结构</summary>
@@ -157,10 +179,6 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-1_8b', cache_dir
 > 在目录结构中可以看出，`internlm2-chat-1_8b` 是一个符号链接。
 
 
-```bash
-tree -l
-```
-
 ## 3 快速开始
 
 这里我们用 `internlm2-chat-1_8b` 模型，通过 `QLoRA` 的方式来微调一个自己的小助手认知作为案例来进行演示。
@@ -185,8 +203,29 @@ tree -l
 </tr>
 </tbody>
 </table>
-其次，我们需要定义一些基本方法。
 
+为了快速体验、观察对比微调前后模型的对话效果，我们可以直接在Python命令行环境中执行对话体验，其中：[3.1 微调前的模型对话](#31-微调前的模型对话)是观察微调前模型的对话效果； [3.3 微调后的模型对话](#33-微调后的模型对话)是观察微调后模型的对话效果。
+
+为此，我们需要定义一些基本方法，以下步骤在[3.3 微调后的模型对话](#33-微调后的模型对话) 小结也会用到。
+
+- 进入Python环境
+
+
+```bash
+# conda activate xtuner0121
+python
+```
+
+进入Python环境后将看到以下的输出：
+
+
+```text
+Python 3.10.13 (main, Sep 11 2023, 13:44:35) [GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+```
+
+接下来的三个步骤用来导入库和定义基本方法，我们可以直接复制以下代码，粘贴到Python环境中进行执行了。
 
 - 导入必要的库
 
@@ -248,6 +287,13 @@ del tokenizer, model
 torch.cuda.empty_cache()
 ```
 
+至此，我们看到了微调前模型的对话效果。此步骤完成，即可输入以下语句退出Python环境：
+
+
+```python
+exit()
+```
+
 ### 3.2 指令跟随微调
 
 下面我们对模型进行微调，让模型认识到自己的弟位，了解它自己是你的一个助手。
@@ -255,6 +301,7 @@ torch.cuda.empty_cache()
 #### 3.2.1 准数据文件
 
 为了让模型能够认清自己的身份弟位，在询问自己是谁的时候按照我们预期的结果进行回复，我们就需要通过在微调数据集中大量加入这样的数据。我们准备一个数据集文件`datas/assistant.json`，文件内容为对话数据。
+
 
 ```bash
 mkdir -p datas
@@ -275,7 +322,7 @@ touch datas/assistant.json
 
 > 或者可以直接复制 [tools/xtuner_generate_assistant.py](../../../tools/xtuner_generate_assistant.py)
 > ```bash
-> cp ../../../tools/xtuner_generate_assistant.py ./
+> cp /root/InternLM/Tutorial/tools/xtuner_generate_assistant.py ./
 >```
 
 <details>
@@ -312,6 +359,7 @@ with open('datas/assistant.json', 'w', encoding='utf-8') as f:
 </details>
 
 然后执行该脚本来生成数据文件。
+
 
 ```bash
 python xtuner_generate_assistant.py
@@ -355,6 +403,7 @@ python xtuner_generate_assistant.py
 │       └── tokenizer_config.json
 ├── datas
 │   └── assistant.json
+├── xtuner_generate_assistant.py
 ```
 
 </details>
@@ -442,6 +491,7 @@ xtuner copy-cfg internlm2_chat_1_8b_qlora_alpaca_e3 .
 ├── datas
 │   └── assistant.json
 ├── internlm2_chat_1_8b_qlora_alpaca_e3_copy.py
+├── xtuner_generate_assistant.py
 ```
 
 </details>
@@ -545,7 +595,7 @@ alpaca_en = dict(
 
 > 可以直接复制到当前目录。
 > ```bash
-> cp ../../../configs/internlm2_chat_1_8b_qlora_alpaca_e3_copy.py ./
+> cp /root/InternLM/Tutorial/configs/internlm2_chat_1_8b_qlora_alpaca_e3_copy.py ./
 >```
 
 <details>
@@ -905,6 +955,8 @@ MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert merge /root/Int
 
 ### 3.3 微调后的模型对话
 
+在此之前，需要根据 [3 快速开始](#3-快速开始) 章节的步骤进入Python环境并定义好基本方法。
+
 
 ```python
 tokenizer, model = load_model("./merged")
@@ -934,6 +986,13 @@ del tokenizer, model
 torch.cuda.empty_cache()
 ```
 
+此步骤完成，即可输入以下语句退出Python环境：
+
+
+```python
+exit()
+```
+
 ## 4 Web Demo 部署
 
 除了在终端中对模型进行测试，我们其实还可以在网页端的 Demo 进行对话。
@@ -951,7 +1010,7 @@ Streamlit程序的完整代码是：[tools/xtuner_streamlit_demo.py](../../../to
 
 > 可以直接复制到当前目录。  
 > ```bash
-> cp ../../../tools/xtuner_streamlit_demo.py ./
+> cp /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py ./
 >```
 
 <details>
