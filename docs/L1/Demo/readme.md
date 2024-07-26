@@ -32,7 +32,7 @@ conda activate demo
 # 安装 torch
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 # 安装其他依赖
-pip install transformers==4.34 
+pip install transformers==4.38
 pip install sentencepiece==0.1.99
 pip install einops==0.8.0
 ```
@@ -87,6 +87,40 @@ while True:
 
 ![image](https://github.com/user-attachments/assets/530afcf6-2f33-4e8e-b2e8-f5f2cb3e4db5)
 
+## Streamlit Web Demo 部署 InternLM2-Chat-1.8B 模型
+
+在本节中，我们将演示如何使用 Streamlit 部署 InternLM2-Chat-1.8B 模型。
+
+我们执行如下代码来把本教程仓库 clone 到本地，以执行后续的代码。
+
+```bash
+cd /root/demo
+git clone https://github.com/InternLM/Tutorial.git
+```
+
+然后，我们执行如下代码来启动一个 Streamlit 服务。
+
+```bash
+cd /root/demo
+streamlit run /root/demo/Tutorial/docs/L1/Demo/streamlit_demo.py --server.address 127.0.0.1 --server.port 6006
+```
+
+接下来，我们在**本地**的 PowerShell 中输入以下命令，将端口映射到本地。
+
+```bash
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 你的 ssh 端口号
+```
+
+然后将 SSH 密码复制并粘贴到 PowerShell 中，回车，即可完成端口映射。正常情况下，我们会看到如下输出：
+
+![image](https://github.com/user-attachments/assets/b19a5606-43f1-4f5b-ad63-b7a2666528ab)
+
+在完成端口映射后，我们便可以通过浏览器访问 `http://localhost:6006` 来启动我们的 Demo。
+
+效果如下图所示：
+
+![image](https://github.com/user-attachments/assets/17f071c7-2a73-4b3b-b740-fedadd9390cd)
+
 ## LMDeploy 部署 InternLM-XComposer2-VL-1.8B 模型
 
 InternLM-XComposer2 是一款基于 InternLM2 的视觉语言大模型，其擅长自由形式的文本图像合成和理解。其主要特点包括：
@@ -120,18 +154,6 @@ pip install timm==1.0.7
 ```bash
 lmdeploy serve gradio /share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-1_8b
 ```
-
-接下来，我们在**本地**的 PowerShell 中输入以下命令，将端口映射到本地。
-
-```bash
-ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 你的 ssh 端口号
-```
-
-然后将 SSH 密码复制并粘贴到 PowerShell 中，回车，即可完成端口映射。正常情况下，我们会看到如下输出：
-
-![image](https://github.com/user-attachments/assets/b19a5606-43f1-4f5b-ad63-b7a2666528ab)
-
-在完成端口映射后，我们便可以通过浏览器访问 `http://localhost:6006` 来启动我们的 Demo。
 
 在使用 Upload Image 上传图片后，我们输入 Instruction 后按下回车，便可以看到模型的输出。
 
