@@ -145,7 +145,7 @@ LMDeploy 也已经支持了 InternVL2 系列模型的部署，让我们一起来
 
 ```bash
 conda activate demo
-lmdeploy serve gradio /share/new_models/Shanghai_AI_Laboratory/internvl2-2b
+lmdeploy serve gradio /share/new_models/OpenGVLab/InternVL2-2B
 ```
 
 在完成端口映射后，我们便可以通过浏览器访问 `http://localhost:6006` 来启动我们的 Demo。
