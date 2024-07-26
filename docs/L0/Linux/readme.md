@@ -1,5 +1,8 @@
 # Linux+InternStudio 关卡
 
+<img width="1440" alt="B站封面" src="https://github.com/user-attachments/assets/8d7736cf-5e62-4d5e-8e1b-e9c819889773">
+
+
 😀Hello大家好，欢迎来到**书生大模型**实战营，这里是实战营为第一次参加实战营同学，和来自各个行业的没有Linux基础知识的同学准备的基础课程，在这里我们会教大家如何使用**InternStudio开发机**，以及掌握一些基础的**Linux知识**，让大家不至于在后面的课程中无从下手，希望对大家有所帮助。在这里[关卡任务](./task.md)中为大家准备了一些关卡任务，当大家完成必做关卡任务并打卡后，就会获得当前关卡的算力奖励了，**让我们开始吧！**
 
 ## 1. InternStudio开发机介绍
