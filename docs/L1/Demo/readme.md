@@ -102,7 +102,7 @@ git clone https://github.com/InternLM/Tutorial.git
 
 ```bash
 cd /root/demo
-streamlit run /root/demo/Tutorial/docs/L1/Demo/streamlit_demo.py --server.address 127.0.0.1 --server.port 6006
+streamlit run /root/demo/Tutorial/tools/streamlit_demo.py --server.address 127.0.0.1 --server.port 6006
 ```
 
 接下来，我们在**本地**的 PowerShell 中输入以下命令，将端口映射到本地。
