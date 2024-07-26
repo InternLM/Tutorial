@@ -119,6 +119,16 @@ pip install timm==1.0.7
 lmdeploy serve gradio /share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-1_8b
 ```
 
+接下来，我们在**本地**的 PowerShell 中输入以下命令，将端口映射到本地。
+
+```bash
+ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 你的 ssh 端口号
+```
+
+然后将 SSH 密码复制并粘贴到 PowerShell 中，回车，即可完成端口映射。正常情况下，我们会看到如下输出：
+
+![image](https://github.com/user-attachments/assets/b19a5606-43f1-4f5b-ad63-b7a2666528ab)
+
 在完成端口映射后，我们便可以通过浏览器访问 `http://localhost:6006` 来启动我们的 Demo。
 
 在使用 Upload Image 上传图片后，我们输入 Instruction 后按下回车，便可以看到模型的输出。
