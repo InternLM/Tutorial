@@ -1,3 +1,5 @@
+![20240726-103203](https://github.com/user-attachments/assets/35fcd0f3-6b19-44d3-ac0c-dd01ac3a20b3)
+
 # 8G 显存玩转书生大模型 Demo
 
 ## 关卡任务
