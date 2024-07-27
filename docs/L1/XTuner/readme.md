@@ -1,5 +1,7 @@
 # XTuner微调个人小助手认知
 
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-00.png)
+
 在本节中，将一步步带领大家体验如何使用 XTuner 完成个人小助手的微调！
 
 > 整个过程大概需要90分钟我们就可以得到一个自己的小助手。
@@ -8,21 +10,53 @@
 
 在进行微调之前，我们需要了解一些基本概念，请访问[XTuner微调前置基础](./xtuner_finetune_basic.md)。
 
-另外，请确保自己已经克隆了Tutorial仓库的资料到本地。
+## 2 准备工作
 
+**开发机准备**：
+
+我们需要前往 [InternStudio](https://studio.intern-ai.org.cn/) 中创建一台开发机进行使用。
+
+步骤1：登录InternStudio后，在控制台点击 “创建开发机” 按钮可以进入到开发机的创建界面。
+
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-01.png)
+
+步骤2：在 “创建开发机” 界面，选择开发机类型：个人开发机，输入开发机名称：XTuner微调，选择开发机镜像：Cuda12.2-conda。
+
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-02.png)
+
+步骤3：在镜像详情界面，点击 “使用” 链接，确认使用该镜像。
+
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-03.png)
+
+步骤4：资源配置可以选择 10% （如果有更高资源可以使用，也可以选择更高的资源配置），然后点击 “立即创建” 按钮创建开发机。
+
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-04.png)
+
+步骤5：创建完成后，在开发机列表中可以看到刚创建的开发机，点击 “进入开发机” 链接可以连接进入到开发机。
+
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-05.png)
+
+当我们准备好开发机之后，就可以进行下一步的微调任务了。
+
+另外，进入开发机之后，请确保自己已经克隆了Tutorial仓库的资料到本地。
 
 ```bash
 mkdir -p /root/InternLM/Tutorial
 git clone -b camp3  https://github.com/InternLM/Tutorial /root/InternLM/Tutorial
 ```
 
-## 2 准备工作
 
-**环境安装**：我们想要用简单易上手的微调工具包 XTuner 来对模型进行微调的话，第一步是安装 XTuner ！安装基础的工具是一切的前提，只有安装了 XTuner 我们才能够去执行后续的操作。
+**环境安装**：
 
-**前期准备**：在完成 XTuner 的安装后，我们下一步就需要去明确我们自己的微调目标了。我们想要利用微调做一些什么事情呢，然后为了实现这个目标，我们需要准备相关的硬件资源和数据。
+我们想要用简单易上手的微调工具包 XTuner 来对模型进行微调的话，第一步是安装 XTuner ！安装基础的工具是一切的前提，只有安装了 XTuner 我们才能够去执行后续的操作。
 
-**启动微调**：在确定了自己的微调目标后，我们就可以在 XTuner 的配置库中找到合适的配置文件并进行对应的修改。修改完成后即可一键启动训练！训练好的模型也可以仅仅通过在终端输入一行命令来完成转换和部署工作！
+**前期准备**：
+
+在完成 XTuner 的安装后，我们下一步就需要去明确我们自己的微调目标了。我们想要利用微调做一些什么事情呢，然后为了实现这个目标，我们需要准备相关的硬件资源和数据。
+
+**启动微调**：
+
+在确定了自己的微调目标后，我们就可以在 XTuner 的配置库中找到合适的配置文件并进行对应的修改。修改完成后即可一键启动训练！训练好的模型也可以仅仅通过在终端输入一行命令来完成转换和部署工作！
 
 ### 2.1 创建虚拟环境
 
@@ -37,18 +71,7 @@ conda create -n xtuner0121 python=3.10 -y
 conda activate xtuner0121
 
 # 安装一些必要的库
-pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0 transformers==4.39.3
-```
-
-如果是在开发机中，也可以直接执行以下命令进行创建：
-
-
-```bash
-studio-conda -t xtuner0121 -o internlm-base
-conda activate xtuner0121
-
-# 安装一些必要的库
-pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0 transformers==4.39.3
+pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0 transformers==4.39.3 streamlit==1.36.0
 ```
 
 ### 2.2 安装 XTuner
@@ -184,27 +207,15 @@ tree -l
 
 我们可以通过网页端的 Demo 来看看微调前 `internlm2-chat-1_8b` 的对话效果。
 
-首先，需要安装必要的依赖。
-
-
-```python
-pip install streamlit==1.36.0
-```
-
-其次，我们需要准备一个Streamlit程序的脚本。
+首先，我们需要准备一个Streamlit程序的脚本。
 
 Streamlit程序的完整代码是：[tools/xtuner_streamlit_demo.py](../../../tools/xtuner_streamlit_demo.py)。
-
-> 可以直接复制到当前目录。  
-> ```bash
-> cp /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py ./
->```
 
 然后，我们可以直接启动应用。
 
 
 ```bash
-streamlit run xtuner_streamlit_demo.py
+streamlit run /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py
 ```
 
 运行后，在访问前，我们还需要做的就是将端口映射到本地。
@@ -889,7 +900,7 @@ MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert merge /root/Int
 
 
 ```bash
-streamlit run xtuner_streamlit_demo.py
+streamlit run /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py
 ```
 
 运行后，确保端口映射正常，如果映射已断开则需要重新做一次端口映射。

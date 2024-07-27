@@ -142,29 +142,4 @@ xtuner convert pth_to_hf $CONFIG $PATH_TO_PTH_MODEL $SAVE_PATH_TO_HF_MODEL
 xtuner convert merge $LLM $ADAPTER $SAVE_PATH
 ```
 
-## 2 创建开发机
-
-我们需要前往 [InternStudio](https://studio.intern-ai.org.cn/) 中创建一台开发机进行使用。
-
-步骤1：登录InternStudio后，在控制台点击 “创建开发机” 按钮可以进入到开发机的创建界面。
-
-![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-01.png)
-
-步骤2：在 “创建开发机” 界面，选择开发机类型：个人开发机，输入开发机名称：XTuner微调，选择开发机镜像：Cuda12.2-conda。
-
-![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-02.png)
-
-步骤3：在镜像详情界面，点击 “使用” 链接，确认使用该镜像。
-
-![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-03.png)
-
-步骤4：资源配置可以选择 10% （如果有更高资源可以使用，也可以选择更高的资源配置），然后点击 “立即创建” 按钮创建开发机。
-
-![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-04.png)
-
-步骤5：创建完成后，在开发机列表中可以看到刚创建的开发机，点击 “进入开发机” 链接可以连接进入到开发机。
-
-![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-05.png)
-
-当我们有了这些前置知识和服务器之后，就可以进行下一步的微调任务了。
-
+当我们有了这些前置知识之后，就可以进行下一步的微调任务了。
