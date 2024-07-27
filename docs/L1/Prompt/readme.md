@@ -1,5 +1,7 @@
 # 浦语提示词工程实践
 
+![](https://files.mdnice.com/user/56306/a39a0f7e-35b8-407c-9633-c232729931d4.png)
+
 # 1. 模型部署
 
 这部分基于LMDeploy将开源的InternLM2-chat-1_8b模型部署为OpenAI格式的通用接口。
