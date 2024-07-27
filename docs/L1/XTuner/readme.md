@@ -66,7 +66,10 @@ conda create -n xtuner0121 python=3.10 -y
 conda activate xtuner0121
 
 # 安装一些必要的库
-pip install torch==2.0.1 torchaudio==2.0.2 torchvision==0.15.2 modelscope==1.15.0 transformers==4.39.3 streamlit==1.36.0
+conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
+# 安装其他依赖
+pip install transformers==4.38
+pip install streamlit==1.36.0
 ```
 
 ### 2.3 安装 XTuner
