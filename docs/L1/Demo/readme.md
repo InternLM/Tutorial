@@ -35,6 +35,9 @@ conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=
 pip install transformers==4.38
 pip install sentencepiece==0.1.99
 pip install einops==0.8.0
+pip install protobuf==5.27.2
+pip install accelerate==0.33.0
+pip install streamlit==1.37.0
 ```
 
 ## Cli Demo 部署 InternLM2-Chat-1.8B 模型
@@ -121,6 +124,8 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p 你的 ssh 端口�
 
 ![image](https://github.com/user-attachments/assets/17f071c7-2a73-4b3b-b740-fedadd9390cd)
 
+如果遇到了 `OSError: [Errno 28] inotify watch limit reached` 的问题，请不要慌张。稍等一段时间后重新执行即可。
+
 ## LMDeploy 部署 InternLM-XComposer2-VL-1.8B 模型
 
 InternLM-XComposer2 是一款基于 InternLM2 的视觉语言大模型，其擅长自由形式的文本图像合成和理解。其主要特点包括：
@@ -152,7 +157,7 @@ pip install timm==1.0.7
 接下来，我们使用 LMDeploy 启动一个与 InternLM-XComposer2-VL-1.8B 模型交互的 Gradio 服务。
 
 ```bash
-lmdeploy serve gradio /share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-1_8b
+lmdeploy serve gradio /share/new_models/Shanghai_AI_Laboratory/internlm-xcomposer2-vl-1_8b --cache-max-entry-count 0.1
 ```
 
 在使用 Upload Image 上传图片后，我们输入 Instruction 后按下回车，便可以看到模型的输出。
