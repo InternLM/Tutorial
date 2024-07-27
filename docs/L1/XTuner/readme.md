@@ -67,8 +67,6 @@ git clone -b v0.1.21  https://github.com/InternLM/XTuner /root/InternLM/code/XTu
 
 其次，进入源码目录，执行安装。
 
-> 如果速度太慢可以换成 `pip install -e '.[deepspeed]' -i https://mirrors.aliyun.com/pypi/simple/`
-
 
 ```bash
 # 进入到源码目录
@@ -77,6 +75,8 @@ cd /root/InternLM/code/XTuner
 # 执行安装
 pip install -e '.[deepspeed]'
 ```
+
+> 如果速度太慢可以换成 `pip install -e '.[deepspeed]' -i https://mirrors.aliyun.com/pypi/simple/`
 
 最后，我们可以验证一下安装结果。
 
@@ -120,19 +120,12 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b Shanghai
 
 这意味着，当我们访问 `Shanghai_AI_Laboratory/internlm2-chat-1_8b` 时，实际上就是在访问 `/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b` 目录下的内容。通过这种方式，我们无需复制任何数据，就可以直接利用现有的模型文件进行后续的微调操作，从而节省存储空间并简化文件管理。
 
-如果自己想要微调的模型在开发机中没找到，也可以自己下载相关模型文件。
-
-
-```python
-from modelscope import snapshot_download
-model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm2-1_8b', cache_dir="/root/InternLM/XTuner/")
-```
-
 模型文件准备好后，我们可以使用`tree`命令来观察目录结构。
 
 
 ```bash
 apt-get install -y tree
+
 tree -l
 ```
 
@@ -143,20 +136,6 @@ tree -l
 
 ```
 ├── Shanghai_AI_Laboratory
-│   ├── internlm2-1_8b
-│   │   ├── README.md
-│   │   ├── config.json
-│   │   ├── configuration.json
-│   │   ├── configuration_internlm2.py
-│   │   ├── generation_config.json
-│   │   ├── modeling_internlm2.py
-│   │   ├── pytorch_model.bin
-│   │   ├── special_tokens_map.json
-│   │   ├── tokenization_internlm2.py
-│   │   ├── tokenization_internlm2_fast.py
-│   │   ├── tokenizer.json
-│   │   ├── tokenizer.model
-│   │   └── tokenizer_config.json
 │   └── internlm2-chat-1_8b -> /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b
 │       ├── README.md
 │       ├── config.json
@@ -183,7 +162,7 @@ tree -l
 
 这里我们用 `internlm2-chat-1_8b` 模型，通过 `QLoRA` 的方式来微调一个自己的小助手认知作为案例来进行演示。
 
-首先，看看微调效果：
+先看看微调效果：
 
 <table>
 <thead>
@@ -196,103 +175,59 @@ tree -l
 <td>输入</td><td>请介绍一下你自己</td><td>请介绍一下你自己</td>
 </tr>
 <tr>
-<td>输出</td><td>你好，我是书生·浦语。我致力于帮助用户解决各种语言相关的问题，包括但不限于语言学习、翻译、文本摘要等。我使用了Transformer模型和深度学习技术，并使用了语言模型作为预训练任务。如果你有任何问题，欢迎随时向我提问。</td><td>我是伍鲜同志的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦</td>
-</tr>
-<tr>
-<td>网页</td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-11.png"/></td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-12.png"/></td>
+<td>输出</td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-11.png"/></td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-12.png"/></td>
 </tr>
 </tbody>
 </table>
 
-为了快速体验、观察对比微调前后模型的对话效果，我们可以直接在Python命令行环境中执行对话体验，其中：[3.1 微调前的模型对话](#31-微调前的模型对话)是观察微调前模型的对话效果； [3.3 微调后的模型对话](#33-微调后的模型对话)是观察微调后模型的对话效果。
+### 3.1 微调前的模型对话
 
-为此，我们需要定义一些基本方法，以下步骤在[3.3 微调后的模型对话](#33-微调后的模型对话) 小结也会用到。
+我们可以通过网页端的 Demo 来看看微调前 `internlm2-chat-1_8b` 的对话效果。
 
-- 进入Python环境
+首先，需要安装必要的依赖。
+
+
+```python
+pip install streamlit==1.36.0
+```
+
+其次，我们需要准备一个Streamlit程序的脚本。
+
+Streamlit程序的完整代码是：[tools/xtuner_streamlit_demo.py](../../../tools/xtuner_streamlit_demo.py)。
+
+> 可以直接复制到当前目录。  
+> ```bash
+> cp /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py ./
+>```
+
+然后，我们可以直接启动应用。
 
 
 ```bash
-# conda activate xtuner0121
-python
+streamlit run xtuner_streamlit_demo.py
 ```
 
-进入Python环境后将看到以下的输出：
+运行后，在访问前，我们还需要做的就是将端口映射到本地。
 
+通过如图所示的地方，获取开发机的端口和密码。
 
-```text
-Python 3.10.13 (main, Sep 11 2023, 13:44:35) [GCC 11.2.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> 
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-09.png)
+
+然后在本地使用 PowerShell 或者命令行终端，执行以下命令：
+
+> 其中，`8501`是Streamlit程序的服务端口，`43551`需要替换为自己的开发机的端口。
+
+```bash
+ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p 43551
 ```
 
-接下来的三个步骤用来导入库和定义基本方法，我们可以直接复制以下代码，粘贴到Python环境中进行执行了。
+然后再输入开发机的root密码。
 
-- 导入必要的库
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-10.png)
 
+最后，我们就可以在本地通过浏览器访问：http://127.0.0.1:8501 来进行对话了。
 
-```python
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
-```
-
-- 定义模型加载方法
-
-
-```python
-def load_model(model_path):
-    tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
-    model = AutoModelForCausalLM.from_pretrained(model_path, torch_dtype=torch.float16, trust_remote_code=True).cuda()
-    model = model.eval()
-    return tokenizer, model
-```
-
-- 定义对话方法
-
-
-```python
-messages = []
-
-def chat(input_text):
-    length = 0
-    for response, _ in model.stream_chat(tokenizer, input_text, messages):
-        if response is not None:
-            print(response[length:], flush=True, end="")
-            length = len(response)
-```
-
-### 3.1 微调前的模型对话
-
-首先来看看 `internlm2-chat-1_8b` 的对话演示。
-
-- 模型加载
-
-
-```python
-tokenizer, model = load_model("/root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
-```
-
-- 对话
-
-
-```python
-chat("请介绍一下你自己")
-```
-
-- 释放缓存
-
-
-```python
-del tokenizer, model
-
-torch.cuda.empty_cache()
-```
-
-至此，我们看到了微调前模型的对话效果。此步骤完成，即可输入以下语句退出Python环境：
-
-
-```python
-exit()
-```
+![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-11.png)
 
 ### 3.2 指令跟随微调
 
@@ -318,12 +253,14 @@ touch datas/assistant.json
 ]
 ```
 
-为了简化数据文件准备，我们也可以通过脚本生成的方式来准备数据。创建一个脚本文件 `xtuner_generate_assistant.py` ，输入脚本内容并保存：
+为了简化数据文件准备，我们也可以通过脚本生成的方式来准备数据。创建一个脚本文件 `xtuner_generate_assistant.py` ：
 
-> 或者可以直接复制 [tools/xtuner_generate_assistant.py](../../../tools/xtuner_generate_assistant.py)
-> ```bash
-> cp /root/InternLM/Tutorial/tools/xtuner_generate_assistant.py ./
->```
+
+```bash
+touch xtuner_generate_assistant.py
+```
+
+输入脚本内容并保存：
 
 <details>
 <summary>xtuner_generate_assistant.py</summary>
@@ -358,6 +295,21 @@ with open('datas/assistant.json', 'w', encoding='utf-8') as f:
 
 </details>
 
+> 或者可以直接复制 [tools/xtuner_generate_assistant.py](../../../tools/xtuner_generate_assistant.py)
+> ```bash
+> cp /root/InternLM/Tutorial/tools/xtuner_generate_assistant.py ./
+>```
+
+为了训练出自己的小助手，需要将脚本中`name`后面的内容修改为你自己的名称。
+
+```diff
+# 将对应的name进行修改（在第4行的位置）
+- name = '伍鲜同志'
++ name = "你自己的名称"
+```
+
+> 假如想要让微调后的模型能够完完全全认识到你的身份，我们还可以把第6行的`n`的值调大一点。不过`n`值太大的话容易导致过拟合，无法有效回答其他问题。
+
 然后执行该脚本来生成数据文件。
 
 
@@ -372,20 +324,6 @@ python xtuner_generate_assistant.py
 
 ```
 ├── Shanghai_AI_Laboratory
-│   ├── internlm2-1_8b
-│   │   ├── README.md
-│   │   ├── config.json
-│   │   ├── configuration.json
-│   │   ├── configuration_internlm2.py
-│   │   ├── generation_config.json
-│   │   ├── modeling_internlm2.py
-│   │   ├── pytorch_model.bin
-│   │   ├── special_tokens_map.json
-│   │   ├── tokenization_internlm2.py
-│   │   ├── tokenization_internlm2_fast.py
-│   │   ├── tokenizer.json
-│   │   ├── tokenizer.model
-│   │   └── tokenizer_config.json
 │   └── internlm2-chat-1_8b -> /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b
 │       ├── README.md
 │       ├── config.json
@@ -459,20 +397,6 @@ xtuner copy-cfg internlm2_chat_1_8b_qlora_alpaca_e3 .
 
 ```
 ├── Shanghai_AI_Laboratory
-│   ├── internlm2-1_8b
-│   │   ├── README.md
-│   │   ├── config.json
-│   │   ├── configuration.json
-│   │   ├── configuration_internlm2.py
-│   │   ├── generation_config.json
-│   │   ├── modeling_internlm2.py
-│   │   ├── pytorch_model.bin
-│   │   ├── special_tokens_map.json
-│   │   ├── tokenization_internlm2.py
-│   │   ├── tokenization_internlm2_fast.py
-│   │   ├── tokenizer.json
-│   │   ├── tokenizer.model
-│   │   └── tokenizer_config.json
 │   └── internlm2-chat-1_8b -> /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b
 │       ├── README.md
 │       ├── config.json
@@ -920,8 +844,6 @@ pth_file=`ls -t ./work_dirs/internlm2_chat_1_8b_qlora_alpaca_e3_copy/*.pth | hea
 | --device {device_name} | 这里指的就是device的名称，可选择的有cuda、cpu和auto，默认为cuda即使用gpu进行运算 |
 | --is-clip              | 这个参数主要用于确定模型是不是CLIP模型，假如是的话就要加上，不是就不需要添加 |
 
-> CLIP（Contrastive Language–Image Pre-training）模型是 OpenAI 开发的一种预训练模型，它能够理解图像和描述它们的文本之间的关系。CLIP 通过在大规模数据集上学习图像和对应文本之间的对应关系，从而实现了对图像内容的理解和分类，甚至能够根据文本提示生成图像。
-
 
 ```bash
 MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert merge /root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b ./hf ./merged --max-shard-size 2GB
@@ -955,342 +877,13 @@ MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert merge /root/Int
 
 ### 3.3 微调后的模型对话
 
-在此之前，需要根据 [3 快速开始](#3-快速开始) 章节的步骤进入Python环境并定义好基本方法。
+微调完成后，我们可以再次运行`xtuner_streamlit_demo.py`脚本来观察微调后的对话效果，不过在运行之前，我们需要将脚本中的模型路径修改为微调后的模型的路径。
 
-
-```python
-tokenizer, model = load_model("./merged")
+```diff
+# 直接修改脚本文件第18行
+- model_name_or_path = "/root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b"
++ model_name_or_path = "/root/InternLM/XTuner/merged"
 ```
-
-
-```python
-chat("请介绍一下你自己")
-```
-
-
-```python
-chat("你在实战营做什么")
-```
-
-
-```python
-chat("介绍一下成都")
-```
-
-可以看到，通过指令微调，我们成功得到了一个自己的小助手。
-
-
-```python
-del tokenizer, model
-
-torch.cuda.empty_cache()
-```
-
-此步骤完成，即可输入以下语句退出Python环境：
-
-
-```python
-exit()
-```
-
-## 4 Web Demo 部署
-
-除了在终端中对模型进行测试，我们其实还可以在网页端的 Demo 进行对话。
-
-首先，我们需要安装所需要的依赖。
-
-
-```python
-pip install streamlit==1.36.0
-```
-
-其次，我们需要准备一个Streamlit程序的脚本。
-
-Streamlit程序的完整代码是：[tools/xtuner_streamlit_demo.py](../../../tools/xtuner_streamlit_demo.py)。
-
-> 可以直接复制到当前目录。  
-> ```bash
-> cp /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py ./
->```
-
-<details>
-<summary>xtuner_streamlit_demo.py</summary>
-
-
-```python
-import copy
-import warnings
-from dataclasses import asdict, dataclass
-from typing import Callable, List, Optional
-
-import streamlit as st
-import torch
-from torch import nn
-from transformers.generation.utils import (LogitsProcessorList,
-                                           StoppingCriteriaList)
-from transformers.utils import logging
-
-from transformers import AutoTokenizer, AutoModelForCausalLM  # isort: skip
-
-logger = logging.get_logger(__name__)
-
-
-model_name_or_path = "./merged"
-
-@dataclass
-class GenerationConfig:
-    # this config is used for chat to provide more diversity
-    max_length: int = 2048
-    top_p: float = 0.75
-    temperature: float = 0.1
-    do_sample: bool = True
-    repetition_penalty: float = 1.000
-
-
-@torch.inference_mode()
-def generate_interactive(
-    model,
-    tokenizer,
-    prompt,
-    generation_config: Optional[GenerationConfig] = None,
-    logits_processor: Optional[LogitsProcessorList] = None,
-    stopping_criteria: Optional[StoppingCriteriaList] = None,
-    prefix_allowed_tokens_fn: Optional[Callable[[int, torch.Tensor],
-                                                List[int]]] = None,
-    additional_eos_token_id: Optional[int] = None,
-    **kwargs,
-):
-    inputs = tokenizer([prompt], padding=True, return_tensors='pt')
-    input_length = len(inputs['input_ids'][0])
-    for k, v in inputs.items():
-        inputs[k] = v.cuda()
-    input_ids = inputs['input_ids']
-    _, input_ids_seq_length = input_ids.shape[0], input_ids.shape[-1]
-    if generation_config is None:
-        generation_config = model.generation_config
-    generation_config = copy.deepcopy(generation_config)
-    model_kwargs = generation_config.update(**kwargs)
-    bos_token_id, eos_token_id = (  # noqa: F841  # pylint: disable=W0612
-        generation_config.bos_token_id,
-        generation_config.eos_token_id,
-    )
-    if isinstance(eos_token_id, int):
-        eos_token_id = [eos_token_id]
-    if additional_eos_token_id is not None:
-        eos_token_id.append(additional_eos_token_id)
-    has_default_max_length = kwargs.get(
-        'max_length') is None and generation_config.max_length is not None
-    if has_default_max_length and generation_config.max_new_tokens is None:
-        warnings.warn(
-            f"Using 'max_length''s default ({repr(generation_config.max_length)}) \
-                to control the generation length. "
-            'This behaviour is deprecated and will be removed from the \
-                config in v5 of Transformers -- we'
-            ' recommend using `max_new_tokens` to control the maximum \
-                length of the generation.',
-            UserWarning,
-        )
-    elif generation_config.max_new_tokens is not None:
-        generation_config.max_length = generation_config.max_new_tokens + \
-            input_ids_seq_length
-        if not has_default_max_length:
-            logger.warn(  # pylint: disable=W4902
-                f"Both 'max_new_tokens' (={generation_config.max_new_tokens}) "
-                f"and 'max_length'(={generation_config.max_length}) seem to "
-                "have been set. 'max_new_tokens' will take precedence. "
-                'Please refer to the documentation for more information. '
-                '(https://huggingface.co/docs/transformers/main/'
-                'en/main_classes/text_generation)',
-                UserWarning,
-            )
-
-    if input_ids_seq_length >= generation_config.max_length:
-        input_ids_string = 'input_ids'
-        logger.warning(
-            f"Input length of {input_ids_string} is {input_ids_seq_length}, "
-            f"but 'max_length' is set to {generation_config.max_length}. "
-            'This can lead to unexpected behavior. You should consider'
-            " increasing 'max_new_tokens'.")
-
-    # 2. Set generation parameters if not already defined
-    logits_processor = logits_processor if logits_processor is not None \
-        else LogitsProcessorList()
-    stopping_criteria = stopping_criteria if stopping_criteria is not None \
-        else StoppingCriteriaList()
-
-    logits_processor = model._get_logits_processor(
-        generation_config=generation_config,
-        input_ids_seq_length=input_ids_seq_length,
-        encoder_input_ids=input_ids,
-        prefix_allowed_tokens_fn=prefix_allowed_tokens_fn,
-        logits_processor=logits_processor,
-    )
-
-    stopping_criteria = model._get_stopping_criteria(
-        generation_config=generation_config,
-        stopping_criteria=stopping_criteria)
-    logits_warper = model._get_logits_warper(generation_config)
-
-    unfinished_sequences = input_ids.new(input_ids.shape[0]).fill_(1)
-    scores = None
-    while True:
-        model_inputs = model.prepare_inputs_for_generation(
-            input_ids, **model_kwargs)
-        # forward pass to get next token
-        outputs = model(
-            **model_inputs,
-            return_dict=True,
-            output_attentions=False,
-            output_hidden_states=False,
-        )
-
-        next_token_logits = outputs.logits[:, -1, :]
-
-        # pre-process distribution
-        next_token_scores = logits_processor(input_ids, next_token_logits)
-        next_token_scores = logits_warper(input_ids, next_token_scores)
-
-        # sample
-        probs = nn.functional.softmax(next_token_scores, dim=-1)
-        if generation_config.do_sample:
-            next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
-        else:
-            next_tokens = torch.argmax(probs, dim=-1)
-
-        # update generated ids, model inputs, and length for next step
-        input_ids = torch.cat([input_ids, next_tokens[:, None]], dim=-1)
-        model_kwargs = model._update_model_kwargs_for_generation(
-            outputs, model_kwargs, is_encoder_decoder=False)
-        unfinished_sequences = unfinished_sequences.mul(
-            (min(next_tokens != i for i in eos_token_id)).long())
-
-        output_token_ids = input_ids[0].cpu().tolist()
-        output_token_ids = output_token_ids[input_length:]
-        for each_eos_token_id in eos_token_id:
-            if output_token_ids[-1] == each_eos_token_id:
-                output_token_ids = output_token_ids[:-1]
-        response = tokenizer.decode(output_token_ids)
-
-        yield response
-        # stop when each sentence is finished
-        # or if we exceed the maximum length
-        if unfinished_sequences.max() == 0 or stopping_criteria(
-                input_ids, scores):
-            break
-
-
-def on_btn_click():
-    del st.session_state.messages
-
-
-@st.cache_resource
-def load_model():
-    model = (AutoModelForCausalLM.from_pretrained(model_name_or_path,
-                                                  trust_remote_code=True).to(
-                                                      torch.bfloat16).cuda())
-    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path,
-                                              trust_remote_code=True)
-    return model, tokenizer
-
-
-def prepare_generation_config():
-    with st.sidebar:
-        max_length = st.slider('Max Length',
-                               min_value=8,
-                               max_value=32768,
-                               value=2048)
-        top_p = st.slider('Top P', 0.0, 1.0, 0.75, step=0.01)
-        temperature = st.slider('Temperature', 0.0, 1.0, 0.1, step=0.01)
-        st.button('Clear Chat History', on_click=on_btn_click)
-
-    generation_config = GenerationConfig(max_length=max_length,
-                                         top_p=top_p,
-                                         temperature=temperature)
-
-    return generation_config
-
-
-user_prompt = '<|im_start|>user\n{user}<|im_end|>\n'
-robot_prompt = '<|im_start|>assistant\n{robot}<|im_end|>\n'
-cur_query_prompt = '<|im_start|>user\n{user}<|im_end|>\n\
-    <|im_start|>assistant\n'
-
-
-def combine_history(prompt):
-    messages = st.session_state.messages
-    meta_instruction = ('')
-    total_prompt = f"<s><|im_start|>system\n{meta_instruction}<|im_end|>\n"
-    for message in messages:
-        cur_content = message['content']
-        if message['role'] == 'user':
-            cur_prompt = user_prompt.format(user=cur_content)
-        elif message['role'] == 'robot':
-            cur_prompt = robot_prompt.format(robot=cur_content)
-        else:
-            raise RuntimeError
-        total_prompt += cur_prompt
-    total_prompt = total_prompt + cur_query_prompt.format(user=prompt)
-    return total_prompt
-
-
-def main():
-    # torch.cuda.empty_cache()
-    print('load model begin.')
-    model, tokenizer = load_model()
-    print('load model end.')
-
-
-    st.title('InternLM2-Chat-1.8B')
-
-    generation_config = prepare_generation_config()
-
-    # Initialize chat history
-    if 'messages' not in st.session_state:
-        st.session_state.messages = []
-
-    # Display chat messages from history on app rerun
-    for message in st.session_state.messages:
-        with st.chat_message(message['role'], avatar=message.get('avatar')):
-            st.markdown(message['content'])
-
-    # Accept user input
-    if prompt := st.chat_input('What is up?'):
-        # Display user message in chat message container
-        with st.chat_message('user'):
-            st.markdown(prompt)
-        real_prompt = combine_history(prompt)
-        # Add user message to chat history
-        st.session_state.messages.append({
-            'role': 'user',
-            'content': prompt,
-        })
-
-        with st.chat_message('robot'):
-            message_placeholder = st.empty()
-            for cur_response in generate_interactive(
-                    model=model,
-                    tokenizer=tokenizer,
-                    prompt=real_prompt,
-                    additional_eos_token_id=92542,
-                    **asdict(generation_config),
-            ):
-                # Display robot response in chat message container
-                message_placeholder.markdown(cur_response + '▌')
-            message_placeholder.markdown(cur_response)
-        # Add robot response to chat history
-        st.session_state.messages.append({
-            'role': 'robot',
-            'content': cur_response,  # pylint: disable=undefined-loop-variable
-        })
-        torch.cuda.empty_cache()
-
-
-if __name__ == '__main__':
-    main()
-
-```
-
-</details>
 
 然后，我们可以直接启动应用。
 
@@ -1299,29 +892,18 @@ if __name__ == '__main__':
 streamlit run xtuner_streamlit_demo.py
 ```
 
-运行后，在访问前，我们还需要做的就是将端口映射到本地。
+运行后，确保端口映射正常，如果映射已断开则需要重新做一次端口映射。
 
-通过如图所示的地方，获取开发机的端口和密码。
-
-![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-09.png)
-
-然后在本地使用 PowerShell 或者命令行终端，执行以下命令：
-
-> 其中，`8501`是Streamlit程序的服务端口，`43551`需要替换为自己的开发机的端口。
 
 ```bash
 ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p 43551
 ```
 
-然后再输入开发机的root密码。
-
-![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-10.png)
-
-最后，我们就可以在本地通过浏览器访问：http://127.0.0.1:8501 来进行对话了。
+最后，通过浏览器访问：http://127.0.0.1:8501 来进行对话了。
 
 ![](https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-12.png)
 
-## 5 小结
+## 4 小结
 
 经过本节的学习，带领着大家跑通了 XTuner 的完整流程，我们学会了指令跟随微调，并且训练出了一个自己小助手，是不是很有意思！
 
@@ -1329,6 +911,6 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p 43551
 
 关于XTuner的更多高级进阶知识，请访问[XTuner微调高级进阶](./xtuner_finetune_advance.md)。
 
-## 6 作业
+## 5 作业
 
 作业请访问[作业](./task.md)。
