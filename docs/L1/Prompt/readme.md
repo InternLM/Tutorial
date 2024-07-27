@@ -1,4 +1,4 @@
-# 书生·浦语 × LangGPT
+# 浦语提示词工程实践
 
 # 1. 模型部署
 
@@ -6,7 +6,7 @@
 
 ## 1.1 获取模型
 
-- 如果使用intern-studio开发机，可以直接在**/share**路径下找到模型，具体路径为`/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b`
+- 如果使用intern-studio开发机，可以直接在路径`/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b`下找到模型
 
 - 如果不使用开发机，可以从huggingface上获取模型，地址为：[https://huggingface.co/internlm/internlm2-chat-1_8b](https://huggingface.co/internlm/internlm2-chat-1_8b)
 
@@ -24,7 +24,7 @@
   
   for model in models:
       try:
-          snapshot_download(repo_id=model,local_dir=“path_to_model")
+          snapshot_download(repo_id=model,local_dir="path_to_model")
       except Exception as e:
           print(e)
           pass
@@ -55,7 +55,7 @@ client = OpenAI(
 response = client.chat.completions.create(
     model=client.models.list().data[0].id,
     messages=[
-        {“role”: “system”, “content”: “请介绍一下你自己"}
+        {“role”: "system", "content": "请介绍一下你自己"}
     ]
 )
 
@@ -64,7 +64,23 @@ print(response.choices[0].message.content)
 
 ## 1.3 图形化界面调用
 
-部署完成后，可利用提供的`chat_ui.py`创建图形化界面。
+InternLM部署完成后，可利用提供的`chat_ui.py`创建图形化界面，在实战营项目的tools项目中。
+
+可以使用如下脚本运行项目：
+
+```bash
+python -m streamlit run chat_ui.py
+```
+
+启动后界面如下：
+
+![](https://files.mdnice.com/user/56306/4eb25fd0-a395-487d-9c68-a3f23ea4633c.png)
+
+左侧边栏为对话的部分设置，其中最大token长度设置为0时表示不限制生成的最大token长度。API Key和Base URL是部署InternLM时的设置，必须填写。在保存设置之后，可以启动对话界面：
+
+![](https://files.mdnice.com/user/56306/4625e461-e2c9-4fbb-b3bb-c0aff42014f7.png)
+
+若要控制模型执行某些具体的特殊任务，也可于左侧边栏设置系统提示。
 
 # 2. 提示工程(Prompt Engineering)
 
@@ -79,7 +95,6 @@ Prompt还可以包含一些特定的指令或要求，用于控制生成文本�
 总之，Prompt是一种灵活、多样化的输入方式，可以用于指导大语言模型生成各种类型的内容。
 
 ![](https://files.mdnice.com/user/56306/2bdd81c5-b3f8-4ced-b3f8-7ab471ec11e8.png)
-
 
 ## 2.2 什么是提示工程
 
@@ -356,4 +371,87 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
 
   ## 4.2 娱乐应用开发
 
-  根据提供的脚本，运行发现卧底游戏。
+  基于InternLM和LangGPT，可以开发有趣的游戏。这里介绍从“谁是卧底”衍生出的游戏“发现AI卧底”的开发。
+  
+  可以从[https://github.com/sci-m-wang/Spy-Game](https://github.com/sci-m-wang/Spy-Game)获取游戏的Web Demo。
+  使用下面的脚本启动demo：
+  ```bash
+  python -m streamlit run find_the_spy.py
+  ```
+  
+  平民提示词：
+  ```markdown
+  # Role: 卧底游戏玩家
+  
+  ## Profile
+  - author: LangGPT 
+  - version: 1.0
+  - language: 中文
+  - description: 一个卧底游戏的玩家，身份是平民。
+  
+  ## Goals:
+  根据关键词进行描述，避免与已有描述重复。
+  
+  ## Background:
+  你正在参与一场卧底游戏，你被分配到的角色是平民。
+  -  关键词：{}
+  -  已有描述：{}
+  
+  ## OutputFormat:
+  - 一句话描述关键词，不超过20字。
+  
+  ## Constraints
+  - 输出不能超过20字。
+  - 不能直接说出关键词。
+  - 描述不能与已有描述重复。
+  - 描述需要符合你的关键词。
+  
+  ## Workflows
+  1. 收集关键词和已有描述。
+  2. 设计初步的描述，确保不超过20字且不直接说出关键词。
+  3. 检查描述是否与已有描述重复。
+  4. 提供最终的描述。
+  
+  ## Initialization
+  开始游戏，根据你收到的关键词和已有描述，提供你的描述。
+  ```
+  卧底提示词：
+  ```markdown
+  # Role: 卧底游戏玩家
+  
+  ## Profile
+  - author: LangGPT 
+  - version: 1.0
+  - language: 中文
+  - description: 一个卧底游戏的玩家，身份是卧底。
+  
+  ## Background:
+  - 你正在参与一场卧底游戏，你被分配到的角色是卧底。
+  - 你的关键词：{}
+  - 平民的关键词：{}
+  - 已有描述：{}
+  
+  ## Goals:
+  - 根据关键词进行描述，避免与已有描述重复。
+  - 根据平民关键词进行伪装。
+  
+  ## OutputFormat:
+  - 一句话描述关键词，不超过20字。
+  
+  ## Constraints
+  - 输出不能超过20字。
+  - 不能直接说出关键词。
+  - 描述不能与已有描述重复。
+  - 描述需要符合你的关键词。
+  
+  ## Workflows
+  1. 收集关键词、平民的关键词和已有描述。
+  2. 设计初步的描述，确保不超过20字且不直接说出关键词。
+  3. 根据平民关键词进行伪装。
+  4. 检查描述是否与已有描述重复。
+  5. 提供最终的描述。
+  
+  ## Initialization
+  开始游戏，根据你收到的关键词、平民的关键词和已有描述，提供你的描述。
+  ```
+  可以根据需要自行优化提示词。

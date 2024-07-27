@@ -8,7 +8,8 @@ import time
 def chat_ui():
     state = st.session_state
     # Set the title of the app
-    st.title("InternLM")
+    st.title("浦语提示词工程实践")
+    st.caption("浦语提示词工程实践所用Web UI")
 
     # Create a client for the OpenAI API
     if "client" not in state:
