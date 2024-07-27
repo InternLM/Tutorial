@@ -225,13 +225,13 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
 
   上面这些方法最好结合使用，以实现在复杂任务中实现使用不可靠工具（LLMs）构建可靠系统的目标。
 
-# 4. LangGPT实践
+# 4. 浦语提示词工程实践(LangGPT版)
 
 ## 4.1 LangGPT社区优质应用展示
 
 - 自动化生成LangGPT提示词
 
-  Prompt：
+  利用下面的提示词引导InternLM扮演提示词生成助手，自动化地生成符合LangGPT框架的结构化提示词：
 
   ```markdown
   # Role: LangGPT
