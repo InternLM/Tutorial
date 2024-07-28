@@ -214,6 +214,8 @@ Streamlit程序的完整代码是：[tools/xtuner_streamlit_demo.py](../../../to
 
 
 ```bash
+conda activate xtuner0121
+
 streamlit run /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py
 ```
 
@@ -300,6 +302,7 @@ with open('datas/assistant.json', 'w', encoding='utf-8') as f:
 
 > 或者可以直接复制 [tools/xtuner_generate_assistant.py](../../../tools/xtuner_generate_assistant.py)
 > ```bash
+> cd /root/InternLM/XTuner
 > cp /root/InternLM/Tutorial/tools/xtuner_generate_assistant.py ./
 >```
 
@@ -318,6 +321,8 @@ with open('datas/assistant.json', 'w', encoding='utf-8') as f:
 
 ```bash
 cd /root/InternLM/XTuner
+conda activate xtuner0121
+
 python xtuner_generate_assistant.py
 ```
 
@@ -365,6 +370,8 @@ XTuner 提供多个开箱即用的配置文件，可以通过以下命令查看�
 
 
 ```bash
+conda activate xtuner0121
+
 xtuner list-cfg -p internlm2
 ```
 
@@ -392,6 +399,8 @@ xtuner list-cfg -p internlm2
 
 ```bash
 cd /root/InternLM/XTuner
+conda activate xtuner0121
+
 xtuner copy-cfg internlm2_chat_1_8b_qlora_alpaca_e3 .
 ```
 
@@ -524,6 +533,7 @@ alpaca_en = dict(
 
 > 可以直接复制到当前目录。
 > ```bash
+> cd /root/InternLM/XTuner
 > cp /root/InternLM/Tutorial/configs/internlm2_chat_1_8b_qlora_alpaca_e3_copy.py ./
 >```
 
@@ -766,6 +776,8 @@ log_processor = dict(by_epoch=False)
 
 ```bash
 cd /root/InternLM/XTuner
+conda activate xtuner0121
+
 xtuner train ./internlm2_chat_1_8b_qlora_alpaca_e3_copy.py
 ```
 
@@ -809,6 +821,9 @@ xtuner train ./internlm2_chat_1_8b_qlora_alpaca_e3_copy.py
 
 ```bash
 cd /root/InternLM/XTuner
+conda activate xtuner0121
+
+# 先获取最后保存的一个pth文件
 pth_file=`ls -t ./work_dirs/internlm2_chat_1_8b_qlora_alpaca_e3_copy/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
@@ -857,6 +872,8 @@ xtuner convert pth_to_hf ./internlm2_chat_1_8b_qlora_alpaca_e3_copy.py ${pth_fil
 
 ```bash
 cd /root/InternLM/XTuner
+conda activate xtuner0121
+
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 xtuner convert merge /root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b ./hf ./merged --max-shard-size 2GB
@@ -902,6 +919,8 @@ xtuner convert merge /root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat
 
 
 ```bash
+conda activate xtuner0121
+
 streamlit run /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py
 ```
 
