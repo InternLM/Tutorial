@@ -81,7 +81,7 @@ git clone -b camp3  https://github.com/InternLM/Tutorial /root/InternLM/Tutorial
 # 创建虚拟环境
 conda create -n xtuner0121 python=3.10 -y
 
-# 激活虚拟环境
+# 激活虚拟环境（注意：后续的所有操作都需要在这个虚拟环境中进行）
 conda activate xtuner0121
 
 # 安装一些必要的库
@@ -146,7 +146,7 @@ xtuner help
 
 
 ```bash
-# 创建一个目录，用来存放微调的资料
+# 创建一个目录，用来存放微调的所有资料，后续的所有操作都在该路径中进行
 mkdir -p /root/InternLM/XTuner
 
 cd /root/InternLM/XTuner
@@ -249,24 +249,17 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p 43551
 
 
 ```bash
+cd /root/InternLM/XTuner
 mkdir -p datas
 touch datas/assistant.json
 ```
 
-为了增强微调效果，可以将对话数据复制多条。
-
-
-```python
-[
-    {"conversation": [{"input": "请介绍一下你自己", "output": "我是伍鲜同志的小助手，内在是上海AI实验室书生·浦语的1.8B大模型哦"}]},
-    {"conversation": [{"input": "你在实战营做什么", "output": "我在这里帮助伍鲜同志完成XTuner微调个人小助手的任务"}]},
-]
-```
 
 为了简化数据文件准备，我们也可以通过脚本生成的方式来准备数据。创建一个脚本文件 `xtuner_generate_assistant.py` ：
 
 
 ```bash
+cd /root/InternLM/XTuner
 touch xtuner_generate_assistant.py
 ```
 
@@ -324,6 +317,7 @@ with open('datas/assistant.json', 'w', encoding='utf-8') as f:
 
 
 ```bash
+cd /root/InternLM/XTuner
 python xtuner_generate_assistant.py
 ```
 
@@ -397,6 +391,7 @@ xtuner list-cfg -p internlm2
 
 
 ```bash
+cd /root/InternLM/XTuner
 xtuner copy-cfg internlm2_chat_1_8b_qlora_alpaca_e3 .
 ```
 
@@ -770,6 +765,7 @@ log_processor = dict(by_epoch=False)
 
 
 ```bash
+cd /root/InternLM/XTuner
 xtuner train ./internlm2_chat_1_8b_qlora_alpaca_e3_copy.py
 ```
 
@@ -812,7 +808,11 @@ xtuner train ./internlm2_chat_1_8b_qlora_alpaca_e3_copy.py
 
 
 ```bash
-pth_file=`ls -t ./work_dirs/internlm2_chat_1_8b_qlora_alpaca_e3_copy/*.pth | head -n 1` && MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert pth_to_hf ./internlm2_chat_1_8b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
+cd /root/InternLM/XTuner
+pth_file=`ls -t ./work_dirs/internlm2_chat_1_8b_qlora_alpaca_e3_copy/*.pth | head -n 1`
+export MKL_SERVICE_FORCE_INTEL=1
+export MKL_THREADING_LAYER=GNU
+xtuner convert pth_to_hf ./internlm2_chat_1_8b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
 ```
 
 模型格式转换完成后，我们的目录结构应该是这样子的。
@@ -856,7 +856,10 @@ pth_file=`ls -t ./work_dirs/internlm2_chat_1_8b_qlora_alpaca_e3_copy/*.pth | hea
 
 
 ```bash
-MKL_SERVICE_FORCE_INTEL=1 MKL_THREADING_LAYER=GNU xtuner convert merge /root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b ./hf ./merged --max-shard-size 2GB
+cd /root/InternLM/XTuner
+export MKL_SERVICE_FORCE_INTEL=1
+export MKL_THREADING_LAYER=GNU
+xtuner convert merge /root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b ./hf ./merged --max-shard-size 2GB
 ```
 
 模型合并完成后，我们的目录结构应该是这样子的。
