@@ -6,9 +6,28 @@
 
 > 整个过程大概需要90分钟我们就可以得到一个自己的小助手。
 
+先看看微调效果：
+
+<table>
+<thead>
+<tr>
+<td></td><td width="48%">微调前</td><td width="48%">微调后</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入</td><td>请介绍一下你自己</td><td>请介绍一下你自己</td>
+</tr>
+<tr>
+<td>输出</td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-11.png"/></td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-12.png"/></td>
+</tr>
+</tbody>
+</table>
+
+
 ## 1 微调前置基础
 
-在进行微调之前，我们需要了解一些基本概念，请访问[XTuner微调前置基础](./xtuner_finetune_basic.md)。
+本节主要重点是带领大家实现个人小助手微调，如果想了解微调相关的基本概念，可以访问[XTuner微调前置基础](./xtuner_finetune_basic.md)。
 
 ## 2 准备工作
 
@@ -182,24 +201,6 @@ tree -l
 ## 3 快速开始
 
 这里我们用 `internlm2-chat-1_8b` 模型，通过 `QLoRA` 的方式来微调一个自己的小助手认知作为案例来进行演示。
-
-先看看微调效果：
-
-<table>
-<thead>
-<tr>
-<td></td><td width="48%">微调前</td><td width="48%">微调后</td>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>输入</td><td>请介绍一下你自己</td><td>请介绍一下你自己</td>
-</tr>
-<tr>
-<td>输出</td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-11.png"/></td><td><img src="https://raw.githubusercontent.com/wux-labs/ImageHosting/main/XTuner/image-12.png"/></td>
-</tr>
-</tbody>
-</table>
 
 ### 3.1 微调前的模型对话
 
