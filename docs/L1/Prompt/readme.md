@@ -37,10 +37,8 @@
 使用LMDeploy进行部署，参考如下命令：
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 lmdeploy serve api_server /path/to/model --server-port 23333 --api-keys internlm2
+CUDA_VISIBLE_DEVICES=0 lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --server-port 23333 --api-keys internlm2
 ```
-
-需要将`/path/to/model`替换为模型存储的位置
 
 更多设置，可以参考：[https://lmdeploy.readthedocs.io/en/latest/index.html](https://lmdeploy.readthedocs.io/en/latest/index.html)
 
@@ -68,7 +66,19 @@ print(response.choices[0].message.content)
 
 InternLM部署完成后，可利用提供的`chat_ui.py`创建图形化界面，在实战营项目的tools项目中。
 
-可以使用如下脚本运行项目：
+首先，从Github获取项目，运行如下命令：
+
+```bash
+git clone https://github.com/InternLM/Tutorial.git
+```
+
+下载完成后，运行如下命令进入项目所在的路径：
+
+```bash
+cd Tutorial/tools
+```
+
+进入正确路径后，运行如下脚本运行项目：
 
 ```bash
 python -m streamlit run chat_ui.py
