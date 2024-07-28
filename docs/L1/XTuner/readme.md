@@ -24,6 +24,7 @@
 </tbody>
 </table>
 
+详细闯关任务请访问[闯关任务](./task.md)，提交作业助教老师批改后将获得 100 算力点奖励！！！
 
 ## 1 微调前置基础
 
@@ -111,6 +112,7 @@ git clone -b v0.1.21  https://github.com/InternLM/XTuner /root/InternLM/code/XTu
 ```bash
 # 进入到源码目录
 cd /root/InternLM/code/XTuner
+conda activate xtuner0121
 
 # 执行安装
 pip install -e '.[deepspeed]'
