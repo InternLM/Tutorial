@@ -1,3 +1,20 @@
+"""This script refers to the dialogue example of streamlit, the interactive
+generation code of chatglm2 and transformers.
+
+We mainly modified part of the code logic to adapt to the
+generation of our model.
+Please refer to these links below for more information:
+    1. streamlit chat example:
+        https://docs.streamlit.io/knowledge-base/tutorials/build-conversational-apps
+    2. chatglm2:
+        https://github.com/THUDM/ChatGLM2-6B
+    3. transformers:
+        https://github.com/huggingface/transformers
+Please run with the command `streamlit run path/to/web_demo.py
+    --server.address=0.0.0.0 --server.port 7860`.
+Using `python path/to/web_demo.py` may cause unknown problems.
+"""
+# isort: skip_file
 import copy
 import warnings
 from dataclasses import asdict, dataclass
@@ -15,16 +32,14 @@ from transformers import AutoTokenizer, AutoModelForCausalLM  # isort: skip
 logger = logging.get_logger(__name__)
 
 
-model_name_or_path = "/root/InternLM/XTuner/Shanghai_AI_Laboratory/internlm2-chat-1_8b"
-
 @dataclass
 class GenerationConfig:
     # this config is used for chat to provide more diversity
-    max_length: int = 2048
-    top_p: float = 0.75
-    temperature: float = 0.1
+    max_length: int = 32768
+    top_p: float = 0.8
+    temperature: float = 0.8
     do_sample: bool = True
-    repetition_penalty: float = 1.000
+    repetition_penalty: float = 1.005
 
 
 @torch.inference_mode()
@@ -62,7 +77,8 @@ def generate_interactive(
         'max_length') is None and generation_config.max_length is not None
     if has_default_max_length and generation_config.max_new_tokens is None:
         warnings.warn(
-            f"Using 'max_length''s default ({repr(generation_config.max_length)}) \
+            f"Using 'max_length''s default \
+                ({repr(generation_config.max_length)}) \
                 to control the generation length. "
             'This behaviour is deprecated and will be removed from the \
                 config in v5 of Transformers -- we'
@@ -87,7 +103,7 @@ def generate_interactive(
     if input_ids_seq_length >= generation_config.max_length:
         input_ids_string = 'input_ids'
         logger.warning(
-            f"Input length of {input_ids_string} is {input_ids_seq_length}, "
+            f'Input length of {input_ids_string} is {input_ids_seq_length}, '
             f"but 'max_length' is set to {generation_config.max_length}. "
             'This can lead to unexpected behavior. You should consider'
             " increasing 'max_new_tokens'.")
@@ -165,11 +181,12 @@ def on_btn_click():
 
 @st.cache_resource
 def load_model():
-    model = (AutoModelForCausalLM.from_pretrained(model_name_or_path,
-                                                  trust_remote_code=True).to(
-                                                      torch.bfloat16).cuda())
-    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path,
-                                              trust_remote_code=True)
+    model = (AutoModelForCausalLM.from_pretrained(
+        '/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b',
+        trust_remote_code=True).to(torch.bfloat16).cuda())
+    tokenizer = AutoTokenizer.from_pretrained(
+        '/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b',
+        trust_remote_code=True)
     return model, tokenizer
 
 
@@ -178,9 +195,9 @@ def prepare_generation_config():
         max_length = st.slider('Max Length',
                                min_value=8,
                                max_value=32768,
-                               value=2048)
-        top_p = st.slider('Top P', 0.0, 1.0, 0.75, step=0.01)
-        temperature = st.slider('Temperature', 0.0, 1.0, 0.1, step=0.01)
+                               value=32768)
+        top_p = st.slider('Top P', 0.0, 1.0, 0.8, step=0.01)
+        temperature = st.slider('Temperature', 0.0, 1.0, 0.7, step=0.01)
         st.button('Clear Chat History', on_click=on_btn_click)
 
     generation_config = GenerationConfig(max_length=max_length,
@@ -198,8 +215,10 @@ cur_query_prompt = '<|im_start|>user\n{user}<|im_end|>\n\
 
 def combine_history(prompt):
     messages = st.session_state.messages
-    meta_instruction = ('')
-    total_prompt = f"<s><|im_start|>system\n{meta_instruction}<|im_end|>\n"
+    meta_instruction = ('You are InternLM (书生·浦语), a helpful, honest, '
+                    'and harmless AI assistant developed by Shanghai '
+                    'AI Laboratory (上海人工智能实验室).')
+    total_prompt = f'<s><|im_start|>system\n{meta_instruction}<|im_end|>\n'
     for message in messages:
         cur_content = message['content']
         if message['role'] == 'user':
@@ -218,7 +237,6 @@ def main():
     print('load model begin.')
     model, tokenizer = load_model()
     print('load model end.')
-
 
     st.title('InternLM2-Chat-1.8B')
 
@@ -244,7 +262,6 @@ def main():
             'role': 'user',
             'content': prompt,
         })
-
         with st.chat_message('robot'):
             message_placeholder = st.empty()
             for cur_response in generate_interactive(

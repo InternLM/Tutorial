@@ -1,5 +1,8 @@
 
-# Python关卡
+# Python 关卡
+
+<img width="1440" alt="B站封面" src="https://github.com/user-attachments/assets/cbbadd3b-8661-4457-ac9c-b90d92fbd24b">
+
 # **Intro**
 
 欢迎来到书生浦语大模型实战营基础部分Python关卡，本关主要由以下四大块内容组成：
