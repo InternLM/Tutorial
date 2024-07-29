@@ -32,7 +32,7 @@
 点击 `进入开发机` 选项。
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/6bc3cde2-6309-4e14-9278-a65cd74d4a3a)
 
-进入开发机后，从官方环境复制运行 InternLM 的基础环境，命名为 `llamaindex`，在命令行模式下运行：
+进入开发机后，创建新的conda环境，命名为 `llamaindex`，在命令行模式下运行：
 ```bash
 conda create -n llamaindex python=3.10
 ```
@@ -53,6 +53,11 @@ llamaindex               /root/.conda/envs/llamaindex
 ```bash
 conda activate llamaindex
 conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=11.7 -c pytorch -c nvidia
+```
+**安装python 依赖包**
+```bash
+pip install einops
+pip install  protobuf
 ```
 
 环境激活后，命令行左边会显示当前（也就是 `llamaindex` ）的环境名称，如下图所示:
@@ -94,7 +99,7 @@ python download_hf.py
 ```
 更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
 
-2.4 下载 NLTK 相关资源
+### 2.4 下载 NLTK 相关资源
 我们在使用开源词向量模型构建开源词向量的时候，需要用到第三方库 `nltk` 的一些资源。正常情况下，其会自动从互联网上下载，但可能由于网络原因会导致下载中断，此处我们可以从国内仓库镜像地址下载相关资源，保存到服务器上。
 我们用以下命令下载 nltk 资源并解压到服务器上：
 ```bash
@@ -164,15 +169,19 @@ touch llamaindex_RAG.py
 ```
 打开`llamaindex_RAG.py`贴入以下代码
 ```python
+
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
 
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.huggingface import HuggingFaceLLM
 
+#初始化一个HuggingFaceEmbedding对象，用于将文本转换为向量表示
 embed_model = HuggingFaceEmbedding(
+#指定了一个预训练的sentence-transformer模型的路径
     model_name="/root/model/sentence-transformer"
 )
-
+#将创建的嵌入模型赋值给全局设置的embed_model属性，
+#这样在后续的索引构建过程中就会使用这个模型。
 Settings.embed_model = embed_model
 
 llm = HuggingFaceLLM(
@@ -181,10 +190,15 @@ llm = HuggingFaceLLM(
     model_kwargs={"trust_remote_code":True},
     tokenizer_kwargs={"trust_remote_code":True}
 )
+#设置全局的llm属性，这样在索引查询时会使用这个模型。
 Settings.llm = llm
 
+#从指定目录读取所有文档，并加载数据到内存中
 documents = SimpleDirectoryReader("/root/llamaindex_demo/data").load_data()
+#创建一个VectorStoreIndex，并使用之前加载的文档来构建索引。
+# 此索引将文档转换为向量，并存储这些向量以便于快速检索。
 index = VectorStoreIndex.from_documents(documents)
+# 创建一个查询引擎，这个引擎可以接收查询并返回相关文档的响应。
 query_engine = index.as_query_engine()
 response = query_engine.query("xtuner是什么?")
 
