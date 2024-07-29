@@ -51,7 +51,7 @@
 |第 1 关| 销冠大模型案例 |[文档](docs/EasterEgg/StreamerSales)、[视频](https://www.bilibili.com/video/BV1f1421b7Du)|
 |第 2 关| Flash Attention | 文档、视频 |
 |第 3 关| AI 顶会盘点 LLM 工作流 | 文档、视频|
-|第 4 关| 安卓端部署 InternLM 1.8B 模型 | 文档、视频|
+|第 4 关| InternLM 1.8B 模型 Android 端侧部署实践  | 文档、视频|
 
 
 ## 2. 证书
