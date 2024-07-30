@@ -582,6 +582,53 @@ python examples/web_demo.py  \
 
 ![Alt text](images/image-10.png)
 
+Tips: 这一步可能会出现两种错误问题，对应的解决方案如下
+1. 运行web_demo.py文件后，出现文件缺失错误提示：
+```shell
+/root/.conda/envs/xcomposer-demo/lib/python3.10/site-packages/gradio/frpc_linux_amd64_v0.2.
+```
+解决方案： /root/.conda/envs/xcomposer-demo/lib/python3.10/site-packages/gradio路径放置对应文件
+
+Step1. 从下述地址下载文件至本地
+https://openxlab.org.cn/models/detail/PUYUtutorial/puyu_xcomposer_tutorial
+
+Step2. 将文件放置指定位置
+可以通过VScode的右下角的setting, 搜索file.exlude, 通过设置看到隐藏的.conda文件夹
+然后将刚刚下载的文件上传到此位置：/root/.conda/envs/xcomposer-demo/lib/python3.10/site-packages/gradio
+
+Step3. 在Terminal 执行以下命令
+```shell
+cd /root/.conda/envs/xcomposer-demo/lib/python3.10/site-packages/gradio 
+chmod +x frpc_linux_amd64_v0.2
+```
+
+Step4.重新执行运行demo命令
+```shell
+cd /root/code/InternLM-XComposer
+python examples/web_demo.py  \
+    --folder /root/model/Shanghai_AI_Laboratory/internlm-xcomposer-7b \
+    --num_gpus 1 \
+    --port 6006
+```
+                        
+2. 运行web_demo后，出现样式错乱问题
+<br>解决方案：修改web_demo.py的代码
+
+Step1. 修改代码
+在web_demo.py 中，将最后一行代码更改为以下，并保存代码
+```shell
+demo.launch(share=True, server_name="0.0.0.0", server_port=6006, root_path=f'/proxy/6006/')
+```
+
+Step2.重新执行运行demo命令
+```shell
+cd /root/code/InternLM-XComposer
+python examples/web_demo.py  \
+    --folder /root/model/Shanghai_AI_Laboratory/internlm-xcomposer-7b \
+    --num_gpus 1 \
+    --port 6006
+```
+
 ## 5. 通用环境配置
 
 ### 5.1 pip、conda 换源
