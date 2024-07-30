@@ -103,7 +103,7 @@ apt-get install tmux
 tmux new -t langgpt
 ```
 
-创建完成后，运行下面的命令进入新的命令窗口：
+创建完成后，运行下面的命令进入新的命令窗口(首次创建自动进入，之后需要连接)：
 
 ```bash
 tmux a -t langgpt
@@ -160,6 +160,14 @@ cd Tutorial/tools
 ```bash
 python -m streamlit run chat_ui.py
 ```
+
+参考[L0/Linux的2.3部分](https://github.com/InternLM/Tutorial/tree/camp3/docs/L0/Linux#23-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84)进行端口映射，在本地终端中输入映射命令，可以参考如下命令：
+
+```bash
+ssh -p {ssh端口，从InternStudio获取} root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:8501 -o StrictHostKeyChecking=no
+```
+
+如果未配置开发机公钥，还需要输入密码，从InternStudio获取。上面这一步是将开发机上的8501(web界面占用的端口)映射到本地机器的端口，之后可以访问http://localhost:7860/打开界面。
 
 启动后界面如下：
 
@@ -276,7 +284,9 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
 
 - **构建全局思维链**
 
-  对大模型的 Prompt 应用CoT 思维链方法的有效性是被研究和实践广泛证明了的。
+  对大模型的 Prompt 应用CoT 思维链方法的有效性是被研究和实践广泛证明了的。首先可以根据场景选择基本的模块。
+
+  ![](https://files.mdnice.com/user/56306/05e380a8-b627-42f2-b0e6-343bc9923f3e.png)
 
   **一个好的结构化 Prompt 模板，某种意义上是构建了一个好的全局思维链。** 如 LangGPT 中展示的模板设计时就考虑了如下思维链:
 
