@@ -129,7 +129,8 @@ model_dir = snapshot_download('Shanghai_AI_Laboratory/internlm-chat-7b', cache_d
 首先 `clone` 代码，在 `/root` 路径下新建 `code` 目录，然后切换路径, clone 代码.
 
 ```shell
-cd /root/code
+cd /root
+mkdir code; cd code
 git clone https://gitee.com/internlm/InternLM.git
 ```
 
