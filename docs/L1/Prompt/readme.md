@@ -111,6 +111,8 @@ tmux a -t langgpt
 
 进入命令窗口后，需要在新窗口中再次激活环境，命令参考**0.1节**。然后，使用LMDeploy进行部署，参考如下命令：
 
+使用LMDeploy进行部署，参考如下命令：
+
 ```bash
 CUDA_VISIBLE_DEVICES=0 lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --server-port 23333 --api-keys internlm2
 ```
@@ -131,6 +133,8 @@ response = client.chat.completions.create(
     model=client.models.list().data[0].id,
     messages=[
         {"role": "system", "content": "请介绍一下你自己"}
+=======
+        {“role”: "system", "content": "请介绍一下你自己"}
     ]
 )
 

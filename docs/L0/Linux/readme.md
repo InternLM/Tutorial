@@ -1,5 +1,8 @@
 # Linux+InternStudio 关卡
 
+<img width="1440" alt="B站封面" src="https://github.com/user-attachments/assets/8d7736cf-5e62-4d5e-8e1b-e9c819889773">
+
+
 😀Hello大家好，欢迎来到**书生大模型**实战营，这里是实战营为第一次参加实战营同学，和来自各个行业的没有Linux基础知识的同学准备的基础课程，在这里我们会教大家如何使用**InternStudio开发机**，以及掌握一些基础的**Linux知识**，让大家不至于在后面的课程中无从下手，希望对大家有所帮助。在这里[关卡任务](./task.md)中为大家准备了一些关卡任务，当大家完成必做关卡任务并打卡后，就会获得当前关卡的算力奖励了，**让我们开始吧！**
 
 ## 1. InternStudio开发机介绍
@@ -443,7 +446,7 @@ ssh -p 37367 root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:7860 -o StrictHost
 
 当我们需要编辑文件的时候可以使用`vi`或者`vim`命令，当你进入文件编辑以后，有三种模式：
 
-![image](https://github.com/InternLM/Tutorial/assets/110531742/bc717d26-dfdc-44bc-93eb-68fbaf02d9c3)
+![image](https://github.com/user-attachments/assets/c9390795-0960-4b99-922a-c3b2cf3c6225)
 
 
 进入编辑模式可以使用`i`，vim的方便之处就是可以在终端进行简单的文件修改。
@@ -664,10 +667,6 @@ ln [参数][源文件或目录][目标文件或目录]
     ```
 
   -  这会重启 ID 为 0 的 GPU。
-- 显示帮助信息：
-  - ```Bash
-    nvidia-smi -h
-    ```
 
 下面通过一张图片对GPU信息进行介绍：
 
