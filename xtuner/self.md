@@ -193,7 +193,7 @@ xtuner train /root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_co
 
 ```bash
 # 创建用于存放Hugging Face格式参数的hf文件夹
-mkdir /root/personal_assistant/config/work_dirs/hf
+mkdir -p /root/personal_assistant/config/work_dirs/hf
 
 export MKL_SERVICE_FORCE_INTEL=1
 
@@ -201,7 +201,7 @@ export MKL_SERVICE_FORCE_INTEL=1
 export CONFIG_NAME_OR_PATH=/root/personal_assistant/config/internlm_chat_7b_qlora_oasst1_e3_copy.py
 
 # 模型训练后得到的pth格式参数存放的位置
-export PTH=/root/personal_assistant/config/work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_3.pth
+export PTH=/root/personal_assistant/model/Shanghai_AI_Laboratory/work_dirs/internlm_chat_7b_qlora_oasst1_e3_copy/epoch_3.pth
 
 # pth文件转换为Hugging Face格式后参数存放的位置
 export SAVE_PATH=/root/personal_assistant/config/work_dirs/hf
@@ -247,6 +247,8 @@ pip install streamlit==1.24.0
 # 创建code文件夹用于存放InternLM项目代码
 mkdir /root/personal_assistant/code && cd /root/personal_assistant/code
 git clone https://github.com/InternLM/InternLM.git
+#回退到指定版本(新版本路径发生变化)
+git checkout 3028f07cb79e5b1d7342f4ad8d11efad3fd13d17
 ```
 
 将 `/root/code/InternLM/web_demo.py` 中 29 行和 33 行的模型路径更换为Merge后存放参数的路径 `/root/personal_assistant/config/work_dirs/hf_merge`
