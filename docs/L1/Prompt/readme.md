@@ -14,36 +14,32 @@
 
 ## 0.1 环境配置
 
-首先打开Terminal，运行如下脚本克隆基本环境：
+首先打开Terminal，运行如下脚本创建虚拟环境：
 
 ```bash
-# 快速克隆，默认拷贝internlm-base环境
-studio-conda langgpt
+# 创建虚拟环境
+conda create -n langgpt python=3.10 -y
 ```
 
-除了快速克隆外，也可以根据需要自定义克隆环境：
-
-```bash
-# 自定义克隆
-## 查看预设的conda环境列表，通常会看到internlm-base、xtuner、pytorch-2.1.2这几个预设环境
-studio-conda env -l
-## 将预设环境拷贝到自己的conda环境，以internlm-base为例
-studio-conda -t langgpt -o internlm-base
-```
-
-运行下面的命令，激活创建的环境：
+运行下面的命令，激活虚拟环境：
 
 ```bash
 conda activate langgpt
 ```
 
-激活环境后，安装必要的Python包，运行下面的命令：
+之后的操作都要在这个环境下进行。激活环境后，安装必要的Python包，依次运行下面的命令：
 
 ```bash
-pip install -U streamlit
-pip install -U huggingface_hub
-pip install -U openai
-pip install -U lmdeploy
+# 安装一些必要的库
+conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
+
+# 安装其他依赖
+pip install transformers==4.43.3
+
+pip install streamlit==1.37.0
+pip install huggingface_hub==0.24.3
+pip install openai==1.37.1
+pip install lmdeploy==0.5.2
 ```
 
 ## 0.2 创建项目路径
@@ -85,11 +81,11 @@ apt-get install tmux
   
   login(token=“your_access_token")
   
-  models = ["internlm/internlm2_5-7b-chat"]
+  models = ["internlm/internlm2-chat-1_8b"]
   
   for model in models:
       try:
-          snapshot_download(repo_id=model,local_dir="path_to_model")
+          snapshot_download(repo_id=model,local_dir="langgpt/internlm2-chat-1_8b")
       except Exception as e:
           print(e)
           pass
@@ -133,8 +129,6 @@ response = client.chat.completions.create(
     model=client.models.list().data[0].id,
     messages=[
         {"role": "system", "content": "请介绍一下你自己"}
-=======
-        {“role”: "system", "content": "请介绍一下你自己"}
     ]
 )
 
@@ -481,13 +475,13 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
   ## 4.2 娱乐应用开发
 
   基于InternLM和LangGPT，可以开发有趣的游戏。这里介绍从“谁是卧底”衍生出的游戏“发现AI卧底”的开发。
-  
+
   可以从[https://github.com/sci-m-wang/Spy-Game](https://github.com/sci-m-wang/Spy-Game)获取游戏的Web Demo。
   使用下面的脚本启动demo：
   ```bash
   python -m streamlit run find_the_spy.py
   ```
-  
+
   平民提示词：
   ```markdown
   # Role: 卧底游戏玩家
