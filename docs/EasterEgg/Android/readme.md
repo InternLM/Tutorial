@@ -1,12 +1,14 @@
 ![image](https://github.com/user-attachments/assets/5ede99d5-e82b-4ff8-acd8-407f9277967a)
-## 简介
-参考 [https://llm.mlc.ai/docs/deploy/android.html#android-sdk](https://llm.mlc.ai/docs/deploy/android.html#android-sdk)
 
-本文将带大家手把手将 InternLM2 部署到安卓手机上，首先我们来看一下最终的效果～
-![image](https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504)
+本文将带大家手把手使用[mlc-llm](https://llm.mlc.ai/docs/deploy/android.html#android-sdk)将 InternLM2 部署到安卓手机上
 
-## 环境准备
-### 1. 安装rust 
+首先我们来看一下最终的效果～
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504"  width="50%" height="50%">
+</div>
+
+## 1 环境准备
+### 1.1 安装rust 
 参考 [https://forge.rust-lang.org/infra/other-installation-methods.html#which](https://forge.rust-lang.org/infra/other-installation-methods.html#which)
 
 使用了国内的镜像，出现选项直接Enter
@@ -17,7 +19,7 @@ export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 curl --proto '=https' --tlsv1.2 -sSf https://mirrors.ustc.edu.cn/misc/rustup-install.sh  | sh
 ```
 
-### 2. 安装Android Studio
+### 1.2 安装Android Studio
 参考 [https://developer.android.com/studio](https://developer.android.com/studio)
 
 ```
@@ -32,7 +34,7 @@ cmdline-tools/bin/sdkmanager "ndk;27.0.12077973" "cmake;3.22.1"  "platforms;andr
 ```
 
 
-### 3. 设置环境变量
+### 1.3 设置环境变量
 ```
 . "$HOME/.cargo/env"
 export ANDROID_NDK=/root/android/android-studio/sdk/ndk/27.0.12077973
@@ -42,8 +44,8 @@ export ANDROID_HOME=/root/android/android-studio/sdk
 export PATH=/usr/local/cuda-12/bin:$PATH
 export PATH=/root/android/android-studio/sdk/cmake/3.22.1/bin:$PATH
 ```
-## 转换模型
-### 1. 安装mlc-llm
+## 2 转换模型
+### 2.1 安装mlc-llm
 参考[https://llm.mlc.ai/docs/install/mlc_llm.html](https://llm.mlc.ai/docs/install/mlc_llm.html)
 （如果下载很慢可以取消重新运行一下，或者本地下载了拷过去）
 ```
@@ -70,7 +72,7 @@ cd mlc-llm
 git submodule update --init --recursive
 ```
 
-### 2. 转换参数
+### 2.2 转换参数
 You can be under the mlc-llm repo, or your own working directory. Note that all platforms can share the same compiled/quantized weights. See [Compile Command Specification](https://llm.mlc.ai/docs/compilation/compile_models.html#compile-command-specification) for specification of `convert_weight`.
 
 ```
@@ -81,7 +83,7 @@ mlc_llm convert_weight /root/models/internlm2-chat-1_8b-sft/ \
     --quantization q4f16_1 \
     -o dist/internlm2-chat-1_8b-sft-q4f16_1-MLC
 ```
-### 3. 生成配置
+### 2.3 生成配置
 Use mlc_llm gen_config to generate mlc-chat-config.json and process tokenizers. See [Compile Command Specification](https://llm.mlc.ai/docs/compilation/compile_models.html#compile-command-specification) for specification of `gen_config`.
 
 ```
@@ -91,11 +93,11 @@ mlc_llm gen_config /root/models/internlm2-chat-1_8b-sft/  \
     -o dist/internlm2-chat-1_8b-sft-q4f16_1-MLC
 
 ```
-### 4. 上传到huggingface
+### 2.4 上传到huggingface
 上传这一步需要能访问huggingface，可能需要部署代理
 如果没有代理可以直接在接下来的配置中使用如下链接的模型（和文档中的转换方法一样）
 [https://huggingface.co/timws/internlm2-chat-1_8b-sft-q4f16_1-MLC](https://huggingface.co/timws/internlm2-chat-1_8b-sft-q4f16_1-MLC)
-### 5.  (可选) 测试转换的模型
+### 2.5  (可选) 测试转换的模型
 在打包之前可以测试模型效果，需要编译成二进制文件
 在个人电脑上运行测试代码正常，**InternStudio**上**暂未成功**
 ```
@@ -122,8 +124,8 @@ print("\n")
 engine.terminate()
 ```
 
-## 打包运行
-### 1. 修改配置文件
+## 3 打包运行
+### 3.1 修改配置文件
 修改`mlc-package-config.json`
 参考如下
 ```
@@ -146,7 +148,7 @@ engine.terminate()
 
 ```
 
-### 2. 运行打包命令
+### 3.2 运行打包命令
 
 ```
  mlc_llm package
@@ -154,7 +156,7 @@ engine.terminate()
 ![image](https://github.com/user-attachments/assets/0e1db9c5-6252-4c6f-81b2-a739fa4fac44)
 
 
-### 3.创建签名
+### 3.3 创建签名
 ```
 cd /root/android/mlc-llm/android/MLCChat
 /root/android/android-studio/jbr/bin/keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000
@@ -179,7 +181,7 @@ Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) wi
         for: CN=Any, OU=Any, O=Any, L=Any, ST=Any, C=CN
 [Storing my-release-key.jks]
 ```
-### 4.修改gradle配置
+### 3.4 修改gradle配置
 如果是本地可以WIFI或USB调试不用签名，在服务器构建需要签名
 修改`app/build.gradle`为如下内容，主要是增加了签名部分，注意确认签名文件的位置
 ```
@@ -270,7 +272,7 @@ dependencies {
 }
 ```
 
-### 5.命令行编译
+### 3.5 命令行编译
 运行编译命令，完成后在`app/build/outputs/apk/release`生成`app-release.apk`安装包，下载到手机上运行
 运行App需要能访问huggingface下载模型(参考文档中的bundle方法需要ADB刷入模型数据)
 ```
@@ -280,7 +282,10 @@ dependencies {
 
 
 
-### 6. 运行体验
+### 3.6 运行体验
 运行App需要能访问huggingface下载模型
-![image](https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504)
+
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504"  width="50%" height="50%">
+</div>
 
