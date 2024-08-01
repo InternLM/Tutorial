@@ -15,7 +15,7 @@
 
 ||关卡名称|资料|闯关激励|
 |:-----|:----|:----|:-----|
-|第 1 关| Linux 前置基础 |[任务](docs/L0/Linux/task.md)、[文档](docs/L0/Linux)| 50元算力点 |
+|第 1 关| Linux 前置基础 |[任务](docs/L0/Linux/task.md)、[文档](docs/L0/Linux)、[视频](https://www.bilibili.com/video/BV1FS421d7yg/)| 50元算力点 |
 |第 2 关|Python 前置基础 | [任务](docs/L0/Python/task.md)、[文档](docs/L0/Python) | 50元算力点|
 |第 3 关|Git 前置基础|[任务](docs/L0/Git/task.md)、[文档](docs/L0/Git)| 50元算力点 |
 
