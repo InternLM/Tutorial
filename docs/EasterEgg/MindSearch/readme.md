@@ -2,6 +2,9 @@
 
 选择 InternStudio 算力平台 50% A100 的 cuda 12.2 的开发机，并使用ssh vscode 远程连接到开发机。
 
+<img width="1434" alt="image" src="https://github.com/user-attachments/assets/8d5b20bd-ca1d-4a87-ad38-47efeb48968f">
+
+
 ## 1. 使用免费的搜索接口
 
 ### 1.1 激活环境
