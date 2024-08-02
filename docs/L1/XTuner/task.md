@@ -9,9 +9,9 @@
 
 ## 进阶任务（闯关不要求完成此任务）
 
-- 用自己感兴趣的知识对基座模型进行增量预训练微调（选做）
-- 在资源允许的情况下，尝试实现多卡微调与分布式微调（选做）
-- 将自我认知的模型上传到 OpenXLab，并将应用部署到 OpenXLab（优秀学员必做）
+- 用自己感兴趣的知识对基座模型进行增量预训练微调
+- 在资源允许的情况下，尝试实现多卡微调与分布式微调
+- 将自我认知的模型上传到 OpenXLab，并将应用部署到 OpenXLab
 
 > OpenXLab 部署教程：https://github.com/InternLM/Tutorial/tree/camp2/tools/openxlab-deploy
 
