@@ -18,7 +18,7 @@ conda activate /share/pre_envs/mindsearch
 conda activate /share/pre_envs/mindsearch
 cd /share/demo/MindSearchDuck
 
-python -m mindsearch.app --lang zh --model_format internlm_server
+python -m mindsearch.app --lang cn --model_format internstudio_server
 ```
 
 ## 3. 启动前端
