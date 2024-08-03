@@ -45,6 +45,15 @@ python run.py
 
 ## 2. 使用 Bing 的接口
 
+
+Bing API Key 获取网址（尽量选高一点的定价）：https://www.microsoft.com/en-us/bing/apis/bing-web-search-api
+
+![image](https://github.com/user-attachments/assets/6f82389e-0f2a-4a42-a423-0e0608d016ab)
+
+
+![image](https://github.com/user-attachments/assets/619e7585-c170-4ea8-a508-45de50385c98)
+
+
 ### 2.1 激活环境
 
 小助手提前帮大家安装好了环境，只需要一步一步按照下面的步骤便可以启动 MindSearch。
@@ -57,8 +66,12 @@ conda activate /share/pre_envs/mindsearch
 
 打开新终端运行以下命令启动推理后端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 8002 端口。
 
+
+```shell
+export BING_API_KEY='替换你的APIKey'
 ```
-export BING_API_KEY='YOU BING API Key'
+
+```shell
 conda activate /share/pre_envs/mindsearch
 cd /share/demo/MindSearchBing
 
