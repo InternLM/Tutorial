@@ -19,7 +19,7 @@ conda activate /share/pre_envs/mindsearch
 
 ### 1.2. 启动后端
 
-打开新终端运行以下命令启动推理后端，使用入门岛中学到的方式使用 vscode 或者 ssh 讲端口映射到本地 8002 端口。
+打开新终端运行以下命令启动推理后端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 8002 端口。
 
 ```
 conda activate /share/pre_envs/mindsearch
@@ -30,7 +30,7 @@ python -m mindsearch.app --lang cn --model_format internstudio_server
 
 ### 1.3. 启动前端
 
-打开新终端运行以下命令启动前端，使用入门岛中学到的方式使用 vscode 或者 ssh 讲端口映射到本地 7860 端口。
+打开新终端运行以下命令启动前端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 7860 端口。
 
 
 ```shell
@@ -55,7 +55,7 @@ conda activate /share/pre_envs/mindsearch
 
 ### 2.2. 启动后端
 
-打开新终端运行以下命令启动推理后端，使用入门岛中学到的方式使用 vscode 或者 ssh 讲端口映射到本地 8002 端口。
+打开新终端运行以下命令启动推理后端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 8002 端口。
 
 ```
 export BING_API_KEY='YOU BING API Key'
@@ -67,7 +67,7 @@ python -m mindsearch.app --lang cn --model_format internstudio_server
 
 ### 2.3. 启动前端
 
-打开新终端运行以下命令启动前端，使用入门岛中学到的方式使用 vscode 或者 ssh 讲端口映射到本地 7860 端口。
+打开新终端运行以下命令启动前端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 7860 端口。
 
 
 ```shell
