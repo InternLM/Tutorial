@@ -4,6 +4,8 @@
 
 <img width="1434" alt="image" src="https://github.com/user-attachments/assets/8d5b20bd-ca1d-4a87-ad38-47efeb48968f">
 
+MindSearch（欢迎 Star）：https://github.com/InternLM/MindSearch 
+
 
 ## 1. 使用免费的搜索接口
 
