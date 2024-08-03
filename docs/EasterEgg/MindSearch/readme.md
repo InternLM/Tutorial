@@ -1,4 +1,4 @@
-# MindSearch 快速部署（InternStudio 版）
+# 【实战营彩蛋】MindSearch 快速部署（InternStudio 版）
 
 选择 InternStudio 算力平台 50% A100 的 cuda 12.2 的开发机，并使用ssh vscode 远程连接到开发机。
 
