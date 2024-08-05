@@ -10,7 +10,7 @@
 ## 进阶任务（闯关不要求完成此任务）
 
 - 使用 OpenCompass 进行主观评测（选做）
-- 使用 OpenCompass 评测 InternLM2-Chat-1.8B 模型使用 LMDeploy部署后在 MMLU 数据集上的性能（选做）
+- 使用 OpenCompass 评测 InternLM2-Chat-1.8B 模型使用 LMDeploy部署后在 ceval 数据集上的性能（选做）
 - 使用 OpenCompass 进行调用API评测（优秀学员必做）
 
 
