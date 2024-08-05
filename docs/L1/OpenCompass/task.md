@@ -4,7 +4,7 @@
 
 ## 基础任务（完成此任务即完成闯关）
 
-- 使用 OpenCompass 评测 internlm2-chat-1.8b 模型在 MMLU 数据集上的性能，记录复现过程并截图。
+- 使用 OpenCompass 评测 internlm2-chat-1.8b 模型在 ceval 数据集上的性能，记录复现过程并截图。
   
 
 ## 进阶任务（闯关不要求完成此任务）
