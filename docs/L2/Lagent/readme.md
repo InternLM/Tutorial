@@ -169,12 +169,19 @@ class MagicMaker(BaseAction):
 
 最后，我们修改 `/root/agent_camp3/lagent/examples/internlm2_agent_web_demo.py` 来适配我们的自定义工具。
 
-在 `from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter` 的下一行添加 `from lagent.actions.magicmaker import MagicMaker`。
+1. 在 `from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter` 的下一行添加 `from lagent.actions.magicmaker import MagicMaker`
+2. 在第27行添加 `MagicMaker()`。
 
 ```diff
 from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter
 + from lagent.actions.magicmaker import MagicMaker
 from lagent.agents.internlm2_agent import INTERPRETER_CN, META_CN, PLUGIN_CN, Internlm2Agent, Internlm2Protocol
+
+...
+        action_list = [
+            ArxivSearch(),
++             MagicMaker(),
+        ]
 ```
 
 接下来，启动 Web Demo 来体验一下吧！我们同时启用两个工具，然后输入“请帮我生成一幅山水画”
