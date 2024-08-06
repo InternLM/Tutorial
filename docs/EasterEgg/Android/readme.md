@@ -79,19 +79,21 @@ You can be under the mlc-llm repo, or your own working directory. Note that all 
 cd android/MLCChat  
 export TVM_SOURCE_DIR=/root/android/mlc-llm/3rdparty/tvm
 export MLC_LLM_SOURCE_DIR=/root/android/mlc-llm
-mlc_llm convert_weight /root/models/internlm2-chat-1_8b-sft/ \
+mlc_llm convert_weight /root/models/internlm2_5-1_8b-chat/ \
     --quantization q4f16_1 \
-    -o dist/internlm2-chat-1_8b-sft-q4f16_1-MLC
+    -o dist/internlm2_5-1_8b-chat-q4f16_1-MLC
 ```
 ### 2.3 生成配置
 Use mlc_llm gen_config to generate mlc-chat-config.json and process tokenizers. See [Compile Command Specification](https://llm.mlc.ai/docs/compilation/compile_models.html#compile-command-specification) for specification of `gen_config`.
 
+出现提示时输入`y`
+
 ```
 
-mlc_llm gen_config /root/models/internlm2-chat-1_8b-sft/  \
+mlc_llm gen_config /root/models/internlm2_5-1_8b-chat/  \
     --quantization q4f16_1 --conv-template chatml  \
-    -o dist/internlm2-chat-1_8b-sft-q4f16_1-MLC
-
+    -o dist/internlm2_5-1_8b-chat-q4f16_1-MLC
+Do you wish to run the custom code? [y/N] y
 ```
 ### 2.4 上传到huggingface
 上传这一步需要能访问huggingface，可能需要部署代理
@@ -102,15 +104,15 @@ mlc_llm gen_config /root/models/internlm2-chat-1_8b-sft/  \
 在个人电脑上运行测试代码正常，**InternStudio**上**暂未成功**
 ```
 
-mlc_llm compile ./dist/internlm2-chat-1_8b-sft-q4f16_1-MLC/mlc-chat-config.json \
-    --device cuda -o dist/libs/internlm2-chat-1_8b-sft-q4f16_1-MLC-cuda.so
+mlc_llm compile ./dist/internlm2_5-1_8b-chat-q4f16_1-MLC/mlc-chat-config.json \
+    --device cuda -o dist/libs/internlm2_5-1_8b-chat-q4f16_1-MLC-cuda.so
 ```
 测试编译的模型是否符合预期，手机端运行的效果和测试效果接近
 ```python3
 from mlc_llm import MLCEngine
 
 # Create engine
-engine = MLCEngine(model="./dist/internlm2-1_8b-q4f16_1-MLC", model_lib="./dist/libs/internlm2-1_8b-q4f16_1-MLC-cuda.so")
+engine = MLCEngine(model="./dist/internlm2_5-1_8b-chat-q4f16_1-MLC", model_lib="./dist/libs/internlm2_5-1_8b-chat-q4f16_1-MLC-cuda.so")
 
 # Run chat completion in OpenAI API.
 print(engine)
@@ -133,9 +135,9 @@ engine.terminate()
     "device": "android",
     "model_list": [
         {
-            "model": "HF://timws/internlm2-chat-1_8b-sft-q4f16_1-MLC",
+            "model": "HF://timws/internlm2_5-1_8b-chat-q4f16_1-MLC",
             "estimated_vram_bytes": 3980990464,
-            "model_id": "internlm2-chat-1_8b-sft-q4f16_1-MLC"
+            "model_id": "internlm2_5-1_8b-chat-q4f16_1-MLC"
 
         },
         {
@@ -149,7 +151,7 @@ engine.terminate()
 ```
 
 ### 3.2 运行打包命令
-
+这一步需要能访问huggingface，可能需要部署代理
 ```
  mlc_llm package
 ```
