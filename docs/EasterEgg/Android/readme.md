@@ -1,10 +1,10 @@
 ![image](https://github.com/user-attachments/assets/5ede99d5-e82b-4ff8-acd8-407f9277967a)
 
-本文将带大家手把手使用[mlc-llm](https://llm.mlc.ai/docs/deploy/android.html#android-sdk)将 InternLM2 部署到安卓手机上
+本文将带大家手把手使用[mlc-llm](https://llm.mlc.ai/docs/deploy/android.html#android-sdk)将 InternLM2.5 部署到安卓手机上
 
 首先我们来看一下最终的效果～
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504"  width="50%" height="50%">
+    <img src="https://github.com/user-attachments/assets/994e7fdd-b7f0-41d9-ac7d-35b7417aae5a"  width="50%" height="50%">
 </div>
 
 ## 1 环境准备
@@ -98,7 +98,7 @@ Do you wish to run the custom code? [y/N] y
 ### 2.4 上传到huggingface
 上传这一步需要能访问huggingface，可能需要部署代理
 如果没有代理可以直接在接下来的配置中使用如下链接的模型（和文档中的转换方法一样）
-[https://huggingface.co/timws/internlm2-chat-1_8b-sft-q4f16_1-MLC](https://huggingface.co/timws/internlm2-chat-1_8b-sft-q4f16_1-MLC)
+[https://huggingface.co/timws/internlm2_5-1_8b-chat-q4f16_1-MLC](https://huggingface.co/timws/internlm2_5-1_8b-chat-q4f16_1-MLC)
 ### 2.5  (可选) 测试转换的模型
 在打包之前可以测试模型效果，需要编译成二进制文件
 在个人电脑上运行测试代码正常，**InternStudio**上**暂未成功**
@@ -285,9 +285,10 @@ dependencies {
 
 
 ### 3.6 运行体验
-运行App需要能访问huggingface下载模型
+- 运行App需要能访问huggingface下载模型
+- 需要大概4G运行内存
+- 如果运行闪退，和可能是下载不完整可以删除重新下载
 
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504"  width="50%" height="50%">
+    <img src="https://github.com/user-attachments/assets/994e7fdd-b7f0-41d9-ac7d-35b7417aae5a"  width="50%" height="50%">
 </div>
-
