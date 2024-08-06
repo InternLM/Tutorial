@@ -1,3 +1,5 @@
+![head](https://github.com/user-attachments/assets/4a9cd258-07c0-41db-a192-1442df9dd098)
+
 # Lagent 自定义你的 Agent 智能体
 
 ## Lagent 介绍
