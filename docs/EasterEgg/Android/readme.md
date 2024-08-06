@@ -73,8 +73,7 @@ git submodule update --init --recursive
 ```
 
 ### 2.2 转换参数
-You can be under the mlc-llm repo, or your own working directory. Note that all platforms can share the same compiled/quantized weights. See [Compile Command Specification](https://llm.mlc.ai/docs/compilation/compile_models.html#compile-command-specification) for specification of `convert_weight`.
-
+使用 `mlc_llm` 的 `convert_weight` 对模型参数进行转换和量化，转换后的参数可以跨平台使用
 ```
 cd android/MLCChat  
 export TVM_SOURCE_DIR=/root/android/mlc-llm/3rdparty/tvm
@@ -84,7 +83,7 @@ mlc_llm convert_weight /root/models/internlm2_5-1_8b-chat/ \
     -o dist/internlm2_5-1_8b-chat-q4f16_1-MLC
 ```
 ### 2.3 生成配置
-Use mlc_llm gen_config to generate mlc-chat-config.json and process tokenizers. See [Compile Command Specification](https://llm.mlc.ai/docs/compilation/compile_models.html#compile-command-specification) for specification of `gen_config`.
+使用 `mlc_llm` 的 `gen_config` 生成 `mlc-chat-config.json` 并处理 `tokenizer`
 
 出现提示时输入`y`
 
