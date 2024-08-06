@@ -135,7 +135,7 @@ class MagicMaker(BaseAction):
         else:
             raise ValueError(f'The aspect ratio must be one of {aspect_ratio}')
     
-    @tool_api(explode_return=True)
+    @tool_api
     def generate_image(self, keywords: str) -> dict:
         """Run magicmaker and get the generated image according to the keywords.
 
@@ -169,26 +169,20 @@ class MagicMaker(BaseAction):
 
 最后，我们修改 `/root/agent_camp3/lagent/examples/internlm2_agent_web_demo.py` 来适配我们的自定义工具。
 
-共需要修改两处：
-
-1. 在 `from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter` 的下一行添加 `from lagent.actions.magicmaker import MagicMaker`。
-2. 将第26行的 `ArxivSearch()` 替换为 `MagicMaker()`。
+在 `from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter` 的下一行添加 `from lagent.actions.magicmaker import MagicMaker`。
 
 ```diff
 from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter
 + from lagent.actions.magicmaker import MagicMaker
 from lagent.agents.internlm2_agent import INTERPRETER_CN, META_CN, PLUGIN_CN, Internlm2Agent, Internlm2Protocol
-
-...
-        action_list = [
--             ArxivSearch(),
-+             # ArxivSearch(),
-+             MagicMaker(),
-        ]
 ```
 
-最后，启动 Web Demo 来体验一下吧！我们输入“请帮我生成一幅山水画”
+接下来，启动 Web Demo 来体验一下吧！我们同时启用两个工具，然后输入“请帮我生成一幅山水画”
 
-![instruction](https://github.com/user-attachments/assets/5c384ab9-c970-44d0-a8a2-0f24abbfc5fc)
+![instruction](https://github.com/user-attachments/assets/699308cd-6b17-4515-a42e-d120bd8e9a2b)
 
-![result](https://github.com/user-attachments/assets/0ec74ad2-a939-437f-98cd-b5c40a57d87c)
+![result](https://github.com/user-attachments/assets/c62cea67-1b9f-4a45-ba7f-6c5836d6db7e)
+
+然后，我们再试一下“帮我搜索一下 MindSearch 论文”。
+
+![result](https://github.com/user-attachments/assets/03a39808-db97-4321-883e-7a0446e95343)
