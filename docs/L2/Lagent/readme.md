@@ -169,6 +169,11 @@ class MagicMaker(BaseAction):
 
 最后，我们修改 `/root/agent_camp3/lagent/examples/internlm2_agent_web_demo.py` 来适配我们的自定义工具。
 
+共需要修改两处：
+
+1. 在 `from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter` 的下一行添加 `from lagent.actions.magicmaker import MagicMaker`。
+2. 将第26行的 `ArxivSearch()` 替换为 `MagicMaker()`。
+
 ```diff
 from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter
 + from lagent.actions.magicmaker import MagicMaker
@@ -176,9 +181,9 @@ from lagent.agents.internlm2_agent import INTERPRETER_CN, META_CN, PLUGIN_CN, In
 
 ...
         action_list = [
-			- ArxivSearch(),
-            + # ArxivSearch(),
-            + MagicMaker(),
+-             ArxivSearch(),
++             # ArxivSearch(),
++             MagicMaker(),
         ]
 ```
 
