@@ -9,7 +9,7 @@
 *   推理与评估：在这个阶段，OpenCompass 将会开始对模型和数据集进行并行推理和评估。推理阶段主要是让模型从数据集产生输出，而评估阶段则是衡量这些输出与标准答案的匹配程度。这两个过程会被拆分为多个同时运行的“任务”以提高效率。
 *   可视化：评估完成后，OpenCompass 将结果整理成易读的表格，并将其保存为 CSV 和 TXT 文件。
 
-接下来，我们将展示 OpenCompass 的基础用法，展示书生浦语在 `C-Eval` 基准任务上的评估。
+接下来，我们将展示 OpenCompass 的基础用法，分别用命令行方式和配置文件的方式评测InternLM2-Chat-1.8B，展示书生浦语在 `C-Eval` 基准任务上的评估。更多评测技巧请查看 [https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html](https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html)  文档。
 
 # 环境配置
 
@@ -43,14 +43,7 @@ pip install protobuf
 
 # 数据准备
 
-解压评测数据集到 data/ 处
-
-    cp /share/temp/datasets/OpenCompassData-core-20231110.zip /root/opencompass/
-    unzip OpenCompassData-core-20231110.zip
-
-将会在 OpenCompass 下看到data文件夹
-
-## 查看支持的数据集和模型
+## 列出 InternLM和ceval 相关的配置文件
 
 列出所有跟 InternLM 及 C-Eval 相关的配置
 
@@ -107,6 +100,8 @@ pip install protobuf
 
 # 启动评测 (10% A100 8GB 资源)
 
+## 使用命令行配置参数法进行评测
+
 确保按照上述步骤正确安装 OpenCompass 并准备好数据集后，可以通过以下命令评测 InternLM2-Chat-1.8B 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
 
     #环境变量配置
@@ -148,6 +143,9 @@ pip install protobuf
     ceval-college_chemistry                         e78857     accuracy       gen                                                                                       33.33
     ceval-advanced_mathematics                      ce03e2     accuracy       gen                                                                                       10.53
     ...      
+
+## 使用配置文件修改参数法进行评测
+
 
 # 作业
 
