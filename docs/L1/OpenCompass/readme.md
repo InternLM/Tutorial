@@ -43,7 +43,15 @@ pip install protobuf
 
 # 数据准备
 
-## 列出 InternLM和ceval 相关的配置文件
+## 评测数据集
+解压评测数据集到 data/ 处
+```shell
+cp /share/temp/datasets/OpenCompassData-core-20231110.zip /root/opencompass/
+unzip OpenCompassData-core-20231110.zip
+```
+将会在 OpenCompass 下看到data文件夹
+
+## InternLM和ceval 相关的配置文件
 
 列出所有跟 InternLM 及 C-Eval 相关的配置
 
@@ -111,25 +119,18 @@ pip install protobuf
 
 <!---->
 
-    python run.py --datasets ceval_gen --hf-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b --tokenizer-kwargs padding_side='left' truncation='left' trust_remote_code=True --model-kwargs trust_remote_code=True device_map='auto' --max-seq-len 1024 --max-out-len 16 --batch-size 2 --num-gpus 1 --debug
+    python run.py --datasets ceval_gen --models hf_internlm2_1_8b --debug
 
 命令解析
 
     python run.py
-    --datasets ceval_gen \
-    --hf-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \  # HuggingFace 模型路径
-    --tokenizer-path /share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b \  # HuggingFace tokenizer 路径（如果与模型路径相同，可以省略）
-    --tokenizer-kwargs padding_side='left' truncation='left' trust_remote_code=True \  # 构建 tokenizer 的参数
-    --model-kwargs device_map='auto' trust_remote_code=True \  # 构建模型的参数
-    --max-seq-len 1024 \  # 模型可以接受的最大序列长度
-    --max-out-len 16 \  # 生成的最大 token 数
-    --batch-size 2  \  # 批量大小
-    --num-gpus 1  # 运行模型所需的 GPU 数量
+    --datasets ceval_gen \ # 数据集路径
+    --models hf_internlm2_1_8b \  # 模型路径
     --debug
 
 如果一切正常，您应该看到屏幕上显示 “Starting inference process”：
 
-    [2024-03-18 12:39:54,972] [opencompass.openicl.icl_inferencer.icl_gen_inferencer] [INFO] Starting inference process...
+    [2024-08-09 12:39:54,972] [opencompass.openicl.icl_inferencer.icl_gen_inferencer] [INFO] Starting inference process...
 
 评测完成后，将会看到：
 
@@ -145,7 +146,10 @@ pip install protobuf
     ...      
 
 ## 使用配置文件修改参数法进行评测
+除了通过命令行配置实验外，OpenCompass 还允许用户在配置文件中编写实验的完整配置，并通过 run.py 直接运行它。配置文件是以 Python 格式组织的，并且必须包括 datasets 和 models 字段。本次测试配置在 `configs/eval_chat_demo.py` 中。此配置通过 继承机制 引入所需的数据集和模型配置，并以所需格式组合 datasets 和 models 字段。
+因此，运行任务时，我们只需将配置文件的路径传递给 run.py：
 
+    python run.py configs/eval_chat_demo.py --debug
 
 # 作业
 
