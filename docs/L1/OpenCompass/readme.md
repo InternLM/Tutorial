@@ -1,7 +1,7 @@
 <img width="1440" alt="head" src="https://github.com/user-attachments/assets/54ce507a-1539-4dce-bcb9-5868cfb38897">
-本文将分为以下两个部分来介绍，如何使用 OpenCompass 来评测 InternLM2 1.8B实践
+本文将进行使用 OpenCompass 来评测 InternLM2 1.8B实践
 
-### 概览
+# 概览
 
 在 OpenCompass 中评估一个模型通常包括以下几个阶段：配置 -> 推理 -> 评估 -> 可视化。
 
@@ -11,17 +11,16 @@
 
 接下来，我们将展示 OpenCompass 的基础用法，展示书生浦语在 `C-Eval` 基准任务上的评估。它们的配置文件可以在 `configs/eval_demo.py` 中找到。
 
-### 环境配置
+# 环境配置
 
-#### 创建开发机和 conda 环境
+## 创建开发机和 conda 环境
 
 在创建开发机界面选择镜像为 Cuda11.7-conda，并选择 GPU 为10% A100。
 
 ![image](https://github.com/mattheliu/Tutorial/assets/102272920/1302d976-64db-4fc2-87f6-570e4a71147a)
 
-### 安装
+## 安装——面向GPU的环境安装
 
-#### 面向GPU的环境安装
 
 ```
 
@@ -42,7 +41,7 @@ pip install protobuf
     pip install -r requirements.txt
     pip install protobuf
 
-#### 数据准备
+# 数据准备
 
 解压评测数据集到 data/ 处
 
@@ -51,7 +50,7 @@ pip install protobuf
 
 将会在 OpenCompass 下看到data文件夹
 
-#### 查看支持的数据集和模型
+## 查看支持的数据集和模型
 
 列出所有跟 InternLM 及 C-Eval 相关的配置
 
@@ -106,7 +105,7 @@ pip install protobuf
     | tokenization_internlm          | configs/datasets/cdme/internlm2-chat-7b/tokenization_internlm.py  |
     +--------------------------------+-------------------------------------------------------------------+
 
-#### 启动评测 (10% A100 8GB 资源)
+# 启动评测 (10% A100 8GB 资源)
 
 确保按照上述步骤正确安装 OpenCompass 并准备好数据集后，可以通过以下命令评测 InternLM2-Chat-1.8B 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
 
@@ -150,6 +149,6 @@ pip install protobuf
     ceval-advanced_mathematics                      ce03e2     accuracy       gen                                                                                       10.53
     ...      
 
-## 作业
+# 作业
 
 作业请访问[作业](./task.md)。
