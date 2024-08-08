@@ -1,10 +1,10 @@
 ![image](https://github.com/user-attachments/assets/5ede99d5-e82b-4ff8-acd8-407f9277967a)
 
-本文将带大家手把手使用[mlc-llm](https://llm.mlc.ai/docs/deploy/android.html#android-sdk)将 InternLM2 部署到安卓手机上
+本文将带大家手把手使用[mlc-llm](https://llm.mlc.ai/docs/deploy/android.html#android-sdk)将 InternLM2.5 部署到安卓手机上
 
 首先我们来看一下最终的效果～
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504"  width="50%" height="50%">
+    <img src="https://github.com/user-attachments/assets/994e7fdd-b7f0-41d9-ac7d-35b7417aae5a"  width="50%" height="50%">
 </div>
 
 ## 1 环境准备
@@ -73,44 +73,45 @@ git submodule update --init --recursive
 ```
 
 ### 2.2 转换参数
-You can be under the mlc-llm repo, or your own working directory. Note that all platforms can share the same compiled/quantized weights. See [Compile Command Specification](https://llm.mlc.ai/docs/compilation/compile_models.html#compile-command-specification) for specification of `convert_weight`.
-
+使用 `mlc_llm` 的 `convert_weight` 对模型参数进行转换和量化，转换后的参数可以跨平台使用
 ```
 cd android/MLCChat  
 export TVM_SOURCE_DIR=/root/android/mlc-llm/3rdparty/tvm
 export MLC_LLM_SOURCE_DIR=/root/android/mlc-llm
-mlc_llm convert_weight /root/models/internlm2-chat-1_8b-sft/ \
+mlc_llm convert_weight /root/models/internlm2_5-1_8b-chat/ \
     --quantization q4f16_1 \
-    -o dist/internlm2-chat-1_8b-sft-q4f16_1-MLC
+    -o dist/internlm2_5-1_8b-chat-q4f16_1-MLC
 ```
 ### 2.3 生成配置
-Use mlc_llm gen_config to generate mlc-chat-config.json and process tokenizers. See [Compile Command Specification](https://llm.mlc.ai/docs/compilation/compile_models.html#compile-command-specification) for specification of `gen_config`.
+使用 `mlc_llm` 的 `gen_config` 生成 `mlc-chat-config.json` 并处理 `tokenizer`
+
+出现提示时输入`y`
 
 ```
 
-mlc_llm gen_config /root/models/internlm2-chat-1_8b-sft/  \
+mlc_llm gen_config /root/models/internlm2_5-1_8b-chat/  \
     --quantization q4f16_1 --conv-template chatml  \
-    -o dist/internlm2-chat-1_8b-sft-q4f16_1-MLC
-
+    -o dist/internlm2_5-1_8b-chat-q4f16_1-MLC
+Do you wish to run the custom code? [y/N] y
 ```
 ### 2.4 上传到huggingface
 上传这一步需要能访问huggingface，可能需要部署代理
 如果没有代理可以直接在接下来的配置中使用如下链接的模型（和文档中的转换方法一样）
-[https://huggingface.co/timws/internlm2-chat-1_8b-sft-q4f16_1-MLC](https://huggingface.co/timws/internlm2-chat-1_8b-sft-q4f16_1-MLC)
+[https://huggingface.co/timws/internlm2_5-1_8b-chat-q4f16_1-MLC](https://huggingface.co/timws/internlm2_5-1_8b-chat-q4f16_1-MLC)
 ### 2.5  (可选) 测试转换的模型
 在打包之前可以测试模型效果，需要编译成二进制文件
 在个人电脑上运行测试代码正常，**InternStudio**上**暂未成功**
 ```
 
-mlc_llm compile ./dist/internlm2-chat-1_8b-sft-q4f16_1-MLC/mlc-chat-config.json \
-    --device cuda -o dist/libs/internlm2-chat-1_8b-sft-q4f16_1-MLC-cuda.so
+mlc_llm compile ./dist/internlm2_5-1_8b-chat-q4f16_1-MLC/mlc-chat-config.json \
+    --device cuda -o dist/libs/internlm2_5-1_8b-chat-q4f16_1-MLC-cuda.so
 ```
 测试编译的模型是否符合预期，手机端运行的效果和测试效果接近
 ```python3
 from mlc_llm import MLCEngine
 
 # Create engine
-engine = MLCEngine(model="./dist/internlm2-1_8b-q4f16_1-MLC", model_lib="./dist/libs/internlm2-1_8b-q4f16_1-MLC-cuda.so")
+engine = MLCEngine(model="./dist/internlm2_5-1_8b-chat-q4f16_1-MLC", model_lib="./dist/libs/internlm2_5-1_8b-chat-q4f16_1-MLC-cuda.so")
 
 # Run chat completion in OpenAI API.
 print(engine)
@@ -133,9 +134,9 @@ engine.terminate()
     "device": "android",
     "model_list": [
         {
-            "model": "HF://timws/internlm2-chat-1_8b-sft-q4f16_1-MLC",
+            "model": "HF://timws/internlm2_5-1_8b-chat-q4f16_1-MLC",
             "estimated_vram_bytes": 3980990464,
-            "model_id": "internlm2-chat-1_8b-sft-q4f16_1-MLC"
+            "model_id": "internlm2_5-1_8b-chat-q4f16_1-MLC"
 
         },
         {
@@ -149,7 +150,7 @@ engine.terminate()
 ```
 
 ### 3.2 运行打包命令
-
+这一步需要能访问huggingface，可能需要部署代理
 ```
  mlc_llm package
 ```
@@ -283,9 +284,10 @@ dependencies {
 
 
 ### 3.6 运行体验
-运行App需要能访问huggingface下载模型
+- 运行App需要能访问huggingface下载模型
+- 需要大概4G运行内存
+- 如果运行闪退，和可能是下载不完整可以删除重新下载
 
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/cd9fe502-490e-40c6-8649-30671a4fe504"  width="50%" height="50%">
+    <img src="https://github.com/user-attachments/assets/994e7fdd-b7f0-41d9-ac7d-35b7417aae5a"  width="50%" height="50%">
 </div>
-
