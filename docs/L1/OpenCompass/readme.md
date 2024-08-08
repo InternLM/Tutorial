@@ -1,3 +1,4 @@
+![](head.png)
 本文将分为以下两个部分来介绍，如何使用 OpenCompass 来评测 InternLM2 1.8B实践
 
 ### 概览
@@ -149,11 +150,6 @@ pip install protobuf
     ceval-advanced_mathematics                      ce03e2     accuracy       gen                                                                                       10.53
     ...      
 
-### 作业
+## 作业
 
-### **基础作业**
-
-*   参考本文教程，使用 OpenCompass 评测 internlm**2.5**-chat-1\_8b 模型在 C-Eval 数据集上的性能
-
-欢迎扫码关注 OpenCompass 公众号了解更多评测相关知识～
-![](https://github.com/InternLM/Tutorial/assets/25839884/1e8f3fd4-cf73-4d13-b5f0-03b1f925d825)
+作业请访问[作业](./task.md)。
