@@ -1,4 +1,4 @@
-![](head.png)
+<img width="1440" alt="head" src="https://github.com/user-attachments/assets/54ce507a-1539-4dce-bcb9-5868cfb38897">
 本文将分为以下两个部分来介绍，如何使用 OpenCompass 来评测 InternLM2 1.8B实践
 
 ### 概览
