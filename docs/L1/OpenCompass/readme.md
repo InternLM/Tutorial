@@ -23,7 +23,6 @@
 
 
 ```
-
 conda create -n opencompass python=3.10
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 
@@ -31,15 +30,11 @@ conda activate opencompass
 git clone -b 0.2.4 https://github.com/open-compass/opencompass
 cd opencompass
 pip install -e .
+apt-get update
+apt-get install cmake
+pip install -r requirements.txt
 pip install protobuf
 ```
-
-**如果pip install -e .安装未成功,请运行:**
-
-    apt-get update
-    apt-get install cmake
-    pip install -r requirements.txt
-    pip install protobuf
 
 # 数据准备
 
@@ -110,6 +105,39 @@ unzip OpenCompassData-core-20231110.zip
 
 ## 使用命令行配置参数法进行评测
 
+打开 opencompass文件夹下configs/models/hf_internlm/的`hf_internlm2_1_8b.py` ,贴入以下代码
+
+
+    from opencompass.models import HuggingFaceCausalLM
+    
+    
+    models = [
+        dict(
+            type=HuggingFaceCausalLM,
+            abbr='internlm2-1.8b-hf',
+            path="/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b",
+            tokenizer_path='/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b',
+            model_kwargs=dict(
+                trust_remote_code=True,
+                device_map='auto',
+            ),
+            tokenizer_kwargs=dict(
+                padding_side='left',
+                truncation_side='left',
+                use_fast=False,
+                trust_remote_code=True,
+            ),
+            max_out_len=100,
+            min_out_len=1,
+            max_seq_len=2048,
+            batch_size=8,
+            run_cfg=dict(num_gpus=1, num_procs=1),
+        )
+    ]
+
+
+
+
 确保按照上述步骤正确安装 OpenCompass 并准备好数据集后，可以通过以下命令评测 InternLM2-Chat-1.8B 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
 
     #环境变量配置
@@ -124,32 +152,73 @@ unzip OpenCompassData-core-20231110.zip
 命令解析
 
     python run.py
-    --datasets ceval_gen \ # 数据集路径
-    --models hf_internlm2_1_8b \  # 模型路径
+    --datasets ceval_gen \ # 数据集准备
+    --models hf_internlm2_1_8b \  # 模型准备
     --debug
 
-如果一切正常，您应该看到屏幕上显示 “Starting inference process”：
+如果一切正常，您应该看到屏幕上显示：
 
-    [2024-08-09 12:39:54,972] [opencompass.openicl.icl_inferencer.icl_gen_inferencer] [INFO] Starting inference process...
+    [2024-08-09 16:48:07,016] [opencompass.openicl.icl_inferencer.icl_gen_inferencer] [INFO] Starting inference process...
 
 评测完成后，将会看到：
 
-    dataset                                         version    metric         mode      opencompass.models.huggingface.HuggingFace_Shanghai_AI_Laboratory_internlm2-chat-1_8b
-    ----------------------------------------------  ---------  -------------  ------  ---------------------------------------------------------------------------------------
-    ceval-computer_network                          db9ce2     accuracy       gen                                                                                       47.37
-    ceval-operating_system                          1c2571     accuracy       gen                                                                                       47.37
-    ceval-computer_architecture                     a74dad     accuracy       gen                                                                                       23.81
-    ceval-college_programming                       4ca32a     accuracy       gen                                                                                       13.51
-    ceval-college_physics                           963fa8     accuracy       gen                                                                                       42.11
-    ceval-college_chemistry                         e78857     accuracy       gen                                                                                       33.33
-    ceval-advanced_mathematics                      ce03e2     accuracy       gen                                                                                       10.53
-    ...      
+    dataset                                         version    metric         mode    internlm2-1.8b-hf
+    ----------------------------------------------  ---------  -------------  ------  -----------------------
+    ceval-computer_network                          db9ce2     accuracy       gen      47.37                                                                           
+    ceval-operating_system                          1c2571     accuracy       gen      47.37                                                                                 
+    ceval-computer_architecture                     a74dad     accuracy       gen      23.81                                                                                 
+    ceval-college_programming                       4ca32a     accuracy       gen      13.51                                                                                 
+    ceval-college_physics                           963fa8     accuracy       gen      42.11                                                                                 
+    ceval-college_chemistry                         e78857     accuracy       gen      33.33                                                                                 
+    ceval-advanced_mathematics                      ce03e2     accuracy       gen      10.53                                                                                 
+    ...          
 
 ## 使用配置文件修改参数法进行评测
-除了通过命令行配置实验外，OpenCompass 还允许用户在配置文件中编写实验的完整配置，并通过 run.py 直接运行它。配置文件是以 Python 格式组织的，并且必须包括 datasets 和 models 字段。本次测试配置在 `configs/eval_chat_demo.py` 中。此配置通过 继承机制 引入所需的数据集和模型配置，并以所需格式组合 datasets 和 models 字段。
+除了通过命令行配置实验外，OpenCompass 还允许用户在配置文件中编写实验的完整配置，并通过 run.py 直接运行它。配置文件是以 Python 格式组织的，并且必须包括 datasets 和 models 字段。本次测试配置在 `configs`文件夹 中。此配置通过 继承机制 引入所需的数据集和模型配置，并以所需格式组合 datasets 和 models 字段。
+运行以下代码，在configs文件夹下创建`eval_tutorial_demo.py`
+```bash
+cd /root/opencompass/configs
+touch eval_tutorial_demo.py
+```
+打开`eval_tutorial_demo.py` 贴入以下代码
+```python
+from mmengine.config import read_base
+
+with read_base():
+    from .datasets.ceval.ceval_gen import ceval_datasets
+    from .models.hf_internlm.hf_internlm2_chat_1_8b import models as hf_internlm2_chat_1_8b_models
+
+datasets = ceval_datasets
+models = hf_internlm2_chat_1_8b_models
+```
+
 因此，运行任务时，我们只需将配置文件的路径传递给 run.py：
 
-    python run.py configs/eval_chat_demo.py --debug
+```bash
+cd /root/opencompass
+python run.py configs/eval_tutorial_demo.py --debug
+```
+
+如果一切正常，您应该看到屏幕上显示：
+
+    [2024-08-09 16:48:07,016] [opencompass.openicl.icl_inferencer.icl_gen_inferencer] [INFO] Starting inference process...
+
+评测完成后，将会看到：
+
+    dataset                                         version    metric         mode    internlm2-1.8b-hf
+    ----------------------------------------------  ---------  -------------  ------  -----------------------
+    ceval-computer_network                          db9ce2     accuracy       gen      47.37                                                                           
+    ceval-operating_system                          1c2571     accuracy       gen      47.37                                                                                 
+    ceval-computer_architecture                     a74dad     accuracy       gen      23.81                                                                                 
+    ceval-college_programming                       4ca32a     accuracy       gen      13.51                                                                                 
+    ceval-college_physics                           963fa8     accuracy       gen      42.11                                                                                 
+    ceval-college_chemistry                         e78857     accuracy       gen      33.33                                                                                 
+    ceval-advanced_mathematics                      ce03e2     accuracy       gen      10.53                                                                                 
+    ...      
+
+# 结语
+
+接下来，我们将展示 OpenCompass 的基础用法，分别用命令行方式和配置文件的方式评测InternLM2-Chat-1.8B，展示书生浦语在 `C-Eval` 基准任务上的评估。更多评测技巧欢迎查看 [https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html](https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html)  文档~我们下节课再见！
 
 # 作业
 
