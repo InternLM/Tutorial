@@ -25,7 +25,7 @@
 ```
 conda create -n opencompass python=3.10
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
-
+cd ~
 conda activate opencompass
 git clone -b 0.2.4 https://github.com/open-compass/opencompass
 cd opencompass
@@ -105,7 +105,7 @@ unzip OpenCompassData-core-20231110.zip
 
 ## 使用命令行配置参数法进行评测
 
-打开 opencompass文件夹下configs/models/hf_internlm/的`hf_internlm2_1_8b.py` ,贴入以下代码
+打开 opencompass文件夹下configs/models/hf_internlm/的`hf_internlm2_chat_1_8b.py` ,贴入以下代码
 
 
     from opencompass.models import HuggingFaceCausalLM
@@ -147,13 +147,13 @@ unzip OpenCompassData-core-20231110.zip
 
 <!---->
 
-    python run.py --datasets ceval_gen --models hf_internlm2_1_8b --debug
+    python run.py --datasets ceval_gen --models hf_internlm2_chat_1_8b --debug
 
 命令解析
 
     python run.py
     --datasets ceval_gen \ # 数据集准备
-    --models hf_internlm2_1_8b \  # 模型准备
+    --models hf_internlm2_chat_1_8b \  # 模型准备
     --debug
 
 如果一切正常，您应该看到屏幕上显示：
