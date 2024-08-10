@@ -24,12 +24,16 @@
 
 ```
 conda create -n opencompass python=3.10
-conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
-cd ~
 conda activate opencompass
+conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
+
+# 注意：一定要先 cd ~ 
+cd ～
 git clone -b 0.2.4 https://github.com/open-compass/opencompass
 cd opencompass
 pip install -e .
+
+
 apt-get update
 apt-get install cmake
 pip install -r requirements.txt
