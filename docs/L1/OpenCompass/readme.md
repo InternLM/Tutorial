@@ -27,8 +27,8 @@ conda create -n opencompass python=3.10
 conda activate opencompass
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 
-# 注意：一定要先 cd ~ 
-cd ～
+# 注意：一定要先 cd /root
+cd /root
 git clone -b 0.2.4 https://github.com/open-compass/opencompass
 cd opencompass
 pip install -e .
@@ -43,7 +43,7 @@ pip install protobuf
 # 数据准备
 
 ## 评测数据集
-解压评测数据集到 data/ 处
+解压评测数据集到 `/root/opencompass/data/` 处。（注意： 上方在git clone opencompass 时一定要将 opencompass clone 到 /root 路径下。）
 ```shell
 cp /share/temp/datasets/OpenCompassData-core-20231110.zip /root/opencompass/
 unzip OpenCompassData-core-20231110.zip
