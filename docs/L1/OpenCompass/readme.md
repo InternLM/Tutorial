@@ -1,4 +1,6 @@
-<img width="1440" alt="head" src="https://github.com/user-attachments/assets/54ce507a-1539-4dce-bcb9-5868cfb38897">
+<img width="1440" alt="opencompass" src="https://github.com/user-attachments/assets/94ce9232-b8c5-4d0f-b470-ca9c98879153">
+
+
 本文将进行使用 OpenCompass 来评测 InternLM2 1.8B实践
 
 # 概览
