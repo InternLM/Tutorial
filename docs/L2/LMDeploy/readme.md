@@ -1,4 +1,4 @@
-![img](./pictures/1.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/111.png)
 
 1. # 配置LMDeploy环境
 
@@ -6,13 +6,13 @@
 
 打开InternStudio平台(https://studio.intern-ai.org.cn/console/instance)，进入如下界面并按箭头指示顺序点击***创建开发机***。
 
-![img](./pictures/2.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/2.PNG)
 
 点选开发机，自拟一个开发机名称，选择***Cuda12.2-conda***镜像。
 
 我们要运行参数量为7B的InternLM2.5，由InternLM2.5的码仓(https://huggingface.co/internlm/internlm2_5-7b-chat/blob/main/config.json)查询InternLM2.5-7b-chat的config.json文件可知，<a id="权重查询">该模型的权重被存储为`bfloat16`格式</a>
 
-![img](./pictures/3.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/3.png)
 
 对于一个7B（70亿）参数的模型，每个参数使用16位浮点数（等于 2个 Byte）表示，则模型的权重大小约为：
 
@@ -58,21 +58,21 @@ lmdeploy chat /root/models/internlm2_5-7b-chat
 
 稍待片刻，启动成功后，会显示如下。
 
-![img](./pictures/4.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/4.png)
 
 此时，我们可以在CLI(“命令行界面” Command Line Interface的缩写)中和InternLM2.5尽情对话了，注意输入内容完成后需要按**两次回车**才能够执行，以下为示例。
 
-![img](./pictures/5.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/5.png)
 
 不知道有没有小伙伴注意到屏幕右上角，这是InternStudio提供的资源监控。
 
-![img](./pictures/6.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/6.png)
 
 请记住现在显存占用约**23GB**，先圈起来，待会要用上。
 
 如果选择 ***50%A100\*1*** 建立机器，同样运行InternLM2.5 7B模型，会发现此时显存占用为**36GB**。
 
-![img](./pictures/7.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/7.PNG)
 
 那么这是为什么呢？由[上文可知](#权重查询)InternLM2.5 7B模型为bf16，LMDpeloy推理精度为bf16的7B模型权重需要占用**14GB**显存；如下图所示，lmdeploy默认设置cache-max-entry-count为0.8，即kv cache占用剩余显存的80%；
 
@@ -82,7 +82,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat
 
 实际加载模型后，其他项也会占用部分显存，因此剩余显存比理论偏低，实际占用会略高于**22GB**和**34.8GB**。
 
-![img](./pictures/8.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/8.png)
 
 此外，如果想要实现显存资源的监控，我们也可以新开一个终端输入如下两条指令的任意一条，查看命令输入时的显存占用情况。
 
@@ -126,7 +126,7 @@ lmdeploy serve api_server \
 
 稍待片刻，终端显示如下。
 
-![img](./pictures/40.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/2333.png)
 
 这一步由于部署在远程服务器上，所以本地需要做一下ssh转发才能直接访问。在你本地打开一个cmd或powershell窗口，输入命令如下：
 
@@ -136,29 +136,29 @@ lmdeploy serve api_server \
 
 ssh 端口号按照下图图示方法查询，我的是41682，请替换为自己的。
 
-![img](./pictures/9.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/9.png)
 
 输入后，首次访问可能会询问你是否继续连接，敲入yes并回车即可。
 
-![img](./pictures/10.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/10.png)
 
 之后会要求输入密码，按下图所示复制密码。
 
-![img](./pictures/11.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/11.png)
 
 复制后直接在窗口`Ctrl+S`键粘贴，注意CLI默认密码不显示，黏贴后直接回车即可，让窗口保留在如下所示的状态即可，请勿关闭。
 
-![img](./pictures/12.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/12.png)
 
 然后打开浏览器，访问`http://127.0.0.1:23333`看到如下界面即代表部署成功。
 
-![img](./pictures/13.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/13.png)
 
 ### <a id="2.1.2"> 2.1.2 以命令行形式连接API服务器 </a>
 
 关闭`http://127.0.0.1:23333`网页，但保持终端和本地窗口不动，按箭头操作新建一个终端。
 
-![img](./pictures/14.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/14.png)
 
 运行如下命令，激活conda环境并启动命令行客户端。
 
@@ -169,7 +169,7 @@ lmdeploy serve api_client http://localhost:23333
 
 稍待片刻，等出现`double enter to end input >>>`的输入提示即启动成功，此时便可以随意与InternLM2.5对话，同样是两下回车确定，输入`exit`退出。
 
-![img](./pictures/15.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/15.png)
 
 ### <a id="2.1.3"> 2.1.3 以Gradio**网页形式连接API服务器**</a>
 
@@ -185,7 +185,7 @@ lmdeploy serve gradio http://localhost:23333 \
 
 稍待片刻，等终端如下图所示便保持两个终端不动。
 
-![img](./pictures/16.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/16.png)
 
 关闭之前的cmd/powershell窗口，重开一个，再次做一下ssh转发(因为此时端口不同)。在你本地打开一个cmd或powershell窗口，输入命令如下。
 
@@ -195,11 +195,11 @@ ssh -CNg -L 6006:127.0.0.1:6006 root@ssh.intern-ai.org.cn -p <你的ssh端口号
 
 重复上述操作，待窗口保持在如下状态即可。
 
-![img](./pictures/17.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/17.png)
 
 打开浏览器，访问地址`http://127.0.0.1:6006`，然后就可以与模型尽情对话了。
 
-![img](./pictures/18.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/18.png)
 
 ## 2.2 LMDeploy Lite
 
@@ -213,7 +213,7 @@ kv cache是一种缓存技术，通过存储键值对的形式来复用计算结
 
 首先我们先来回顾一下InternLM2.5正常运行时占用显存。
 
-![img](./pictures/19.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/19.png)
 
 占用了<a id="2.2.1 23">**23GB**</a>，那么试一试执行以下命令，再来观看占用显存情况。
 
@@ -223,7 +223,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat --cache-max-entry-count 0.4
 
 稍待片刻，观测显存占用情况，可以看到减少了约**4GB**的显存。
 
-![img](./pictures/20.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/20.png)
 
 让我们计算一下**4GB**显存的减少缘何而来，
 
@@ -268,13 +268,13 @@ lmdeploy serve api_server \
 
 稍待片刻，显示如下即代表服务启动成功。
 
-![img](./pictures/21.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/21.png)
 
 想要和此时的模型对话的话可以回顾[2.1.2 以命令行形式连接API服务器](#2.1.2)或者[2.1.3 以Gradio网页形式连接API服务器](#2.1.3)的内容自行对话，步骤完全一致，本章主要观测显存状态。
 
 可以看到此时显存占用约**19GB**，相较于[1.3 LMDeploy验证启动模型文件](#1.3)直接启动模型的显存占用情况(**23GB**)减少了**4GB**的占用。此时**4GB**显存的减少逻辑与[2.2.1 设置最大kv cache缓存大小中4GB显存的减少](#2.2.1)一致，均因设置kv cache占用参数`cache-max-entry-count`至0.4而减少了**4GB**显存占用。
 
-![img](./pictures/22.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/22.png)
 
 那么本节中**19GB**的显存占用与[2.2.1 设置最大kv cache缓存大小](#2.2.1 23)中**19GB**的显存占用区别何在呢？
 
@@ -324,7 +324,7 @@ lmdeploy lite auto_awq \
 
 等终端输出如下时，说明正在推理中，稍待片刻。
 
-![img](./pictures/23.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/23.png)
 
 等待推理完成，便可以直接在你设置的目标文件夹看到对应的模型文件。
 
@@ -339,7 +339,7 @@ du -sh *
 
 输出结果如下。(其余文件夹都是以软链接的形式存在的，不占用空间，故显示为0)
 
-![img](./pictures/24.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/24.png)
 
 那么原模型大小呢？输入以下指令查看。
 
@@ -350,7 +350,7 @@ du -sh *
 
 终端输出结果如下。
 
-![img](./pictures/25.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/25.png)
 
 一经对比即可发觉，15G对4.9G，优势在我。
 
@@ -362,7 +362,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat-w4a16-4bit/ --model-format awq
 
 稍待片刻，我们直接观测右上角的显存占用情况。
 
-![img](./pictures/26.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/26.png)
 
 可以发现，相比较于原先的**23GB**显存占用，W4A16量化后的模型少了约**2GB**的显存占用。
 
@@ -396,7 +396,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat-w4a16-4bit/ --model-format awq
 
 我知道你们肯定有人在想，显存占用能不能再小一点？答案是当然可以，方法就是：
 
-![img](./pictures/27.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/27.png)
 
 我们只需要将我们推理好的模型使用kv cache量化就可以了！
 
@@ -411,7 +411,7 @@ lmdeploy chat \
 
 观测显存占用情况，看到此时只需要约13GB的显存，已经是一张消费级显卡即可部署的模型了。
 
-![img](./pictures/28.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/28.png)
 
 那让我们挑战一下极限，直接看看极限显存只需要多少。
 
@@ -426,7 +426,7 @@ lmdeploy chat \
 
 观测显存占用情况，可以说约6GB的显存占用属于逆天级别的压缩。
 
-![img](./pictures/29.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/29.png)
 
 大家可以自行探索在几乎等于禁用kv cache后，模型输出与正常情况下的区别。
 
@@ -445,7 +445,7 @@ lmdeploy serve api_server \
 
 此时显存占用**13.5GB**，与之前相同。
 
-![img](./pictures/30.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/30.png)
 
 还是一样的，想要和此时的模型对话的话可以回顾[2.1.2 以命令行形式连接API服务器](#2.1.2)或者[2.1.3 以Gradio网页形式连接API服务器](#2.1.3)的内容自行对话，步骤完全一致，本章主要观测显存状态。
 
@@ -489,7 +489,7 @@ lmdeploy lite auto_awq \
 
 等终端输出如下时，说明正在推理中，稍待片刻。
 
-![img](./pictures/31.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/31.png)
 
 等待推理完成，便可以在左侧/models内直接看到对应的模型文件。
 
@@ -510,9 +510,9 @@ lmdeploy serve api_server \
 
 启动后观测显存占用情况，此时只需要约23.8GB的显存，已经是一张***30%A100***即可部署的模型了。
 
-![img](./pictures/32.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/32.png)
 
-![img](./pictures/33.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/33.png)
 
 根据InternVL2(https://internvl.github.io/blog/2024-07-02-InternVL-2.0/)介绍，InternVL2 26B是一个6B的ViT、一个100M的MLP以及一个19.86B的internlm组成的。
 
@@ -571,7 +571,7 @@ lmdeploy serve api_server \
 
 以下为Gradio网页形式连接成功后对话截图。
 
-![img](./pictures/34.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/34.png)
 
 1. # LMDeploy之FastAPI与Function call
 
@@ -595,7 +595,7 @@ lmdeploy serve api_server \
 
 保持终端窗口不动，按箭头操作新建一个终端。
 
-![img](./pictures/35.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/35.png)
 
 在新建终端中输入如下指令，新建`internlm2_5.py`。
 
@@ -605,7 +605,7 @@ touch /root/internlm2_5.py
 
 此时我们可以在左侧的File Broswer中看到`internlm2_5.py`文件，双击打开。
 
-![img](./pictures/36.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/36.png)
 
 将以下内容复制粘贴进`internlm2_5.py`。
 
@@ -659,11 +659,11 @@ python /root/internlm2_5.py
 
 终端会输出如下结果。
 
-![img](./pictures/37.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/37.png)
 
 此时代表我们成功地使用本地API与大模型进行了一次对话，如果切回第一个终端窗口，会看到如下信息，这代表其成功的完成了一次用户问题GET与输出POST。
 
-![img](./pictures/38.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/38.png)
 
 ## 4.2 Function call
 
@@ -795,6 +795,6 @@ python /root/internlm2_5_func.py
 
 稍待片刻终端输出如下。
 
-![img](./pictures/39.png)
+![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/39.png)
 
 我们可以看出InternLM2.5将输入`'Compute (3+5)*2'`根据提供的function拆分成了"加"和"乘"两步，第一步调用`function add`实现加，再于第二步调用`function mul`实现乘，再最终输出结果16.
