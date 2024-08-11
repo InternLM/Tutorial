@@ -4,7 +4,7 @@
 
 ## 1.1 InternStudio开发机创建与环境搭建
 
-打开InternStudio平台(https://studio.intern-ai.org.cn/console/instance)，进入如下界面并按箭头指示顺序点击***创建开发机***。
+打开[InternStudio平台](https://studio.intern-ai.org.cn/console/instance)，进入如下界面并按箭头指示顺序点击***创建开发机***。
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/2.PNG)
 
