@@ -392,45 +392,13 @@ lmdeploy chat /root/models/internlm2_5-7b-chat-w4a16-4bit/ --model-format awq
 
 是故**20.9GB**=权重占用**3.5GB**+kv cache占用**16.4GB**+其它项**1GB**
 
-### 2.2.4 联合部署
+### 2.2.4  W4A16 量化+ KV Cache+KV Cache 量化
 
-我知道你们肯定有人在想，显存占用能不能再小一点？答案是当然可以，方法就是：
+我知道你们肯定有人在想，介绍了那么多方法，能不能全都要？当然可以！
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/27.png)
 
-我们只需要将我们推理好的模型使用kv cache量化就可以了！
-
-输入以下指令，让我们同时启用量化后的模型和kv cache量化。
-
-```Python
-lmdeploy chat \
-/root/models/internlm2_5-7b-chat-w4a16-4bit/ \
---model-format awq \
---cache-max-entry-count 0.4
-```
-
-观测显存占用情况，看到此时只需要约13GB的显存，已经是一张消费级显卡即可部署的模型了。
-
-![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/28.png)
-
-那让我们挑战一下极限，直接看看极限显存只需要多少。
-
-输入指令。
-
-```Python
-lmdeploy chat \
-/root/models/internlm2_5-7b-chat-w4a16-4bit/ \
---model-format awq \
---cache-max-entry-count 0.01
-```
-
-观测显存占用情况，可以说约6GB的显存占用属于逆天级别的压缩。
-
-![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/29.png)
-
-大家可以自行探索在几乎等于禁用kv cache后，模型输出与正常情况下的区别。
-
-我们再来测试一下在线 kv cache int4/int8 量化的情况，输入以下指令。
+输入以下指令，让我们同时启用量化后的模型、设定kv cache占用和kv cache int4量化。
 
 ```Python
 lmdeploy serve api_server \
@@ -443,21 +411,11 @@ lmdeploy serve api_server \
     --tp 1
 ```
 
-此时显存占用**13.5GB**，与之前相同。
+此时显存占用**13.5GB**。
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/30.png)
 
-还是一样的，想要和此时的模型对话的话可以回顾[2.1.2 以命令行形式连接API服务器](#2.1.2)或者[2.1.3 以Gradio网页形式连接API服务器](#2.1.3)的内容自行对话，步骤完全一致，本章主要观测显存状态。
-
-让我们来计算一下此刻的显存占用情况**(13.5GB**)：
-
-1、在 int4 精度下，7B模型权重占用**3.5GB**：**14/4=3.5GB** 
-
-2、kv cache占用**16.4GB**：剩余显存**24-3.5=20.5GB**，kv cache占用40%，即**20.5\*0.4=8.2GB**
-
-3、其他项**1.8GB**
-
-是故**13.5GB**=权重占用**3.5GB**+kv cache占用**8.2GB**+其它项**1.8GB**
+<details>   <summary>点击显示/隐藏显存占用情况的计算细节</summary>      让我们来计算一下此刻的显存占用情况(13.5GB):<br>   1、在 int4 精度下，7B模型权重占用3.5GB：14/4=3.5GB<br>   2、kv cache占用16.4GB：剩余显存24-3.5=20.5GB，kv cache占用40%，即20.5*0.4=8.2GB<br>   3、其他项1.8GB<br>   是故13.5GB=权重占用3.5GB+kv cache占用8.2GB+其它项1.8GB </details>
 
 想要更极限且保证正常工作的量化设置的话，各位小伙伴可以之后自行探索，本次实践教学便止步于此了。
 
@@ -493,9 +451,9 @@ lmdeploy lite auto_awq \
 
 等待推理完成，便可以在左侧/models内直接看到对应的模型文件。
 
-### 3.1.2 联合部署
+### 3.1.2 W4A16 量化+ KV Cache+KV Cache 量化
 
-现在就能体现出我们联合部署的好处了，我们只需要将已经推理好的模型设置kv cache占用就能够大大减少显存需求。输入以下指令，让我们启用量化后的模型。
+输入以下指令，让我们启用量化后的模型。
 
 ```Python
 lmdeploy serve api_server \
@@ -514,31 +472,9 @@ lmdeploy serve api_server \
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/33.png)
 
-根据[InternVL2](https://internvl.github.io/blog/2024-07-02-InternVL-2.0/)介绍，InternVL2 26B是一个6B的ViT、一个100M的MLP以及一个19.86B的internlm组成的。
+根据[InternVL2](https://internvl.github.io/blog/2024-07-02-InternVL-2.0/)介绍，InternVL2 26B是由一个6B的ViT、一个100M的MLP以及一个19.86B的internlm组成的。
 
-那么让我们来计算一下使用**A100 80GB**直接启动模型的显存占用情况：
-
-1、在 fp16 精度下，6BViT模型权重占用**12GB**：60×10^9 parameters×2 Bytes/parameter=**12GB**
-
-2、在 fp16 精度下，19.86B≈20B的internlm模型权重占用**40GB**：200×10^9 parameters×2 Bytes/parameter=**40GB**
-
-2、kv cache占用**22.4GB**：剩余显存**80-12-40=28GB**，kv cache默认占用80%，即**28\*0.8=22.4GB**
-
-3、其他项
-
-是故总占用=Vit权重占用**12GB**+internlm模型权重占用**40GB**+kv cache占用**22.4GB**+其他项≥**74.4GB**
-
-对于使用***30%A100\*1***(24GB显存容量)联合部署的显存情况(**23.8GB**)：
-
-1、在 fp16 精度下，6BViT模型权重占用**12GB**：60×10^9 parameters×2 Bytes/parameter=**12GB** (ViT使用精度为fp16的pytorch推理，量化只对internlm起效果)
-
-2、在 int4 精度下，19.86B≈20B的internlm模型权重占用**10GB**：200×10^9 parameters×0.5 Bytes/parameter=**10GB**
-
-2、kv cache占用**0.2GB**：剩余显存**24-12-10=2GB**，kv cache修改为占用10%，即**2\*0.1=0.2GB**
-
-3、其他项**1.6GB**
-
-是故**23.8GB**=Vit权重占用**12GB**+internlm模型权重占用**10GB**+kv cache占用**0.2GB**+其他项**1.6G**
+<details>   <summary>点击显示/隐藏显存占用情况的计算细节</summary>      让我们来计算一下使用A100 80GB直接启动模型的显存占用情况：<br>   1、在 fp16 精度下，6BViT模型权重占用12GB：60×10^9 parameters×2 Bytes/parameter=12GB<br>   2、在 fp16 精度下，19.86B≈20B的internlm模型权重占用40GB：200×10^9 parameters×2 Bytes/parameter=40GB<br>   3、kv cache占用22.4GB：剩余显存80-12-40=28GB，kv cache默认占用80%，即28*0.8=22.4GB<br>   4、其他项<br>   是故总占用=Vit权重占用12GB+internlm模型权重占用40GB+kv cache占用22.4GB+其他项≥74.4GB<br>      对于使用30%A100*1(24GB显存容量)联合部署的显存情况(23.8GB)：<br>   1、在 fp16 精度下，6BViT模型权重占用12GB：60×10^9 parameters×2 Bytes/parameter=12GB (ViT使用精度为fp16的pytorch推理，量化只对internlm起效果)<br>   2、在 int4 精度下，19.86B≈20B的internlm模型权重占用10GB：200×10^9 parameters×0.5 Bytes/parameter=10GB<br>   3、kv cache占用0.2GB：剩余显存24-12-10=2GB，kv cache修改为占用10%，即2*0.1=0.2GB<br>   4、其他项1.6GB<br>   是故23.8GB=Vit权重占用12GB+internlm模型权重占用10GB+kv cache占用0.2GB+其他项1.6GB </details>
 
 如果此时推理图片，则会显示剩余显存不足，这是因为推理图片的时候pytorch会占用额外的激活显存，故有需要的小伙伴可以开启50%A100进行图片推理。
 
