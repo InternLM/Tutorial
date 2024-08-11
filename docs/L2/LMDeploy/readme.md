@@ -10,7 +10,7 @@
 
 点选开发机，自拟一个开发机名称，选择***Cuda12.2-conda***镜像。
 
-我们要运行参数量为7B的InternLM2.5，由InternLM2.5的码仓(https://huggingface.co/internlm/internlm2_5-7b-chat/blob/main/config.json)查询InternLM2.5-7b-chat的config.json文件可知，<a id="权重查询">该模型的权重被存储为`bfloat16`格式</a>
+我们要运行参数量为7B的InternLM2.5，由[InternLM2.5的码仓](https://huggingface.co/internlm/internlm2_5-7b-chat/blob/main/config.json)查询InternLM2.5-7b-chat的config.json文件可知，<a id="权重查询">该模型的权重被存储为`bfloat16`格式</a>
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/3.png)
 
@@ -514,7 +514,7 @@ lmdeploy serve api_server \
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/33.png)
 
-根据InternVL2(https://internvl.github.io/blog/2024-07-02-InternVL-2.0/)介绍，InternVL2 26B是一个6B的ViT、一个100M的MLP以及一个19.86B的internlm组成的。
+根据[InternVL2](https://internvl.github.io/blog/2024-07-02-InternVL-2.0/)介绍，InternVL2 26B是一个6B的ViT、一个100M的MLP以及一个19.86B的internlm组成的。
 
 那么让我们来计算一下使用**A100 80GB**直接启动模型的显存占用情况：
 
