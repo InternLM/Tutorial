@@ -378,7 +378,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat-w4a16-4bit/ --model-format awq
 
 是故**23GB**=权重占用**14GB**+kv cache占用**8GB**+其它项**1GB**
 
-而对于W4A16量化之后的显存占用情况**(20.9GB**)：
+而对于W4A16量化之后的显存占用情况(**20.9GB**)：
 
 1、在 int4 精度下，7B模型权重占用**3.5GB**：**14/4=3.5GB** 
 
