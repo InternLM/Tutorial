@@ -1,6 +1,6 @@
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/111.png)
 
-1. # 配置LMDeploy环境
+# 1 配置LMDeploy环境
 
 ## 1.1 InternStudio开发机创建与环境搭建
 
@@ -93,7 +93,7 @@ studio-smi
 
 注释：实验室提供的环境为虚拟化的显存，nvidia-smi是NVIDIA GPU驱动程序的一部分，用于显示NVIDIA GPU的当前状态，故当前环境只能看80GB单卡 A100 显存使用情况，无法观测虚拟化后30%或50%A100等的显存情况。针对于此，实验室提供了studio-smi 命令工具，能够观测到虚拟化后的显存使用情况。
 
-1. # LMDeploy与InternLM2.5
+# 2 LMDeploy与InternLM2.5
 
 ## <a id="2.1"> 2.1 LMDeploy API部署InternLM2.5</a>
 
@@ -461,7 +461,7 @@ lmdeploy serve api_server \
 
 想要更极限且保证正常工作的量化设置的话，各位小伙伴可以之后自行探索，本次实践教学便止步于此了。
 
-1. # LMDeploy与InternVL2
+# 3 LMDeploy与InternVL2
 
 本次实践选用InternVL2-26B进行演示，其实就根本来说作为一款VLM和上述的InternLM2.5在操作上并无本质区别，仅是多出了"图片输入"这一额外步骤，但作为量化部署进阶实践，选用InternVL2-26B目的是带领大家体验一下LMDeploy的量化部署可以做到何种程度。
 
@@ -573,9 +573,9 @@ lmdeploy serve api_server \
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/34.png)
 
-1. # LMDeploy之FastAPI与Function call
+# 4 LMDeploy之FastAPI与Function call
 
-之前在[2.1.1 启动API服务器](#2.1.1)与[3.2.1 启动API服务器](#3.2)均是借助FastAPI封装一个API出来让LMDeploy自行进行访问，在这一章节中我们将依托于LMDeploy封装出来的API进行更加灵活更具DIY的开发。
+之前在[2.1.1 启动API服务器](#2.1.1)与[3.2 LMDeploy API部署InternVL2](#3.2)均是借助FastAPI封装一个API出来让LMDeploy自行进行访问，在这一章节中我们将依托于LMDeploy封装出来的API进行更加灵活更具DIY的开发。
 
 ## 4.1 API开发
 
