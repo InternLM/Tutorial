@@ -319,7 +319,6 @@ lmdeploy lite auto_awq \
 4. `--calib-samples 128`: 这指定了用于校准的样本数量—128个样本
 5. `--calib-seqlen 2048`: 这指定了校准过程中使用的序列长度—1024
 6. `--w-bits 4`: 这表示权重（weights）的位数将被量化为4位。
-7. `--w-group-size 128`: 这指定了权重分组的大小，这里为128。分组量化是一种量化技术，通过将权重分为多个组，并对每组执行相同的量化操作，可以减少量化误差。
 8. `--work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit`: 这是工作目录的路径，用于存储量化后的模型和中间结果。
 
 等终端输出如下时，说明正在推理中，稍待片刻。
@@ -392,7 +391,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat-w4a16-4bit/ --model-format awq
 
 是故**20.9GB**=权重占用**3.5GB**+kv cache占用**16.4GB**+其它项**1GB**
 
-### 2.2.4  W4A16 量化+ KV Cache+KV Cache 量化
+### 2.2.4  W4A16 量化+ KV cache+KV cache 量化
 
 我知道你们肯定有人在想，介绍了那么多方法，能不能全都要？当然可以！
 
@@ -451,7 +450,7 @@ lmdeploy lite auto_awq \
 
 等待推理完成，便可以在左侧/models内直接看到对应的模型文件。
 
-### 3.1.2 W4A16 量化+ KV Cache+KV Cache 量化
+### 3.1.2 W4A16 量化+ KV cache+KV cache 量化
 
 输入以下指令，让我们启用量化后的模型。
 
