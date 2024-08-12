@@ -319,7 +319,7 @@ lmdeploy lite auto_awq \
 4. `--calib-samples 128`: 这指定了用于校准的样本数量—128个样本
 5. `--calib-seqlen 2048`: 这指定了校准过程中使用的序列长度—2048
 6. `--w-bits 4`: 这表示权重（weights）的位数将被量化为4位。
-8. `--work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit`: 这是工作目录的路径，用于存储量化后的模型和中间结果。
+7. `--work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit`: 这是工作目录的路径，用于存储量化后的模型和中间结果。
 
 等终端输出如下时，说明正在推理中，稍待片刻。
 
@@ -377,7 +377,9 @@ lmdeploy chat /root/models/internlm2_5-7b-chat-w4a16-4bit/ --model-format awq
 
 是故**23GB**=权重占用**14GB**+kv cache占用**8GB**+其它项**1GB**
 
+
 而对于W4A16量化之后的显存占用情况(**20.9GB**)：
+
 
 1、在 int4 精度下，7B模型权重占用**3.5GB**：**14/4=3.5GB** 
 
