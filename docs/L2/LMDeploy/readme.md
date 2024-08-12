@@ -251,7 +251,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat --cache-max-entry-count 0.4
 
 ### 2.2.2 设置**在线** kv cache int4/int8 量化
 
-自 v0.4.0 起，LMDeploy 支持在线 kv cache int4/int8 量化，量化方式为 per-head per-token 的非对称量化。此外，通过 LMDeploy 应用 kv 量化非常简单，只需要设定 `quant_policy` 和`cache-max-entry-count`参数。目前，LMDeploy 规定 `qant_policy=4` 表示 kv int4 量化，`quant_policy=8` 表示 kv int8 量化。
+自 v0.4.0 起，LMDeploy 支持在线 kv cache int4/int8 量化，量化方式为 per-head per-token 的非对称量化。此外，通过 LMDeploy 应用 kv 量化非常简单，只需要设定 `quant_policy` 和`cache-max-entry-count`参数。目前，LMDeploy 规定 `quant_policy=4` 表示 kv int4 量化，`quant_policy=8` 表示 kv int8 量化。
 
 我们通过[2.1 LMDeploy API部署InternLM2.5](#2.1)的实践为例，输入以下指令，启动API服务器。
 
@@ -317,7 +317,7 @@ lmdeploy lite auto_awq \
 2. `/root/models/internlm2_5-7b-chat`: 模型文件的路径。
 3. `--calib-dataset 'ptb'`: 这个参数指定了一个校准数据集，这里使用的是’ptb’（Penn Treebank，一个常用的语言模型数据集）。
 4. `--calib-samples 128`: 这指定了用于校准的样本数量—128个样本
-5. `--calib-seqlen 2048`: 这指定了校准过程中使用的序列长度—1024
+5. `--calib-seqlen 2048`: 这指定了校准过程中使用的序列长度—2048
 6. `--w-bits 4`: 这表示权重（weights）的位数将被量化为4位。
 8. `--work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit`: 这是工作目录的路径，用于存储量化后的模型和中间结果。
 
