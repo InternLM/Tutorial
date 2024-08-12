@@ -215,7 +215,7 @@ kv cache是一种缓存技术，通过存储键值对的形式来复用计算结
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/19.png)
 
-占用了<a id="2.2.1 23">**23GB**</a>，那么试一试执行以下命令，再来观看占用显存情况。
+占用了<a id="2.2.23">**23GB**</a>，那么试一试执行以下命令，再来观看占用显存情况。
 
 ```Python
 lmdeploy chat /root/models/internlm2_5-7b-chat --cache-max-entry-count 0.4
@@ -276,7 +276,7 @@ lmdeploy serve api_server \
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/22.png)
 
-那么本节中**19GB**的显存占用与[2.2.1 设置最大kv cache缓存大小](#2.2.1 23)中**19GB**的显存占用区别何在呢？
+那么本节中**19GB**的显存占用与[2.2.1 设置最大kv cache缓存大小](#2.2.23)中**19GB**的显存占用区别何在呢？
 
 由于都使用BF16精度下的internlm2.5 7B模型，故剩余显存均为**10GB**，且 `cache-max-entry-count` 均为0.4，这意味着LMDeploy将分配40%的剩余显存用于kv cache，即**10GB\*0.4=4GB**。但`quant-policy` 设置为4时，意味着使用int4精度进行量化。因此，LMDeploy将会使用int4精度提前开辟**4GB**的kv cache。
 
@@ -490,7 +490,7 @@ lmdeploy serve api_server \
     /root/models/InternVL2-26B-w4a16-4bit/ \
     --model-format awq \
     --quant-policy 4 \
-    --cache-max-entry-count 0.6 \
+    --cache-max-entry-count 0.1 \
     --server-name 0.0.0.0 \
     --server-port 23333 \
     --tp 1
