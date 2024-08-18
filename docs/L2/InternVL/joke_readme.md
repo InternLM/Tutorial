@@ -1,4 +1,4 @@
-![my pic](https://github.com/user-attachments/assets/cc0989cd-557b-49af-802e-4a3a9163f0f5)
+<img width="1440" alt="WechatIMG28779" src="https://github.com/user-attachments/assets/8ae59778-7fb3-45ab-9eda-3054d910c11b">
 
 ## 写在前面（什么是InternVL）
 InternVL 是一种用于多模态任务的深度学习模型，旨在处理和理解多种类型的数据输入，如图像和文本。它结合了视觉和语言模型，能够执行复杂的跨模态任务，比如图文匹配、图像描述生成等。通过整合视觉特征和语言信息，InternVL 可以在多模态领域取得更好的表现
