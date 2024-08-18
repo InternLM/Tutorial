@@ -18,13 +18,13 @@
 
 ```bash
 # 创建虚拟环境
-conda create -n langgpt python=3.10 -y
+conda create -n spy python=3.10 -y
 ```
 
 运行下面的命令，激活虚拟环境：
 
 ```bash
-conda activate langgpt
+conda activate spy
 ```
 
 之后的操作都要在这个环境下进行。激活环境后，安装必要的Python包，依次运行下面的命令：
@@ -40,9 +40,9 @@ pip install openai==1.37.1
 
 ```bash
 # 创建项目路径
-mkdir langgpt
+mkdir spy
 # 进入项目路径
-cd langgpt
+cd spy
 ```
 
 从Github获取项目，运行如下命令：
@@ -75,7 +75,7 @@ cd Spy-Game
 from openai import OpenAI
 client = OpenAI(
     api_key="YOUR-API-KEY",
-    base_url=" https://api.siliconflow.cn/v1"
+    base_url="https://api.siliconflow.cn/v1"
 )
 
 model = "internlm/internlm2_5-7b-chat"
@@ -223,6 +223,14 @@ if "client" not in state:
 ```bash
 python -m streamlit run who_is_the_spy.py
 ```
+
+参考[L0/Linux的2.3部分](https://github.com/InternLM/Tutorial/tree/camp3/docs/L0/Linux#23-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84)进行端口映射，在本地终端中输入映射命令，可以参考如下命令：
+
+```bash
+ssh -p {ssh端口，从InternStudio获取} root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:8501 -o StrictHostKeyChecking=no
+```
+
+如果未配置开发机公钥，还需要输入密码，从InternStudio获取。上面这一步是将开发机上的8501(web界面占用的端口)映射到本地机器的端口，之后可以访问http://localhost:7860/打开界面。
 
 启动项目后，界面效果如下：
 
