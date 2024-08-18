@@ -1,18 +1,18 @@
 # 手把手带你使用InternLM实现谁是卧底游戏
 
-![https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTM0ZmQ2OGNjY2U5OTc1Y2NjMGZmMDUxYWZmYWYwYTFfc0pMd0k2S0JsdFZCRlN2Rmt6WXJrSUdIU1NBcDNjQzNfVG9rZW46UDV0RWJKbkNvb1NqTGJ4NjAyUWNpTE40bnhiXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTM0ZmQ2OGNjY2U5OTc1Y2NjMGZmMDUxYWZmYWYwYTFfc0pMd0k2S0JsdFZCRlN2Rmt6WXJrSUdIU1NBcDNjQzNfVG9rZW46UDV0RWJKbkNvb1NqTGJ4NjAyUWNpTE40bnhiXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA)
+![](https://files.mdnice.com/user/56306/3fa10dd4-7285-4b6c-b680-ae6aeb40b51f.png)
 
 # 1. 准备工作
 
 首先，学习[前置基础内容的Linux](https://github.com/InternLM/Tutorial/tree/camp3/docs/L0/Linux)部分，并在InternStudio平台上创建开发机。
 
-![https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MWU5Y2FlZTdiYTFmYWZjN2QyMWFjMDU2YzZiY2ZmMWZfYUFaT05tU2g4NUNFaGQ4Tk00N0VtcUlhUU03UGpLMEJfVG9rZW46RU03TmJpdk4xb1NGaEh4OXhFbWNjNVlEbmdkXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MWU5Y2FlZTdiYTFmYWZjN2QyMWFjMDU2YzZiY2ZmMWZfYUFaT05tU2g4NUNFaGQ4Tk00N0VtcUlhUU03UGpLMEJfVG9rZW46RU03TmJpdk4xb1NGaEh4OXhFbWNjNVlEbmdkXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA)
+![](https://files.mdnice.com/user/56306/85ca60ce-22a6-4600-ae5a-8cebba69d218.png)
 
 创建成功后点击`进入开发机`打开WebIDE。进入后在WebIDE的左上角有三个logo，依次表示JupyterLab、Terminal和Code Server，本节需要使用**Terminal**和**Code Server**。
 
 ## 1.1 环境配置
 
-![https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmQyZmI0NGRlZTIzN2Q4ODJlYzQ4YzMzZjU0YjY0ZDRfMzNSeGhLaWhDODNnSUQzZkw3dUEzQ3hSbm5RRmZrSFNfVG9rZW46VzFSbmJuNkRrb3RWeVB4TktYdGNucEd6blRnXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmQyZmI0NGRlZTIzN2Q4ODJlYzQ4YzMzZjU0YjY0ZDRfMzNSeGhLaWhDODNnSUQzZkw3dUEzQ3hSbm5RRmZrSFNfVG9rZW46VzFSbmJuNkRrb3RWeVB4TktYdGNucEd6blRnXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA)
+![](https://files.mdnice.com/user/56306/b7d74713-a10c-43a8-a884-427d906286ad.png)
 
 首先点击左上角图标，打开Terminal，运行如下脚本创建虚拟环境：
 
@@ -63,11 +63,11 @@ cd Spy-Game
 
 本次实践由硅基流动(siliconflow)提供模型接口支持，首先访问其官方网站：[https://cloud.siliconflow.cn](https://cloud.siliconflow.cn/)。接下来注册账户并登录
 
-![https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MzVmZDRkYWJkNjJmMTQ5MGRiYTRlZGYxZDk3ZmQyNTNfZDUwd2dyUUZQalBweHI5N1FrcnE5Q29PWUFzVWxLWjVfVG9rZW46Smg5aGJYNzEyb2NjYXB4alR0VmNITDNPbm1iXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MzVmZDRkYWJkNjJmMTQ5MGRiYTRlZGYxZDk3ZmQyNTNfZDUwd2dyUUZQalBweHI5N1FrcnE5Q29PWUFzVWxLWjVfVG9rZW46Smg5aGJYNzEyb2NjYXB4alR0VmNITDNPbm1iXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA)
+![](https://files.mdnice.com/user/56306/e4986fa4-cf45-44dd-b25c-9d94f52082a7.png)
 
 之后点击左侧边栏的“API密钥”，创建访问模型服务的API Key。
 
-![https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTQ2OTkxY2JhMGFjZDhkNDA3Njc5M2M5YzI0MThkOWVfcXQ2TE1KcmhHWXdXbnJzbDFocVJ2WndJSkkyRWVCVUFfVG9rZW46UFRvTGJwUzFrb1RIaGZ4b09XaWM1YnJsbnljXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTQ2OTkxY2JhMGFjZDhkNDA3Njc5M2M5YzI0MThkOWVfcXQ2TE1KcmhHWXdXbnJzbDFocVJ2WndJSkkyRWVCVUFfVG9rZW46UFRvTGJwUzFrb1RIaGZ4b09XaWM1YnJsbnljXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA)
+![](https://files.mdnice.com/user/56306/5917706a-353f-4d65-a029-da9d00c92504.png)
 
 之后可以使用下面的代码测试接口能否成功访问：
 
@@ -186,11 +186,39 @@ print(response.choices[0].message.content)
 
 本游戏中，主要的执行流程为：保存游戏设置→AI玩家开始一轮描述→人类玩家描述→AI玩家根据描述历史投票→人类玩家投票并投出玩家→判断是否满足胜利条件→开始下一轮游戏
 
-![https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MTc2Mzk0OTQ4NjgwZjJmZDI0YzUzZGJiZGU1ZTQzMjlfc1kzMG1tQVRMdFp3aVBNVkVyNTRldUo3UVRWY1lmcllfVG9rZW46RlR5SWJqeGMzb1h6ajd4RDdNU2NGSHlpbjJZXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MTc2Mzk0OTQ4NjgwZjJmZDI0YzUzZGJiZGU1ZTQzMjlfc1kzMG1tQVRMdFp3aVBNVkVyNTRldUo3UVRWY1lmcllfVG9rZW46RlR5SWJqeGMzb1h6ajd4RDdNU2NGSHlpbjJZXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA)
+![](https://files.mdnice.com/user/56306/198a6081-c145-4a9c-80a6-6cefce207166.png)
 
 # 3. 整体效果
 
-运行下面的命令启动项目：
+为了运行项目，首先需要利用Code Server打开`who_is_the_spy.py`文件。
+
+![](https://files.mdnice.com/user/56306/d52ae8c5-ecff-404e-a594-a9f3e14ba648.png)
+
+找到下面的代码：
+
+```python
+if "client" not in state:
+    state.client = OpenAI(
+        api_key="internlm2",
+        base_url="http://0.0.0.0:23333/v1"
+    )
+    state.model_name = state.client.models.list().data[0].id
+    pass
+```
+
+将其中的api_key、base_url及state.model_name替换为从硅基流动获取的相关内容，可以将这部分替换为：
+
+```python
+if "client" not in state:
+    state.client = OpenAI(
+        api_key="YOUR-API-KEY",
+        base_url="https://api.siliconflow.cn/v1"
+    )
+    state.model_name = "internlm/internlm2_5-20b-chat"
+    pass
+```
+
+替换完成后，返回terminal界面，运行下面的命令启动项目：
 
 ```bash
 python -m streamlit run who_is_the_spy.py
@@ -198,7 +226,7 @@ python -m streamlit run who_is_the_spy.py
 
 启动项目后，界面效果如下：
 
-![https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MTA4N2VkN2E5MDZmZmI3YTlkZDljZDE4ZWI2MzU5NjZfd3hLR0dFWlZKZWhhblBvOE5XYWo0cXZTVTViM3dYMk1fVG9rZW46UmtKQmJpOHFsbzVacjV4UmR6UmNpOGtVbnlmXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MTA4N2VkN2E5MDZmZmI3YTlkZDljZDE4ZWI2MzU5NjZfd3hLR0dFWlZKZWhhblBvOE5XYWo0cXZTVTViM3dYMk1fVG9rZW46UmtKQmJpOHFsbzVacjV4UmR6UmNpOGtVbnlmXzE3MjM5NzIxNjQ6MTcyMzk3NTc2NF9WNA)
+![](https://files.mdnice.com/user/56306/793a2d10-2c40-4eb5-862a-3aa2b8f00be6.png)
 
 ## 参考资料
 
