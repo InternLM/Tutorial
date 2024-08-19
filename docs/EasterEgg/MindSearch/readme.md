@@ -1,92 +1,74 @@
-# 【实战营彩蛋】MindSearch 快速部署（InternStudio 版）
+# MindSearch CPU-only 版部署
 
-选择 InternStudio 算力平台 50% A100 的 cuda 12.2 的开发机，并使用ssh vscode 远程连接到开发机。
+随着硅基流动提供了免费的 InternLM2.5-7B-Chat 服务（免费的 InternLM2.5-7B-Chat 真的很香），MindSearch 的部署与使用也就迎来了纯 CPU 版本，进一步降低了部署门槛。那就让我们来一起看看如何使用硅基流动的 API 来部署 MindSearch 吧。
 
-<img width="1434" alt="image" src="https://github.com/user-attachments/assets/8d5b20bd-ca1d-4a87-ad38-47efeb48968f">
+接下来，我们以 InternStudio 算力平台为例，来部署 CPU-only 的 MindSearch 。
 
-MindSearch（欢迎 Star）：https://github.com/InternLM/MindSearch 
+## 1. 创建开发机 & 环境配置
 
+由于是 CPU-only，所以我们选择 10% A100 开发机即可，镜像方面选择 cuda-12.2。
 
-## 1. 使用免费的搜索接口
+然后我们新建一个目录用于存放 MindSearch 的相关代码，并把 MindSearch 仓库 clone 下来。
 
-### 1.1 激活环境
-
-小助手提前帮大家安装好了环境，只需要一步一步按照下面的步骤便可以启动 MindSearch。
-
-```shell
-conda activate /share/pre_envs/mindsearch
+```bash
+mkdir -p /root/mindsearch
+cd /root/mindsearch
+git clone https://github.com/InternLM/MindSearch.git
+cd MindSearch && git checkout b832275 && cd ..
 ```
 
-### 1.2. 启动后端
+接下来，我们创建一个 conda 环境来安装相关依赖。
 
-打开新终端运行以下命令启动推理后端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 8002 端口。
-
-```
-conda activate /share/pre_envs/mindsearch
-cd /share/demo/MindSearchDuck
-
-python -m mindsearch.app --lang cn --model_format internstudio_server
-```
-
-### 1.3. 启动前端
-
-打开新终端运行以下命令启动前端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 7860 端口。
-
-
-```shell
-conda activate /share/pre_envs/mindsearch
-cd /share/demo/MindSearchDuck
-
-python run.py
+```bash
+# 创建环境
+conda create -n mindsearch python=3.10 -y
+# 激活环境
+conda activate mindsearch
+# 安装依赖
+pip install -r /root/mindsearch/MindSearch/requirements.txt
 ```
 
-本地浏览器打开 http://localhost:7860 地址，开始 MindSearch 之旅。
+## 2. 获取硅基流动 API Key
 
+因为要使用硅基流动的 API Key，所以接下来便是注册并获取 API Key 了。
 
-## 2. 使用 Bing 的接口
+首先，我们打开 https://account.siliconflow.cn/login 来注册硅基流动的账号（如果注册过，则直接登录即可）。
 
+在完成注册后，打开 https://cloud.siliconflow.cn/account/ak 来准备 API Key。首先创建新 API 密钥，然后点击密钥进行复制，以备后续使用。
 
-Bing API Key 获取网址（尽量选高一点的定价）：https://www.microsoft.com/en-us/bing/apis/bing-web-search-api
+![image](https://github.com/user-attachments/assets/7905a2fc-ef30-4e33-b214-274bebdc9251)
 
-![image](https://github.com/user-attachments/assets/6f82389e-0f2a-4a42-a423-0e0608d016ab)
+## 3. 启动 MindSearch
 
+### 3.1 启动后端
 
-![image](https://github.com/user-attachments/assets/619e7585-c170-4ea8-a508-45de50385c98)
+由于硅基流动 API 的相关配置已经集成在了 MindSearch 中，所以我们可以直接执行下面的代码来启动 MindSearch 的后端。
 
-
-### 2.1 激活环境
-
-小助手提前帮大家安装好了环境，只需要一步一步按照下面的步骤便可以启动 MindSearch。
-
-```shell
-conda activate /share/pre_envs/mindsearch
+```bash
+export SILICON_API_KEY=第二步中复制的密钥
+conda activate mindsearch
+cd /root/mindsearch/MindSearch
+python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine DuckDuckGoSearch
 ```
 
-### 2.2. 启动后端
+### 3.2 启动前端
 
-打开新终端运行以下命令启动推理后端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 8002 端口。
+在后端启动完成后，我们打开新终端运行如下命令来启动 MindSearch 的前端。
 
-
-```shell
-export BING_API_KEY='替换你的APIKey'
+```bash
+conda activate mindsearch
+cd /root/mindsearch/MindSearch
+python frontend/mindsearch_gradio.py
 ```
 
-```shell
-conda activate /share/pre_envs/mindsearch
-cd /share/demo/MindSearchBing
+最后，我们把 8002 端口和 7882 端口都映射到本地。可以在**本地**的 powershell 中执行如下代码：
 
-python -m mindsearch.app --lang cn --model_format internstudio_server
+```bash
+ssh -CNg -L 8002:127.0.0.1:8002 -L 7882:127.0.0.1:7882 root@ssh.intern-ai.org.cn -p <你的 SSH 端口号>
 ```
 
-### 2.3. 启动前端
+然后，我们在**本地**浏览器中打开 `localhost:7882` 即可体验啦。
 
-打开新终端运行以下命令启动前端，使用入门岛中学到的方式使用 vscode 或者 ssh 将端口映射到本地 7860 端口。
+![image](https://github.com/user-attachments/assets/633a550a-06f1-459f-8e7b-86d99deba61b)
 
-
-```shell
-conda activate /share/pre_envs/mindsearch
-cd /share/demo/MindSearchBing
-
-python run.py
-```
-
+如果遇到了 timeout 的问题，可以按照 [文档](./readme_gpu.md#2-使用-bing-的接口) 换用 Bing 的搜索接口。
