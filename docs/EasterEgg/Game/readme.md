@@ -61,7 +61,7 @@ cd Spy-Game
 
 ### 1.3 模型接口获取与测试
 
-本次实践由硅基流动(siliconflow)提供模型接口支持，首先访问其官方网站：[https://cloud.siliconflow.cn](https://cloud.siliconflow.cn/)。接下来注册账户并登录
+本次实践由硅基流动(siliconflow)提供模型接口支持，首先访问其官方网站：[https://cloud.siliconflow.cn/s/internlm](https://cloud.siliconflow.cn/s/internlm)。接下来注册账户并登录
 
 ![](https://files.mdnice.com/user/56306/e4986fa4-cf45-44dd-b25c-9d94f52082a7.png)
 
