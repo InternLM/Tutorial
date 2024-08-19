@@ -243,7 +243,7 @@ max_length = 6656
 batch_size = 4  # per_device
 accumulative_counts = 4
 dataloader_num_workers = 4
-max_epochs = 1
+max_epochs = 6
 optim_type = AdamW
 # official 1024 -> 4e-5
 lr = 2e-5
@@ -402,6 +402,8 @@ log_processor = dict(by_epoch=False)
 这里使用之前搞好的configs进行训练。咱们要调整一下batch size，并且使用qlora。要不半卡不够用的 QAQ。
 
 ```bash
+cd XTuner
+
 NPROC_PER_NODE=1 xtuner train /root/InternLM/code/XTuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_qlora_finetune.py  --work-dir /root/InternLM/work_dir/internvl_ft_run_8_filter  --deepspeed deepspeed_zero1
 ```
 
