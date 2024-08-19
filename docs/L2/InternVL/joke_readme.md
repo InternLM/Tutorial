@@ -414,7 +414,7 @@ NPROC_PER_NODE=1 xtuner train /root/InternLM/code/XTuner/xtuner/configs/internvl
 用官方脚本进行权重合并
 
 ```bash
-python3 xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/internvl/v2/internvl_v2_internlm2_5_8b_qlora_finetune.py /root/InternLM/work_dir/internvl_ft_run_8_filter/iter_3000.pth /root/InternLM/InternVL2-2B/
+python3 xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_qlora_finetune.py /root/InternLM/work_dir/internvl_ft_run_8_filter/iter_3000.pth /root/InternLM/InternVL2-2B/
 ```
 
 最后我们的模型在：/root/InternLM/convert_model/，文件格式：
@@ -452,7 +452,7 @@ from lmdeploy.vl import load_image
 
 pipe = pipeline('/root/InternLM/InternVL2-2B')
 
-image = load_image('/root/InternLM/256321723775630_.pic.jpg')
+image = load_image('/root/InternLM/007aPnLRgy1hb39z0im50j30ci0el0wm.jpg')
 response = pipe(('请你根据这张图片，讲一个脑洞大开的梗', image))
 print(response.text)
 ```
