@@ -33,7 +33,7 @@ Pixel Shuffle在超分任务中是一个常见的操作，PyTorch中有官方实
 cd /root
 mkdir -p model
 
-cp 模型
+# cp 模型
 
 cp -r /root/share/new_models/OpenGVLab/InternVL2-2B /root/model/
 ```
