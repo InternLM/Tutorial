@@ -14,7 +14,7 @@ InternVL 是一种用于多模态任务的深度学习模型，旨在处理和�
 
 ## Dynamic High Resolution
 
-动态高分辨率，为了让ViT模型能够尽可能获取到更细节的图像信息，提高视觉特征的表达能力。对于输入的图片，首先resize成448的倍数，然后按照预定义的尺寸比例从图片上crop对应的区域。细节如图所示。
+InternVL独特的预处理模块：动态高分辨率，是为了让ViT模型能够尽可能获取到更细节的图像信息，提高视觉特征的表达能力。对于输入的图片，首先resize成448的倍数，然后按照预定义的尺寸比例从图片上crop对应的区域。细节如图所示。
 
 ![image](https://github.com/user-attachments/assets/c49fef28-0818-432f-bc52-1170e2207f44)
 
@@ -163,7 +163,11 @@ python3 test_lmdeploy.py
 ```
 
 #### 推理后
+
+> 推理出来有什么文字是纯随机的，并不一定和展示结果完全一致哦～
+
 推理后我们发现直接使用2b模型不能很好的讲出梗，现在我们要对这个2b模型进行微调。
+
 ![image](https://github.com/user-attachments/assets/3bc5bb1f-5ab4-40f0-817a-8d11ec52b48d)
 
 ### InternVL 微调攻略
@@ -413,7 +417,11 @@ NPROC_PER_NODE=1 xtuner train /root/InternLM/code/XTuner/xtuner/configs/internvl
 
 用官方脚本进行权重合并
 
+> 如果这里你执行的epoch不是6，是小一些的数字。你可能会发现internvl_ft_run_8_filter下没有iter_3000.pth, 那你需要把iter_3000.pth切换成你internvl_ft_run_8_filter目录下的pth即可。
+
 ```bash
+cd XTuner
+# transfer weights
 python3 xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_qlora_finetune.py /root/InternLM/work_dir/internvl_ft_run_8_filter/iter_3000.pth /root/InternLM/InternVL2-2B/
 ```
 
@@ -444,7 +452,7 @@ python3 xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/inter
 
 ![image](https://github.com/user-attachments/assets/8a802287-5472-4630-adcd-e671f0cc8b3c)
 
-我们把这行代码替换一下，然后跑一下效果。
+我们把下面的代码替换进test_lmdeploy.py中，然后跑一下效果。
 
 ```python
 from lmdeploy import pipeline
@@ -455,6 +463,12 @@ pipe = pipeline('/root/InternLM/InternVL2-2B')
 image = load_image('/root/InternLM/007aPnLRgy1hb39z0im50j30ci0el0wm.jpg')
 response = pipe(('请你根据这张图片，讲一个脑洞大开的梗', image))
 print(response.text)
+```
+
+```python
+cd /root/InternLM/code
+
+python3 test_lmdeploy.py
 ```
 
 效果还不错吧～哈哈哈。
