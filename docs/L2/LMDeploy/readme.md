@@ -314,7 +314,7 @@ lmdeploy lite auto_awq \
   --work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit
 ```
 
-**完成作业时请使用以下命令：(建议运行以下命令)**
+**完成作业时请使用1.8B模型进行量化：(建议运行以下命令)**
 
 ```
 lmdeploy lite auto_awq \
