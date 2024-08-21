@@ -46,7 +46,7 @@ ln -s /root/share/new_models/OpenGVLab/InternVL2-26B /root/models
 
 此时，我们可以看到`/root/models`中会出现`internlm2_5-7b-chat`、`internlm2_5-1_8b-chat`和`InternVL2-26B`文件夹。
 
-教程使用internlm2_5-7b-chat和InternVL2-26B作为演示。由于上述模型量化会消耗大量时间(约莫8h)，**作业请使用internlm2_5-1_8b-chat模型**完成(约莫2h)。
+教程使用internlm2_5-7b-chat和InternVL2-26B作为演示。由于上述模型量化会消耗大量时间(约莫8h)，**作业请使用internlm2_5-1_8b-chat模型**完成。
 
 ## <a id="1.3">1.3 LMDeploy验证启动模型文件</a>
 
