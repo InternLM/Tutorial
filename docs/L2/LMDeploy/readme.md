@@ -39,11 +39,14 @@ pip install timm==1.0.8 openai==1.40.3 lmdeploy[all]==0.5.3
 
 ```Plain
 mkdir /root/models
-ln -s /root/share/new_models//Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/models
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/models
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat /root/models
 ln -s /root/share/new_models/OpenGVLab/InternVL2-26B /root/models
 ```
 
-此时，我们可以看到`/root/models`中会出现`internlm2_5-7b-chat`和`InternVL2-26B`文件夹。
+此时，我们可以看到`/root/models`中会出现`internlm2_5-7b-chat`、`internlm2_5-1_8b-chat`和`InternVL2-26B`文件夹。
+
+教程使用internlm2_5-7b-chat和InternVL2-26B作为演示。由于上述模型量化会消耗大量时间(约莫8h)，**作业请使用internlm2_5-1_8b-chat模型**完成(约莫2h)。
 
 ## <a id="1.3">1.3 LMDeploy验证启动模型文件</a>
 
@@ -311,6 +314,21 @@ lmdeploy lite auto_awq \
   --work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit
 ```
 
+**完成作业时请使用以下命令：**
+
+```
+lmdeploy lite auto_awq \
+   /root/models/internlm2_5-1_8b-chat \
+  --calib-dataset 'ptb' \
+  --calib-samples 128 \
+  --calib-seqlen 2048 \
+  --w-bits 4 \
+  --w-group-size 128 \
+  --batch-size 1 \
+  --search-scale False \
+  --work-dir /root/models/internlm2_5-1_8b-chat-w4a16-4bit
+```
+
 命令解释：
 
 1. `lmdeploy lite auto_awq`: `lite`这是LMDeploy的命令，用于启动量化过程，而`auto_awq`代表自动权重量化（auto-weight-quantization）。
@@ -522,6 +540,20 @@ lmdeploy serve api_server \
 conda activate lmdeploy
 lmdeploy serve api_server \
     /root/models/internlm2_5-7b-chat-w4a16-4bit \
+    --model-format awq \
+    --cache-max-entry-count 0.4 \
+    --quant-policy 4 \
+    --server-name 0.0.0.0 \
+    --server-port 23333 \
+    --tp 1
+```
+
+**完成作业时请使用以下命令：**
+
+```
+conda activate lmdeploy
+lmdeploy serve api_server \
+    /root/models/internlm2_5-1_8b-chat-w4a16-4bit \
     --model-format awq \
     --cache-max-entry-count 0.4 \
     --quant-policy 4 \
