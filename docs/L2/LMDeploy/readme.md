@@ -299,7 +299,7 @@ lmdeploy serve api_server \
 - 权重被量化为4位整数。
 - 激活保持为16位浮点数。
 
-让我们回到LMDeploy，在最新的版本中，LMDeploy使用的是AWQ算法，能够实现模型的4bit权重量化。输入以下指令，执行量化工作。**(不建议运行，量化需要8h)**
+让我们回到LMDeploy，在最新的版本中，LMDeploy使用的是AWQ算法，能够实现模型的4bit权重量化。输入以下指令，执行量化工作。**(不建议运行，在InternStudio上运行需要8小时)**
 
 ```Python
 lmdeploy lite auto_awq \
