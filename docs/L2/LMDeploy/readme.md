@@ -46,7 +46,7 @@ ln -s /root/share/new_models/OpenGVLab/InternVL2-26B /root/models
 
 此时，我们可以看到`/root/models`中会出现`internlm2_5-7b-chat`、`internlm2_5-1_8b-chat`和`InternVL2-26B`文件夹。
 
-教程使用internlm2_5-7b-chat和InternVL2-26B作为演示。由于上述模型量化会消耗大量时间(约莫8h)，**量化作业请使用internlm2_5-1_8b-chat模型**完成。
+教程使用internlm2_5-7b-chat和InternVL2-26B作为演示。由于上述模型量化会消耗大量时间(约8h)，**量化作业请使用internlm2_5-1_8b-chat模型**完成。
 
 ## <a id="1.3">1.3 LMDeploy验证启动模型文件</a>
 
@@ -299,7 +299,7 @@ lmdeploy serve api_server \
 - 权重被量化为4位整数。
 - 激活保持为16位浮点数。
 
-让我们回到LMDeploy，在最新的版本中，LMDeploy使用的是AWQ算法，能够实现模型的4bit权重量化。输入以下指令，执行量化工作。(本步骤耗时较长，请耐心等待)
+让我们回到LMDeploy，在最新的版本中，LMDeploy使用的是AWQ算法，能够实现模型的4bit权重量化。输入以下指令，执行量化工作。**(不建议运行，量化需要8h)**
 
 ```Python
 lmdeploy lite auto_awq \
@@ -314,7 +314,7 @@ lmdeploy lite auto_awq \
   --work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit
 ```
 
-**完成作业时请使用以下命令：**
+**完成作业时请使用以下命令：(建议运行以下命令)**
 
 ```
 lmdeploy lite auto_awq \
