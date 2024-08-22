@@ -39,11 +39,14 @@ pip install timm==1.0.8 openai==1.40.3 lmdeploy[all]==0.5.3
 
 ```Plain
 mkdir /root/models
-ln -s /root/share/new_models//Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/models
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/models
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat /root/models
 ln -s /root/share/new_models/OpenGVLab/InternVL2-26B /root/models
 ```
 
-此时，我们可以看到`/root/models`中会出现`internlm2_5-7b-chat`和`InternVL2-26B`文件夹。
+此时，我们可以看到`/root/models`中会出现`internlm2_5-7b-chat`、`internlm2_5-1_8b-chat`和`InternVL2-26B`文件夹。
+
+教程使用internlm2_5-7b-chat和InternVL2-26B作为演示。由于上述模型量化会消耗大量时间(约8h)，**量化作业请使用internlm2_5-1_8b-chat模型**完成。
 
 ## <a id="1.3">1.3 LMDeploy验证启动模型文件</a>
 
@@ -215,7 +218,7 @@ kv cache是一种缓存技术，通过存储键值对的形式来复用计算结
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/19.png)
 
-占用了<a id="2.2.1 23">**23GB**</a>，那么试一试执行以下命令，再来观看占用显存情况。
+占用了<a id="2.2.23">**23GB**</a>，那么试一试执行以下命令，再来观看占用显存情况。
 
 ```Python
 lmdeploy chat /root/models/internlm2_5-7b-chat --cache-max-entry-count 0.4
@@ -251,7 +254,7 @@ lmdeploy chat /root/models/internlm2_5-7b-chat --cache-max-entry-count 0.4
 
 ### 2.2.2 设置**在线** kv cache int4/int8 量化
 
-自 v0.4.0 起，LMDeploy 支持在线 kv cache int4/int8 量化，量化方式为 per-head per-token 的非对称量化。此外，通过 LMDeploy 应用 kv 量化非常简单，只需要设定 `quant_policy` 和`cache-max-entry-count`参数。目前，LMDeploy 规定 `qant_policy=4` 表示 kv int4 量化，`quant_policy=8` 表示 kv int8 量化。
+自 v0.4.0 起，LMDeploy 支持在线 kv cache int4/int8 量化，量化方式为 per-head per-token 的非对称量化。此外，通过 LMDeploy 应用 kv 量化非常简单，只需要设定 `quant_policy` 和`cache-max-entry-count`参数。目前，LMDeploy 规定 `quant_policy=4` 表示 kv int4 量化，`quant_policy=8` 表示 kv int8 量化。
 
 我们通过[2.1 LMDeploy API部署InternLM2.5](#2.1)的实践为例，输入以下指令，启动API服务器。
 
@@ -276,7 +279,7 @@ lmdeploy serve api_server \
 
 ![img](https://raw.githubusercontent.com/BigWhiteFox/pictures/main/22.png)
 
-那么本节中**19GB**的显存占用与[2.2.1 设置最大kv cache缓存大小](#2.2.1 23)中**19GB**的显存占用区别何在呢？
+那么本节中**19GB**的显存占用与[2.2.1 设置最大kv cache缓存大小](#2.2.23)中**19GB**的显存占用区别何在呢？
 
 由于都使用BF16精度下的internlm2.5 7B模型，故剩余显存均为**10GB**，且 `cache-max-entry-count` 均为0.4，这意味着LMDeploy将分配40%的剩余显存用于kv cache，即**10GB\*0.4=4GB**。但`quant-policy` 设置为4时，意味着使用int4精度进行量化。因此，LMDeploy将会使用int4精度提前开辟**4GB**的kv cache。
 
@@ -296,7 +299,7 @@ lmdeploy serve api_server \
 - 权重被量化为4位整数。
 - 激活保持为16位浮点数。
 
-让我们回到LMDeploy，在最新的版本中，LMDeploy使用的是AWQ算法，能够实现模型的4bit权重量化。输入以下指令，执行量化工作。(本步骤耗时较长，请耐心等待)
+让我们回到LMDeploy，在最新的版本中，LMDeploy使用的是AWQ算法，能够实现模型的4bit权重量化。输入以下指令，执行量化工作。**(不建议运行，在InternStudio上运行需要8小时)**
 
 ```Python
 lmdeploy lite auto_awq \
@@ -311,13 +314,28 @@ lmdeploy lite auto_awq \
   --work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit
 ```
 
+**完成作业时请使用1.8B模型进行量化：(建议运行以下命令)**
+
+```
+lmdeploy lite auto_awq \
+   /root/models/internlm2_5-1_8b-chat \
+  --calib-dataset 'ptb' \
+  --calib-samples 128 \
+  --calib-seqlen 2048 \
+  --w-bits 4 \
+  --w-group-size 128 \
+  --batch-size 1 \
+  --search-scale False \
+  --work-dir /root/models/internlm2_5-1_8b-chat-w4a16-4bit
+```
+
 命令解释：
 
 1. `lmdeploy lite auto_awq`: `lite`这是LMDeploy的命令，用于启动量化过程，而`auto_awq`代表自动权重量化（auto-weight-quantization）。
 2. `/root/models/internlm2_5-7b-chat`: 模型文件的路径。
 3. `--calib-dataset 'ptb'`: 这个参数指定了一个校准数据集，这里使用的是’ptb’（Penn Treebank，一个常用的语言模型数据集）。
 4. `--calib-samples 128`: 这指定了用于校准的样本数量—128个样本
-5. `--calib-seqlen 2048`: 这指定了校准过程中使用的序列长度—1024
+5. `--calib-seqlen 2048`: 这指定了校准过程中使用的序列长度—2048
 6. `--w-bits 4`: 这表示权重（weights）的位数将被量化为4位。
 7. `--work-dir /root/models/internlm2_5-7b-chat-w4a16-4bit`: 这是工作目录的路径，用于存储量化后的模型和中间结果。
 
@@ -490,7 +508,7 @@ lmdeploy serve api_server \
     /root/models/InternVL2-26B-w4a16-4bit/ \
     --model-format awq \
     --quant-policy 4 \
-    --cache-max-entry-count 0.6 \
+    --cache-max-entry-count 0.1 \
     --server-name 0.0.0.0 \
     --server-port 23333 \
     --tp 1
@@ -522,6 +540,20 @@ lmdeploy serve api_server \
 conda activate lmdeploy
 lmdeploy serve api_server \
     /root/models/internlm2_5-7b-chat-w4a16-4bit \
+    --model-format awq \
+    --cache-max-entry-count 0.4 \
+    --quant-policy 4 \
+    --server-name 0.0.0.0 \
+    --server-port 23333 \
+    --tp 1
+```
+
+**完成作业时请使用以下命令：**
+
+```
+conda activate lmdeploy
+lmdeploy serve api_server \
+    /root/models/internlm2_5-1_8b-chat-w4a16-4bit \
     --model-format awq \
     --cache-max-entry-count 0.4 \
     --quant-policy 4 \
