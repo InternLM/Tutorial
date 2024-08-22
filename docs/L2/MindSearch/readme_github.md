@@ -8,9 +8,13 @@
 
 ## 1. 创建开发机 & 环境配置
 
-我们首先打开项目地址https://github.com/InternLM/Tutorial/tree/camp3，然后依次点击code-workspace-加号，浏览器会新开一个网页版的vscode。
+我们首先打开项目地址https://github.com/InternLM/Tutorial/tree/camp3，然后依次点击code-workspace-加号
+<img width="506" alt="image" src="https://github.com/user-attachments/assets/fd247b3d-930c-45c4-9d2f-84248bd29acf">
+浏览器会新开一个网页版的vscode
+<img width="1078" alt="image" src="https://github.com/user-attachments/assets/65ba575d-7b6c-4927-866f-ddbed8a9c8d8">
 
-然后我们新建一个目录用于存放 MindSearch 的相关代码，并把 MindSearch 仓库 clone 下来。
+
+然后我们新建一个目录用于存放 MindSearch 的相关代码，并把 MindSearch 仓库 clone 下来。在终端中运行下面的命令：
 
 ```bash
 mkdir -p /workspaces/mindsearch
@@ -68,6 +72,7 @@ python frontend/mindsearch_gradio.py
  `https://c09c305fed85e0f0c5.gradio.live/` 然后就可以即刻体验啦。
 
 ![image](https://github.com/user-attachments/assets/633a550a-06f1-459f-8e7b-86d99deba61b)
+<img width="1489" alt="image" src="https://github.com/user-attachments/assets/28f5658c-19a6-4a46-9bc9-51f4923a012c">
 
 如果遇到了 timeout 的问题，可以按照 [文档](./readme_gpu.md#2-使用-bing-的接口) 换用 Bing 的搜索接口。
 
