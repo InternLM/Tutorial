@@ -46,7 +46,7 @@ export PATH=/root/android/android-studio/sdk/cmake/3.22.1/bin:$PATH
 ```
 ## 2 转换模型
 ### 2.1 安装mlc-llm
-参考[https://llm.mlc.ai/docs/install/mlc_llm.html](https://llm.mlc.ai/docs/install/mlc_llm.html)，安装`mlc-llm`可能需要代理
+参考[https://llm.mlc.ai/docs/install/mlc_llm.html](https://llm.mlc.ai/docs/install/mlc_llm.html)，安装`mlc-llm`可能**需要代理**
 
 安装`pytorch`部分也可以使用其他包含`torch`的`conda`环境
 ```
@@ -70,9 +70,14 @@ cd mlc-llm
 git submodule update --init --recursive
 ```
 
-### 2.2 转换参数
+### 2.2 (可选)转换参数
+（如果不想上传到huggingface可以跳过这一步，有公开上传的）
+
 使用 `mlc_llm` 的 `convert_weight` 对模型参数进行转换和量化，转换后的参数可以跨平台使用
+
 ```
+mkdir -p /root/models/
+ln -s /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat /root/models/internlm2_5-1_8b-chat
 cd android/MLCChat  
 export TVM_SOURCE_DIR=/root/android/mlc-llm/3rdparty/tvm
 export MLC_LLM_SOURCE_DIR=/root/android/mlc-llm
@@ -80,7 +85,9 @@ mlc_llm convert_weight /root/models/internlm2_5-1_8b-chat/ \
     --quantization q4f16_1 \
     -o dist/internlm2_5-1_8b-chat-q4f16_1-MLC
 ```
-### 2.3 生成配置
+### 2.3 (可选)生成配置
+（如果不想上传到huggingface可以跳过这一步，有公开上传的）
+
 使用 `mlc_llm` 的 `gen_config` 生成 `mlc-chat-config.json` 并处理 `tokenizer`
 
 出现提示时输入`y`
@@ -92,12 +99,16 @@ mlc_llm gen_config /root/models/internlm2_5-1_8b-chat/  \
     -o dist/internlm2_5-1_8b-chat-q4f16_1-MLC
 Do you wish to run the custom code? [y/N] y
 ```
-### 2.4 上传到huggingface
-上传这一步需要能访问huggingface，可能需要部署代理
-如果没有代理可以直接在接下来的配置中使用如下链接的模型（和文档中的转换方法一样）
+### 2.4 (可选)上传到huggingface
+上传这一步需要能访问huggingface，可能需要**部署代理**并耗费一定流量
+
+具体方法可以参考网上的大量教程
+
+如果不想上传到huggingface可以跳过这一步，直接在接下来的配置中使用如下链接的模型（和文档中的转换方法一样）
 [https://huggingface.co/timws/internlm2_5-1_8b-chat-q4f16_1-MLC](https://huggingface.co/timws/internlm2_5-1_8b-chat-q4f16_1-MLC)
-### 2.5  (可选) 测试转换的模型
+### 2.5 (可选) 测试转换的模型
 在打包之前可以测试模型效果，需要编译成二进制文件
+
 在个人电脑上运行测试代码正常，**InternStudio**上**暂未成功**
 ```
 
