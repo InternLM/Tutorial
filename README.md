@@ -42,6 +42,7 @@
 |第 3 关| LMDeploy 量化部署进阶实践 | [任务](docs/L2/LMDeploy/task.md)、[文档](docs/L2/LMDeploy/readme.md)、[视频](https://www.bilibili.com/video/BV1df421q7cR/)| 100元算力点 |
 |第 4 关| InternVL 多模态模型部署微调实践 | [任务](https://github.com/InternLM/Tutorial/tree/camp3/docs/L2/InternVL/task.md)、[文档](https://github.com/InternLM/Tutorial/tree/camp3/docs/L2/InternVL/joke_readme.md)、[视频](https://www.bilibili.com/video/BV1N6p1eXETX/)| 100元算力点 |
 |第 5 关| 茴香豆：企业级知识库问答工具 | 任务、文档、视频| 100元算力点 |
+|第 6 关| MindSearch CPU-only 版部署 | [任务](docs/L2/MindSearch/task.md)、[文档](docs/L2/MindSearch/readme.md) | 100元算力点 |
 
 
 ### 1.4. 彩蛋岛
@@ -50,8 +51,7 @@
 |:-----|:----|:-----|
 |第 1 关| 销冠大模型案例 |[文档](docs/EasterEgg/StreamerSales)、[视频](https://www.bilibili.com/video/BV1f1421b7Du)|
 |第 2 关| InternLM 1.8B 模型 Android 端侧部署实践  | [文档](docs/EasterEgg/Android)、[视频](https://www.bilibili.com/video/BV1Ai421a7R6/)|
-|第 3 关| MindSearch | [文档](docs/EasterEgg/MindSearch)|
-|第 4 关| 手把手带你使用InternLM实现谁是卧底游戏|[文档](docs/EasterEgg/Game)|
+|第 3 关| 手把手带你使用InternLM实现谁是卧底游戏|[文档](docs/EasterEgg/Game)|
 
 ## 2. 证书
 
