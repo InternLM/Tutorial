@@ -6,9 +6,9 @@
 
 ## 1. 创建开发机 & 环境配置
 
-打开[workspace主页](https://github.com/codespaces)，选择blank template。
+打开[codespace主页](https://github.com/codespaces)，选择blank template。
 
-<img width="375" alt="image" src="https://github.com/user-attachments/assets/25d8e67e-52f3-40bd-b765-cec3ff5be88c">
+![image](https://github.com/user-attachments/assets/27e7a7ef-37e0-4614-89bf-c96044e3c6f3)
 
 浏览器会自动在新的页面打开一个web版的vscode。
 
