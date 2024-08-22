@@ -29,7 +29,7 @@ tar -xvzf android-studio-2024.1.1.12-linux.tar.gz
 cd android-studio
 wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip?hl=zh-cn
 unzip commandlinetools-linux-11076708_latest.zip\?hl\=zh-cn
-export JAVA_HOME=/root/Downloads/android-studio/jbr
+export JAVA_HOME=/root/android/android-studio/jbr
 cmdline-tools/bin/sdkmanager "ndk;27.0.12077973" "cmake;3.22.1"  "platforms;android-34" "build-tools;33.0.1" --sdk_root='sdk'
 ```
 
@@ -39,24 +39,22 @@ cmdline-tools/bin/sdkmanager "ndk;27.0.12077973" "cmake;3.22.1"  "platforms;andr
 . "$HOME/.cargo/env"
 export ANDROID_NDK=/root/android/android-studio/sdk/ndk/27.0.12077973
 export TVM_NDK_CC=$ANDROID_NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android24-clang
-export JAVA_HOME=/root/android//android-studio/jbr
+export JAVA_HOME=/root/android/android-studio/jbr
 export ANDROID_HOME=/root/android/android-studio/sdk
 export PATH=/usr/local/cuda-12/bin:$PATH
 export PATH=/root/android/android-studio/sdk/cmake/3.22.1/bin:$PATH
 ```
 ## 2 转换模型
 ### 2.1 安装mlc-llm
-参考[https://llm.mlc.ai/docs/install/mlc_llm.html](https://llm.mlc.ai/docs/install/mlc_llm.html)
-（如果下载很慢可以取消重新运行一下，或者本地下载了拷过去）
+参考[https://llm.mlc.ai/docs/install/mlc_llm.html](https://llm.mlc.ai/docs/install/mlc_llm.html)，安装`mlc-llm`可能需要代理
+
+安装`pytorch`部分也可以使用其他包含`torch`的`conda`环境
 ```
 conda create --name mlc-prebuilt  python=3.11
 conda activate mlc-prebuilt
 conda install -c conda-forge git-lfs
-pip install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 transformers sentencepiece protobuf
-wget https://github.com/mlc-ai/package/releases/download/v0.9.dev0/mlc_llm_nightly_cu122-0.1.dev1445-cp311-cp311-manylinux_2_28_x86_64.whl
-wget https://github.com/mlc-ai/package/releases/download/v0.9.dev0/mlc_ai_nightly_cu122-0.15.dev404-cp311-cp311-manylinux_2_28_x86_64.whl
-pip install mlc_ai_nightly_cu122-0.15.dev404-cp311-cp311-manylinux_2_28_x86_64.whl
-pip install mlc_llm_nightly_cu122-0.1.dev1445-cp311-cp311-manylinux_2_28_x86_64.whl
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+python -m pip install --pre -U -f https://mlc.ai/wheels mlc-llm-nightly-cu122 mlc-ai-nightly-cu122
 ```
 测试如下输出说明安装正确
 
