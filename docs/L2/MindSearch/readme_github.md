@@ -70,9 +70,17 @@ cd /workspaces/mindsearch/MindSearch
 python frontend/mindsearch_gradio.py
 ```
 
-由于使用codespace，这里我们不需要使用ssh端口转发了，github会直接为我们打开一个类似下面地址的网页。
+前后端都启动后，我们应该可以看到github自动为这两个进程做端口转发。
 
- `https://c09c305fed85e0f0c5.gradio.live/` 然后就可以即刻体验啦。
+<img width="1183" alt="image" src="https://github.com/user-attachments/assets/4ee76ca2-06a5-4145-829a-1310e69c0d83">
+
+
+由于使用codespace，这里我们不需要使用ssh端口转发了，github会自动提示我们打开一个在公网的前端地址。
+
+<img width="1082" alt="image" src="https://github.com/user-attachments/assets/545d5827-6ee3-416a-a913-1be09866f29e">
+
+
+然后就可以即刻体验啦。
 
 <img width="1489" alt="image" src="https://github.com/user-attachments/assets/28f5658c-19a6-4a46-9bc9-51f4923a012c">
 
