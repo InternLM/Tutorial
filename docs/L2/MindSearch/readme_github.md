@@ -8,7 +8,7 @@
 
 ## 1. 创建开发机 & 环境配置
 
-我们首先打开项目地址https://github.com/InternLM/Tutorial/tree/camp3，然后依次点击code-workspace-加号
+我们首先打开[项目地址](https://github.com/InternLM/Tutorial/tree/camp3)，然后依次点击code-workspace-加号
 
 <img width="506" alt="image" src="https://github.com/user-attachments/assets/fd247b3d-930c-45c4-9d2f-84248bd29acf">
 
