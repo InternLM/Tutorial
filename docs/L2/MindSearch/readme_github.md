@@ -4,18 +4,17 @@
 
 随着硅基流动提供了免费的 InternLM2.5-7B-Chat 服务（免费的 InternLM2.5-7B-Chat 真的很香），MindSearch 的部署与使用也就迎来了纯 CPU 版本，进一步降低了部署门槛。那就让我们来一起看看如何使用硅基流动的 API 来部署 MindSearch 吧。
 
-接下来，我们以 InternStudio 算力平台为例，来部署 CPU-only 的 MindSearch 。
-
 ## 1. 创建开发机 & 环境配置
 
-我们首先打开[项目地址](https://github.com/InternLM/Tutorial/tree/camp3)，然后依次点击code-workspace-加号
+打开[workspace主页](https://github.com/codespaces)，选择blank template。
 
-<img width="506" alt="image" src="https://github.com/user-attachments/assets/fd247b3d-930c-45c4-9d2f-84248bd29acf">
+<img width="375" alt="image" src="https://github.com/user-attachments/assets/25d8e67e-52f3-40bd-b765-cec3ff5be88c">
 
-浏览器会新开一个网页版的vscode
+浏览器会自动在新的页面打开一个web版的vscode。
 
-<img width="1078" alt="image" src="https://github.com/user-attachments/assets/65ba575d-7b6c-4927-866f-ddbed8a9c8d8">
+<img width="1591" alt="image" src="https://github.com/user-attachments/assets/58727fec-8d83-417d-88e5-eedc631444f2">
 
+接下来的操作就和我们使用vscode基本没差别了。
 
 然后我们新建一个目录用于存放 MindSearch 的相关代码，并把 MindSearch 仓库 clone 下来。在终端中运行下面的命令：
 
@@ -77,7 +76,7 @@ python frontend/mindsearch_gradio.py
 
 由于使用codespace，这里我们不需要使用ssh端口转发了，github会自动提示我们打开一个在公网的前端地址。
 
-<img width="1082" alt="image" src="https://github.com/user-attachments/assets/545d5827-6ee3-416a-a913-1be09866f29e">
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/545d5827-6ee3-416a-a913-1be09866f29e">
 
 
 然后就可以即刻体验啦。
