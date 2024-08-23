@@ -4,7 +4,7 @@
 
 ## 基础任务（完成此任务即完成闯关）
 
-- 按照教程，将 MindSearch 部署到 HuggingFace，并提供截图。
+- 按照教程，将 MindSearch 部署到 HuggingFace 美化 Gradio 的界面，并提供截图和 Hugging Face 的Space的链接。
 
 ## 闯关材料提交（完成任务并且提交材料视为闯关成功）
 
