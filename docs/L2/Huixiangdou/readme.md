@@ -1,6 +1,6 @@
 <div align="center">
 
-![](images/huixiangdou.png)
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/front.jpg)
 </div>
 
 - [0 茴香豆介绍](#0-茴香豆介绍)
@@ -40,7 +40,7 @@
 
 <div align="center">
 
-![](images/image-1.png)
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/image-1.png)
 
 </div>
 
@@ -62,7 +62,7 @@
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-23 at 20.23.25.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-23 at 20.23.25.png>)
 
 </div>
 
@@ -78,7 +78,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.43.53.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.43.53.png>)
 
 </div>
 
@@ -98,14 +98,14 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.55.01.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.55.01.png>)
 </div>
 
 点击添加文档的 `查看或上传` 按钮，对知识库文档进行修改，目前支持 *pdf、word、markdown、excel、ppt、html 和 txt* 格式文件的上传和删除。上传或删除文件后将自动进行特征提取，生成的向量知识库被用于后续 RAG 检索和相似性比对。
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.55.25.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.55.25.png>)
 
 </div>
 
@@ -113,7 +113,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 13.01.33.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 13.01.33.png>)
 </div>
 
 
@@ -125,9 +125,9 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.55.46.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.55.46.png>)
 
-![](<images/Screenshot 2024-08-24 at 13.03.51.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 13.03.51.png>)
 
 </div>
 
@@ -135,7 +135,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 13.39.47.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 13.39.47.png>)
 
 </div>
 
@@ -143,7 +143,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 13.40.20.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 13.40.20.png>)
 
 </div>
 
@@ -155,7 +155,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.56.14.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.56.14.png>)
 
 </div>
 
@@ -173,7 +173,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.56.22.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.56.22.png>)
 
 </div>
 
@@ -183,7 +183,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 <div align="center">
 
-![](images/image.png)
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/image.png)
 
 </div>
 
@@ -209,7 +209,7 @@ https://github.com/InternLM/HuixiangDou/blob/main/web/README.md。
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.01.37.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.01.37.png>)
 
 </div>
 
@@ -217,7 +217,7 @@ https://github.com/InternLM/HuixiangDou/blob/main/web/README.md。
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 03.03.45.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 03.03.45.png>)
 
 </div>
 
@@ -225,7 +225,7 @@ https://github.com/InternLM/HuixiangDou/blob/main/web/README.md。
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 14.08.15.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 14.08.15.png>)
 
 </div>
 
@@ -246,7 +246,7 @@ conda activate huixiangdou
 ```
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 15.11.37.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 15.11.37.png>)
 
 </div>
 
@@ -271,7 +271,7 @@ git checkout 79fa810
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 15.16.53.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 15.16.53.png>)
 
 </div>
 
@@ -310,7 +310,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/mode
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 15.41.56.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 15.41.56.png>)
 
 </div>
 
@@ -320,7 +320,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/mode
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 15.46.47.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 15.46.47.png>)
 
 </div>
 
@@ -338,7 +338,7 @@ sed -i '43s#.*#local_llm_path = "/root/models/internlm2-chat-7b"#' /root/huixian
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 15.47.17.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 15.47.17.png>)
 
 </div>
 
@@ -365,7 +365,7 @@ python3 -m huixiangdou.service.feature_store
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 16.09.01.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 16.09.01.png>)
 
 </div>
 
@@ -377,7 +377,7 @@ python3 -m huixiangdou.service.feature_store
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 16.21.24.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 16.21.24.png>)
 
 </div>
 
@@ -397,9 +397,9 @@ python3 -m huixiangdou.main --standalone
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 16.56.47.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 16.56.47.png>)
 
-![](<images/Screenshot 2024-08-24 at 17.05.18.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 17.05.18.png>)
 
 </div>
 
@@ -425,7 +425,7 @@ python3 -m huixiangdou.gradio
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 17.08.47.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 17.08.47.png>)
 
 </div>
 
@@ -433,7 +433,7 @@ python3 -m huixiangdou.gradio
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 17.09.58.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 17.09.58.png>)
 
 </div>
 
@@ -465,7 +465,7 @@ python3 -m huixiangdou.gradio
 
 <div align="center">
 
-![](images/ODiHbZDrTonPbqx5TvwczobMnue.png)
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/ODiHbZDrTonPbqx5TvwczobMnue.png)
 
 </div>
 
@@ -483,7 +483,7 @@ save_dir = "logs/web_search_result"
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 18.33.35.png>).
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 18.33.35.png>).
 
 </div>
 
@@ -491,7 +491,7 @@ save_dir = "logs/web_search_result"
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 18.34.11.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 18.34.11.png>)
 
 </div>
 
@@ -501,7 +501,7 @@ save_dir = "logs/web_search_result"
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 18.43.33.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 18.43.33.png>)
 
 </div>
 
@@ -517,7 +517,7 @@ save_dir = "logs/web_search_result"
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 19.00.26.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 19.00.26.png>)
 
 </div>
 
@@ -525,7 +525,7 @@ save_dir = "logs/web_search_result"
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 18.56.30.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 18.56.30.png>)
 
 </div>
 
@@ -544,7 +544,7 @@ enable_remote = 1 # 启用云端模型
 
 <div align="center">
 
-![](<images/Screenshot 2024-08-24 at 19.09.08.png>)
+![](<https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot 2024-08-24 at 19.09.08.png>)
 
 </div>
 
