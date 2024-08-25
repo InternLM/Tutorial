@@ -135,7 +135,7 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 * 微信号
 
-点击 Web 版茴香豆的 `查看教程` 或 https://github.com/InternLM/HuixiangDou/blob/main/docs/add\_wechat\_accessibility\_zh.md 尝试集成茴香豆到微信。
+点击 Web 版茴香豆的 `查看教程` 或 https://github.com/InternLM/HuixiangDou/blob/main/docs/add_wechat_accessibility_zh.md 尝试集成茴香豆到微信。
 
 > 注意！该方法目前只支持一个微信群应答。
 
@@ -415,7 +415,7 @@ python3 -m huixiangdou.gradio
 
 * `pip install -r requirements-lark-group.txt`
 
-* 教程 https://github.com/InternLM/HuixiangDou/blob/main/docs/add\_lark\_group\_zh.md
+* 教程 https://github.com/InternLM/HuixiangDou/blob/main/docs/add_lark_group_zh.md
 
 # 3 茴香豆高阶应用（选做）
 
