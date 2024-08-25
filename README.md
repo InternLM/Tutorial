@@ -41,7 +41,7 @@
 |第 2 关| Lagent 自定义你的 Agent 智能体 | [任务](docs/L2/Lagent/task.md)、[文档](docs/L2/Lagent/readme.md)、[视频](https://www.bilibili.com/video/BV18M4m1y7sm/)| 100元算力点 |
 |第 3 关| LMDeploy 量化部署进阶实践 | [任务](docs/L2/LMDeploy/task.md)、[文档](docs/L2/LMDeploy/readme.md)、[视频](https://www.bilibili.com/video/BV1df421q7cR/)| 100元算力点 |
 |第 4 关| InternVL 多模态模型部署微调实践 | [任务](https://github.com/InternLM/Tutorial/tree/camp3/docs/L2/InternVL/task.md)、[文档](https://github.com/InternLM/Tutorial/tree/camp3/docs/L2/InternVL/joke_readme.md)、[视频](https://www.bilibili.com/video/BV1N6p1eXETX/)| 100元算力点 |
-|第 5 关| 茴香豆：企业级知识库问答工具 | 任务、文档、视频| 100元算力点 |
+|第 5 关| 茴香豆：企业级知识库问答工具 | [任务](docs/L2/Huixiangdou/task.md)、[文档](docs/L2/Huixiangdou)、视频| 100元算力点 |
 |第 6 关| MindSearch CPU-only 版部署 | [任务](docs/L2/MindSearch/task.md)、[文档](docs/L2/MindSearch/readme_github.md) | 100元算力点 |
 
 ### 1.4. 彩蛋岛
