@@ -279,7 +279,7 @@ demo.launch(server_name='0.0.0.0',
 
 在最后，将 /root/mindsearch/mindsearch_deploy 目录下的文件（使用 git）提交到 HuggingFace Space 即可完成部署了。将代码提交到huggingface space的流程如下：
 
-首先创建一个有写权限的token/
+首先创建一个有写权限的token。
 
 ![image](https://github.com/user-attachments/assets/3a918dc1-9600-433b-a916-d6ef4caa73fe)
 
