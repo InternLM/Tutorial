@@ -1,4 +1,4 @@
-# MindSearch 部署到 Hugging Face Space
+# MindSearch 部署到Github Codespace 和 Hugging Face Space
 
 和[原有的CPU版本](https://github.com/InternLM/Tutorial/blob/camp3/docs/L2/MindSearch/readme.md)相比区别是把internstudio换成了github codespace。
 
