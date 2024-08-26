@@ -1,4 +1,4 @@
-# MindSearch 部署的到 Hugging Face Space
+# MindSearch 部署到 Hugging Face Space
 
 和[原有的CPU版本](https://github.com/InternLM/Tutorial/blob/camp3/docs/L2/MindSearch/readme.md)相比区别是把internstudio换成了github codespace。
 
@@ -277,4 +277,54 @@ demo.launch(server_name='0.0.0.0',
             share=True)
 ```
 
-在最后，将 /root/mindsearch/mindsearch_deploy 目录下的文件（使用 git）提交到 HuggingFace Space 即可完成部署了。注意将代码提交到huggingface space中需要配置hugginface的token。
+在最后，将 /root/mindsearch/mindsearch_deploy 目录下的文件（使用 git）提交到 HuggingFace Space 即可完成部署了。将代码提交到huggingface space的流程如下：
+
+首先创建一个有写权限的token/
+
+![image](https://github.com/user-attachments/assets/3a918dc1-9600-433b-a916-d6ef4caa73fe)
+
+然后从huggingface把空的代码仓库clone到codespace。
+
+```
+/workspaces/codespaces-blank
+git clone https://huggingface.co/spaces/<你的名字>/<仓库名称>
+# 把token挂到仓库上，让自己有写权限
+git remote set-url space https://<你的名字>:<上面创建的token>@huggingface.co/spaces/<你的名字>/<仓库名称>
+```
+
+现在codespace就是本地仓库，huggingface space是远程仓库，接下来使用方法就和常规的git一样了。
+
+```
+cd <仓库名称>
+# 把刚才准备的文件都copy进来
+cp /workspaces/mindsearch/mindsearch_deploy/* .
+```
+
+最终的文件目录是这样。
+
+![image](https://github.com/user-attachments/assets/22a9efb4-c189-4b19-8a9e-ef54d0666040)
+
+注意mindsearch文件夹其实是Mindsearch项目中的一个子文件夹，如果把这个Mindsearch的整个目录copy进来会有很多问题（git submodule无法提交代码，space中项目启动失败等）。
+
+![image](https://github.com/user-attachments/assets/25619052-224b-42df-863f-a80ef35d6d60)
+
+最后把代码提交到huggingface space会自动启动项目。
+
+```
+git add .
+git commit -m "update"
+git push
+```
+
+然后就可以测试啦。
+
+<img width="1511" alt="image" src="https://github.com/user-attachments/assets/308a7c47-a7c2-4d7d-8d35-f433cf44cf5f">
+
+<img width="1550" alt="image" src="https://github.com/user-attachments/assets/8d584918-6509-4b72-9a6b-fa3158012098">
+
+<img width="1521" alt="image" src="https://github.com/user-attachments/assets/82c63fda-e790-4dbd-8f1c-c0e7f5ce1c26">
+
+不仅搜到了最近火热的黑悟空，还搜到了龙珠超中的黑悟空，非常给力！
+
+
+
