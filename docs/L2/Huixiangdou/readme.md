@@ -135,7 +135,9 @@ Web 版茴香豆部署在浦源平台，可以让大家零编程体验茴香豆�
 
 * 微信号
 
-点击 Web 版茴香豆的 `查看教程` 或 https://github.com/InternLM/HuixiangDou/blob/main/docs/add_wechat_accessibility_zh.md 尝试集成茴香豆到微信。
+点击 Web 版茴香豆的 `查看教程` 或 [https://github.com/InternLM/HuixiangDou/blob/main/docs/zh/add_wechat_accessibility_zh.md](https://github.com/InternLM/HuixiangDou/blob/main/docs/zh/doc_add_wechat_accessibility.md) 尝试集成茴香豆到微信。
+
+支持多个群群聊的微信接入方法 [https://github.com/InternLM/HuixiangDou/blob/main/docs/zh/doc_add_wechat_commercial.md](https://github.com/InternLM/HuixiangDou/blob/main/docs/zh/doc_add_wechat_commercial.md) 。 
 
 > 注意！该方法目前只支持一个微信群应答。
 
@@ -415,7 +417,7 @@ python3 -m huixiangdou.gradio
 
 * `pip install -r requirements-lark-group.txt`
 
-* 教程 https://github.com/InternLM/HuixiangDou/blob/main/docs/add_lark_group_zh.md
+* 教程 [https://github.com/InternLM/HuixiangDou/blob/main/docs/add_lark_group_zh.md](https://github.com/InternLM/HuixiangDou/blob/main/docs/zh/doc_add_lark_group.md)
 
 # 3 茴香豆高阶应用（选做）
 
@@ -528,3 +530,128 @@ enable_remote = 1 # 启用云端模型
 * Siliconcloud 支持的模型请查看 https://siliconflow.cn/zh-cn/models
 
 如果同时开启 local 和 remote 模型，茴香豆将采用混合模型的方案，详见 [技术报告](https://arxiv.org/abs/2401.08772)，效果更好。
+
+## 3.3 多模态功能
+
+最新的茴香豆支持了多模态的图文检索，启用该功能后，茴香豆可以解析上传的图片内容，并根据图片内容和文字提示词进行检索回答。
+
+图文检索功能需要至少 10G 显存支持本地向量和重排模型运行，下面的示例使用的全部是本地模型，因此需要 40G 的显存，在 **Intern-Studio** 中需要选择 `50% A100 * 1` 服务器：
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot%202024-08-27%20at%2023.12.18.png)
+
+### 3.3.0 下载/更新茴香豆
+
+首先，我们需要将茴香豆更新至最新版，如果之前没有下载茴香豆，可以跳过此步骤，参考[2.2.1 下载茴香豆](#221-下载茴香豆)直接下载最新版茴香豆。
+更新茴香豆：
+
+```bash
+conda activate huixiangdou
+
+cd huixiangdou 
+git stash # 弃用之前的修改，如果需要保存，可将冲突文件另存为新文件名
+
+git checkout main
+git pull
+git checkout bec2f6af9 # 支持多模态的最低版本
+```
+
+### 3.3.1 安装多模态模型和依赖
+
+开启多模态功能需要支持图文的多模态向量和重排模型，本教程使用的是智源旗下的 [BGE](https://huggingface.co/BAAI) 开源模型家族。
+
+这次我们使用 `huggingface-cli download` 的方法从 Huggingface Hub 上拉取模型到本地：
+
+```bash
+# 设置环境变量
+export HF_ENDPOINT='https://hf-mirror.com' # 使用 huggingface 中国镜像加速下载，如果在国外，忽略此步骤
+
+# 下载模型
+## 模型文件较大，如果遇到下载报错，重新运行命令就好
+huggingface-cli download BAAI/bge-m3 --local-dir /root/models/bge-m3
+huggingface-cli download BAAI/bge-visualized --local-dir /root/models/bge-visualized
+huggingface-cli download BAAI/bge-reranker-v2-minicpm-layerwise --local-dir /root/models/bge-reranker-v2-minicpm-layerwise
+
+# 需要手动将视觉模型移动到 BGE-m3 文件夹下
+mv /root/models/bge-visualized/Visualized_m3.pth /root/models/bge-m3/
+```
+
+完整的模型目录应包含如下文件：
+
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot%202024-08-27%20at%2023.56.43.png)
+
+ 接下来，我们安装多模态所需的对应依赖，如果是第一次安装茴香豆，需要按照 [2 茴香豆本地标准版搭建](#2-茴香豆本地标准版搭建) 先完成基础版茴香豆的安装。
+
+ 安装最新的 **FlagEmbedding**:
+
+
+```bash
+conda activate huixiangdou
+cd /root/
+
+# 从官方 github 安装最新版
+git clone https://github.com/FlagOpen/FlagEmbedding.git
+cd FlagEmbedding
+pip install  .
+
+# 复制 FlagEmbedding 缺失的文件，注意 huixiangdou/lib/python3.10/site-packages 是教程开始设置的环境，如果个人有更改，需要根据自己的环境重新填入对应的地址
+cp ~/FlagEmbedding/FlagEmbedding/visual/eva_clip/model_configs /root/.conda/envs/huixiangdou/lib/python3.10/site-packages/FlagEmbedding/visual/eva_clip/
+cp ~/FlagEmbedding/FlagEmbedding/visual/eva_clip/bpe_simple_vocab_16e6.txt.gz /root/.conda/envs/huixiangdou/lib/python3.10/site-packages/FlagEmbedding/visual/eva_clip/
+
+# 其他依赖包
+pip install timm ftfy peft 
+```
+
+### 3.3.4 修改配置文件
+
+现在，我们要修改相应的配置文件，启动多模态。这里，我们启用新的配置文件 `config-multimodal.ini`。
+
+首先修改向量和重排模型位置为刚刚下载的本地模型地址：
+
+```bash
+sed -i '6s#.*#embedding_model_path = "/root/models/bge-m3"#' /root/huixiangdou/config-multimodal.ini
+sed -i '7s#.*#reranker_model_path = "/root/models/bge-reranker-v2-minicpm-layerwise"#' /root/huixiangdou/config-multimodal.ini
+```
+
+接下来修改要调用的 LLM 为本地的 `intern2-chat-7b` 模型，然后打开本地模型开关，开启远程模型开关：
+
+提示，真实场景的话还是建议使用远程模型或更大的 LLM，7B模型应对多模态效果一般。
+
+```bash
+sed -i '31s#.*#local_llm_path = "/root/models/internlm2-chat-7b"#' /root/huixiangdou/config-multimodal.ini
+sed -i '20s#.*#enable_local = 1#' /root/huixiangdou/config-multimodal.ini
+sed -i '21s#.*#enable_remote = 0#' /root/huixiangdou/config-multimodal.ini
+```
+
+为了不破坏之前的向量知识库，这里我们更改一下多模态向量知识库的位置：
+
+```bash
+sed -i '8s#.*#work_dir = "workdir-multi"#' /root/huixiangdou/config-multimodal.ini
+sed -i '61s#.*#enable_cr = 0#' /root/huixiangdou/config-multimodal.ini # 关闭指代消岐功能
+```
+
+或者手动修改，修改后的配置文件 `config-multimodal.ini` 如下：
+
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot%202024-08-27%20at%2023.06.27.png)
+
+### 3.3.3 建立多模态知识库
+
+向量知识库的匹配依赖于特征提取时使用的向量和重排模型，多模态功能开启后，我们要使用新的模型，因此需要重新提取一个多模态向量知识库，使用我们刚刚修改好的配置文件：
+
+```bash
+# 新的向量知识库文件夹
+mkdir workdir-multi
+
+# 提取多模态向量知识库
+python3 -m huixiangdou.service.feature_store --config_path config-multimodal.ini
+```
+
+### 3.3.4 试用多模态功能
+
+启动 **Gradio UI** 界面，试用多模态检索功能：
+
+```bash
+conda activate huixiangdou
+cd /root/huixiangdou
+
+python3 -m huixiangdou.gradio --config_path config-multimodal.ini
+```
+![](https://raw.githubusercontent.com/fzd9752/pic_img/main/imgs/Screenshot%202024-08-27%20at%2023.35.15.png)
