@@ -1,5 +1,8 @@
 <img width="1440" alt="WechatIMG28779" src="https://github.com/user-attachments/assets/8ae59778-7fb3-45ab-9eda-3054d910c11b">
 
+## 友情链接
+该文档参考InternVL垂直领域场景微调实践而写成，感谢社区同学法律人的文档。
+
 ## 写在前面（什么是InternVL）
 InternVL 是一种用于多模态任务的深度学习模型，旨在处理和理解多种类型的数据输入，如图像和文本。它结合了视觉和语言模型，能够执行复杂的跨模态任务，比如图文匹配、图像描述生成等。通过整合视觉特征和语言信息，InternVL 可以在多模态领域取得更好的表现
 
@@ -11,7 +14,7 @@ InternVL 是一种用于多模态任务的深度学习模型，旨在处理和�
 
 ## Dynamic High Resolution
 
-动态高分辨率，为了让ViT模型能够尽可能获取到更细节的图像信息，提高视觉特征的表达能力。对于输入的图片，首先resize成448的倍数，然后按照预定义的尺寸比例从图片上crop对应的区域。细节如图所示。
+InternVL独特的预处理模块：动态高分辨率，是为了让ViT模型能够尽可能获取到更细节的图像信息，提高视觉特征的表达能力。对于输入的图片，首先resize成448的倍数，然后按照预定义的尺寸比例从图片上crop对应的区域。细节如图所示。
 
 ![image](https://github.com/user-attachments/assets/c49fef28-0818-432f-bc52-1170e2207f44)
 
@@ -30,7 +33,7 @@ Pixel Shuffle在超分任务中是一个常见的操作，PyTorch中有官方实
 cd /root
 mkdir -p model
 
-cp 模型
+# cp 模型
 
 cp -r /root/share/new_models/OpenGVLab/InternVL2-2B /root/model/
 ```
@@ -160,7 +163,11 @@ python3 test_lmdeploy.py
 ```
 
 #### 推理后
+
+> 推理出来有什么文字是纯随机的，并不一定和展示结果完全一致哦～
+
 推理后我们发现直接使用2b模型不能很好的讲出梗，现在我们要对这个2b模型进行微调。
+
 ![image](https://github.com/user-attachments/assets/3bc5bb1f-5ab4-40f0-817a-8d11ec52b48d)
 
 ### InternVL 微调攻略
@@ -195,179 +202,6 @@ python3 test_lmdeploy.py
 > 让我们一起修改XTuner下 InternVL的config，文件在：
 /root/InternLM/code/XTuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_qlora_finetune.py
 
-首先我们先对微调config进行介绍：
-- setting里是定义模型基本参数的
-
-```python
-#######################################################################
-#                          PART 1  Settings                           #
-#######################################################################
-# Model
-# 模型地址
-path = '/root/model/InternVL2-2B'
-
-# Data
-# 数据地址
-data_root = '/root/data/'
-# data_path = data_root + 'LLaVA-Instruct-150K/llava_v1_5_mix665k.json'
-data_path = '/root/data/screenshot_od/layout_ocr_multi.json'
-image_folder = data_root + 'screenshot_od/images'
-prompt_template = PROMPT_TEMPLATE.internlm2_chat
-# 模型最大输出长度
-max_length = 8192
-
-# Scheduler & Optimizer
-#每张卡上的batch size大小
-batch_size = 8  # per_device
-# 梯度累积大小
-accumulative_counts = 2
-# dataloader数量
-dataloader_num_workers = 4
-# epoch大小
-max_epochs = 1
-# 优化器类型
-optim_type = AdamW
-# official 1024 -> 4e-5
-lr = 1e-6
-betas = (0.9, 0.999)
-weight_decay = 0.05
-max_norm = 1  # grad clip
-warmup_ratio = 0.03
-
-# Save
-save_steps = 1000
-save_total_limit = 1  # Maximum checkpoints to keep (-1 means unlimited)
-```
-
-- 模型，tokenizer数据等定义
-
-```python
-#######################################################################
-#            PART 2  Model & Tokenizer & Image Processor              #
-#######################################################################
-model = dict(
-    type=InternVL_V1_5,
-    model_path=path,
-    freeze_llm=True,
-    freeze_visual_encoder=True,
-    quantization_llm=True,  # or False
-    quantization_vit=False,  # or True and uncomment visual_encoder_lora
-    # comment the following lines if you don't want to use Lora in llm
-    llm_lora=dict(
-        type=LoraConfig,
-        r=128,
-        lora_alpha=256,
-        lora_dropout=0.05,
-        target_modules=None,
-        task_type='CAUSAL_LM'),
-    # uncomment the following lines if you don't want to use Lora in visual encoder # noqa
-    # visual_encoder_lora=dict(
-    #     type=LoraConfig, r=64, lora_alpha=16, lora_dropout=0.05,
-    #     target_modules=['attn.qkv', 'attn.proj', 'mlp.fc1', 'mlp.fc2'])
-)
-
-#######################################################################
-#                      PART 3  Dataset & Dataloader                   #
-#######################################################################
-llava_dataset = dict(
-    type=InternVL_V1_5_Dataset,
-    model_path=path,
-    data_paths=data_path,
-    image_folders=image_folder,
-    template=prompt_template,
-    max_length=max_length)
-
-train_dataloader = dict(
-    batch_size=batch_size,
-    num_workers=dataloader_num_workers,
-    dataset=llava_dataset,
-    sampler=dict(
-        type=LengthGroupedSampler,
-        length_property='modality_length',
-        per_device_batch_size=batch_size * accumulative_counts),
-    collate_fn=dict(type=default_collate_fn))
-```
-
-- 调度，优化器等定义
-
-```python
-#######################################################################
-#                    PART 4  Scheduler & Optimizer                    #
-#######################################################################
-# optimizer
-optim_wrapper = dict(
-    type=AmpOptimWrapper,
-    optimizer=dict(
-        type=optim_type, lr=lr, betas=betas, weight_decay=weight_decay),
-    clip_grad=dict(max_norm=max_norm, error_if_nonfinite=False),
-    accumulative_counts=accumulative_counts,
-    loss_scale='dynamic',
-    dtype='float16')
-
-# learning policy
-# More information: https://github.com/open-mmlab/mmengine/blob/main/docs/en/tutorials/param_scheduler.md  # noqa: E501
-param_scheduler = [
-    dict(
-        type=LinearLR,
-        start_factor=1e-5,
-        by_epoch=True,
-        begin=0,
-        end=warmup_ratio * max_epochs,
-        convert_to_iter_based=True),
-    dict(
-        type=CosineAnnealingLR,
-        eta_min=0.0,
-        by_epoch=True,
-        begin=warmup_ratio * max_epochs,
-        end=max_epochs,
-        convert_to_iter_based=True)
-]
-
-# train, val, test setting
-train_cfg = dict(type=TrainLoop, max_epochs=max_epochs)
-
-#######################################################################
-#                           PART 5  Runtime                           #
-#######################################################################
-# Log the dialogue periodically during the training process, optional
-tokenizer = dict(
-    type=AutoTokenizer.from_pretrained,
-    pretrained_model_name_or_path=path,
-    trust_remote_code=True)
-
-custom_hooks = [
-    dict(type=DatasetInfoHook, tokenizer=tokenizer),
-]
-
-# configure default hooks
-default_hooks = dict(
-    # record the time of every iteration.
-    timer=dict(type=IterTimerHook),
-    # print log every 10 iterations.
-    logger=dict(type=LoggerHook, log_metric_by_epoch=False, interval=10),
-    # enable the parameter scheduler.
-    param_scheduler=dict(type=ParamSchedulerHook),
-    # save checkpoint per `save_steps`.
-    checkpoint=dict(
-        type=CheckpointHook,
-        save_optimizer=False,
-        by_epoch=False,
-        interval=save_steps,
-        max_keep_ckpts=save_total_limit),
-    # set sampler seed in distributed evrionment.
-    sampler_seed=dict(type=DistSamplerSeedHook),
-)
-
-# configure environment
-env_cfg = dict(
-    # whether to enable cudnn benchmark
-    cudnn_benchmark=False,
-    # set multi process parameters
-    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0),
-    # set distributed parameters
-    dist_cfg=dict(backend='nccl'),
-)
-```
 
 - 需要修改的部分
 
@@ -413,7 +247,7 @@ max_length = 6656
 batch_size = 4  # per_device
 accumulative_counts = 4
 dataloader_num_workers = 4
-max_epochs = 1
+max_epochs = 6
 optim_type = AdamW
 # official 1024 -> 4e-5
 lr = 2e-5
@@ -572,6 +406,8 @@ log_processor = dict(by_epoch=False)
 这里使用之前搞好的configs进行训练。咱们要调整一下batch size，并且使用qlora。要不半卡不够用的 QAQ。
 
 ```bash
+cd XTuner
+
 NPROC_PER_NODE=1 xtuner train /root/InternLM/code/XTuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_qlora_finetune.py  --work-dir /root/InternLM/work_dir/internvl_ft_run_8_filter  --deepspeed deepspeed_zero1
 ```
 
@@ -581,8 +417,12 @@ NPROC_PER_NODE=1 xtuner train /root/InternLM/code/XTuner/xtuner/configs/internvl
 
 用官方脚本进行权重合并
 
+> 如果这里你执行的epoch不是6，是小一些的数字。你可能会发现internvl_ft_run_8_filter下没有iter_3000.pth, 那你需要把iter_3000.pth切换成你internvl_ft_run_8_filter目录下的pth即可。
+
 ```bash
-python3 xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/internvl/v2/internvl_v2_internlm2_5_8b_qlora_finetune.py /root/InternLM/work_dir/internvl_ft_run_8_filter/iter_3000.pth /root/InternLM/InternVL2-2B/
+cd XTuner
+# transfer weights
+python3 xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_qlora_finetune.py /root/InternLM/work_dir/internvl_ft_run_8_filter/iter_3000.pth /root/InternLM/InternVL2-2B/
 ```
 
 最后我们的模型在：/root/InternLM/convert_model/，文件格式：
@@ -612,7 +452,7 @@ python3 xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/inter
 
 ![image](https://github.com/user-attachments/assets/8a802287-5472-4630-adcd-e671f0cc8b3c)
 
-我们把这行代码替换一下，然后跑一下效果。
+我们把下面的代码替换进test_lmdeploy.py中，然后跑一下效果。
 
 ```python
 from lmdeploy import pipeline
@@ -620,9 +460,15 @@ from lmdeploy.vl import load_image
 
 pipe = pipeline('/root/InternLM/InternVL2-2B')
 
-image = load_image('/root/InternLM/256321723775630_.pic.jpg')
+image = load_image('/root/InternLM/007aPnLRgy1hb39z0im50j30ci0el0wm.jpg')
 response = pipe(('请你根据这张图片，讲一个脑洞大开的梗', image))
 print(response.text)
+```
+
+```python
+cd /root/InternLM/code
+
+python3 test_lmdeploy.py
 ```
 
 效果还不错吧～哈哈哈。
