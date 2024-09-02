@@ -234,7 +234,7 @@ ssh -p {ssh端口，从InternStudio获取} root@ssh.intern-ai.org.cn -CNg -L 786
 
 启动项目后，界面效果如下：
 
-![](https://files.mdnice.com/user/56306/793a2d10-2c40-4eb5-862a-3aa2b8f00be6.png)
+![](https://files.mdnice.com/user/56306/e05498a3-0c22-493d-8bf9-dd9c7dcf4ae6.png)
 
 ## 参考资料
 
