@@ -279,12 +279,12 @@ print("b=b**3,b=",b)
 a,b = True,False
 print("a and b =",a and b)
 print("a or b =",a and b)
-print("not b =",not a)
+print("not b =",not b)
 ```
 
     a and b = False
     a or b = False
-    not b = False
+    not b = True
     
 
 ## 2.4 列表

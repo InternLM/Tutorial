@@ -14,7 +14,9 @@
 
 ## 0.1 环境配置
 
-首先打开Terminal，运行如下脚本创建虚拟环境：
+![](https://files.mdnice.com/user/56306/01032050-af9a-468b-8ce5-4331bb2c9206.png)
+
+首先点击左上角图标，打开Terminal，运行如下脚本创建虚拟环境：
 
 ```bash
 # 创建虚拟环境
