@@ -2,6 +2,67 @@
 
 ![](https://files.mdnice.com/user/56306/a39a0f7e-35b8-407c-9633-c232729931d4.png)
 
+# 0. 前期准备
+
+> 如果在之前的课程中，完成了开发机创建、环境配置等工作，可以跳过0.1部分，也可以继续阅读以温习。
+
+首先，学习[前置基础内容的Linux](https://github.com/InternLM/Tutorial/tree/camp3/docs/L0/Linux)部分，并在InternStudio平台上创建开发机。
+
+![](https://files.mdnice.com/user/56306/7e9ea04a-ec97-49a1-884b-6dee4ccbfab1.png)
+
+创建成功后点击`进入开发机`打开WebIDE。进入后在WebIDE的左上角有三个logo，依次表示JupyterLab、Terminal和Code Server，本节需要使用**Terminal**和**Code Server**。
+
+## 0.1 环境配置
+
+![](https://files.mdnice.com/user/56306/01032050-af9a-468b-8ce5-4331bb2c9206.png)
+
+首先点击左上角图标，打开Terminal，运行如下脚本创建虚拟环境：
+
+```bash
+# 创建虚拟环境
+conda create -n langgpt python=3.10 -y
+```
+
+运行下面的命令，激活虚拟环境：
+
+```bash
+conda activate langgpt
+```
+
+之后的操作都要在这个环境下进行。激活环境后，安装必要的Python包，依次运行下面的命令：
+
+```bash
+# 安装一些必要的库
+conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
+
+# 安装其他依赖
+pip install transformers==4.43.3
+
+pip install streamlit==1.37.0
+pip install huggingface_hub==0.24.3
+pip install openai==1.37.1
+pip install lmdeploy==0.5.2
+```
+
+## 0.2 创建项目路径
+
+运行如下命令创建并打开项目路径：
+
+```bash
+## 创建路径
+mkdir langgpt
+## 进入项目路径
+cd langgpt
+```
+
+## 0.3 安装必要软件
+
+运行下面的命令安装必要的软件：
+
+```bash
+apt-get install tmux
+```
+
 # 1. 模型部署
 
 这部分基于LMDeploy将开源的InternLM2-chat-1_8b模型部署为OpenAI格式的通用接口。
@@ -22,17 +83,31 @@
   
   login(token=“your_access_token")
   
-  models = ["internlm/internlm2_5-7b-chat"]
+  models = ["internlm/internlm2-chat-1_8b"]
   
   for model in models:
       try:
-          snapshot_download(repo_id=model,local_dir="path_to_model")
+          snapshot_download(repo_id=model,local_dir="langgpt/internlm2-chat-1_8b")
       except Exception as e:
           print(e)
           pass
   ```
 
 ## 1.2 部署模型为OpenAI server
+
+由于服务需要持续运行，需要将进程维持在后台，所以这里使用`tmux`软件创建新的命令窗口。运行如下命令创建窗口：
+
+```bash
+tmux new -t langgpt
+```
+
+创建完成后，运行下面的命令进入新的命令窗口(首次创建自动进入，之后需要连接)：
+
+```bash
+tmux a -t langgpt
+```
+
+进入命令窗口后，需要在新窗口中再次激活环境，命令参考**0.1节**。然后，使用LMDeploy进行部署，参考如下命令：
 
 使用LMDeploy进行部署，参考如下命令：
 
@@ -55,12 +130,14 @@ client = OpenAI(
 response = client.chat.completions.create(
     model=client.models.list().data[0].id,
     messages=[
-        {“role”: "system", "content": "请介绍一下你自己"}
+        {"role": "system", "content": "请介绍一下你自己"}
     ]
 )
 
 print(response.choices[0].message.content)
 ```
+
+服务启动完成后，可以按Ctrl+B进入`tmux`的控制模式，然后按D退出窗口连接，更多操作[参考](https://aik9.top/)。
 
 ## 1.3 图形化界面调用
 
@@ -83,6 +160,14 @@ cd Tutorial/tools
 ```bash
 python -m streamlit run chat_ui.py
 ```
+
+参考[L0/Linux的2.3部分](https://github.com/InternLM/Tutorial/tree/camp3/docs/L0/Linux#23-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84)进行端口映射，在本地终端中输入映射命令，可以参考如下命令：
+
+```bash
+ssh -p {ssh端口，从InternStudio获取} root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:8501 -o StrictHostKeyChecking=no
+```
+
+如果未配置开发机公钥，还需要输入密码，从InternStudio获取。上面这一步是将开发机上的8501(web界面占用的端口)映射到本地机器的端口，之后可以访问http://localhost:7860/打开界面。
 
 启动后界面如下：
 
@@ -199,7 +284,9 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
 
 - **构建全局思维链**
 
-  对大模型的 Prompt 应用CoT 思维链方法的有效性是被研究和实践广泛证明了的。
+  对大模型的 Prompt 应用CoT 思维链方法的有效性是被研究和实践广泛证明了的。首先可以根据场景选择基本的模块。
+
+  ![](https://files.mdnice.com/user/56306/05e380a8-b627-42f2-b0e6-343bc9923f3e.png)
 
   **一个好的结构化 Prompt 模板，某种意义上是构建了一个好的全局思维链。** 如 LangGPT 中展示的模板设计时就考虑了如下思维链:
 
@@ -236,6 +323,12 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
   上面这些方法最好结合使用，以实现在复杂任务中实现使用不可靠工具（LLMs）构建可靠系统的目标。
 
 # 4. 浦语提示词工程实践(LangGPT版)
+
+编写完LangGPT提示词后，可以将其作为系统提示，也可直接作为交互式对话的输入。**推荐作为系统提示**。
+
+![](https://files.mdnice.com/user/56306/3239f0c8-83ec-4943-9cb0-880a548a321f.png)
+
+填入系统提示后保存设置，之后可以与自定义的助手角色进行对话。
 
 ## 4.1 LangGPT社区优质应用展示
 
@@ -384,13 +477,13 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
   ## 4.2 娱乐应用开发
 
   基于InternLM和LangGPT，可以开发有趣的游戏。这里介绍从“谁是卧底”衍生出的游戏“发现AI卧底”的开发。
-  
+
   可以从[https://github.com/sci-m-wang/Spy-Game](https://github.com/sci-m-wang/Spy-Game)获取游戏的Web Demo。
   使用下面的脚本启动demo：
   ```bash
   python -m streamlit run find_the_spy.py
   ```
-  
+
   平民提示词：
   ```markdown
   # Role: 卧底游戏玩家
