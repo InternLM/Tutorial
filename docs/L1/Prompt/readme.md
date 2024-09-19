@@ -81,7 +81,7 @@ apt-get install tmux
   
   os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
   
-  login(token=“your_access_token")
+  login(token="your_access_token")
   
   models = ["internlm/internlm2-chat-1_8b"]
   
