@@ -2,8 +2,8 @@
 
 ![image](https://github.com/user-attachments/assets/93ff2412-777c-4619-812b-0134eb327cf3)
 
-
-闯关手册：https://aicarrier.feishu.cn/wiki/XBO6wpQcSibO1okrChhcBkQjnsf
+- 报名链接：https://www.wjx.cn/vm/PvefmG2.aspx?sojumpparm=github
+- 闯关手册：https://aicarrier.feishu.cn/wiki/XBO6wpQcSibO1okrChhcBkQjnsf
 
 
 ## 1. 关卡
