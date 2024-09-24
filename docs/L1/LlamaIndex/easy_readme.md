@@ -31,7 +31,7 @@
 点击 `进入开发机` 选项。
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/6bc3cde2-6309-4e14-9278-a65cd74d4a3a)
 
-进入开发机后，创建新的conda环境，命名为 `llamaindex`，在命令行模式下运行：
+进入开发机后，激活conda环境icamp3_llamaindex：
 ```bash
 conda activate /root/share/pre_envs/icamp3_llamaindex
 ```
