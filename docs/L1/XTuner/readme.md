@@ -228,7 +228,7 @@ cat output_file.jsonl | head -n 3
 ```
 此处结果太长不再展示，主要是检查自己要修改的名字是否在数据中。
 
-# 复制模型并修改训练用的 Config
+# 训练启动
 ## **步骤 0.** 复制模型
 
 在InternStudio开发机中的已经提供了微调模型，可以直接软链接即可。
@@ -327,13 +327,154 @@ alpaca_en = dict(
 当我们准备好了所有内容，我们只需要将使用 `xtuner train` 命令令即可开始训练。
 
 > `xtuner train` 命令用于启动模型微调进程。该命令需要一个参数：`CONFIG` 用于指定微调配置文件。这里我们使用修改好的配置文件 `internlm2_chat_7b_qlora_alpaca_e3_copy.py`。  
-> 训练过程中产生的所有文件，包括日志、配置文件、检查点文件、微调后的模型等，默认保存在 `work_dirs` 目录下，我们也可以通过添加 `--work-dir` 指定特定的文件保存位置。
+> 训练过程中产生的所有文件，包括日志、配置文件、检查点文件、微调后的模型等，默认保存在 `work_dirs` 目录下，我们也可以通过添加 `--work-dir` 指定特定的文件保存位置。`--deepspeed` 则为使用 deepspeed， deepspeed 可以节约显存。
 
-运行
+运行命令进行微调
 
 ```shell
 cd /root/fintune
 conda activate xtuner_env
 
-xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dir
+xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
+
+## **步骤 3.** 权重转换
+
+模型转换的本质其实就是将原本使用 Pytorch 训练出来的模型权重文件转换为目前通用的 HuggingFace 格式文件，那么我们可以通过以下命令来实现一键转换。
+
+我们可以使用 `xtuner convert pth_to_hf` 命令来进行模型格式转换。
+
+> `xtuner convert pth_to_hf` 命令用于进行模型格式转换。该命令需要三个参数：`CONFIG` 表示微调的配置文件， `PATH_TO_PTH_MODEL` 表示微调的模型权重文件路径，即要转换的模型权重， `SAVE_PATH_TO_HF_MODEL` 表示转换后的 HuggingFace 格式文件的保存路径。
+
+除此之外，我们其实还可以在转换的命令中添加几个额外的参数，包括：
+
+| 参数名                | 解释                                         |
+| --------------------- | -------------------------------------------- |
+| --fp32                | 代表以fp32的精度开启，假如不输入则默认为fp16 |
+| --max-shard-size {GB} | 代表每个权重文件最大的大小（默认为2GB）      |
+
+
+```bash
+cd ./work_dirs/assistTuner
+conda activate xtuner_env
+
+# 先获取最后保存的一个pth文件
+pth_file=`ls -t ./work_dirs/assistTuner/*.pth | head -n 1`
+export MKL_SERVICE_FORCE_INTEL=1
+export MKL_THREADING_LAYER=GNU
+xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
+```
+
+模型格式转换完成后，我们的目录结构应该是这样子的。
+
+<details>
+<summary>目录结构</summary>
+
+```
+├── hf
+│   ├── README.md
+│   ├── adapter_config.json
+│   ├── adapter_model.bin
+│   └── xtuner_config.py
+```
+
+</details>
+
+转换完成后，可以看到模型被转换为 HuggingFace 中常用的 .bin 格式文件，这就代表着文件成功被转化为 HuggingFace 格式了。
+
+此时，hf 文件夹即为我们平时所理解的所谓 “LoRA 模型文件”
+
+> 可以简单理解：LoRA 模型文件 = Adapter
+
+## **步骤 4.** 模型合并
+
+对于 LoRA 或者 QLoRA 微调出来的模型其实并不是一个完整的模型，而是一个额外的层（Adapter），训练完的这个层最终还是要与原模型进行合并才能被正常的使用。
+
+> 对于全量微调的模型（full）其实是不需要进行整合这一步的，因为全量微调修改的是原模型的权重而非微调一个新的 Adapter ，因此是不需要进行模型整合的。
+
+在 XTuner 中提供了一键合并的命令 `xtuner convert merge`，在使用前我们需要准备好三个路径，包括原模型的路径、训练好的 Adapter 层的（模型格式转换后的）路径以及最终保存的路径。
+
+> `xtuner convert merge`命令用于合并模型。该命令需要三个参数：`LLM` 表示原模型路径，`ADAPTER` 表示 Adapter 层的路径， `SAVE_PATH` 表示合并后的模型最终的保存路径。
+
+在模型合并这一步还有其他很多的可选参数，包括：
+
+| 参数名                 | 解释                                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| --max-shard-size {GB}  | 代表每个权重文件最大的大小（默认为2GB）                      |
+| --device {device_name} | 这里指的就是device的名称，可选择的有cuda、cpu和auto，默认为cuda即使用gpu进行运算 |
+| --is-clip              | 这个参数主要用于确定模型是不是CLIP模型，假如是的话就要加上，不是就不需要添加 |
+
+
+```bash
+cd ./work_dirs/assistTuner
+conda activate xtuner_env
+
+export MKL_SERVICE_FORCE_INTEL=1
+export MKL_THREADING_LAYER=GNU
+xtuner convert merge /root/finetune/models/internlm2-chat-7b ./hf ./merged --max-shard-size 2GB
+```
+
+模型合并完成后，我们的目录结构应该是这样子的。
+
+<details>
+<summary>目录结构</summary>
+
+```
+├── merged
+│   ├── README.md
+│   ├── config.json
+│   ├── configuration.json
+│   ├── configuration_internlm2.py
+│   ├── generation_config.json
+│   ├── modeling_internlm2.py
+│   ├── pytorch_model-00001-of-00008.bin
+│   ├── pytorch_model-00002-of-00008.bin
+│   ├── pytorch_model-00003-of-00008.bin
+│   ├── pytorch_model-00004-of-00008.bin
+│   ├── pytorch_model-00005-of-00008.bin
+│   ├── pytorch_model-00006-of-00008.bin
+│   ├── pytorch_model-00007-of-00008.bin
+│   ├── pytorch_model-00008-of-00008.bin
+│   ├── pytorch_model.bin.index.json
+│   ├── special_tokens_map.json
+│   ├── tokenization_internlm2.py
+│   ├── tokenization_internlm2_fast.py
+│   ├── tokenizer.json
+│   ├── tokenizer.model
+│   └── tokenizer_config.json
+```
+
+</details>
+
+在模型合并完成后，我们就可以看到最终的模型和原模型文件夹非常相似，包括了分词器、权重文件、配置信息等等。
+
+# 模型 WebUI 对话
+
+微调完成后，我们可以再次运行`xtuner_streamlit_demo.py`脚本来观察微调后的对话效果，不过在运行之前，我们需要将脚本中的模型路径修改为微调后的模型的路径。
+
+```diff
+# 直接修改脚本文件第18行
+- model_name_or_path = "Shanghai_AI_Laboratory/internlm2-chat-7b"
++ model_name_or_path = "./merged"
+```
+
+然后，我们可以直接启动应用。
+
+
+```bash
+conda activate xtuner_env
+
+streamlit run /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py
+```
+
+运行后，确保端口映射正常，如果映射已断开则需要重新做一次端口映射。
+
+
+```bash
+ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p *****
+```
+
+最后，通过浏览器访问：http://127.0.0.1:8501 来进行对话了。
+
+![image](https://github.com/user-attachments/assets/d7c80ea1-761b-4225-974a-620658b2e99d)
+
