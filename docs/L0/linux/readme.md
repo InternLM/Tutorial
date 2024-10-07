@@ -1,6 +1,6 @@
 # Linux+InternStudio 关卡
 
-<img width="1440" alt="B站封面" src="https://github.com/user-attachments/assets/8d7736cf-5e62-4d5e-8e1b-e9c819889773">
+<img width="1440" alt="B站封面" src="https://github.com/user-attachments/assets/de307e7e-4ead-491e-a1b6-e0742b08ddb8">
 
 
 😀Hello大家好，欢迎来到**书生大模型**实战营，这里是实战营为第一次参加实战营同学，和来自各个行业的没有Linux基础知识的同学准备的基础课程，在这里我们会教大家如何使用**InternStudio开发机**，以及掌握一些基础的**Linux知识**，让大家不至于在后面的课程中无从下手，希望对大家有所帮助。在这里[关卡任务](./task.md)中为大家准备了一些关卡任务，当大家完成必做关卡任务并打卡后，就会获得当前关卡的算力奖励了，**让我们开始吧！**
@@ -328,7 +328,7 @@ with gr.Blocks(gr.themes.Soft()) as demo:
             <h2 style="text-align: center;">😀 Let’s go on a journey through ShuSheng Island together.</h2>
             <p align="center">
                 <a href="https://github.com/InternLM/Tutorial/blob/camp3">
-                    <img src="https://oss.lingkongstudy.com.cn/blog/202406301604074.jpg" alt="Logo" width="20%" style="border-radius: 5px;">
+                    <img src="https://oss.lingkongstudy.com.cn/blog/202410071004536.jpg" alt="Logo" width="50%" style="border-radius: 5px;">
                 </a>
             </p>
 
@@ -358,7 +358,7 @@ ssh -p 37367 root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:7860 -o StrictHost
 
 这样就代表成功了。（**注意**：这个命令不返回任何的内容，这样代表端口映射在运行了，然后在网页中打开连接就可以看到web ui的界面了）
 
-![image](https://github.com/InternLM/Tutorial/assets/110531742/6837f86f-3e1b-4667-9834-f40f9ad79349)
+![image](https://github.com/user-attachments/assets/22e1d84d-78d4-44a5-9d24-9efca2ca78a5)
 
 
 ##### 2.3.2.2 使用 vscode 进行端口映射
