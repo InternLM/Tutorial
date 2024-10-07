@@ -53,9 +53,9 @@ https://studio.intern-ai.org.cn/
 
 其中：
 
-1. **JupyterLab**：一个交互式的编程和教学环境，同时内置终端，可以很方便地查看文件，执行代码等
-2. **终端**（Terminal， 最轻量级）：主要进行命令行操作，或者运行脚本和简单程序
-3. **VSCode**：网页中集成的VSCode，也可以在本地VSCode中通过SSH连接远程开发，下面就会讲如何配置远程连接。
+①. **JupyterLab**：一个交互式的编程和教学环境，同时内置终端，可以很方便地查看文件，执行代码等
+②. **终端**（Terminal， 最轻量级）：主要进行命令行操作，或者运行脚本和简单程序
+③. **VSCode**：网页中集成的VSCode，也可以在本地VSCode中通过SSH连接远程开发，下面就会讲如何配置远程连接。
 
 ![image](https://github.com/InternLM/Tutorial/assets/110531742/10f9aa35-bf60-447c-ba1f-4704f9309105)
 
