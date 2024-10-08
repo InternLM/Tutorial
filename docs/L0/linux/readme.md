@@ -260,7 +260,8 @@ ssh -p 37367 root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:7860 -o StrictHost
 
 上面是一个端口映射命令，在主机上运行该命令即可进行端口映射，下面用一个流程图了解端口映射的过程：
 
-![image](https://github.com/InternLM/Tutorial/assets/110531742/79288ff2-f065-487b-9fed-8100da5d0e8a)
+![image](https://github.com/user-attachments/assets/7bdfc581-01a1-42bc-bcb0-07269e1c731b)
+
 
 
 > 个人PC会远程连接到开发机唯一暴露在外的37367端口，（这个在SSH的时候提到过每个人的开发机暴露的端口都不一样），并设置隧道选项。暴露端口是作为中转站进行流量的转发。
