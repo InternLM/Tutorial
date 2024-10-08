@@ -328,7 +328,7 @@ with gr.Blocks(gr.themes.Soft()) as demo:
             <h2 style="text-align: center;">😀 Let’s go on a journey through ShuSheng Island together.</h2>
             <p align="center">
                 <a href="https://github.com/InternLM/Tutorial/blob/camp3">
-                    <img src="https://oss.lingkongstudy.com.cn/blog/202410071004536.jpg" alt="Logo" width="50%" style="border-radius: 5px;">
+                    <img src="https://oss.lingkongstudy.com.cn/blog/202410081252022.png" alt="Logo" width="50%" style="border-radius: 5px;">
                 </a>
             </p>
 
@@ -358,7 +358,8 @@ ssh -p 37367 root@ssh.intern-ai.org.cn -CNg -L 7860:127.0.0.1:7860 -o StrictHost
 
 这样就代表成功了。（**注意**：这个命令不返回任何的内容，这样代表端口映射在运行了，然后在网页中打开连接就可以看到web ui的界面了）
 
-![image](https://github.com/user-attachments/assets/22e1d84d-78d4-44a5-9d24-9efca2ca78a5)
+![image](https://github.com/user-attachments/assets/45e1a337-d7fa-48ef-b2da-d90e6615e4d8)
+
 
 
 ##### 2.3.2.2 使用 vscode 进行端口映射
