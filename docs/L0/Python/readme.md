@@ -268,7 +268,7 @@ debug面板各按钮功能介绍：
 
 通过遵循以上步骤，你可以使用VSCode的debug功能来更容易地找到和修复你Python代码中的错误。可以自己编写一个简单的python脚本，并尝试使用debug来更好的理解代码的运行逻辑。记住，debug是编程中非常重要的一部分，所以不要怕花时间在这上面。随着时间的推移，你会变得越来越擅长它！
 
-### 4.4.2 不同的断点
+### 4.2.2 不同的断点
 在调试（Debug）过程中，断点（Breakpoint）允许程序员在程序的执行流程中设置暂停点。当程序运行到这些断点时，执行会暂时中断，使得我们可以检查此时程序的状态，包括变量的值、内存的内容等。断点为我们提供了一个观察程序运行细节的机会，从而帮助我们定位和解决程序中的错误或问题。在VSCode中，我们还可以设置条件断点，这样断点只有在满足特定条件时才会触发。
 
 1. 普通断点：在代码行号左侧点击，添加断点。
@@ -296,11 +296,11 @@ debug面板各按钮功能介绍：
 运行debug后我们可以在debug console看到
 ![images](https://github.com/user-attachments/assets/fae0204a-e2d9-4ed3-983c-5b4f40e7a6ce)
 
-### 4.4.3 在vscode使用命令行进行debug
+## 4.3 在vscode使用命令行进行debug
 
 很多时候我们要debug的不止是一个简单的python文件，而是很多参数，参数中不止会有简单的值还可能有错综复杂的文件关系,甚至debug一整个项目。这种情况下，直接使用命令行来发起debug会是一个更好的选择。
 
-#### 4.4.3.1 vscode设置
+### 4.3.1 vscode设置
 
 
 vscode支持通过remote的方法连接我们在命令行中发起的debug server。首先我们要配置一下debug的config。
@@ -322,7 +322,7 @@ vscode支持通过remote的方法连接我们在命令行中发起的debug serve
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/b6d2c147-60e2-42b5-8bab-66ef450bd214)
 
-#### 4.4.3.2 debug命令行
+### 4.3.2 debug命令行
 
 现在vscode已经准备就绪，让我们来看看如何在命令行中发起debug。如果没有安装debugpy的话可以先通过pip install debugpy安装一下。
 
@@ -344,7 +344,7 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/5cf91e9f-4588-41c2-934a-352f92c210a7)
 
-#### 4.4.3.3 使用别名简化命令
+### 4.3.3 使用别名简化命令
 
 
 这边有个不方便的地方，python -m debugpy --listen 5678 --wait-for-client这个命令太长了，每次都打很麻烦。这里我们可以给这段常用的命令设置一个别名。
