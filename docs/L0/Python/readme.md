@@ -217,9 +217,13 @@ if __name__ =="__main__":
 **Step2配置调试**
   - 打开你的Python文件，点击左侧活动栏的“运行和调试”图标。
   - 首次debug需要配置以下，点击“create a launch.json file”，选择python debugger后选择“Python File” config。
+
   ![image](https://github.com/user-attachments/assets/af0cc60f-74fa-4168-9da8-31928972b352)
+
   - 可以直接编辑生成的launch.json文件，配置调试参数，比如添加config（Add Configuration）等。
+
   ![image](https://github.com/user-attachments/assets/81721718-62c3-495f-874b-31473e73d168)
+
 新建python文件后我们如果想要运行，首先需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。
 
 
@@ -232,6 +236,7 @@ if __name__ =="__main__":
 **Step4.启动debug**
 
 点击VSCode侧边栏的“Run and Debug”（运行和调试），选择debug配置后点击绿色箭头（开始调试）按钮，或者按F5键。
+
 ![image_debug](https://github.com/user-attachments/assets/97b5e791-2490-4d71-8764-e7aadc5e3d4b)
 
 
@@ -280,20 +285,30 @@ debug面板各按钮功能介绍：
 #### 表达式条件断点
 比如我们想让代码从i=end-1时停下来，就可以这样设置。
 现在断点处右键选择条件断点，或者先建立一个普通断点以后编辑断点。
+
 ![images](https://github.com/user-attachments/assets/793f31fa-16dd-46f0-911a-d15801b477e2)
+
 回车保存断点，然后运行debug，可以看到程序在i=9的时候停了下来，此时各变量的值如下
+
 ![images](https://github.com/user-attachments/assets/ebab013b-e76b-4bb9-93d0-175f94c3cce3)
+
 
 #### 触发计数条件断点
 如果我们想让sum_res+=i在运行5次后停下来，我们可以在这行设置这样的断点
+
 ![images](https://github.com/user-attachments/assets/1dab2877-0835-4a3c-80aa-c1a556d0205d)
+
 运行debug后，程序第一次暂停时各变量的状态为
+
 ![images](https://github.com/user-attachments/assets/1ce0000f-50d7-411f-9195-22d05aa507fa)
 
 #### 记录日志条件断点
 每次触发时记录一下i的值
+
 ![images](https://github.com/user-attachments/assets/673a80e2-de0a-4563-ade5-afeb195b9011)
+
 运行debug后我们可以在debug console看到
+
 ![images](https://github.com/user-attachments/assets/fae0204a-e2d9-4ed3-983c-5b4f40e7a6ce)
 
 ## 4.3 在vscode使用命令行进行debug
