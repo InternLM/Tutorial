@@ -3,7 +3,7 @@
 ### 任务概览
 | 任务类型 | 任务内容 | 预计耗时 |
 | --- |---| ---|
-|闯关任务|Leetcode 383(提交代码与leetcode提交通过截图)| 15mins|
+|闯关任务|Leetcode 383(笔记中提交代码与leetcode提交通过截图)| 15mins|
 |闯关任务|Vscode连接InternStudio debug笔记| 15mins|
 
 闯关作业总共分为两个任务，两个任务均完成视作闯关成功。
@@ -11,7 +11,7 @@
 提交地址：https://aicarrier.feishu.cn/share/base/form/shrcnZ4bQ4YmhEtMtnKxZUcf1vd
 
 ### 任务一
-完成[Leetcode 383](https://leetcode.cn/problems/ransom-note/description/),提交代码与leetcode提交通过截图
+完成[Leetcode 383](https://leetcode.cn/problems/ransom-note/description/), 笔记中提交代码与leetcode提交通过截图
 
 
 ### 任务二
