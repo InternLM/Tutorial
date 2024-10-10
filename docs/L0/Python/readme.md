@@ -100,22 +100,23 @@ triton>=2.1.0,<=2.3.1;
 ```shell
 #首先激活环境
 conda activate /root/share/pre_envs/pytorch2.1.2cu12.1
-#假设我们要安装到/root/your_directory下
-pip install somepackage --target /root/your_directory
+#我们可以创建一个目录/root/myenvs，并将包安装到这个目录下
+mkdir /root/myenvs
+pip install somepackage --target /root/myenvs
 #注意这里也可以使用-r来安装requirements.txt
-pip install -r requirements.txt --target /root/your_directory
+pip install -r requirements.txt --target /root/myenvs
 ```
 要使用安装在指定目录的python包，可以在import的时候带上完整的路径+包名
 ```python
 #假设我要引用/root/your_directory下的numpy
-import /root/your_directory/numpy
+import /root/myenvs
 ```
 或者在python脚本开头临时将该路径加入python环境变量中去
 ```python
 import sys  
   
 # 你要添加的目录路径  
-your_directory = '/root/your_directory'  
+your_directory = '/root/myenvs'  
   
 # 检查该目录是否已经在 sys.path 中  
 if your_directory not in sys.path:  
