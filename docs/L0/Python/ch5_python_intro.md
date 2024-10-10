@@ -1,4 +1,4 @@
-# Chapter2: Python基础
+# Python基础速通教程
 
 ## 2.1 Python基础语法
 
