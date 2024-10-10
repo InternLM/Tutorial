@@ -106,12 +106,7 @@ pip install somepackage --target /root/myenvs
 #注意这里也可以使用-r来安装requirements.txt
 pip install -r requirements.txt --target /root/myenvs
 ```
-要使用安装在指定目录的python包，可以在import的时候带上完整的路径+包名
-```python
-#假设我要引用/root/your_directory下的numpy
-import /root/myenvs
-```
-或者在python脚本开头临时将该路径加入python环境变量中去
+要使用安装在指定目录的python包，可以在python脚本开头临时动态地将该路径加入python环境变量中去
 ```python
 import sys  
   
