@@ -53,13 +53,13 @@ conda env remove myenv
 ```
 ## 1.3 安装虚拟环境到指定目录
 有时我们会遇到想将整个虚拟环境保存到制定目录来共享，比如在局域网内，或者在InternStudio的团队开发机间共享。此时我们可以把conda的虚拟环境创建到指定目录下。
-只需要在创建环境时使用`--prefix`参数制定环境所在的文件夹即可，比如我们想在/share/envs/路径下创建刚刚我们创建过得myenv。
+只需要在创建环境时使用`--prefix`参数制定环境所在的文件夹即可，比如我们想在/root/envs/路径下创建刚刚我们创建过得myenv（只做演示，不用操作）。
 ```shell
-conda create --prefix /share/envs/myenv python=3.9
+conda create --prefix /root/envs/myenv python=3.9
 ```
 其他操作就与直接在默认路径下创建新环境没有区别了。想要激活保存在制定目录下的conda虚拟环境也十分简单，直接将环境名替换成所在文件夹就行。
 ```shell
-conda activate /share/envs/myenv
+conda activate /root/envs/myenv
 ```
 myenv这个文件夹里包含了整个虚拟环境，所以理论上将他直接拷贝到任意一台安装了conda的机器上都能直接激活使用，这也是在内网机器上做环境配置的一种效率较高的解决方案。
 
