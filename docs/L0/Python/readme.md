@@ -52,7 +52,8 @@ conda list
 conda env remove myenv
 ```
 ## 1.3 安装虚拟环境到指定目录
-有时我们会遇到想将整个虚拟环境保存到制定目录来共享，比如在局域网内，或者在InternStudio的团队开发机间共享。此时我们可以把conda的虚拟环境创建到指定目录下。只需要在创建环境时使用`--prefix`参数制定环境所在的文件夹即可，比如我们想在/share/envs/路径下创建刚刚我们创建过得myenv。
+有时我们会遇到想将整个虚拟环境保存到制定目录来共享，比如在局域网内，或者在InternStudio的团队开发机间共享。此时我们可以把conda的虚拟环境创建到指定目录下。
+只需要在创建环境时使用`--prefix`参数制定环境所在的文件夹即可，比如我们想在/share/envs/路径下创建刚刚我们创建过得myenv。
 ```shell
 conda create --prefix /share/envs/myenv python=3.9
 ```
@@ -93,24 +94,28 @@ triton>=2.1.0,<=2.3.1;
 ```
 
 ## 2.3 安装到指定目录
-有时我们需要将包安装到特定目录，比如在InternStudio开发机使用share目录下预先安装的conda虚拟环境时，我们没有该目录的写权限，无法直接在原目录安装。
+为了节省大家的存储空间，本次实战营的conda环境均放在share目录下，但share目录只有读权限，所以我们不能直接使用pip将包安装到对应环境中，需要将我们额外需要的包安装到我们自己的目录下。
 这时我们在使用pip的时候可以使用--target或-t参数来指定安装目录，此时pip会将你需要安装的包安装到你指定的目录下。
+这里我们用本次实战营最常用的环境`/root/share/pre_envs/pytorch2.1.2cu12.1`来举例。
 ```shell
-pip install somepackage --target /path/to/install/directory
+#首先激活环境
+conda activate /root/share/pre_envs/pytorch2.1.2cu12.1
+#假设我们要安装到/root/your_directory下
+pip install somepackage --target /root/your_directory
 #注意这里也可以使用-r来安装requirements.txt
-pip install -r requirements.txt --target /path/to/install/directory
+pip install -r requirements.txt --target /root/your_directory
 ```
 要使用安装在指定目录的python包，可以在import的时候带上完整的路径+包名
 ```python
-#假设我要引用/path/to/install/directory/下的numpy
-import /path/to/install/directory/numpy
+#假设我要引用/root/your_directory下的numpy
+import /root/your_directory/numpy
 ```
 或者在python脚本开头临时将该路径加入python环境变量中去
 ```python
 import sys  
   
 # 你要添加的目录路径  
-your_directory = '/path/to/your/directory'  
+your_directory = '/root/your_directory'  
   
 # 检查该目录是否已经在 sys.path 中  
 if your_directory not in sys.path:  
