@@ -220,7 +220,16 @@ python run.py configs/eval_tutorial_demo.py --debug
     ceval-college_physics                           963fa8     accuracy       gen      42.11                                                                                 
     ceval-college_chemistry                         e78857     accuracy       gen      33.33                                                                                 
     ceval-advanced_mathematics                      ce03e2     accuracy       gen      10.53                                                                                 
-    ...      
+    ...     
+
+# 评测 API 模型
+
+OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以以相同的方式或甚至在一个设置中评估这两种模型类型。
+
+
+
+
+ 
 
 # 结语
 
