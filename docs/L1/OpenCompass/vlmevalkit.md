@@ -130,7 +130,7 @@ LOCAL_LLM=<model_name you get>
 python run.py --data MMBench_DEV_EN MME SEEDBench_IMG --model InternVL2-2B --verbose
 ```
 
-![local_llm](local_llm.png)
+![local_llm](https://github.com/user-attachments/assets/551da64f-8ce7-4880-84ce-a5f8b808e123)
 
 <!-- 
 - 如果你希望将评判 LLM 部署在单独的一个 GPU 上，并且由于 GPU 内存有限而希望在其他 GPU 上评估你的 VLM，可以使用 `CUDA_VISIBLE_DEVICES=x` 这样的方法，例如：
