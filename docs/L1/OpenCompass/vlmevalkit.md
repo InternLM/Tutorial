@@ -121,7 +121,7 @@ model_name
 ```
 OPENAI_API_KEY=sk-123456
 OPENAI_API_BASE=http://0.0.0.0:23333/v1/chat/completions
-LOCAL_LLM=<model_name you get>
+LOCAL_LLM='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat'
 ```
 
 最后，你可以运行第2步中的命令，使用本地评判 LLM 来评估你的 VLM, 例如:

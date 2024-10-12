@@ -227,6 +227,72 @@ python run.py configs/eval_tutorial_demo.py --debug
 OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以以相同的方式或甚至在一个设置中评估这两种模型类型。
 
 
+首先进行安装:
+```bash
+pip install lmdeploy openai
+```
+
+然后可以通过一行代码部署本地评判 LLM：
+
+```bash
+# --cache-max-entry-count 0.4 设置用于减少 GPU 占用
+lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --cache-max-entry-count 0.4 --server-port 23333
+```
+
+
+
+使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
+```python
+from openai import OpenAI
+client = OpenAI(
+    api_key='sk-123456',
+    base_url="http://0.0.0.0:23333/v1"
+)
+model_name = client.models.list().data[0].id
+model_name
+```
+
+
+配置对应环境变量，以告诉 VLMEvalKit 如何使用本地评判 LLM。正如上面提到的，也可以在  `$VLMEvalKit/.env` 文件中设置：
+
+```
+OPENAI_API_KEY=sk-123456
+OPENAI_API_BASE=http://0.0.0.0:23333/v1/chat/completions
+LOCAL_LLM='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat'
+```
+
+最后，你可以创建配置脚本 `/root/opencompass/configs/models/internlm/internlm2_5_1_8b_chat_local.py` 
+```python
+from opencompass.models import OpenAI
+
+api_meta_template = dict(round=[
+    dict(role='HUMAN', api_role='HUMAN'),
+    dict(role='BOT', api_role='BOT', generate=True),
+])
+
+models = [
+    dict(
+        abbr='InternLM-2.5-1.8B-Chat',
+        type=OpenAI,
+        path='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/',
+        key='sk-123456',
+        openai_api_base='http://0.0.0.0:23333/v1/chat/completions',
+        meta_template=api_meta_template,
+        query_per_second=1,
+        max_out_len=2048,
+        max_seq_len=4096,
+        batch_size=8),
+]
+
+```
+来进行 api 模型评测
+
+
+```bash
+opencompass --models internlm2_5_1_8b_chat_local --datasets ceval_gen 
+```
+
+![image](https://github.com/user-attachments/assets/8e17d13c-89e4-4c9c-a398-b9c837e0f986)
 
 
  
