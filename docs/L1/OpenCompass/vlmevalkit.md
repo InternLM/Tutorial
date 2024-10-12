@@ -32,7 +32,7 @@ VLMEvalKit 会根据你的环境变量配置来决定使用哪个模型作为评
 **VLM 配置**：所有 VLMs 都在 `vlmeval/config.py` 中配置。对于某些 VLMs，在进行评估之前，你需要配置代码根目录（如 MiniGPT-4、PandaGPT 等）或模型权重根目录（如 LLaVA-v1-7B 等）。在评估时，你应该使用 `vlmeval/config.py` 中 `supported_VLM` 指定的模型名称来选择 VLM。
 
 
-![config](config.png)
+![config](https://github.com/user-attachments/assets/56578745-a8e1-4aa1-88fb-47d21874864b)
 
 
 例如我们这里指定了本地模型的路径 `INTERVL2_1B_MODEL_PTH, INTERVL2_2B_MODEL_PTH`. 一些 VLMs 需要额外配置步骤, 例如 InstructBLIP 需要安装 LAVIS 库.
