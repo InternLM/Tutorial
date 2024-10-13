@@ -62,7 +62,6 @@ models = [
 
 ```bash
 python run.py --datasets ceval_gen --models hf_internlm2_5_1_8b_chat 
-# 打开 opencompass文件夹下configs/models/hf_internlm/的hf_internlm2_5_1_8b_chat.py ,贴入以下代码
 ```
 
 
