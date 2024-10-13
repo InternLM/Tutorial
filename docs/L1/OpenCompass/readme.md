@@ -1,17 +1,17 @@
-<img width="1440" alt="opencompass" src="https://github.com/user-attachments/assets/94ce9232-b8c5-4d0f-b470-ca9c98879153">
+
+# 大模型评测实践 OpenCompass
 
 
-本文将进行使用 OpenCompass 来评测 InternLM2 1.8B实践
+本文将进行使用 OpenCompass 来评测 InternLM2.5-Chat-1.8B 模型在 C-Eval 数据集上的性能。
 
-# 概览
 
-在 OpenCompass 中评估一个模型通常包括以下几个阶段：配置 -> 推理 -> 评估 -> 可视化。
+在 OpenCompass 中评估一个模型通常包括如下几个阶段：
 
 *   配置：这是整个工作流的起点。您需要配置整个评估过程，选择要评估的模型和数据集。此外，还可以选择评估策略、计算后端等，并定义显示结果的方式。
 *   推理与评估：在这个阶段，OpenCompass 将会开始对模型和数据集进行并行推理和评估。推理阶段主要是让模型从数据集产生输出，而评估阶段则是衡量这些输出与标准答案的匹配程度。这两个过程会被拆分为多个同时运行的“任务”以提高效率。
 *   可视化：评估完成后，OpenCompass 将结果整理成易读的表格，并将其保存为 CSV 和 TXT 文件。
 
-接下来，我们将展示 OpenCompass 的基础用法，分别用命令行方式和配置文件的方式评测InternLM2-Chat-1.8B，展示书生浦语在 `C-Eval` 基准任务上的评估。更多评测技巧请查看 [https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html](https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html)  文档。
+接下来，我们将展示 OpenCompass 的基础用法，分别用命令行方式和配置文件的方式评测InternLM2.5-Chat-1.8B，展示书生浦语在 `C-Eval` 基准任务上的评估, 更多评测技巧请查看官方 [Tutorial](https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html)  文档。
 
 # 环境配置
 
@@ -220,7 +220,82 @@ python run.py configs/eval_tutorial_demo.py --debug
     ceval-college_physics                           963fa8     accuracy       gen      42.11                                                                                 
     ceval-college_chemistry                         e78857     accuracy       gen      33.33                                                                                 
     ceval-advanced_mathematics                      ce03e2     accuracy       gen      10.53                                                                                 
-    ...      
+    ...     
+
+# 评测 API 模型
+
+OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以以相同的方式或甚至在一个设置中评估这两种模型类型。
+
+
+首先进行安装:
+```bash
+pip install lmdeploy openai
+```
+
+然后可以通过一行代码部署本地评判 LLM：
+
+```bash
+# --cache-max-entry-count 0.4 设置用于减少 GPU 占用
+lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --cache-max-entry-count 0.4 --server-port 23333
+```
+
+
+
+使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
+```python
+from openai import OpenAI
+client = OpenAI(
+    api_key='sk-123456',
+    base_url="http://0.0.0.0:23333/v1"
+)
+model_name = client.models.list().data[0].id
+model_name
+```
+
+
+配置对应环境变量，以告诉 VLMEvalKit 如何使用本地评判 LLM。正如上面提到的，也可以在  `$VLMEvalKit/.env` 文件中设置：
+
+```
+OPENAI_API_KEY=sk-123456
+OPENAI_API_BASE=http://0.0.0.0:23333/v1/chat/completions
+LOCAL_LLM='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat'
+```
+
+最后，你可以创建配置脚本 `/root/opencompass/configs/models/internlm/internlm2_5_1_8b_chat_local.py` 
+```python
+from opencompass.models import OpenAI
+
+api_meta_template = dict(round=[
+    dict(role='HUMAN', api_role='HUMAN'),
+    dict(role='BOT', api_role='BOT', generate=True),
+])
+
+models = [
+    dict(
+        abbr='InternLM-2.5-1.8B-Chat',
+        type=OpenAI,
+        path='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/',
+        key='sk-123456',
+        openai_api_base='http://0.0.0.0:23333/v1/chat/completions',
+        meta_template=api_meta_template,
+        query_per_second=1,
+        max_out_len=2048,
+        max_seq_len=4096,
+        batch_size=8),
+]
+
+```
+来进行 api 模型评测
+
+
+```bash
+opencompass --models internlm2_5_1_8b_chat_local --datasets ceval_gen 
+```
+
+![image](https://github.com/user-attachments/assets/8e17d13c-89e4-4c9c-a398-b9c837e0f986)
+
+
+ 
 
 # 结语
 

@@ -55,6 +55,7 @@ def generate_interactive(
     additional_eos_token_id: Optional[int] = None,
     **kwargs,
 ):
+    
     inputs = tokenizer([prompt], padding=True, return_tensors='pt')
     input_length = len(inputs['input_ids'][0])
     for k, v in inputs.items():
@@ -125,7 +126,7 @@ def generate_interactive(
     stopping_criteria = model._get_stopping_criteria(
         generation_config=generation_config,
         stopping_criteria=stopping_criteria)
-    logits_warper = model._get_logits_warper(generation_config)
+    logits_warper = model._get_logits_warper(generation_config, device=model.device)
 
     unfinished_sequences = input_ids.new(input_ids.shape[0]).fill_(1)
     scores = None
@@ -190,6 +191,7 @@ def load_model():
     return model, tokenizer
 
 
+# 定义一个侧边栏，用于配置生成参数
 def prepare_generation_config():
     with st.sidebar:
         max_length = st.slider('Max Length',
@@ -234,30 +236,30 @@ def combine_history(prompt):
 
 def main():
     # torch.cuda.empty_cache()
-    print('load model begin.')
+    print('开始加载模型。')
     model, tokenizer = load_model()
-    print('load model end.')
+    print('模型加载完毕。')
 
     st.title('InternLM2-Chat-1.8B')
 
     generation_config = prepare_generation_config()
 
-    # Initialize chat history
+    # 初始化聊天记录
     if 'messages' not in st.session_state:
         st.session_state.messages = []
 
-    # Display chat messages from history on app rerun
+    # 在应用重新运行时显示历史聊天记录
     for message in st.session_state.messages:
         with st.chat_message(message['role'], avatar=message.get('avatar')):
             st.markdown(message['content'])
 
-    # Accept user input
-    if prompt := st.chat_input('What is up?'):
-        # Display user message in chat message container
+    # 接受用户输入
+    if prompt := st.chat_input('最近怎么样？'):
+        # 在聊天消息容器中显示用户消息
         with st.chat_message('user'):
             st.markdown(prompt)
         real_prompt = combine_history(prompt)
-        # Add user message to chat history
+        # 将用户消息添加到聊天记录中
         st.session_state.messages.append({
             'role': 'user',
             'content': prompt,
@@ -271,10 +273,10 @@ def main():
                     additional_eos_token_id=92542,
                     **asdict(generation_config),
             ):
-                # Display robot response in chat message container
+                # 在聊天消息容器中显示机器人响应
                 message_placeholder.markdown(cur_response + '▌')
             message_placeholder.markdown(cur_response)
-        # Add robot response to chat history
+        # 将机器人响应添加到聊天记录中
         st.session_state.messages.append({
             'role': 'robot',
             'content': cur_response,  # pylint: disable=undefined-loop-variable
