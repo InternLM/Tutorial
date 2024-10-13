@@ -1,17 +1,17 @@
-<img width="1440" alt="opencompass" src="https://github.com/user-attachments/assets/94ce9232-b8c5-4d0f-b470-ca9c98879153">
+
+# 大模型评测实践 OpenCompass
 
 
-本文将进行使用 OpenCompass 来评测 InternLM2 1.8B实践
+本文将进行使用 OpenCompass 来评测 InternLM2.5-Chat-1.8B 模型在 C-Eval 数据集上的性能。
 
-# 概览
 
-在 OpenCompass 中评估一个模型通常包括以下几个阶段：配置 -> 推理 -> 评估 -> 可视化。
+在 OpenCompass 中评估一个模型通常包括如下几个阶段：
 
 *   配置：这是整个工作流的起点。您需要配置整个评估过程，选择要评估的模型和数据集。此外，还可以选择评估策略、计算后端等，并定义显示结果的方式。
 *   推理与评估：在这个阶段，OpenCompass 将会开始对模型和数据集进行并行推理和评估。推理阶段主要是让模型从数据集产生输出，而评估阶段则是衡量这些输出与标准答案的匹配程度。这两个过程会被拆分为多个同时运行的“任务”以提高效率。
 *   可视化：评估完成后，OpenCompass 将结果整理成易读的表格，并将其保存为 CSV 和 TXT 文件。
 
-接下来，我们将展示 OpenCompass 的基础用法，分别用命令行方式和配置文件的方式评测InternLM2-Chat-1.8B，展示书生浦语在 `C-Eval` 基准任务上的评估。更多评测技巧请查看 [https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html](https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html)  文档。
+接下来，我们将展示 OpenCompass 的基础用法，分别用命令行方式和配置文件的方式评测InternLM2.5-Chat-1.8B，展示书生浦语在 `C-Eval` 基准任务上的评估, 更多评测技巧请查看官方 [Tutorial](https://opencompass.readthedocs.io/zh-cn/latest/get_started/quick_start.html)  文档。
 
 # 环境配置
 
