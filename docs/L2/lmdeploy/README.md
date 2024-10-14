@@ -2,7 +2,32 @@
 
 ![](./figures/topic.jpg)
 
-## 1.大模型缓存推理技术
+## 1.准备工作
+
+### 1.1 创建开发机
+本节课程所有实验将使用InternLM-2.5-1.8B模型作为示例。1.8B模型，以FP16/BF16格式加载模型，至少需要占用 $(1.8 \times 2)=3.6$ GB的显存。因此，我们使用一个具有8G显存的开发机足够运行该模型。
+
+在InternStudio平台，创建一个10% A100 (cuda12.2-conda)的镜像。详细操作步骤请参考L1课程。
+
+![](./figures/internstudio-image.jpg)
+
+### 1.2 配置虚拟环境
+
+首先创建一个新的conda环境，名为`lmdeploy`，解释器版本为`Python 3.10`。
+
+```sh
+conda create -n lmdeploy python=3.10
+conda activate lmdeploy
+```
+
+安装`pytorch`模块。由于后续我们要安装`lmdeploy v0.6.1`，依赖[`torch<=2.3.1`](https://github.com/InternLM/lmdeploy/blob/v0.6.1/requirements/runtime.txt)，因此我们安装2.3.1版本的`pytorch`。
+
+```sh
+pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu121
+```
+
+## 2.KV Cache缓存推理实验
+
 
 ### 1.1 LLM前向推理过程回顾
 
@@ -105,7 +130,18 @@ $$X'=\Delta X_q$$
 
 ## 3.大模型外推技术
 
-### 3.1 位置编码外推
+### 3.1 什么是外推
+
+大语言模型的外推性问题指的是大模型在训练时和预测时的输入长度不一致，导致模型的泛化能力下降的问题。这一问题主要来自两个方面：
+
+* 预测阶段用到了没训练过的位置编码
+  * 模型不可避免地在一定程度上对位置编码“过拟合”
+* 预测时，注意力机制所处理的token数量远超训练时的数量
+  * 导致计算注意力时的“熵”差异较大
+
+### 3.2 位置编码外推
+
+
 
 ### 3.2 注意力缩放外推
 
