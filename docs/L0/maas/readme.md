@@ -14,6 +14,8 @@
 优秀作业必做可选内容
 请将作业发布到知乎、CSDN等任一社交媒体，将作业链接提交到以下问卷，助教老师批改后将获得 50 算力点奖励！！！
 
+提交地址：https://aicarrier.feishu.cn/share/base/form/shrcnUqshYPt7MdtYRTRpkiOFJd
+
 ---
 ## 2. 课程内容
 😀Hello大家好，欢迎来到书生大模型实战营第四期新鲜出炉的“玩转Hugging Face/魔搭社区/魔乐社区”教程！
