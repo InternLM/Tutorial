@@ -1,5 +1,7 @@
 # 玩转HF/魔搭/魔乐社区
 
+<img width="900" alt="img_v3_02fm_1cdd62bb-61dc-490f-8720-97f70ce4455g" src="https://github.com/user-attachments/assets/41809cd6-9c1d-49e0-8d79-3bcf2f7fbd97">
+
 ## 1. 闯关任务
 
 闯关任务需要在关键步骤当中截图！
@@ -86,7 +88,7 @@ pip install accelerate==0.33.0
 ```touch hf_download_josn.py ```
 在这个文件中，粘贴以下代码
 
-```
+```python
 import os
 from huggingface_hub import hf_hub_download
 
@@ -131,7 +133,7 @@ for file_info in files_to_download:
 ```touch hf_download_1_8_demo.py```
 但是注意到在Codespace平台上是没有GPU资源的，因此我们python代码中只使用CPU进行推理，我们需要删掉跟CUDA有关的API，在hf_download_1_8_demo.py文件中粘贴以下内容：
 
-```
+```python
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
@@ -163,7 +165,7 @@ gen_kwargs = {
 - 通过CLI上传
 Hugging Face同样是跟Git相关联，通常大模型的模型文件都比较大，因此我们需要安装git lfs，对大文件系统支持。
 
-```
+```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt-get install git-lfs
 git lfs install
@@ -189,7 +191,7 @@ pip install huggingface_hub
 ![image](https://github.com/user-attachments/assets/fcd69f8a-596b-4e72-8d56-00a1635d0271)
 
 创建项目
-```
+```bash
 #intern_study_L0_4就是model_name
 huggingface-cli repo create intern_study_L0_4
 
@@ -212,7 +214,7 @@ git clone https://huggingface.co/{your_github_name}/intern_study_L0_4
 
 现在可以用git提交到远程仓库
 
-```
+```bash
 git add .
 git commit -m "init:intern_study_L0_4"
 git push
@@ -221,7 +223,7 @@ git push
 ```
 注意，如果git push 报错，可能是第一次上传时需要验证，请使用以下命令，注意替换<>里面的内容，然后再次git push一下就可以了
 ```
-```
+```bash
 git remote set-url origin https://<user_name>:<token>@huggingface.co/<repo_path>
 # 如 git remote set-url origin https://blank:hf_xxxxxxxxxxx@huggingface.co/blank/intern_study_L0_4
 # 这里blank和hf_xxxxxxxxxxxx只是示例 请替换为你的username和之前申请的access token
@@ -263,7 +265,7 @@ Hugging Face Spaces 是一个允许我们轻松地托管、分享和发现基于
 cd /workspaces/codespaces-jupyter/intern_cobuild
 ```
 修改我们的html代码
-```
+```html
 <!doctype html>
 <html>
 <head>
@@ -295,7 +297,7 @@ cd /workspaces/codespaces-jupyter/intern_cobuild
 ```
 保存后就可以push到远程仓库上了，它会自动更新页面。
 
-```
+```bash
 git add.
 git commit -m "update: colearn page"
 git push
@@ -351,7 +353,7 @@ ModelScope 是一个“模型即服务”(MaaS)平台，由阿里巴巴集团的
 #### 2.2.2 环境配置
 为ms_demo创建一个可用的conda虚拟环境，可以和其他环境区分开来
 
-```
+```python
 # 激活环境
 conda activate /root/share/pre_envs/pytorch2.1.2cu12.1
 
@@ -363,13 +365,13 @@ pip install packaging -t /root/env/maas
 
 注意：为了保证能够找到我们每次装的依赖，每次新建一个终端之后都需要导出path
 如果不改变终端，导出一次就够了
-```
+```bash
 export PATH=$PATH:/root/env/maas/bin
 export PYTHONPATH=/root/env/maas:$PYTHONPATH
 ```
 接着创建我们的demo目录
 
-```
+```bash
 mkdir -p /root/ms_demo
 # 创建好ms_model_download.py 备用
 touch /root/hf_demo/ms_model_download.py
@@ -379,7 +381,7 @@ touch /root/hf_demo/ms_model_download.py
 - internlm2_5-7b-chat
 考虑到7B的模型文件比较大，这里我们先采用modelscope的cli工具（当然hugging face也有）来下载指定文件，在命令行输入以下命令
 
-```
+```bash
 modelscope download \
     --model 'Shanghai_AI_Laboratory/internlm2_5-7b-chat' \
     tokenizer.json config.json model.safetensors.index.json \
@@ -389,7 +391,7 @@ modelscope download \
 刷新一下文件目录，就能看到在ms_demo中下载了指定的json文件。
 - internlm2_5-1_8b-chat
 
-```
+```bash
 modelscope download \
     --model 'Shanghai_AI_Laboratory/internlm2_5-1_8b-chat' \
     tokenizer.json config.json model.safetensors.index.json \
@@ -435,7 +437,7 @@ git clone https://modelers.cn/Intern/internlm2_5-1_8b-chat.git
 
 刷新一下文件夹，即可在ml_demo中找到下载好的模型文件，在魔乐社区中，还推荐了一个新的深度学习开发套件[openMind Library](https://modelers.cn/docs/zh/openmind-library/overview.html)，除了常用的Transforms的API，也可以探索如何使用openMind来加载模型
 
-```
+```python
 # 确保按指南安装好openmind后
 from openmind import AutoModel
 model = AutoModel.from_pretrained("Intern/internlm2_5-1_8b-chat", trust_remote_code=True")
