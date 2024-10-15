@@ -1,7 +1,7 @@
 # 提示工程(Prompt Engineering)
 
 
-![](https://files.mdnice.com/user/43439/b067e6a7-0eb5-4489-a79f-9fc15d639efb.jpeg)
+<img width="900" alt="L1-2" src="https://github.com/user-attachments/assets/4834591e-48dd-4d12-8fe4-3f8e548f849c">
 
 
 ## 1.1 什么是Prompt(提示词)
