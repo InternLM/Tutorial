@@ -8,6 +8,7 @@
 
 ## 1. 关卡
 
+![update](https://github.com/user-attachments/assets/1f65a77a-3490-47ff-b408-be6d7a190802)
 
 
 ### 1.1. 入门关卡
