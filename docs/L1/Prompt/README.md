@@ -1,6 +1,8 @@
 # 提示工程(Prompt Engineering)
 
-![](./assets/head.jpeg)
+
+![](https://files.mdnice.com/user/43439/b067e6a7-0eb5-4489-a79f-9fc15d639efb.jpeg)
+
 
 ## 1.1 什么是Prompt(提示词)
 
@@ -20,7 +22,9 @@ Prompt还可以包含一些特定的指令或要求，用于控制生成文本�
 
 在模型回复的过程中，首先获取用户输入的文本，然后处理文本特征并根据输入文本特征预测之后的文本，原理为**next token prediction**，类似我们日常使用的输入法。
 
-![](./assets/input.png)
+
+![](https://files.mdnice.com/user/43439/b4d0060a-d057-4e04-ad73-ee42d61cbbc7.png)
+
 
 提示工程是模型性能优化的基石，有以下六大基本原则：
 
@@ -40,19 +44,25 @@ Prompt还可以包含一些特定的指令或要求，用于控制生成文本�
 ```
 写一段话介绍AI大模型训练营
 ```
-![提示词 v1](./assets/prompt1.png)
+
+![](https://files.mdnice.com/user/43439/5b256621-a991-47ee-9197-84c1b6cd33c7.jpg)
+
 
 第二版提示词（增加表情元素）：
 ```
 写一段话介绍AI大模型训练营，添加emoji表情
 ```
-![提示词 v2](./assets/prompt2.png)
+
+![](https://files.mdnice.com/user/43439/ac0fb42d-f024-43d5-9663-0e7ab99a660b.jpg)
+
 
 第三版提示词（进一步优化结构）：
 ```
 写一段话介绍AI大模型训练营，添加emoji表情，结构化排版
 ```
-![提示词 v3](./assets/prompt3.png)
+
+![](https://files.mdnice.com/user/43439/ca0612aa-c99c-4d61-a208-05581a9ee57a.jpg)
+
 
 通过这个例子，我们可以清楚地看到，随着指令的逐步完善，AI生成的内容质量也随之提升。这种渐进式的提示词优化方法可以帮助我们更好地掌控AI输出，获得更符合需求的结果。
 
@@ -260,7 +270,9 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
 
   效果演示：
 
-  ![](./assets/email.png)
+![](https://files.mdnice.com/user/43439/a1e3bb2c-3230-4ec3-8f21-6ce457c533d8.png)
+
+
 
 - 小红书文案专家
 
@@ -312,7 +324,9 @@ LangGPT框架参考了面向对象程序设计的思想，设计为基于角色�
 ```
 
 效果演示：
-![](./assets/xhs.png)
+
+![](https://files.mdnice.com/user/43439/f4f9ef6d-50ba-4221-8ab7-9ae48f389248.jpg)
+
 
 
 ## 4.应用开发实战：使用浦语 InternLM 大模型一键写书
