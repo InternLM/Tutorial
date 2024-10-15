@@ -71,6 +71,13 @@
 - 招募同行者：将海报分享给你身边的小伙伴，邀请他们报名实战营，共享知识的力量。  
 
 
+<div align="center">
+
+  <img width="440" alt="image" src="https://github.com/user-attachments/assets/99f03ded-da19-42a1-a42d-982fe58ae0c3">
+
+</div>
+
+
 
 
 独家奖励等你拿
