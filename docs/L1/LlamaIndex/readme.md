@@ -188,6 +188,13 @@ conda activate llamaindex
 pip install llama-index-embeddings-huggingface==0.2.0 llama-index-embeddings-instructor==0.1.3
 ```
 
+```bash
+在这一步请确定llama-index-embeddings-huggingface安装成功
+如果存在not found错误，请重新安装
+pip install llama-index-embeddings-huggingface==0.2.0
+确保 huggingface_hub==0.23.1
+```
+
 运行以下命令，获取知识库
 
 ```bash
