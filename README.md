@@ -30,8 +30,8 @@
 |第 2 关| 8G 显存玩转书生大模型 Demo | [任务]、[文档]、[视频]| 100元算力点 |
 |第 3 关| 浦语提示词工程实践 | [任务](docs/L1/Prompt/tasks.md)、[文档](docs/L1/Prompt)、[视频]| 100元算力点 |
 |第 4 关| InternLM + LlamaIndex RAG 实践|[任务]、[文档]、[视频]| 100元算力点 |
-|第 6 关| XTuner 微调个人小助手认知 | [任务]、[文档](docs/L1/Evaluation/opencompass)、[视频]| 100元算力点 |
-|第 7 关| OpenCompass 评测书生大模型实践 | [任务]、[文档]、[视频]| 100元算力点 |
+|第 6 关| XTuner 微调个人小助手认知 | [任务]、[文档]、[视频]| 100元算力点 |
+|第 7 关| OpenCompass 评测书生大模型实践 | [任务]、[文档](docs/L1/Evaluation/opencompass)、[视频]| 100元算力点 |
 
 
 
