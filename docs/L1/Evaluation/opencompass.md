@@ -216,3 +216,4 @@ opencompass --models hf_internlm2_5_1_8b_chat_api --datasets ceval_gen --debug #
 得到结果
 
 ![image](https://github.com/user-attachments/assets/2d076f75-3e15-4100-975f-1d2eae31a4b2)
+
