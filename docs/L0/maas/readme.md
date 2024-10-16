@@ -362,7 +362,7 @@ export PYTHONPATH=/root/env/maas:$PYTHONPATH
 ```bash
 mkdir -p /root/ms_demo
 # 创建好ms_model_download.py 备用
-touch /root/hf_demo/ms_model_download.py
+touch /root/ms_demo/ms_model_download.py
 ```
 
 #### 2.2.3 下载指定多个文件
