@@ -123,6 +123,7 @@ if your_directory not in sys.path:
 ```
 
 # Ch3 **使用本地Vscode连接InternStudio开发机**
+## 3.1 使用SSH连接开发机
 VSCode是由微软开发一款轻量级但功能强大的代码编辑器，开源且完全免费。它拥有丰富的插件生态系统、跨平台支持、以及内置的Git控制功能，为开发者提供了高效便捷的编码体验。
 
 VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code.visualstudio.com/)
@@ -170,7 +171,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 ![images](https://github.com/InternLM/Tutorial/assets/32959436/e29ab709-68f1-4e0b-8e8a-93242f524e7b)
 
 
-### 在Vscode中打开终端
+## 3.2如何在Vscode中打开终端
 
 
 单击vscode页面下方有一个X和！的位置可以快速打开vscode的控制台，然后进入TERMINAL。
