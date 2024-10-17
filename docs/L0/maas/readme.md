@@ -52,7 +52,15 @@ Github CodeSpace是Github推出的线上代码平台，提供了一系列templat
 
 ![image](https://github.com/user-attachments/assets/68eeba74-d079-49df-938c-c84d070f7e7c)
 
-创建好环境后，在终端（terminal）安装以下依赖，便于模型运行。
+创建好环境后，我们先找到终端
+
+![image](https://github.com/user-attachments/assets/916f94bc-4686-402b-8012-9baf17e42ac7)
+
+CodeSapces 这里的界面跟vscode很类似，在下方会出现终端。
+
+![image](https://github.com/user-attachments/assets/585fa33e-c44e-406c-a710-3cd6857a2ef3)
+
+在终端（terminal）安装以下依赖，便于模型运行。
 
 ```bash
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
@@ -65,6 +73,7 @@ pip install accelerate==0.33.0
 ```
 
 ##### 2.1.4.1 下载internlm2_5-7b-chat的配置文件
+
 考虑到个人GitHub CodeSpace硬盘空间有限（32GB可用），而7B的模型相对较大，这里我们先演示如何下载模型文件夹的特定文件。
 
 ```
@@ -73,7 +82,11 @@ pip install accelerate==0.33.0
 ```
 
 以下载模型的配置文件为例，先新建一个hf_download_josn.py 文件
-```touch hf_download_josn.py ```
+
+```bash
+touch hf_download_josn.py
+```
+
 在这个文件中，粘贴以下代码
 
 ```python
@@ -103,13 +116,19 @@ for file_info in files_to_download:
     print(f"{file_info['filename']} file downloaded to: {file_path}")
 ```
 运行该文件（注意文件目录）
-```python hf_download_josn.py ```
+
+```bash
+python hf_download_josn.py
+```
+
 可以看到，已经从Hugging Face上下载了相应配置文件
 
 ![image](https://github.com/user-attachments/assets/4f0dbe4c-a82c-4cba-b6da-701c4461be20)
 
 那么如何使用internlm2_5-7b-chat模型呢？可以在InternStudio 的/share目录下找到
+
 如 /root/share/model_repos/internlm2-chat-7b
+
 在之后我们InternStudio的实验中，基本上都可以使用 /share 目录下的模型文件夹地址作为`model_name_or_path`传参到AutoTokenizer.from_pretrained()和AutoModelForCausalLM.from_pretrained()中，即可加载模型文件
 
 ##### 2.1.4.2 下载internlm2_5-chat-1_8b并打印示例输出
@@ -118,7 +137,10 @@ for file_info in files_to_download:
 创建一个python文件用于下载internlm2_5-1_8B模型并运行
 这里下载跟网速比较相关，一般来说十多分钟就搞定了，但是如果网速较慢的小伙伴可以只尝试下载1.8b模型对应的config.json文件以及其他配置文件
 
-```touch hf_download_1_8_demo.py```
+```bash
+touch hf_download_1_8_demo.py
+```
+
 但是注意到在Codespace平台上是没有GPU资源的，因此我们python代码中只使用CPU进行推理，我们需要删掉跟CUDA有关的API，在hf_download_1_8_demo.py文件中粘贴以下内容：
 
 ```python
@@ -174,23 +196,34 @@ pip install huggingface_hub
 
 ![image](https://github.com/user-attachments/assets/25a6c0bd-7cab-4ba2-b8f4-29ac732d877d)
 
-接着可以在CodeSpace里面，使用huggingface-cli login命令进行登录，这时需要输入刚刚的token
+接着可以在CodeSpace里面，使用
+
+```bash
+git config --global credential.helper store
+huggingface-cli login
+```
+
+命令进行登录，这时需要输入刚刚的token
 
 ![image](https://github.com/user-attachments/assets/fcd69f8a-596b-4e72-8d56-00a1635d0271)
+
 
 创建项目
 ```bash
 #intern_study_L0_4就是model_name
 huggingface-cli repo create intern_study_L0_4
 
-# 克隆到本地
+# 克隆到本地 your_github_name 注意替换成你自己的
 git clone https://huggingface.co/{your_github_name}/intern_study_L0_4
 ```
 
 克隆好之后，应该会在文件夹那边出现对应的文件夹
-![image](https://github.com/user-attachments/assets/0d451f6f-3a59-45db-85d6-ce92a1f1bb64)
 
-> 使用cp命令，将自己已经训练好保存的模型文件夹中的内容复制到这个repo中。注意：这里的模型文件夹是指通过transformers的官方接口保存的模型文件夹，比如可以使用model.save_pretrained()或者trainer训练过程中自动保存的checkpoint文件夹。
+![image](https://github.com/user-attachments/assets/1e552704-8d4e-4a50-9159-f3119e630f69)
+
+
+> 使用cp命令，将自己已经训练好保存的模型文件夹中的内容复制到这个repo中（如果有的话）。注意：这里的模型文件夹是指通过transformers的官方接口保存的模型文件夹，比如可以使用model.save_pretrained()或者trainer训练过程中自动保存的checkpoint文件夹。
+
 我们可以把训练好的模型保存进里面，这里考虑到网速问题，只上传我们刚刚下载好的config.json，把它复制粘贴进这个文件夹里面，还可以写一个README.md文件，比如可以粘贴以下内容：
 
 ```
@@ -202,33 +235,45 @@ git clone https://huggingface.co/{your_github_name}/intern_study_L0_4
 现在可以用git提交到远程仓库
 
 ```bash
+cd intern_study_L0_4
 git add .
-git commit -m "init:intern_study_L0_4"
+git commit -m "add:intern_study_L0_4"
 git push
 ```
 
 ```
 注意，如果git push 报错，可能是第一次上传时需要验证，请使用以下命令，注意替换<>里面的内容，然后再次git push一下就可以了
 ```
+
 ```bash
 git remote set-url origin https://<user_name>:<token>@huggingface.co/<repo_path>
+
 # 如 git remote set-url origin https://blank:hf_xxxxxxxxxxx@huggingface.co/blank/intern_study_L0_4
+
 # 这里blank和hf_xxxxxxxxxxxx只是示例 请替换为你的username和之前申请的access token
+
 git pull origin
 ```
-现在可以在Hugging Face的个人profile里面看到这个model，也可以直接输入Url到网址栏上
+
+现在可以在Hugging Face的个人profile里面看到这个model，也可以直接将下面的Url输入到浏览器网址栏上
+
 ```
 https://huggingface.co/<user_name>/intern_study_L0_4
 ```
-![image](https://github.com/user-attachments/assets/ff2dfc31-4e18-4eb7-bb6b-aa875006cfb8)
+
+![image](https://github.com/user-attachments/assets/209b2ba3-c125-474a-9c60-14f3f926ae07)
+
 
 - 通过平台直接创建
 
 ![image](https://github.com/user-attachments/assets/9dee50cd-e0b9-4948-a91a-0012d77d1f3b)
 
 创建一个空的仓库，然后可以通过Add file进行模型文件的上传，也可以git clone后，跟上述操作一样。
+
 ![image](https://github.com/user-attachments/assets/05c63128-40d3-4b80-95fd-56c76f34a872)
+
 > PS：熟悉Git工作流后当然还是Git 命令更好用。
+
 #### 2.1.6 Hugging Face Spaces的使用
 Hugging Face Spaces 是一个允许我们轻松地托管、分享和发现基于机器学习模型的应用的平台。Spaces 使得开发者可以快速将我们的模型部署为可交互的 web 应用，且无需担心后端基础设施或部署的复杂性。
 首先在界面上找到HF的Spaces并进行创建一个新的Space https://huggingface.co/spaces
@@ -251,7 +296,9 @@ Hugging Face Spaces 是一个允许我们轻松地托管、分享和发现基于
 ```
 cd /workspaces/codespaces-jupyter/intern_cobuild
 ```
+
 修改我们的html代码
+
 ```html
 <!doctype html>
 <html>
