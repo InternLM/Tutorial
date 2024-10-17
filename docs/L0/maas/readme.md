@@ -52,7 +52,7 @@ Github CodeSpace是Github推出的线上代码平台，提供了一系列templat
 
 ![image](https://github.com/user-attachments/assets/68eeba74-d079-49df-938c-c84d070f7e7c)
 
-创建好环境后，按照以下依赖，便于模型运行。
+创建好环境后，在终端（terminal）安装以下依赖，便于模型运行。
 
 ```bash
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
