@@ -2,7 +2,7 @@
 
 <img width="900" alt="img_v3_02fn_136796c2-1adb-429b-8c87-276fc43b483g" src="https://github.com/user-attachments/assets/27b038b6-1b0a-4884-a2b8-847b0b0b0bf9">
 
-欢迎来到实战营第四期的llamaindex+Internlm2 RAG课程，本文将分为以下几个部分来介绍，如何使用 LlamaIndex 来部署 InternLM2 1.8B并测试（以 InternStudio 的环境为例）
+😀Hello大家好，迎来到实战营第四期的llamaindex+Internlm2 RAG课程，本文将分为以下几个部分来介绍，如何使用 LlamaIndex 来部署 InternLM2 1.8B并测试（以 InternStudio 的环境为例）
 
 - 前置知识
 - 环境、模型准备
