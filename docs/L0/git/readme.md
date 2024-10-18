@@ -255,15 +255,13 @@ https://github.com/InternLM/Tutorial/tree/camp4
 
 ### **6.2 将本项目直接fork到自己的账号下，这样就可以直接在自己的账号下进行修改和提交。**
 
-<img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg3.png">
-
-![image](https://github.com/random-zhou/ailabImage/blob/main/docimg3.png)
+<img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg3.jpg">
 
 
 <img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg4.png">
 
 
-<img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg5.png">
+<img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg5.jpg">
 
 
 ### **6.3 配置git并克隆项目到InternStudio本地**
