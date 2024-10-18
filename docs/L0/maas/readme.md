@@ -10,32 +10,16 @@
 ## 2. 课程内容
 😀Hello大家好，欢迎来到书生大模型实战营第四期新鲜出炉的“玩转Hugging Face/魔搭社区/魔乐社区”教程！
 此教程旨在帮助您学习当前火热的三大AI学习社区。我们将深入探索如何充分利用 Hugging Face、魔搭社区和魔乐社区的资源和工具，学习模型下载、上传以及创建您的专属Space，玩转三大平台。无论你是初学者还是资深开发者，这些社区提供的丰富资源都将为您的项目带来无限可能，一起加油！
+
 ### 2.1 HF 平台
-### 2.1.1  注册Hugging Face 平台
-![image](https://github.com/user-attachments/assets/aab0682d-cac3-4010-8dcf-1fe66764b17c)
 
-注册成功之后会跳转到引导页~
+### 2.1.1  注册Hugging Face 平台 （需要魔法上网）
 
-![image](https://github.com/user-attachments/assets/215b90d2-cb86-43fc-ac6f-a4f3ba6d961d)
+Hugging Face 最初专注于开发聊天机器人服务。尽管他们的聊天机器人项目并未取得预期的成功，但他们在GitHub上开源的Transformers库却意外地在机器学习领域引起了巨大轰动。如今，Hugging Face已经发展成为一个拥有超过100,000个预训练模型和10,000个数据集的平台，被誉为机器学习界的GitHub。
 
-#### 2.1.2 查找书生系列模型
+这里需要先注册Hugging Face https://huggingface.co/ 
 
-首先，我们需要来到官网的模型模块，就可以看到如下页面：
-
-![image](https://github.com/user-attachments/assets/b119cabb-ead3-4296-b0fd-7eaedda491a0)
-
-- Filter: 用于筛选你想要的模型
-- 模型列表: 展示了可使用的模型。不带前缀的是官方提供的模型，例如gpt2，而带前缀的是第三方提供的模型。
-- 搜索框：你可以通过搜索框按名字搜索模型。
-比如我们搜索“internlm” 就会获得internlm下相关的模型
-
-![image](https://github.com/user-attachments/assets/79b0a603-a77d-4191-a80d-0cc47448dbb6)
-
-这里我以internlm2_5-1_8b举例
-
-![image](https://github.com/user-attachments/assets/6f399159-743b-4eb7-b5d4-af75b4c00d06)
-
-#### 2.1.3 InternLM模型下载
+#### 2.1.2 InternLM模型下载
 
 在正式下载之前，我们先要介绍一下HF的Transformers库，作为HF最核心的项目，它可以：
 - 直接使用预训练模型进行推理
@@ -43,7 +27,11 @@
 - 使用预训练模型进行迁移学习
 因此在使用HF前，我们需要下载Transformers等一些常用依赖库
 
-#### 2.1.4 GitHub CodeSpace的使用
+这里我以internlm2_5-1_8b举例 https://huggingface.co/internlm/internlm2_5-1_8b
+
+![image](https://github.com/user-attachments/assets/6f399159-743b-4eb7-b5d4-af75b4c00d06)
+
+#### 2.1.3 GitHub CodeSpace的使用
 
 ```因为网络和磁盘有限的原因，强烈不建议在 InternStudio 运行，因此这里使用CodeSpace```
 https://github.com/codespaces
@@ -72,7 +60,7 @@ pip install protobuf==5.27.2
 pip install accelerate==0.33.0
 ```
 
-##### 2.1.4.1 下载internlm2_5-7b-chat的配置文件
+##### 2.1.3.1 下载internlm2_5-7b-chat的配置文件
 
 考虑到个人GitHub CodeSpace硬盘空间有限（32GB可用），而7B的模型相对较大，这里我们先演示如何下载模型文件夹的特定文件。
 
@@ -131,7 +119,7 @@ python hf_download_josn.py
 
 在之后我们InternStudio的实验中，基本上都可以使用 /share 目录下的模型文件夹地址作为`model_name_or_path`传参到AutoTokenizer.from_pretrained()和AutoModelForCausalLM.from_pretrained()中，即可加载模型文件
 
-##### 2.1.4.2 下载internlm2_5-chat-1_8b并打印示例输出
+##### 2.1.3.2 下载internlm2_5-chat-1_8b并打印示例输出
 
 那么如果我们需想要下载一个完整的模型文件怎么办呢？
 创建一个python文件用于下载internlm2_5-1_8B模型并运行
@@ -171,7 +159,7 @@ gen_kwargs = {
 
 这里以“A beautiful flower”开头，模型对其进行“续写”，InternLM的模型拥有强大的数学方面的能力。这边它输出的文本似乎是关于一个数学问题，具体是关于一个花朵的花瓣数量。这个问题描述了一个操作，即每次操作可以取走2片花瓣，并且给每片花瓣增加1片。目标是使花瓣的数量尽可能大。
 
-#### 2.1.5 模型上传
+#### 2.1.4 模型上传
 - 通过CLI上传
 Hugging Face同样是跟Git相关联，通常大模型的模型文件都比较大，因此我们需要安装git lfs，对大文件系统支持。
 
@@ -285,7 +273,7 @@ https://huggingface.co/<user_name>/intern_study_L0_4
 
 > PS：熟悉Git工作流后当然还是Git 命令更好用。
 
-#### 2.1.6 Hugging Face Spaces的使用
+#### 2.1.5 Hugging Face Spaces的使用
 Hugging Face Spaces 是一个允许我们轻松地托管、分享和发现基于机器学习模型的应用的平台。Spaces 使得开发者可以快速将我们的模型部署为可交互的 web 应用，且无需担心后端基础设施或部署的复杂性。
 首先在界面上找到HF的Spaces并进行创建一个新的Space https://huggingface.co/spaces
 ![image](https://github.com/user-attachments/assets/924fa9ed-0347-4fe0-9a0d-134e5762f19e)
@@ -368,11 +356,7 @@ ModelScope 是一个“模型即服务”(MaaS)平台，由阿里巴巴集团的
 
 注册登录ModelScope平台，进入导航栏模型库，可以搜索internlm找到相关模型（但是这也包括非官方模型）
 
-![image](https://github.com/user-attachments/assets/f8b3399f-4700-4d99-a346-0e71c5f23fc8)
-
-我们可以搜索 internlm2_5-chat-1_8b，下载1.8b的对话模型
-
-![image](https://github.com/user-attachments/assets/1065e36c-0e11-4526-b8ab-bce0774eff96)
+在这里我们可以搜索 internlm2_5-chat-1_8b，下载1.8b的对话模型，也类似于hugging face 一样拥有具体的详情页。
 
 #### 2.2.1 创建开发机
 我们选择 10% 的开发机，镜像选择为 Cuda-12.2。在输入开发机名称后，点击创建开发机。
@@ -443,11 +427,7 @@ modelscope download \
 ```
 
 #### 2.2.4 上传模型
-魔搭社区类似HF，也有一套创建模型的界面。不同的是，它具有审核机制，当符合它的社区规范时才会被公开。
-
-![image](https://github.com/user-attachments/assets/31034227-ef8d-48f4-a859-520ca568dcbb)
-
-那么当上传正常的模型文件后，审核一般就会通过了。
+魔搭社区类似HF，也有一套创建模型的界面。不同的是，它具有审核机制，当符合它的社区规范时才会被公开。那么当上传正常的模型文件后，审核一般就会通过了。
 
 ![image](https://github.com/user-attachments/assets/3711b4c2-69e5-4a7d-844f-b22190620f19)
 
