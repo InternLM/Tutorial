@@ -257,6 +257,8 @@ https://github.com/InternLM/Tutorial/tree/camp4
 
 <img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg3.png">
 
+![image](https://github.com/random-zhou/ailabImage/blob/main/docimg3.png)
+
 
 <img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg4.png">
 
