@@ -184,6 +184,17 @@ pip install huggingface_hub
 
 使用huggingface-cli login命令进行登录，登录过程中需要输入用户的Access Tokens，获取时，需要先验证email
 
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/47deaf40-97a0-43ad-b591-ae673e5953fa" alt="Image 1" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    </td>
+    <td>
+      <img src="https://github.com/user-attachments/assets/1b42be1b-8b64-441b-9b2d-6f5a488a056b" alt="Image 2" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    </td>
+  </tr>
+</table>
+
 ![image](https://github.com/user-attachments/assets/ca33b7a2-6ad5-4328-801e-470b3e0df8c9)
 
 验证好之后，点击create new token，创建一个类型为“Write”的token
@@ -289,7 +300,8 @@ Hugging Face Spaces 是一个允许我们轻松地托管、分享和发现基于
 
 我们可以进入files，然后clone项目进我们的CodeSpace
 
-![image](https://github.com/user-attachments/assets/3d7607a8-c183-44fa-897a-55ef66fb018e)
+![image](https://github.com/user-attachments/assets/ae396b06-f106-4f3c-a21b-284c381c06a9)
+
 
 克隆成功后进入该项目的文件目录，比如在/workspaces/codespaces-jupyter目录下clone的那么就需要
 
@@ -461,6 +473,7 @@ cd ml_demo
 
 ```
 # 确保安装git-lfs 保证大文件的正常下载
+apt-get install git-lfs
 git lfs install
 # clone 仓库
 git clone https://modelers.cn/Intern/internlm2_5-1_8b-chat.git
