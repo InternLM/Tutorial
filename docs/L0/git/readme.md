@@ -181,7 +181,7 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
   ```
 
 如图所示
-
+<img width="1440" alt="image" src="https://github.com/random-zhou/ailabImage/blob/main/docimg2_1.png">
 ![image](https://github.com/random-zhou/ailabImage/blob/main/docimg2_1.png)
 
 ## **5. Git常用操作**
