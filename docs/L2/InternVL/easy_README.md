@@ -50,7 +50,7 @@ cd InternVL2-Tutorial
 
 demo.py文件中，MODEL_PATH处传入InternVL2-2B的路径，如果使用的是InternStudio的开发机则无需修改，否则改为模型路径。
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=MWI4NzE1NDVmZWZhNThlMWMzY2RkZmUzY2ExZmNiOGFfS1FRYjF6Rkd5NWJPT3c0THg3aWtQSlljZGV5T2dLUFBfVG9rZW46TVZVWmJQTWpOb1lmOGx4U0VDTmNrUTFtbjAyXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/062c706e-f58e-41cf-a52a-150ab0cdb8d0)
 
 启动demo:
 
@@ -63,23 +63,23 @@ python demo.py
 
 点击**Start Chat**即可开始聊天，下方**食物快捷栏**可以快速输入图片，**输入示例**可以快速输入文字。输入完毕后，按enter键即可发送。
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=YmJjYTRjMWRhZjIyZjE3M2I4ODcyMDY1NDBmYjI1YWZfQlpabDVNVHZhYzNIZmNJenN2cWM0Q2NESThtMkxISXJfVG9rZW46VzlVRGJwTEMxb2dHbzN4Nm1nWmN4bERzbnViXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/9640fdd8-98a2-4b53-b184-c2dd5081b755)
 
 ## 2.2.多图/轮对话可能会报错
 
 如果输入多张图，或者开多轮对话时报错：
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=YmExYTJlYjBiZjg0ZTAwMTYwZmFiZjE3NmJlOTk1YThfT0JIZEV0c1ptZFdKTHlncjUxQllPN083MEpLVk54c2VfVG9rZW46VjhFVWI0a1RWb3J2Wmh4ODJGWWMzVHlWbkplXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f)
 
 可以参考github的issue(https://github.com/InternLM/lmdeploy/issues/2101)：
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=M2I1ODQ2MjAwYWI2Y2NlZTlkNjFiNDgxZDAzMTQxMWVfaVNtbkhSZVpSNnZMeGZGS2h3ZnJaY1JhM0x5bzVQZkVfVG9rZW46SzA4NGIyS2N5bzdmcXR4REhmYWMzMktvbjJlXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399)
 
 屏蔽报错的engine.py的126，127行，添加`self._create_event_loop_task()`后，即可解决上面报错。
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=MTdmYzMxOGY2ZWE3MWE4YzhmOThmMjFhZGU5Y2UwMThfT3p0UWtIUUc2bkdKTTlaY2J5Ym5SNTZwNFBTdWJKM3BfVG9rZW46TFBXOWIybGtjb2prQzF4NTd3NmNaUHZlbm5oXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/4ae8ea76-6f9f-4238-9c76-1fc25eb9d84e)
 
-# 3.Xtuner微调实践
+# 3.XTuner微调实践
 
 ## 3.1.准备配置文件
 
@@ -103,7 +103,7 @@ huggingface-cli login
 
 然后在这里输入huggingface的具有`read`权限的token即可成功登录。
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=YjY5MmNjZjQ5MTcyYTA0YzA2OWI2ZDQ3OWVkMzU3NzJfRFYwekJaZUNEWktHSVVwSDBjczNrS2ZuUVh3b05VYnhfVG9rZW46SXdwZmJ5eWtCbzdnenR4U21xSGNzMHpTbjdiXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/13af2ac0-86c6-4889-961c-5365423e463f)
 
 再使用命令行下载数据集：
 
@@ -117,7 +117,7 @@ huggingface-cli download --repo-type dataset --resume-download lyan62/FoodieQA -
 python process_food.py
 ```
 
-即可把数据处理为xtuner所需格式。注意查看`input_path`和`output_path`变量与自己下载路径的区别。
+即可把数据处理为XTuner所需格式。注意查看`input_path`和`output_path`变量与自己下载路径的区别。
 
 ### 3.3.b.通过网盘下载
 
@@ -136,7 +136,7 @@ xtuner train /root/xtuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_lo
 
 `/root/xtuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_lora_finetune_food.py`为自己配置文件的路径。看到有日志输出，即为启动成功：
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=NWViMzQ4MTBmZDI2N2ZjYjY2Y2FjMGM1ZWQ5NTQ3MWRfMmZMOUtGSWE0cWw3U2YzTzFZcTRKMU5PTEpWaHlMNG5fVG9rZW46VXQ0bGJ4TkE2b21hdmd4VFlJUGNpUXpNbmNkXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/17754acc-29bb-477d-8aee-a69e361f7343)
 
 微调后，把模型checkpoint的格式转化为便于测试的格式：
 
@@ -150,7 +150,7 @@ python xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/intern
 
 修改MODEL_PATH为刚刚转换后保存的模型路径：
 
-![img](https://dw0fzwkkt9v.feishu.cn/space/api/box/stream/download/asynccode/?code=MDE4M2FhMDM4YzI2Y2ZhNmViYTJiMzQ4NmZhM2QwNzdfNGNBcThUcm9GaFNQM0pUUkh1NmJzbHZ0ek0xSm9JZ3RfVG9rZW46S2pENmJrM2hHb0dhaTN4N2RsamNnS0pjbmNmXzE3MjkzNDAwMTY6MTcyOTM0MzYxNl9WNA)
+![image](https://github.com/user-attachments/assets/58553b77-e65d-4d74-87a7-9178958ca621)
 
 就像在第2节中做的那样，启动网页应用：
 

@@ -46,7 +46,7 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 
 这个环境中预设了pytorch，因此安装会快一些。
 
-安装xtuner和timm，用-t的目的是为了把包下载在指定路径下，这样可以防止污染这个环境:
+安装XTuner和timm，用-t的目的是为了把包下载在指定路径下，这样可以防止污染这个环境:
 
 ```Bash
 pip install -t /root/internvl_course 'xtuner[deepspeed]' timm==1.0.9  # 防止污染环境
@@ -129,7 +129,7 @@ cd InternVL2-Tutorial
 
 demo.py文件中，MODEL_PATH处传入InternVL2-2B的路径，如果使用的是InternStudio的开发机则无需修改，否则改为模型路径。
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MzQ5ODY2NTE0ZDhiYWRiYTljYzkzYTk5MTlmMGRiMWVfZVRPdnBnUUhHVm02T3JvYUZISlNrcWRzY0lyYlhFMUtfVG9rZW46WUFGZWJsZ0dCb1dXd3N4NENIWWNNQUtmblRlXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/062c706e-f58e-41cf-a52a-150ab0cdb8d0)
 
 启动demo:
 
@@ -142,29 +142,28 @@ python demo.py
 
 启动后，CTRL+鼠标左键点进这个链接或者复制链接到浏览器
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MzE4YWIyMTYyNTdlNjBlNDgxMWYzMDFiZjQ0YWVjNzhfV1h3eEJLbW5xOFhqcmxBVEsyVDJQb1Bua1JZeHh5cWRfVG9rZW46R3FEcGJldjRVb2hVVUJ4emZtOWNtQ05KbmloXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/3d2d63a0-3a75-472a-b128-64b0510fbba3)
 
 会看到如下界面：
 
 点击**Start Chat**即可开始聊天，下方**食物快捷栏**可以快速输入图片，**输入示例**可以快速输入文字。输入完毕后，按enter键即可发送。
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=OTdmMTI5MTZkM2RhMmI5NTg0YzU2MDljOTUwZWFkNjBfcTVOb1pjNUxQelhQbTVVYUhWRWEyUndJMVpneHd0bnNfVG9rZW46S3lEcWJCY0phb1JnMFF4UDh6eWNXR0hWbldmXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/9640fdd8-98a2-4b53-b184-c2dd5081b755)
 
 ## 2.3.可能遇到棘手bug的解决
 
 如果输入多张图，或者开多轮对话时报错：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MTEzZjc1NmFlMGExZmU2MWY1MjU4Y2FmNmQ5MDgxZjRfQWg0UUh0QUp4aHZOMmpkdTQ5U1pENWpOS3hGQk1sZ1NfVG9rZW46RTBTeWJSTmRvb3gwazV4aklmMGM4Vmh3bm5lXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f)
 
 可以参考github的issue(https://github.com/InternLM/lmdeploy/issues/2101)：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=NTU0ODcwZmRjNGU2OTIwOTZkODE3Zjg3Zjg0OTdhMmZfTmJsU25aTGE4YkYzNjFuMlVCUUp3YUVWNWN4TlVBQkNfVG9rZW46SE03S2I5NTg2b054TXJ4Sk93bWNjZEJ6bm9iXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399)
 
 屏蔽报错的engine.py的126，127行，添加`self._create_event_loop_task()`后，即可解决上面报错。
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=NWQ1YzMwOTI5MWQyMzhjNWJhYWUzYjdmZGI4NDEzYTRfc21jWm9IV2wwT3MxdThxV0VwbFBVVUk0eDlwemdtUWNfVG9rZW46V0ozemJ6a2VRb3hEaWV4cWIwcmNKQ2hEbjVlXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
-
-# 3.Xtuner微调实践
+![image](https://github.com/user-attachments/assets/4ae8ea76-6f9f-4238-9c76-1fc25eb9d84e)
+# 3.XTuner微调实践
 
 ## 3.1.准备基本配置文件
 
@@ -204,11 +203,11 @@ cp /root/InternVL2-Tutorial/xtuner_config/internvl_v2_internlm2_2b_lora_finetune
 - `save_steps`: 多少步存一次checkpoint
 - `save_total_limit`: 最多保存几个checkpoint，设为-1即无限制
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MDUzY2Q4OWIzN2UzZDM0NmYyMDdhOTBlMmM0YzM4YzBfN3BBNjRSTVZDUmFVUWpzZndTTHRyVFpNMGZUb2RKOVVfVG9rZW46VnBjNmI4ZkEwb1d6a054WEd1cmM5NWhyblpnXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/4341b52a-fe35-473f-8319-733ad46ca210)
 
 LoRA相关参数：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDUzN2Q3MmQ3NTEwMjVlOTdiMjMyNTNlNjI0MDYwYTdfSDhib0tKaHBJRExFTE5Bcm1QSmJMQmVkOVZoaW16MmxfVG9rZW46REhyemJ1VUlIbzRTVHp4RXppMWNTVEdkbkNnXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/cde70aee-afdc-4d3d-8dee-b477d7873ae0)
 
 - `r`: 低秩矩阵的秩，决定了低秩矩阵的维度。
 - `lora_alpha` 缩放因子，用于调整低秩矩阵的权重。
@@ -216,7 +215,7 @@ LoRA相关参数：
 
 如果想断点重训，可以在最下面传入参数：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=NDM3MTBlMDRhNWRmNmY4NzhhNDc5Nzk3MzE3MjAxMWZfamtKVHNQanBVY2ppZEQ0Nzk4TlQ1TkQ4aGpVUnJzWkdfVG9rZW46S0JTT2JjeW50b0hPYWp4RjdvRmNQUjhSbnJiXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/641d0589-6e3e-47af-afcc-4a10aaa114cb)
 
 把这里的`load_from`传入你想要载入的checkpoint，并设置`resume=True`即可断点重续。
 
@@ -234,7 +233,7 @@ huggingface-cli login
 
 然后在这里输入huggingface的具有`read`权限的token即可成功登录。
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=NGI3MjYyMDU0MDQ4MDc5NmFhZTg2YmI1MzJhMmY1OWZfMVUwUFFxa1p1bXRsTEswUVJBTWFHMnlMQll0Nkc3azBfVG9rZW46UWR3OWI0Tjh5b2FrS1J4NHRmbmM0dHk3bnJkXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/13af2ac0-86c6-4889-961c-5365423e463f)
 
 再使用命令行下载数据集：
 
@@ -250,7 +249,7 @@ huggingface-cli download --repo-type dataset --resume-download lyan62/FoodieQA -
 python process_food.py
 ```
 
-即可把数据处理为xtuner所需格式。注意查看`input_path`和`output_path`变量与自己下载路径的区别。
+即可把数据处理为XTuner所需格式。注意查看`input_path`和`output_path`变量与自己下载路径的区别。
 
 ### 3.3.b.通过网盘下载
 
@@ -271,9 +270,9 @@ xtuner train internvl_v2_internlm2_2b_lora_finetune_food --deepspeed deepspeed_z
 
 看到有日志输出，即为启动成功：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmY2MmI4ZTZmYjgzODMxN2ZhMGEzNTlmZThmNWVmYWZfbkRmN0oxQlVwTnpxc2t2c25sQ3RDcFIyNDBhN2hkV0xfVG9rZW46VzQxVWJNNUJ5bzF0VTd4SmFqYWN2ek5vbjNkXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/17754acc-29bb-477d-8aee-a69e361f7343)
 
-如果报错如：keyerror或者Filenotfound之类的，可能是xtuner没识别到新写的配置文件，需要指定配置文件的完整路径：
+如果报错如：keyerror或者Filenotfound之类的，可能是XTuner没识别到新写的配置文件，需要指定配置文件的完整路径：
 
 ```Bash
 xtuner train /root/xtuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_lora_finetune_food.py --deepspeed deepspeed_zero2
@@ -293,7 +292,7 @@ python xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/intern
 
 修改MODEL_PATH为刚刚转换后保存的模型路径：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=YzcwNjZkMDhhNGEwOGRlYjhiZGY1YjFlN2RkNTg0ZjhfUlBOdm5OMGQyc0VXME42VzBqUGJTNW5IbGM1MHBQTEZfVG9rZW46WkJxN2J1Q0VobzBJam94TE5qMmNzZ0QyblljXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/58553b77-e65d-4d74-87a7-9178958ca621)
 
 就像在第2节中做的那样，启动网页应用：
 
@@ -307,15 +306,16 @@ python demo.py
 
 微调前，把肠粉错认成饺子，微调后，正确识别：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmU3ZjI5NTczOGY1MTg0ZGE4NzBmOWUwZGEyNmZmMTlfWlo3OENtR0djeFlMY1ZWY3lUd2VJUEg5MklUQTdRbENfVG9rZW46SWY5eWJyb3BUb2F2V3h4YjZrQWNwa3lWbk1kXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/54cad835-4e95-402c-85a9-4b84574de2db)
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=Mjg4ODc1ZmRlNzkwNWU4YmY1NmQ0OGJkNWM5NDk2ZTVfZUNRbE5hclR1U0t3RzlXTGN1MkJHdktJZlBlY2VYVDNfVG9rZW46WFlEWWJCWGhyb1lrTVZ4NjdnTWMxYkc0bm1kXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/2443ac5f-9a99-45f9-854d-774d83db3310)
 
 微调前，不认识“锅包又”，微调后，可以正确识别：
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=MDg1NDMyNzY4ZGI1ZWQxYmQ4YTk4YTcxMmY0YzA1ZjBfSHY1cFdyb2JudzVTQmNoY1VFa3dkUmN3dnk3amhhaXdfVG9rZW46S3d4amJNRmFCb2NlOGV4MVJTN2NPWHFabkNkXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+![image](https://github.com/user-attachments/assets/3a333ea0-b48d-4425-aedd-63b27e87cbe2)
 
-![img](https://aicarrier.feishu.cn/space/api/box/stream/download/asynccode/?code=OTY4MWI5MTA3NTkwMTc4ZTRiNDEyYTlkZWEyYzM3MmRfdE95U3dIVlJ4QnVhU3JUYUp4c0JVNjhFOHB5UU5lYWZfVG9rZW46RE1pbWJFbjJKb1o0WTZ4bTBzc2NQR3FpbmRiXzE3MjkzMzk1OTQ6MTcyOTM0MzE5NF9WNA)
+
+![image](https://github.com/user-attachments/assets/ad011dcf-e093-4335-bee6-e6906979a174)
 
 <div style="text-align: center; padding: 20px; background-color: #f0f8ff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <h2 style="color: #ff6347; font-size: 2em; margin-bottom: 10px;">恭喜你完成了本课程🎉🎊</h2>
