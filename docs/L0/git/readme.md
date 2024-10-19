@@ -119,18 +119,18 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
 ## **4. Git 下载配置验证**
 ### **4.1 下载 Git**
 #### Windows
-1. 下载并安装适合您 Windows 版本的安装程序：[下载地址](https://git-scm.com/download/win)
-2. 按照安装向导完成安装。(默认设置安装即可)
-3. 打开终端（win+r→cmd），输入指令 `git --version` 检查是否安装成功。
+- 下载并安装适合您 Windows 版本的安装程序：[下载地址](https://git-scm.com/download/win)
+- 按照安装向导完成安装。(默认设置安装即可)
+- 打开终端（win+r→cmd），输入指令 `git --version` 检查是否安装成功。
 
 #### Linux
-1. 打开终端，输入指令 
+- 打开终端，输入指令 
    ```bash
    sudo apt-get install git #安装 Git。
    sudo apt-get update
    sudo apt-get upgrade
    ```
-2. 输入指令 `git --version` 检查是否安装成功。
+- 输入指令 `git --version` 检查是否安装成功。
 
 ### **4.2 配置 Git**
 
@@ -161,7 +161,7 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
    同样，替换 `"Your Name"` 和 `"your.email@example.com"` 为该特定项目中使用的姓名和电子邮件。
 
 
-## **4.3 验证 Git配置**
+### **4.3 验证 Git配置**
 验证这些设置以确保它们被正确应用。
 
 - **查看全局配置**：
@@ -268,8 +268,9 @@ https://github.com/InternLM/Tutorial/tree/camp4
 
 ```bash
 
-git clone git@github.com:random-zhou/Tutorial.git # 修改为自己fork的仓库，改为上图中你的https仓库的git地址
-#git clone https://github.com/random-zhou/Tutorial.git #将random-zhou改为自己的用户名
+
+git clone https://github.com/random-zhou/Tutorial.git # 修改为自己fork的仓库，改为上图中你的https仓库的git地址
+#git clone git@github.com:random-zhou/Tutorial.git  #将random-zhou改为自己的用户名
 #git clone https://github.com/InternLM/Tutorial.git
 cd Tutorial/
 git branch -a
