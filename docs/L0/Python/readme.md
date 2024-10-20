@@ -130,9 +130,10 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 首先需要安装Remote-SSH插件
 
-<div style="text-align: center;">  
+<center>  
     <img src="https://github.com/InternLM/Tutorial/assets/32959436/1b494c3e-6be2-4ed7-aa2b-937491568990" alt="Description of the image" style="width: 50%; height: auto;">  
-</div>
+</center>
+
 
 安装完成后进入Remote Explorer,在ssh目录下新建一个ssh链接
 
