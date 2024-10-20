@@ -8,23 +8,11 @@
 
 ## 1.1.训练环境配置
 
-### 1.1.a.使用浦语开发机InternStudio
-
 进入预设的虚拟环境，安装相关包:
 
 ```Bash
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 pip install -t /root/internvl_course 'xtuner[deepspeed]' timm==1.0.9  # 防止污染环境
-```
-
-### 1.1.b.使用自己的机器
-
-新建虚拟环境并进入:
-
-```Bash
-conda create --name xtuner-env python=3.10 -y
-conda activate xtuner-env
-pip install -U 'xtuner[deepspeed]' timm==1.0.9
 ```
 
 ## 1.2.推理环境配置
@@ -105,7 +93,7 @@ cp /root/InternVL2-Tutorial/xtuner_config/internvl_v2_internlm2_2b_lora_finetune
 
 FoodieQA 是一个专门为研究中国各地美食文化而设计的数据集。它包含了大量关于食物的图片和问题，帮助多模态大模型更好地理解不同地区的饮食习惯和文化特色。这个数据集的推出，让我们能够更深入地探索和理解食物背后的文化意义。
 
-根据下载方式的不同，可能需要修改配置文件中的`data_root`变量为你数据集的路径：
+**可以通过`3.2.a.`和`3.2.b.`两种方式获取数据集**，根据获取方式的不同，可能需要修改配置文件中的`data_root`变量为你数据集的路径：
 
 ![image-20241020222734149](https://github.com/user-attachments/assets/147f09c1-2334-4edc-bb74-862f6b560c23)
 
