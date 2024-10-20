@@ -52,6 +52,12 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 pip install -t /root/internvl_course 'xtuner[deepspeed]' timm==1.0.9  # 防止污染环境
 ```
 
+每次使用前，需要运行一下命令，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包（同一个终端下只需运行一次）：
+```Bash
+export PYTHONPATH=/root/internvl_course:$PYTHONPATH
+```
+
+
 在本教程中后续提到训练环境均指"/root/share/pre_envs/pytorch2.3.1cu12.1"环境。
 
 ### 1.1.b.使用自己的机器
