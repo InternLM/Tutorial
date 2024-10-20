@@ -92,10 +92,28 @@ cp /root/InternVL2-Tutorial/xtuner_config/internvl_v2_internlm2_2b_lora_finetune
 ```
 
 ## 3.2.数据集下载
+我们采用的是FoodieQA数据集，这篇文章中了2024EMNLP的主会，其引用信息如下：
 
-### 3.3.a.通过huggingface下载
+```
+@article{li2024foodieqa,
+  title={FoodieQA: A Multimodal Dataset for Fine-Grained Understanding of Chinese Food Culture},
+  author={Li, Wenyan and Zhang, Xinyu and Li, Jiaang and Peng, Qiwei and Tang, Raphael and Zhou, Li and Zhang, Weijia and Hu, Guimin and Yuan, Yifei and S{\o}gaard, Anders and others},
+  journal={arXiv preprint arXiv:2406.11030},
+  year={2024}
+}
+```
 
-进入该页面https://huggingface.co/datasets/lyan62/FoodieQA申请通过后，在命令行登录huggingface后直接在服务器上下载：
+FoodieQA 是一个专门为研究中国各地美食文化而设计的数据集。它包含了大量关于食物的图片和问题，帮助多模态大模型更好地理解不同地区的饮食习惯和文化特色。这个数据集的推出，让我们能够更深入地探索和理解食物背后的文化意义。
+
+根据下载方式的不同，可能需要修改配置文件中的`data_root`变量为你数据集的路径：
+
+![image-20241020222734149](https://github.com/user-attachments/assets/147f09c1-2334-4edc-bb74-862f6b560c23)
+
+### 3.2.a.通过huggingface下载
+
+有能力的同学，建议去huggingface下载此数据集：https://huggingface.co/datasets/lyan62/FoodieQA。该数据集为了防止网络爬虫污染测评效果，需要向提交申请后下载使用。
+
+由于申请的与huggingface账号绑定，需要在命令行登录huggingface后直接在服务器上下载：
 
 ```Bash
 huggingface-cli login
@@ -111,6 +129,8 @@ huggingface-cli login
 huggingface-cli download --repo-type dataset --resume-download lyan62/FoodieQA --local-dir /root/huggingface/FoodieQA --local-dir-use-symlinks False
 ```
 
+如果觉得上述过程麻烦，可以用浏览器下载后，再上传服务器即可😊
+
 由于原始数据集格式不符合微调需要格式，需要处理方可使用，在`InternVL2-Tutorial`下，运行：
 
 ```Bash
@@ -119,15 +139,11 @@ python process_food.py
 
 即可把数据处理为XTuner所需格式。注意查看`input_path`和`output_path`变量与自己下载路径的区别。
 
-### 3.3.b.通过网盘下载
+### 3.2.b.利用share目录下处理好的数据集
 
-由于该数据集即需要登录huggingface的方法，又需要申请，下完还需要自己处理，因此我把处理后的文件放在网盘里了🤗。网盘不提供原始数据文件，仅提供完成本课程后续内容所需文件：
+由于该数据集即需要登录huggingface的方法，又需要申请，下完还需要自己处理，因此我把处理后的文件放在开发机的`/root/share/datasets/FoodieQA`路径下了。
 
-> 链接：https://pan.quark.cn/s/ccd8e23bdeca
->
-> 提取码：VF45
-
-## 3.4.开始微调🐱🏍
+## 3.3.开始微调🐱🏍
 
 ```Bash
 export PYTHONPATH=/root/internvl_course:$PYTHONPATH  # 让python能找到第一步安装在其他路径下的包
