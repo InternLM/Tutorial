@@ -182,6 +182,11 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
 
 如图所示
 
+<div align="center">
+    <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg2_1.png" alt="image">
+</div>
+
+
 ![image](https://github.com/random-zhou/ailabImage/blob/main/docimg2_1.png){: .center}
 
 ## **5. Git常用操作**
