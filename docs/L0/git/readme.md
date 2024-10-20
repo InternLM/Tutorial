@@ -174,11 +174,20 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
   git config --local --list
   ```
 
+- **永久保存信息至本地**:
+
+```bash
+#来设置 Git自动记录密码(token)，从而无需在每次 pu11 或 push 时输入# 注意:信息会以明文存储在本地，需考虑安全性
+git config --global credential.helper store
+```
+
 - **查看特定配置项**：
   ```bash
   git config user.name
   git config user.email
   ```
+
+
 
 如图所示
 
