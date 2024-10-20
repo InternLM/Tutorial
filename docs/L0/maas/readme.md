@@ -128,7 +128,7 @@ python hf_download_josn.py
 </div>
 
 
-那么如何使用internlm2_5-7b-chat模型呢？在实战营课程中，可以在我们的[InternStudio平台](https://studio.intern-ai.org.cn/console/dashboard) 的 `/root/share` 目录下找到作为`model_name_or_path`进行使用，如
+虽然在这里我们没有完全下载internlm2_5-7b-chat模型，但是在实战营课程中，我们的[InternStudio平台](https://studio.intern-ai.org.cn/console/dashboard) 的 `/root/share` 目录下已经提供了InterLM2系列的模型，可以找到它们作为`model_name_or_path`进行使用，如
 
 ```bash
 /root/share/model_repos/internlm2-chat-7b
