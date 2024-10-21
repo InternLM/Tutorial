@@ -1,13 +1,22 @@
-# LLM 评测实践
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/588c8e50-7eba-4d63-8af0-bdeeb8419956">
 
 
-本文将使用 OpenCompass 来评测 InternLM2.5-Chat-1.8B 模型在 C-Eval 数据集上的性能, 评估一个模型通常包括如下几个阶段：
+# OpenCompass 评测
+
+
+本节课程主要聚焦于大语言模型的评测,同时也会简要介绍多模态大模型的评测方法。课程内容分为两个主要部分:
+
+- 对于于大语言模型的评测, 我们可以使用 OpenCompass 评测, 是本次实践的基础任务; 
+- 对于多模态大模型评测, 我们则可以使用 VLMEvalKit 评测, 属于进阶任务, 请查看[教程](vlmevalkit.md).
+
+接下来本文将使用 OpenCompass 来评测 InternLM2.5-Chat-1.8B 模型在 C-Eval 数据集上的性能, 评估一个模型通常包括如下几个阶段：
 
 - 配置：您需要配置整个评估过程，主要包括选择要评估的模型和数据集
 - 推理与评估：推理阶段主要是让模型从数据集产生输出，而评估阶段则是衡量这些输出与标准答案的匹配程度
 - 可视化：评估完成后，OpenCompass 将结果整理成易读的表格，并将其保存为 CSV 和 TXT 文件
 
-更多评测详情请查看官方 [Tutorial 文档](https://opencompass.readthedocs.io/en/latest/tutorial.html)。
+我们使用 OpenCompass 评测大语言模型, 更多详情见官方 [Tutorial](https://opencompass.readthedocs.io/en/latest/tutorial.html). 
+
 
 ## 配置
 
@@ -216,4 +225,3 @@ opencompass --models hf_internlm2_5_1_8b_chat_api --datasets ceval_gen --debug #
 得到结果
 
 ![image](https://github.com/user-attachments/assets/2d076f75-3e15-4100-975f-1d2eae31a4b2)
-
