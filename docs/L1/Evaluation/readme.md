@@ -144,7 +144,7 @@ python run.py configs/eval_tutorial_demo.py --debug
 ```
 
 
-## 评测 API 模型
+## 评测 API 模型(选做)
 
 OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以以相同的方式或甚至在一个设置中评估这两种模型类型。
 
