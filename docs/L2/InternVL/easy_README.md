@@ -45,7 +45,7 @@ cd InternVL2-Tutorial
 demo.py文件中，MODEL_PATH处传入InternVL2-2B的路径，如果使用的是InternStudio的开发机则无需修改，否则改为模型路径。
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/062c706e-f58e-41cf-a52a-150ab0cdb8d0">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/062c706e-f58e-41cf-a52a-150ab0cdb8d0">
 </div>
 
 启动demo:
@@ -68,19 +68,19 @@ python demo.py
 如果输入多张图，或者开多轮对话时报错：
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f">
 </div>
 
 可以参考github的issue(https://github.com/InternLM/lmdeploy/issues/2101)：
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399">
 </div>
 
 屏蔽报错的engine.py的126，127行，添加`self._create_event_loop_task()`后，即可解决上面报错。
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/4ae8ea76-6f9f-4238-9c76-1fc25eb9d84e">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/4ae8ea76-6f9f-4238-9c76-1fc25eb9d84e">
 </div>
 
 # 3.XTuner微调实践
@@ -112,7 +112,7 @@ FoodieQA 是一个专门为研究中国各地美食文化而设计的数据集�
 **可以通过`3.2.a.`和`3.2.b.`两种方式获取数据集**，根据获取方式的不同，可能需要修改配置文件中的`data_root`变量为你数据集的路径：
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/147f09c1-2334-4edc-bb74-862f6b560c23">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/147f09c1-2334-4edc-bb74-862f6b560c23">
 </div>
 
 ### 3.2.a.通过huggingface下载
@@ -128,7 +128,7 @@ huggingface-cli login
 然后在这里输入huggingface的具有`read`权限的token即可成功登录。
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/13af2ac0-86c6-4889-961c-5365423e463f">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/13af2ac0-86c6-4889-961c-5365423e463f">
 </div>
 
 再使用命令行下载数据集：
@@ -161,7 +161,7 @@ xtuner train /root/xtuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_lo
 `/root/xtuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_lora_finetune_food.py`为自己配置文件的路径。看到有日志输出，即为启动成功：
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/17754acc-29bb-477d-8aee-a69e361f7343">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/17754acc-29bb-477d-8aee-a69e361f7343">
 </div>
 
 微调后，把模型checkpoint的格式转化为便于测试的格式：
@@ -177,7 +177,7 @@ python xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/intern
 修改MODEL_PATH为刚刚转换后保存的模型路径：
 
 <div align="center">
-<img width="600" alt="" src="https://github.com/user-attachments/assets/58553b77-e65d-4d74-87a7-9178958ca621">
+<img width="750" alt="" src="https://github.com/user-attachments/assets/58553b77-e65d-4d74-87a7-9178958ca621">
 </div>
 
 就像在第2节中做的那样，启动网页应用：
