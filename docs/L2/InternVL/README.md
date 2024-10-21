@@ -94,7 +94,7 @@ pip install -U 'xtuner[deepspeed]' timm==1.0.9
 配置推理所需环境：
 
 ```Bash
-conda create -n lmdeploy python=3.8 -y
+conda create -n lmdeploy python=3.10 -y
 conda activate lmdeploy
 pip install lmdeploy gradio
 ```
