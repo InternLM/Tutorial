@@ -136,7 +136,7 @@ lmdeploy推理的核心代码如上注释所述。
 
 我们可以使用UI界面先体验与InternVL对话：
 
-拉取本教程的github仓库(https://github.com/Control-derek/InternVL2-Tutorial.git)：
+拉取本教程的github仓库[https://github.com/Control-derek/InternVL2-Tutorial.git](https://github.com/Control-derek/InternVL2-Tutorial.git)：
 
 ```Bash
 git clone https://github.com/Control-derek/InternVL2-Tutorial.git
