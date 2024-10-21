@@ -1,4 +1,9 @@
-# 写在前面
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/e374baf5-283b-4c44-a7db-79caf5e0c3ce">
+
+# XTuner 微调实践微调 
+InternLM 个人小助手认知
+
+## 写在前面
 微调内容需要使用 30% A100 才能完成。
 本次实战营的微调内容包括了以下两个部分：
 1. SFT 数据的获取
@@ -11,18 +16,18 @@
 本节课对应的视频链接：暂无
 XTuner 文档链接：[XTuner-doc-cn](https://xtuner.readthedocs.io/zh-cn/latest/)
 
-# 环境配置与数据准备
+## 环境配置与数据准备
 
 本节中，我们将演示如何安装 XTuner。
 推荐使用 Python-3.10 的 conda 虚拟环境安装 XTuner。
-## **步骤 0.** 使用 conda 先构建一个 Python-3.10 的虚拟环境
+### **步骤 0.** 使用 conda 先构建一个 Python-3.10 的虚拟环境
 
 ```shell
 mkdir -p /root/finetune && cd /root/finetune
 conda create --name xtuner-env python=3.10 -y
 conda activate xtuner-env
 ```
-## **步骤 1.** 安装 XTuner
+### **步骤 1.** 安装 XTuner
 此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
 ```shell
 git clone https://github.com/InternLM/xtuner.git
@@ -44,7 +49,7 @@ pip install -e '.[deepspeed]'
 
 >“-e” 表示在可编辑模式下安装项目，因此对代码所做的任何本地修改都会生效
 
-## 验证安装
+### 验证安装
 为了验证 XTuner 是否安装正确，我们将使用命令打印配置文件。
 
 **打印配置文件：** 在命令行中使用 `xtuner list-cfg` 验证是否能打印配置文件列表。
@@ -54,6 +59,8 @@ xtuner list-cfg
 
 <details>
 <summary>输出没有报错则为此结果</summary>
+```shell
+
 xtuner list-cfg
 	==========================CONFIGS===========================
 	baichuan2_13b_base_full_custom_pretrain_e1
@@ -94,6 +101,7 @@ xtuner list-cfg
 	internlm2_7b_qlora_oasst1_e3
 	internlm2_7b_qlora_sql_e3
 	...
+```
 </details>
 
 > 输出内容为 XTuner 支持微调的模型
@@ -118,7 +126,7 @@ cp -r /root/JsonData  /root/finetune/data
 
 </details>
 
-## **步骤 1.** 创建修改脚本
+### **步骤 1.** 创建修改脚本
 
 我们写一个脚本生成修改我们需要的微调训练数据，在当前目录下创建一个 `change_script.py` 文件，内容如下：
 
@@ -199,7 +207,7 @@ if __name__ == "__main__":
 ```
 
 
-## **步骤 2.** 执行脚本
+### **步骤 2.** 执行脚本
 
 ```shell
 # usage：python change_script.py {input_file.jsonl} {output_file.jsonl}
@@ -221,15 +229,15 @@ python change_script.py ./data/assist_Tuner.jsonl ./data/assist_Tuner_change.jso
 </details>
 
 
-## **步骤 3.** 查看数据
+### **步骤 3.** 查看数据
 
 ```shell
 cat output_file.jsonl | head -n 3
 ```
 此处结果太长不再展示，主要是检查自己要修改的名字是否在数据中。
 
-# 训练启动
-## **步骤 0.** 复制模型
+## 训练启动
+### **步骤 0.** 复制模型
 
 在InternStudio开发机中的已经提供了微调模型，可以直接软链接即可。
 
@@ -240,7 +248,7 @@ mkdir /root/finetune/models
 ln -ls /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
 ```
 
-## **步骤 1.** 修改 Config
+### **步骤 1.** 修改 Config
 
 获取官方写好的 config
 ```shell
@@ -320,7 +328,7 @@ alpaca_en = dict(
 本教程已经将改好的 config 放在了 `docs/L1/XTuner/config/internlm2_chat_7b_qlora_alpaca_e3_copy.py` 同学们可以直接使用（前置步骤路径一致的情况下）
 
 
-## **步骤 2.** 启动微调
+### **步骤 2.** 启动微调
 
 完成了所有的准备工作后，我们就可以正式的开始我们下一阶段的旅程：XTuner 启动~！
 
@@ -338,7 +346,7 @@ conda activate xtuner_env
 xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
 
-## **步骤 3.** 权重转换
+### **步骤 3.** 权重转换
 
 模型转换的本质其实就是将原本使用 Pytorch 训练出来的模型权重文件转换为目前通用的 HuggingFace 格式文件，那么我们可以通过以下命令来实现一键转换。
 
@@ -386,7 +394,7 @@ xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file}
 
 > 可以简单理解：LoRA 模型文件 = Adapter
 
-## **步骤 4.** 模型合并
+### **步骤 4.** 模型合并
 
 对于 LoRA 或者 QLoRA 微调出来的模型其实并不是一个完整的模型，而是一个额外的层（Adapter），训练完的这个层最终还是要与原模型进行合并才能被正常的使用。
 
@@ -448,7 +456,7 @@ xtuner convert merge /root/finetune/models/internlm2-chat-7b ./hf ./merged --max
 
 在模型合并完成后，我们就可以看到最终的模型和原模型文件夹非常相似，包括了分词器、权重文件、配置信息等等。
 
-# 模型 WebUI 对话
+## 模型 WebUI 对话
 
 微调完成后，我们可以再次运行`xtuner_streamlit_demo.py`脚本来观察微调后的对话效果，不过在运行之前，我们需要将脚本中的模型路径修改为微调后的模型的路径。
 
