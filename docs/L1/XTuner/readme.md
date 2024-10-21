@@ -59,7 +59,6 @@ xtuner list-cfg
 
 <details>
 <summary>输出没有报错则为此结果</summary>
-```shell
 
 xtuner list-cfg
 	==========================CONFIGS===========================
@@ -101,10 +100,11 @@ xtuner list-cfg
 	internlm2_7b_qlora_oasst1_e3
 	internlm2_7b_qlora_sql_e3
 	...
-```
+    
+> 输出内容为 XTuner 支持微调的模型
 </details>
 
-> 输出内容为 XTuner 支持微调的模型
+
 
 
 # 修改提供的数据
