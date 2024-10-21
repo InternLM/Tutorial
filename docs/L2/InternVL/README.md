@@ -180,7 +180,7 @@ python demo.py
   <img width="750" alt="" src="https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f">
 </div>
 
-可以参考github的issue(https://github.com/InternLM/lmdeploy/issues/2101)：
+可以参考github的issue[https://github.com/InternLM/lmdeploy/issues/2101](https://github.com/InternLM/lmdeploy/issues/2101)：
 
 <div align="center">
   <img width="750" alt="" src="https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399">
