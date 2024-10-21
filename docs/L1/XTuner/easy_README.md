@@ -1,8 +1,10 @@
-<img width="900" alt="image" src="https://github.com/user-attachments/assets/e374baf5-283b-4c44-a7db-79caf5e0c3ce">
-
 # XTuner 微调实践微调 
 
-InternLM 个人小助手认知
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/e374baf5-283b-4c44-a7db-79caf5e0c3ce">
+
+本文档将介绍 InternLM 个人小助手认知
+
+**本文档为有一定基础可以快速上手的同学准备，比`README.md`的说明更加简洁。**
 
 ## 写在前面
 
@@ -21,39 +23,30 @@ XTuner 文档链接：[XTuner-doc-cn](https://xtuner.readthedocs.io/zh-cn/latest
 ## 环境配置与数据准备
 
 本节中，我们将演示如何安装 XTuner。
-推荐使用 Python-3.10 的 conda 虚拟环境安装 XTuner。
 
-### **步骤 0.** 使用 conda 先构建一个 Python-3.10 的虚拟环境
+### **步骤 0.** 使用 conda 激活一个已有的虚拟环境
 
 ```shell
 cd ~
 #git clone 本repo
 git clone https://github.com/InternLM/Tutorial.git -b camp4
 mkdir -p /root/finetune && cd /root/finetune
-conda create --name xtuner-env python=3.10 -y
-conda activate xtuner-env
+conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 ```
+
 ### **步骤 1.** 安装 XTuner
 此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
+
 ```shell
-git clone https://github.com/InternLM/xtuner.git
-cd /root/finetune/xtuner
-pip install -e '.[deepspeed]'
+pip install -t /root/finetune/env 'xtuner[deepspeed]' timm==1.0.9 
 ```
 
-<details>
-<summary>如果安装过程出现错误，请参考以下解决方案：</summary>
-> WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1007)'))': /pypi/simple/bitsandbytes/
+每次使用前，需要运行一下命令，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包（同一个终端下只需运行一次）：
 
-> Could not fetch URL https://mirrors.aliyun.com/pypi/simple/bitsandbytes/: There was a problem confirming the ssl certificate: HTTPSConnectionPool(host='mirrors.aliyun.com', port=443): Max retries exceeded with url: /pypi/simple/bitsandbytes/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1007)'))) - skipping
-
-> INFO: pip is looking at multiple versions of xtuner to determine which version is compatible with other requirements. This could take a while.
-
-> ERROR: Could not find a version that satisfies the requirement bitsandbytes>=0.40.0.post4 (from xtuner) (from versions: none)，可以 `Ctrl + C` 退出后换成 `pip install --trusted-host mirrors.aliyun.com -e '.[deepspeed]' -i https://mirrors.aliyun.com/pypi/simple/`
-
-</details>
-
->“-e” 表示在可编辑模式下安装项目，因此对代码所做的任何本地修改都会生效
+```Bash
+export PYTHONPATH=/root/finetune/env:$PYTHONPATH
+export PATH=/root/finetune/env/bin:$PATH
+```
 
 ### 验证安装
 为了验证 XTuner 是否安装正确，我们将使用命令打印配置文件。
@@ -349,7 +342,9 @@ alpaca_en = dict(
 
 ```shell
 cd /root/fintune
-conda activate xtuner_env
+conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
+export PYTHONPATH=/root/finetune/env:$PYTHONPATH
+export PATH=/root/finetune/env/bin:$PATH
 
 xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
@@ -372,7 +367,9 @@ xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_z
 
 ```bash
 cd /root/fintune/work_dirs/assistTuner
-conda activate xtuner_env
+conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
+export PYTHONPATH=/root/finetune/env:$PYTHONPATH
+export PATH=/root/finetune/env/bin:$PATH
 
 # 先获取最后保存的一个pth文件
 pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
@@ -423,7 +420,9 @@ xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file}
 
 ```bash
 cd /root/fintune/work_dirs/assistTuner
-conda activate xtuner_env
+conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
+export PYTHONPATH=/root/finetune/env:$PYTHONPATH
+export PATH=/root/finetune/env/bin:$PATH
 
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
@@ -482,7 +481,9 @@ cd ~/Tutorial/tools/L1_XTuner_code
 
 
 ```bash
-conda activate xtuner_env
+conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
+export PYTHONPATH=/root/finetune/env:$PYTHONPATH
+export PATH=/root/finetune/env/bin:$PATH
 
 streamlit run /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py
 ```
