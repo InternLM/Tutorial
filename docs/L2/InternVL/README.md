@@ -191,6 +191,7 @@ python demo.py
 <div align="center">
   <img width="750" alt="" src="https://github.com/user-attachments/assets/4ae8ea76-6f9f-4238-9c76-1fc25eb9d84e">
 </div>
+
 # 3.XTuner微调实践
 
 ## 3.1.准备基本配置文件
