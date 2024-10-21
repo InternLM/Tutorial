@@ -1,9 +1,11 @@
 <img width="900" alt="image" src="https://github.com/user-attachments/assets/e374baf5-283b-4c44-a7db-79caf5e0c3ce">
 
 # XTuner 微调实践微调 
+
 InternLM 个人小助手认知
 
 ## 写在前面
+
 微调内容需要使用 30% A100 才能完成。
 本次实战营的微调内容包括了以下两个部分：
 1. SFT 数据的获取
@@ -20,9 +22,13 @@ XTuner 文档链接：[XTuner-doc-cn](https://xtuner.readthedocs.io/zh-cn/latest
 
 本节中，我们将演示如何安装 XTuner。
 推荐使用 Python-3.10 的 conda 虚拟环境安装 XTuner。
+
 ### **步骤 0.** 使用 conda 先构建一个 Python-3.10 的虚拟环境
 
 ```shell
+cd ~
+#git clone 本repo
+git clone https://github.com/InternLM/Tutorial.git -b camp4
 mkdir -p /root/finetune && cd /root/finetune
 conda create --name xtuner-env python=3.10 -y
 conda activate xtuner-env
@@ -105,23 +111,24 @@ xtuner list-cfg
 </details>
 
 
-
-
 # 修改提供的数据
+
 ## **步骤 0.** 创建一个新的文件夹用于存储微调数据
 ```shell
-mkdir -p root/finetune/data && cd /root/finetune/data
-cp -r /root/JsonData  /root/finetune/data
+mkdir -p /root/finetune/data && cd /root/finetune/data
+cp -r /root/Tutorial/data/assistant_Tuner.jsonl  /root/finetune/data
 #复制存放jsonl格式的训练数据的文件夹JsonData到/root/finetune/data
 #这里要改一下jsondata的地址！！！
 ```
 
 <details>
-<summary>此时JsonData 文件夹下应该有如下结构</summary>
+<summary>此时 `finetune` 文件夹下应该有如下结构</summary>
 
-```
-|-- JsonData/
-    |-- assistant_Tuner.jsonl
+```sh
+finetune
+├── data
+│   └── assistant_Tuner.jsonl
+└── xtuner
 ```
 
 </details>
@@ -211,11 +218,11 @@ if __name__ == "__main__":
 
 ```shell
 # usage：python change_script.py {input_file.jsonl} {output_file.jsonl}
-cd {path/to/finetune}
+cd ~/finetune
 python change_script.py ./data/assist_Tuner.jsonl ./data/assist_Tuner_change.jsonl
 ```
 
-`output_file.jsonl`是修改后符合 XTuner 格式的训练数据。
+`assist_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
 
 <details>
 <summary>此时 data 文件夹下应该有如下结构</summary>
@@ -322,10 +329,11 @@ alpaca_en = dict(
 
 > 如果想充分利用显卡资源，可以将 `max_length` 和 `batch_size` 这两个参数调大。
 ⚠但需要注意的是，在训练 chat 模型时调节参数 `batch_size` 有可能会影响对话模型的效果。
+
 </details>
 
 
-本教程已经将改好的 config 放在了 `docs/L1/XTuner/config/internlm2_chat_7b_qlora_alpaca_e3_copy.py` 同学们可以直接使用（前置步骤路径一致的情况下）
+本教程已经将改好的 config 放在了 `~/Tutorial/configs/internlm2_chat_7b_qlora_alpaca_e3_copy.py` 同学们可以直接使用（前置步骤路径一致的情况下）
 
 
 ### **步骤 2.** 启动微调
@@ -363,11 +371,11 @@ xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_z
 
 
 ```bash
-cd ./work_dirs/assistTuner
+cd /root/fintune/work_dirs/assistTuner
 conda activate xtuner_env
 
 # 先获取最后保存的一个pth文件
-pth_file=`ls -t ./work_dirs/assistTuner/*.pth | head -n 1`
+pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
@@ -414,7 +422,7 @@ xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file}
 
 
 ```bash
-cd ./work_dirs/assistTuner
+cd /root/fintune/work_dirs/assistTuner
 conda activate xtuner_env
 
 export MKL_SERVICE_FORCE_INTEL=1
@@ -458,7 +466,11 @@ xtuner convert merge /root/finetune/models/internlm2-chat-7b ./hf ./merged --max
 
 ## 模型 WebUI 对话
 
-微调完成后，我们可以再次运行`xtuner_streamlit_demo.py`脚本来观察微调后的对话效果，不过在运行之前，我们需要将脚本中的模型路径修改为微调后的模型的路径。
+微调完成后，我们可以再次运行 `xtuner_streamlit_demo.py` 脚本来观察微调后的对话效果，不过在运行之前，我们需要将脚本中的模型路径修改为微调后的模型的路径。
+
+```shell
+cd ~/Tutorial/tools/L1_XTuner_code
+```
 
 ```diff
 # 直接修改脚本文件第18行
