@@ -26,7 +26,7 @@ export PYTHONPATH=/root/internvl_course:$PYTHONPATH
 配置推理所需环境：
 
 ```Bash
-conda create -n lmdeploy python=3.8 -y
+conda create -n lmdeploy python=3.10 -y
 conda activate lmdeploy
 pip install lmdeploy gradio
 ```
