@@ -17,7 +17,7 @@
 点击“立即创建”，成功后，可在“开发机”选栏中看到刚刚创建的开发机，可以点击“进入开发机”，利用terminal、code server进行开发。也可以使用本地的vscode通过“SSH链接”中的信息通过SSH链接进行开发。（强烈建议使用本地的vscode进行连接，前者可能有显示bug）
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/23de33b9-0d86-4894-baef-7b9552471fc2">
+  <img width="900" alt="" src="https://github.com/user-attachments/assets/23de33b9-0d86-4894-baef-7b9552471fc2">
 </div>
 
 后续在命令行中的操作可在进入开发机的terminal或者vscode的terminal界面中进行。代码的修改在vscode中进行。 
@@ -161,7 +161,7 @@ python demo.py
 启动后，CTRL+鼠标左键点进这个链接或者复制链接到浏览器
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/3d2d63a0-3a75-472a-b128-64b0510fbba3">
+  <img width="800" alt="" src="https://github.com/user-attachments/assets/3d2d63a0-3a75-472a-b128-64b0510fbba3">
 </div>
 
 会看到如下界面：
@@ -177,19 +177,19 @@ python demo.py
 如果输入多张图，或者开多轮对话时报错：
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f">
+  <img width="750" alt="" src="https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f">
 </div>
 
 可以参考github的issue(https://github.com/InternLM/lmdeploy/issues/2101)：
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399">
+  <img width="750" alt="" src="https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399">
 </div>
 
 屏蔽报错的engine.py的126，127行，添加`self._create_event_loop_task()`后，即可解决上面报错。
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/4ae8ea76-6f9f-4238-9c76-1fc25eb9d84e">
+  <img width="750" alt="" src="https://github.com/user-attachments/assets/4ae8ea76-6f9f-4238-9c76-1fc25eb9d84e">
 </div>
 # 3.XTuner微调实践
 
@@ -322,7 +322,7 @@ xtuner train internvl_v2_internlm2_2b_lora_finetune_food --deepspeed deepspeed_z
 看到有日志输出，即为启动成功：
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/17754acc-29bb-477d-8aee-a69e361f7343">
+  <img width="750" alt="" src="https://github.com/user-attachments/assets/17754acc-29bb-477d-8aee-a69e361f7343">
 </div>
 
 如果报错如：keyerror或者Filenotfound之类的，可能是XTuner没识别到新写的配置文件，需要指定配置文件的完整路径：
@@ -346,7 +346,7 @@ python xtuner/configs/internvl/v1_5/convert_to_official.py xtuner/configs/intern
 修改MODEL_PATH为刚刚转换后保存的模型路径：
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/58553b77-e65d-4d74-87a7-9178958ca621">
+  <img width="750" alt="" src="https://github.com/user-attachments/assets/58553b77-e65d-4d74-87a7-9178958ca621">
 </div>
 
 就像在第2节中做的那样，启动网页应用：
