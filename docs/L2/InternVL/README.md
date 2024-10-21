@@ -277,7 +277,7 @@ FoodieQA 是一个专门为研究中国各地美食文化而设计的数据集�
 
 ### 3.3.a.通过huggingface下载
 
-有能力的同学，建议去huggingface下载此数据集：https://huggingface.co/datasets/lyan62/FoodieQA。该数据集为了防止网络爬虫污染测评效果，需要向提交申请后下载使用。
+有能力的同学，建议去huggingface下载此数据集：[https://huggingface.co/datasets/lyan62/FoodieQA](https://huggingface.co/datasets/lyan62/FoodieQA)。该数据集为了防止网络爬虫污染测评效果，需要向提交申请后下载使用。
 
 由于申请的与huggingface账号绑定，需要在命令行登录huggingface后直接在服务器上下载：
 
