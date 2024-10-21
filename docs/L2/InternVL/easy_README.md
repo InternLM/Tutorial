@@ -35,7 +35,7 @@ pip install lmdeploy gradio
 
 ## 2.1.网页应用部署体验
 
-拉取本教程的github仓库(https://github.com/Control-derek/InternVL2-Tutorial.git)：
+拉取本教程的github仓库[https://github.com/Control-derek/InternVL2-Tutorial.git](https://github.com/Control-derek/InternVL2-Tutorial.git)：
 
 ```Bash
 git clone https://github.com/Control-derek/InternVL2-Tutorial.git
@@ -71,7 +71,7 @@ python demo.py
 <img width="800" alt="" src="https://github.com/user-attachments/assets/4b05d649-5b4a-49ba-9fab-2fd8bc69a65f">
 </div>
 
-可以参考github的issue(https://github.com/InternLM/lmdeploy/issues/2101)：
+可以参考github的issue[https://github.com/InternLM/lmdeploy/issues/2101](https://github.com/InternLM/lmdeploy/issues/2101)：
 
 <div align="center">
 <img width="800" alt="" src="https://github.com/user-attachments/assets/da205682-b51e-4e4c-8fab-07d2e42a3399">
@@ -117,7 +117,7 @@ FoodieQA 是一个专门为研究中国各地美食文化而设计的数据集�
 
 ### 3.2.a.通过huggingface下载
 
-有能力的同学，建议去huggingface下载此数据集：https://huggingface.co/datasets/lyan62/FoodieQA。该数据集为了防止网络爬虫污染测评效果，需要向提交申请后下载使用。
+有能力的同学，建议去huggingface下载此数据集：[https://huggingface.co/datasets/lyan62/FoodieQA](https://huggingface.co/datasets/lyan62/FoodieQA)。该数据集为了防止网络爬虫污染测评效果，需要向提交申请后下载使用。
 
 由于申请的与huggingface账号绑定，需要在命令行登录huggingface后直接在服务器上下载：
 
