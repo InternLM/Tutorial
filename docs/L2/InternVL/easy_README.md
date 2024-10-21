@@ -16,9 +16,10 @@
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 pip install -t /root/internvl_course 'xtuner[deepspeed]' timm==1.0.9  # 防止污染环境
 ```
-每次使用前，需要运行一下命令，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包（同一个终端下只需运行一次）：
+每次使用前，需要运行一下命令，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包;还要把`bin`文件夹添加到PATH环境变量中，这样才能找到你用pip安装的命令行工具（同一个终端下只需运行一次）：
 ```Bash
 export PYTHONPATH=/root/internvl_course:$PYTHONPATH
+export PATH=/root/internvl_course/bin:$PATH
 ```
 
 ## 1.2.推理环境配置
@@ -155,6 +156,7 @@ python process_food.py
 
 ```Bash
 export PYTHONPATH=/root/internvl_course:$PYTHONPATH  # 让python能找到第一步安装在其他路径下的包
+export PATH=/root/internvl_course/bin:$PATH  # 让系统可以找到你安装的命令行工具
 xtuner train /root/xtuner/xtuner/configs/internvl/v2/internvl_v2_internlm2_2b_lora_finetune_food.py --deepspeed deepspeed_zero2
 ```
 
