@@ -169,7 +169,7 @@ python demo.py
 点击**Start Chat**即可开始聊天，下方**食物快捷栏**可以快速输入图片，**输入示例**可以快速输入文字。输入完毕后，按enter键即可发送。
 
 <div align="center">
-  <img width="600" alt="" src="https://github.com/user-attachments/assets/9640fdd8-98a2-4b53-b184-c2dd5081b755">
+  <img width="900" alt="" src="https://github.com/user-attachments/assets/9640fdd8-98a2-4b53-b184-c2dd5081b755">
 </div>
 
 ## 2.3.可能遇到棘手bug的解决
