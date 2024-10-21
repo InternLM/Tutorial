@@ -141,28 +141,44 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 首先需要安装`Remote-SSH`插件，安装完成后进入`Remote Explorer`，在ssh目录下新建一个ssh链接。
 
-<table style="width: 100%; margin: 10px auto;>
-  <tr style="background: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px, rgba(0, 0, 0, 0.3) 0px 1px 1px -1px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;">
-    <td><img src="https://github.com/InternLM/Tutorial/assets/32959436/1b494c3e-6be2-4ed7-aa2b-937491568990" alt="Description of the image" style="height: 300px; width: auto;"></td>
-    <td><img src="https://github.com/InternLM/Tutorial/assets/32959436/81461f5a-d751-4cc9-bc3c-72b326c0dda3" alt="Description of the image" style="height: 300px; width: auto;"></td>
-  </tr>
-  <tr style="background: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px, rgba(0, 0, 0, 0.3) 0px 1px 1px -1px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;">
-    <td align="center">安装Remote-SSH</td>
-    <td align="center">进入Remote Explorer</td>
-  </tr>
-</table>
 
-点击`+`号，此时会有弹窗提示输入**SSH链接命令（具体请看下文）**，回车后选择要更新的SSH配置文件，默认选择第一个即可（如有需要也可新建一个SSH配置文件）。
-
-<table style="width: 100%; margin: 10px auto;">
+<table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/InternLM/Tutorial/assets/32959436/a1eb2d82-146c-4cf7-910b-79af6118c8c5" alt="Description of the image" style="width: 100%; height: auto;">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/1b494c3e-6be2-4ed7-aa2b-937491568990" alt="Description of the image" style="height: auto; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/81461f5a-d751-4cc9-bc3c-72b326c0dda3" alt="Description of the image" style="height: auto; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="https://github.com/InternLM/Tutorial/assets/32959436/db595bd5-83f5-4cef-b536-ca6c45f6facf" alt="Description of the image" style="width: 100%; height: auto;">
+      安装Remote-SSH
+    </td>
+    <td align="center">
+      进入Remote Explorer
+    </td>
+  </tr>
+</table>
+
+
+点击`+`号，此时会有弹窗提示输入**SSH链接命令（具体请看下文）**，回车后选择要更新的SSH配置文件，默认选择第一个即可（如有需要也可新建一个SSH配置文件）。
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/a1eb2d82-146c-4cf7-910b-79af6118c8c5" alt="Description of the image" style="height: auto; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/db595bd5-83f5-4cef-b536-ca6c45f6facf" alt="Description of the image" style="height: auto; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      输入链接命令
+    </td>
+    <td align="center">
+      选择默认配置文件
     </td>
   </tr>
 </table>
@@ -170,9 +186,13 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 开发机的**链接命令**可以在开发机控制台对应开发机"SSH连接"找到，复制登录命令到vscode的弹窗中然后回车，vscode就会开始链接InternStudio的服务器，记得此时切回去复制一下ssh的密码，待会会用到。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/InternLM/Tutorial/assets/32959436/cb2bb9eb-7aab-44f4-b73f-5c255c4407d2" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/a6069e5b-ad85-4a49-9128-c37879165350" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 在新的弹窗中将SSH密码粘贴进去然后回车。随后会弹窗让选择远程终端的类型，选择`Linux`即可，因为我们的开发机是`Linux`系统。
 
@@ -182,17 +202,18 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 
 连接成功后我们打开远程连接的vscode的extensions，在**远程开发机(SSH:SSH.INTERN-AI.ORG.CN)** 上安装好python的插件，后面python debug会用到。也可以一键把我们本地vscode的插件安装到开发机上。
 
-<table style="width: 80%; margin: 10px auto;">
-    <tr>
-        <td align="center">
-            <img src="https://github.com/InternLM/Tutorial/assets/32959436/95759a98-8e12-483e-a188-7572968beeda" alt="Description of the image" style="width: 100%; height: auto;">
-        </td>
-    </tr>
-    <tr>
-        <td align="center">
-            <img src="https://github.com/InternLM/Tutorial/assets/32959436/e29ab709-68f1-4e0b-8e8a-93242f524e7b" alt="Description of the image" style="width: 100%; height: auto;">
-        </td>
-    </tr>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/95759a98-8e12-483e-a188-7572968beeda" alt="Description of the image" style="height: auto; width: 700px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/e29ab709-68f1-4e0b-8e8a-93242f524e7b" alt="Description of the image" style="height: auto; width: 700px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
 </table>
 
 ## 3.2如何在Vscode中打开终端
@@ -232,15 +253,25 @@ if __name__ =="__main__":
   - 打开你的Python文件，点击左侧活动栏的“运行和调试”图标。
   - 首次debug需要配置以下，点击“create a launch.json file”，选择python debugger后选择“Python File” config。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/af0cc60f-74fa-4168-9da8-31928972b352" alt="Description of the image" style=" height: auto;">  
-</div>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/af0cc60f-74fa-4168-9da8-31928972b352" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
   - 可以直接编辑生成的launch.json文件，配置调试参数，比如添加config（Add Configuration）等。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/81721718-62c3-495f-874b-31473e73d168" alt="Description of the image" style="height: auto;">  
-</div>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/81721718-62c3-495f-874b-31473e73d168" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 新建python文件后我们如果想要运行，首先需要选择解释器。单击右下角的select interpreter，vsconde会自动扫描开发机上所有的python环境中的解释器。
 
@@ -248,33 +279,51 @@ if __name__ =="__main__":
 
 在代码行号旁边点击，可以添加一个红点，这就是断点（如果不能添加红点需要检查一下Python扩展是否已经正确安装）。当代码运行到这里时，它会停下来，这样你就可以检查变量的值、执行步骤等。接下来，我们在第4行的核心代码处打上断点。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/8561f1cc-9ee6-4c6b-b8d7-552b34881110" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/8561f1cc-9ee6-4c6b-b8d7-552b34881110" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 **Step4.启动debug**
 
 点击VSCode侧边栏的“Run and Debug”（运行和调试），选择调试配置后，点击绿色箭头（开始调试）按钮，或者按F5键。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/97b5e791-2490-4d71-8764-e7aadc5e3d4b" alt="Description of the image" style="height: auto;">  
-</div>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/97b5e791-2490-4d71-8764-e7aadc5e3d4b" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 **Step5.查看变量**
 
 当代码在断点处停下来时，你可以查看和修改变量的值。在“Run and Debug”侧边栏的“Variables”（变量）部分，你可以看到当前作用域内的所有变量及其值。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/561a5133-2982-4fdb-8a1d-a6f0ed18b77a" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/561a5133-2982-4fdb-8a1d-a6f0ed18b77a" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 **Step6.单步执行代码**
 
 你可以使用顶部的debug面板的按钮来单步执行代码。这样，你可以逐行运行代码，并查看每行代码执行后的效果。
 
-<div align="center" style="width: 50%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/5cd847ae-c9f3-4226-9f19-975755b2a770" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/5cd847ae-c9f3-4226-9f19-975755b2a770" alt="Description of the image" style="height: auto; width: 400px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 debug面板各按钮功能介绍：
 
@@ -310,42 +359,74 @@ debug面板各按钮功能介绍：
 比如我们想让代码在 `i=end-1` 时停下来，可以这样设置：
 在断点处右键选择“条件断点”，然后输入条件 `i == end-1`。
 
-<div align="center" style="width: 60%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f"> 
-    <img src="https://github.com/user-attachments/assets/793f31fa-16dd-46f0-911a-d15801b477e2" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/793f31fa-16dd-46f0-911a-d15801b477e2" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 回车保存断点，然后运行debug，可以看到程序在i=9的时候停了下来，此时各变量的值如下
 
-<div align="center" style="width: 60%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/ebab013b-e76b-4bb9-93d0-175f94c3cce3" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/ebab013b-e76b-4bb9-93d0-175f94c3cce3" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 
 #### 触发计数条件断点
 
 如果我们想让sum_res+=i在运行5次后停下来，我们可以在这行设置`Hit count`断点为5。
 
-<div align="center" style="width: 60%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/1dab2877-0835-4a3c-80aa-c1a556d0205d" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/1dab2877-0835-4a3c-80aa-c1a556d0205d" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 运行debug后，程序第一次暂停时各变量的状态为
 
-<div align="center" style="width: 60%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/1ce0000f-50d7-411f-9195-22d05aa507fa" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/1ce0000f-50d7-411f-9195-22d05aa507fa" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 #### 记录日志条件断点
 
 在Log Message输入 `Current i is {i}` 每次触发时记录一下 i 的值
-<div align="center" style="width: 60%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/673a80e2-de0a-4563-ade5-afeb195b9011" alt="Description of the image" style="height: auto;">  
-</div>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/673a80e2-de0a-4563-ade5-afeb195b9011" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 运行debug后我们可以在终端面板的debug console看到
-<div align="center" style="width: 60%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/user-attachments/assets/fae0204a-e2d9-4ed3-983c-5b4f40e7a6ce" alt="Description of the image" style="height: auto;">  
-</div>
+
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/fae0204a-e2d9-4ed3-983c-5b4f40e7a6ce" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 ## 4.3 在vscode使用命令行进行debug
 
@@ -359,15 +440,25 @@ vscode支持通过remote的方法连接我们在命令行中发起的debug serve
 
 选择debugger时选择python debuger。选择debug config时选择remote attach就行，随后会让我们选择debug server的地址，因为我们是在本地debug，所以全都保持默认直接回车就可以了，也就是我们的server地址为 **localhost:5678**。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f"> 
-    <img src="https://github.com/InternLM/Tutorial/assets/32959436/8caf498a-bdda-4e2d-9623-00bdc42ee478" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/8caf498a-bdda-4e2d-9623-00bdc42ee478" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 配置完以后会打开配置的json文件，但这不是重点，可以关掉。这时我们会看到run and debug界面有变化，出现了debug选项。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/InternLM/Tutorial/assets/32959436/b6d2c147-60e2-42b5-8bab-66ef450bd214" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/b6d2c147-60e2-42b5-8bab-66ef450bd214" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 ### 4.3.2 debug命令行
 
@@ -383,9 +474,13 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 
 先在终端中发起debug server，然后再去vscode debug页面单击一下绿色箭头开启debug。
 
-<div align="center" style="width: 80%; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    <img src="https://github.com/InternLM/Tutorial/assets/32959436/ffb37e1f-a52c-4d66-816c-a5299e8cec50" alt="Description of the image" style="height: auto;">  
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/InternLM/Tutorial/assets/32959436/ffb37e1f-a52c-4d66-816c-a5299e8cec50" alt="Description of the image" style="height: auto; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 接下来的操作就和上面一样了。
 
