@@ -7,14 +7,26 @@
 
 以下任务均为**必做任务**，完成任务后提交相应链接即可。
 
-| 任务编号 | 任务名称     | 任务描述                                     | 
-|----------|--------------|----------------------------------------------|
-| 1        | 破冰活动     | 提交一份自我介绍。                           | 
-| 2        | 实践项目     | 创建并提交一个项目。                     |
+<table style="width: 100%; margin: auto;">
+  <tr>
+    <th>任务编号</th>
+    <th>任务名称</th>
+    <th>任务描述</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>破冰活动</td>
+    <td>提交一份自我介绍。</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>实践项目</td>
+    <td>创建并提交一个项目。</td>
+  </tr>
+</table>
 
-任务详细参见 [task.md](./task.md)。
+Git 的内容相对简单，但也是最为常用的基础。加油！任务详细参见 [task.md](./task.md)。
 
-Git 的内容相对简单，但也是最为常用的基础。加油！
 
 ## **1. Git 是什么？**
 
@@ -94,26 +106,17 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
 | 快照系统   | Git 通过快照而非差异比较来管理数据。每次提交更新时，Git 实际上是在存储一个项目所有文件的快照。如果文件没有变化，Git 只是简单地链接到之前存储的文件快照。 |
 
 ## **3. Git 平台介绍**
-### **3.1 GitHub**
+### **3.1 [**GitHub**](https://github.com/)**
 
-[**GitHub**](https://github.com/)：
-- 是全球最大的代码托管平台之一，拥有丰富的开源项目和活跃的开发者社区。它提供了版本控制、项目管理、协作开发等功能，并支持多种编程语言。
+是全球最大的代码托管平台之一，拥有丰富的开源项目和活跃的开发者社区。它提供了版本控制、项目管理、协作开发等功能，并支持多种编程语言。
 
-### **3.2 GitLab**
-[**GitLab**](https://gitlab.com/)：
-- 一个自托管或基于云的平台，提供了完整的 DevOps 工具链，包括代码托管、持续集成/持续部署（CI/CD）、问题跟踪等。
+### **3.2 [**GitLab**](https://gitlab.com/)**
 
-### **3.3 Gitee**
-[**Gitee**](https://gitee.com/)：
-- 国内的代码托管平台，提供了代码托管、项目管理、协作开发等功能，对国内开发者来说，访问速度可能更快，也更符合国内的使用习惯。
+一个自托管或基于云的平台，提供了完整的 DevOps 工具链，包括代码托管、持续集成/持续部署（CI/CD）、问题跟踪等。
 
+### **3.3 [**Gitee**](https://gitee.com/)**
 
-
-
-
-
-
-
+国内的代码托管平台，提供了代码托管、项目管理、协作开发等功能，对国内开发者来说，访问速度可能更快，也更符合国内的使用习惯。
 
 
 ## **4. Git 下载配置验证**
@@ -188,14 +191,16 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
   ```
 
 
-
 如图所示
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg2_1.png" alt="image">
-</div>
 
-
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg2_1.png" alt="Description of the image" style="height: auto; width: 500px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 ## **5. Git常用操作**
@@ -229,31 +234,101 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
 
 **常用指令**
 
-| 指令                     | 描述                                                         |
-|--------------------------|--------------------------------------------------------------|
-| `git config`             | 配置用户信息和偏好设置                                       |
-| `git init`               | 初始化一个新的 Git 仓库                                      |
-| `git clone`              | 克隆一个远程仓库到本地                                       |
-| `git status`             | 查看仓库当前的状态，显示有变更的文件                         |
-| `git add`                | 将文件更改添加到暂存区                                       |
-| `git commit`             | 提交暂存区到仓库区                                           |
-| `git branch`             | 列出、创建或删除分支                                         |
-| `git checkout`           | 切换分支或恢复工作树文件                                     |
-| `git merge`              | 合并两个或更多的开发历史                                     |
-| `git pull`               | 从另一仓库获取并合并本地的版本                               |
-| `git push`               | 更新远程引用和相关的对象                                     |
-| `git remote`             | 管理跟踪远程仓库的命令                                       |
-| `git fetch`              | 从远程仓库获取数据到本地仓库，但不自动合并                   |
+<table align="center">
+  <tr>
+    <th>指令</th>
+    <th>描述</th>
+  </tr>
+  <tr>
+    <td><code>git config</code></td>
+    <td>配置用户信息和偏好设置</td>
+  </tr>
+  <tr>
+    <td><code>git init</code></td>
+    <td>初始化一个新的 Git 仓库</td>
+  </tr>
+  <tr>
+    <td><code>git clone</code></td>
+    <td>克隆一个远程仓库到本地</td>
+  </tr>
+  <tr>
+    <td><code>git status</code></td>
+    <td>查看仓库当前的状态，显示有变更的文件</td>
+  </tr>
+  <tr>
+    <td><code>git add</code></td>
+    <td>将文件更改添加到暂存区</td>
+  </tr>
+  <tr>
+    <td><code>git commit</code></td>
+    <td>提交暂存区到仓库区</td>
+  </tr>
+  <tr>
+    <td><code>git branch</code></td>
+    <td>列出、创建或删除分支</td>
+  </tr>
+  <tr>
+    <td><code>git checkout</code></td>
+    <td>切换分支或恢复工作树文件</td>
+  </tr>
+  <tr>
+    <td><code>git merge</code></td>
+    <td>合并两个或更多的开发历史</td>
+  </tr>
+  <tr>
+    <td><code>git pull</code></td>
+    <td>从另一仓库获取并合并本地的版本</td>
+  </tr>
+  <tr>
+    <td><code>git push</code></td>
+    <td>更新远程引用和相关的对象</td>
+  </tr>
+  <tr>
+    <td><code>git remote</code></td>
+    <td>管理跟踪远程仓库的命令</td>
+  </tr>
+  <tr>
+    <td><code>git fetch</code></td>
+    <td>从远程仓库获取数据到本地仓库，但不自动合并</td>
+  </tr>
+</table>
 
 **进阶指令**
 
-| `git stash`              | 暂存当前工作目录的修改，以便可以切换分支                     |
-| `git cherry-pick`        | 选择一个提交，将其作为新的提交引入                           |
-| `git rebase`             | 将提交从一个分支移动到另一个分支                             |
-| `git reset`              | 重设当前 HEAD 到指定状态，可选修改工作区和暂存区             |
-| `git revert`             | 通过创建一个新的提交来撤销之前的提交                         |
-| `git mv`                 | 移动或重命名一个文件、目录或符号链接，并自动更新索引         |
-| `git rm`                 | 从工作区和索引中删除文件                                     |
+<table align="center">
+  <tr>
+    <th>指令</th>
+    <th>描述</th>
+  </tr>
+  <tr>
+    <td><code>git stash</code></td>
+    <td>暂存当前工作目录的修改，以便可以切换分支</td>
+  </tr>
+  <tr>
+    <td><code>git cherry-pick</code></td>
+    <td>选择一个提交，将其作为新的提交引入</td>
+  </tr>
+  <tr>
+    <td><code>git rebase</code></td>
+    <td>将提交从一个分支移动到另一个分支</td>
+  </tr>
+  <tr>
+    <td><code>git reset</code></td>
+    <td>重设当前 HEAD 到指定状态，可选修改工作区和暂存区</td>
+  </tr>
+  <tr>
+    <td><code>git revert</code></td>
+    <td>通过创建一个新的提交来撤销之前的提交</td>
+  </tr>
+  <tr>
+    <td><code>git mv</code></td>
+    <td>移动或重命名一个文件、目录或符号链接，并自动更新索引</td>
+  </tr>
+  <tr>
+    <td><code>git rm</code></td>
+    <td>从工作区和索引中删除文件</td>
+  </tr>
+</table>
 
 每个指令都有其特定的用途和场景，详细的使用方法和参数可以通过命令行的帮助文档（`git command -h`,例如 `git pull -h`）来获取更多信息。
 
@@ -265,30 +340,47 @@ Git的诞生离不开Linux社区的努力，它是开源的，而且是免费的
 本次学习项目的链接：
 https://github.com/InternLM/Tutorial/tree/camp4
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg2.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg2.png" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 ### **6.2 将本项目直接fork到自己的账号下，这样就可以直接在自己的账号下进行修改和提交。**
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg3.jpg" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg3.jpg" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg4.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg4.png" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg5.jpg" alt="image">
-</div>
-
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg5.jpg" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 ### **6.3 配置git并克隆项目到InternStudio本地**
 
 ```bash
-git clone https://github.com/random-zhou/Tutorial.git # 修改为自己fork的仓库，改为上图中你的https仓库的git地址,将random-zhou改为自己的用户名
+# 修改为自己fork的仓库，改为上图中你的https仓库的git地址,将random-zhou改为自己的用户名
+git clone https://github.com/random-zhou/Tutorial.git 
 #git clone git@github.com:random-zhou/Tutorial.git 
 #git clone https://github.com/InternLM/Tutorial.git
 cd Tutorial/
@@ -297,29 +389,37 @@ git checkout -b class origin/class
 ```
 如图所示
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image.png" alt="image">
-</div>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 ### **6.4 创建分支**
 ```bash
 git checkout -b class_036 # 自定义一个新的分支
-#git checkout -b class_id
-#分支名字改为你的id分支名称
+#git checkout -b class_id 分支名字改为你的id分支名称
 ```
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-1.png" alt="image">
-</div>
-
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-2.png" alt="image">
-</div>
+<table align="center">
+   <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-1.png" alt="Description of the image" style="height: auto; width: 700px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+      <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-2.png" alt="Description of the image" style="height: auto; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 ### **6.5 创建自己的介绍文件**
-- 将id号改为自己的报名id
 
+这里提供了介绍文件的模板（路径 `./icamp4/camp4_id.md`）
 ```bash
 【大家可以叫我】:InternLM
 【坐标】:上海
@@ -331,16 +431,27 @@ git checkout -b class_036 # 自定义一个新的分支
 【本期活动目标】:一起学习，快乐暑假，闯关达人!
 ```
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.png" alt="image">
-</div>
 
-示例文件路径
-./icamp4/camp4_id.md
+<table align="center">
+   <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.png" alt="Description of the image" style="height: 200px;  margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+      <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.png" alt="Description of the image" style="height: 200px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+   <tr>
+    <td align="center">
+      示例文件
+    </td>
+      <td align="center">
+      将id号改为自己的报名id
+    </td>
+  </tr>
+</table>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.png" alt="image">
-</div>
+
 
 ### **6.6 提交更改分支**
 
@@ -349,9 +460,14 @@ git add .
 git commit -m "add git_camp4_036_introduction" # 提交信息记录
 ```
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-5.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-5.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
 
 
 ### **6.7 推送分支到远程仓库**
@@ -360,31 +476,39 @@ git push origin class_036
 #注意，这里要改为你自己的分支名称
 #大家提交使用英文，避免同步错误
 ```
-
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-6.png" alt="image">
-</div>
-
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-6.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 <details>
 <summary>第一次推送时需要登录github授权，会出现以下两个提醒，点击去github登录授权即可。</summary>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-7.png" alt="image">
-</div>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-8.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-7.png" alt="Description of the image" style="height: 150px;  margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+     <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-8.png" alt="Description of the image" style="height: 150px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+   <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/19e0f320-8fe9-46b2-b58d-c574b653fe34" alt="Description of the image" style="height: 150px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+      <td align="center">
+      <img src="https://github.com/user-attachments/assets/ae341025-62be-41c4-87ce-9e1da6cbcf1f" alt="Description of the image" style="height: 150px;  margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-9.png" alt="image">
-</div>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-10.png" alt="image">
-</div>
 
 
 
@@ -396,22 +520,34 @@ git push origin class_036
 ### **6.8 检查提交内容**
 如图所示，可以看到你的分支已经被推送到远程仓库。
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-11.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-11.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 点击右上角Compare & pull request
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-12.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-12.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 在“Add a title中”输入 "add git_<id>_introduction",将
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-13.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-13.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 ```bash
@@ -423,29 +559,36 @@ git_036_introduction # 请统一 git_<id>_introduction 格式,方便审核
 
 在当前页面下方可以看到内容变更，+号代表在当前行号下增加内容，-号代表在当前行号下删除内容。
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-14.png" alt="image">
-</div>
-
-
-
 提交后如下
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-15.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-15.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 ### **6.9 合并到自己仓库**
-在分支中选择自己分支，点击“Merge pull request”即可
+在分支中选择自己分支，点击“Create pull request”即可
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-16.png" alt="image">
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-16.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-17.png" alt="image">
-</div>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-17.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
 
 
 ## **7. 作业**
