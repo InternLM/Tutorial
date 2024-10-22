@@ -402,7 +402,7 @@ git checkout -b class origin/class
 ### **6.4 创建分支**
 ```bash
 git checkout -b class_036 # 自定义一个新的分支
-#git checkout -b class_id 分支名字改为你的id分支名称
+#git checkout -b class_id 分支名字改为你的uid分支名称
 ```
 
 <table align="center">
@@ -419,7 +419,7 @@ git checkout -b class_036 # 自定义一个新的分支
 
 ### **6.5 创建自己的介绍文件**
 
-这里提供了介绍文件的模板（路径 `./icamp4/camp4_id.md`）
+这里提供了介绍文件的模板（路径 `./icamp4/id.md`）
 ```bash
 【大家可以叫我】:InternLM
 【坐标】:上海
@@ -430,15 +430,15 @@ git checkout -b class_036 # 自定义一个新的分支
 【本课程学习基础】:CV、NLP、LLM
 【本期活动目标】:一起学习，快乐暑假，闯关达人!
 ```
-
+> 注意，在GitHub中需要再每一行的后面多打几个空格才能换行
 
 <table align="center">
    <tr>
     <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.png" alt="Description of the image" style="height: 200px;  margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.jpg" alt="Description of the image" style="height: 200px;  margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
       <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.png" alt="Description of the image" style="height: 200px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.jpg" alt="Description of the image" style="height: 200px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
    <tr>
@@ -446,7 +446,7 @@ git checkout -b class_036 # 自定义一个新的分支
       示例文件
     </td>
       <td align="center">
-      将id号改为自己的报名id
+      将id号改为自己的报名uid
     </td>
   </tr>
 </table>
@@ -457,7 +457,7 @@ git checkout -b class_036 # 自定义一个新的分支
 
 ```bash
 git add .
-git commit -m "add git_camp4_036_introduction" # 提交信息记录
+git commit -m "add git_camp4_036_introduction" # 提交信息记录,这里需要修改为自己的uid
 ```
 
 <table align="center">
@@ -539,7 +539,7 @@ git push origin class_036
   </tr>
 </table>
 
-在“Add a title中”输入 "add git_<id>_introduction",将
+在“Add a title中”输入 "add git_< id >_introduction",将
 
 <table align="center">
   <tr>
@@ -551,7 +551,7 @@ git push origin class_036
 
 
 ```bash
-git_036_introduction # 请统一 git_<id>_introduction 格式,方便审核
+git_036_introduction # 请统一 改为git_<id>_introduction 格式,方便审核
 
 ```
 
@@ -569,26 +569,28 @@ git_036_introduction # 请统一 git_<id>_introduction 格式,方便审核
   </tr>
 </table>
 
-
-### **6.9 合并到自己仓库**
-在分支中选择自己分支，点击“Create pull request”即可
+管理员审核合并之后如下所示
 
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-16.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/user-attachments/assets/07ae8dfa-ebae-4682-a2bf-c6e52024b802" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
 
+具体如下
 
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-17.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/user-attachments/assets/9578136c-fbde-407a-92fc-bdcf97bb7565" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
+
+如果出现发现提交时未有换行，可以回到6.5 章节的注意，根据注意事项修改一下再提交就好啦
+
 
 
 ## **7. 作业**
