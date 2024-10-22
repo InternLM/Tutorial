@@ -539,7 +539,7 @@ git push origin class_036
   </tr>
 </table>
 
-在“Add a title中”输入 "add git_<id>_introduction",将
+在“Add a title中”输入 "add git_< id >_introduction",将
 
 <table align="center">
   <tr>
@@ -551,7 +551,7 @@ git push origin class_036
 
 
 ```bash
-git_036_introduction # 请统一 git_<id>_introduction 格式,方便审核
+git_036_introduction # 请统一 改为git_<id>_introduction 格式,方便审核
 
 ```
 
