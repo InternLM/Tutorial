@@ -112,9 +112,9 @@ xtuner list-cfg
 </details>
 
 
-# 修改提供的数据
+## 修改提供的数据
 
-## **步骤 0.** 创建一个新的文件夹用于存储微调数据
+### **步骤 0.** 创建一个新的文件夹用于存储微调数据
 ```shell
 mkdir -p /root/finetune/data && cd /root/finetune/data
 cp -r /root/Tutorial/data/assistant_Tuner.jsonl  /root/finetune/data
