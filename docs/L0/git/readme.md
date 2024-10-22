@@ -304,7 +304,7 @@ git checkout -b class origin/class
 ### **6.4 创建分支**
 ```bash
 git checkout -b class_036 # 自定义一个新的分支
-#git checkout -b class_id
+#git checkout -b class_uid
 #分支名字改为你的id分支名称
 ```
 
@@ -452,4 +452,4 @@ git_036_introduction # 请统一 git_<uid>_introduction 格式,方便审核
 返回点击
 [书生大模型实战营](https://github.com/InternLM/Tutorial/tree/camp4)
 
-https://github.com/InternLM/Tutorial/tree/class/icamp4
+[自我介绍文档提交地址](https://github.com/InternLM/Tutorial/tree/class/icamp4)
