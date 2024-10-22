@@ -39,7 +39,7 @@ conda activate xtuner-env
 ```shell
 git clone https://github.com/InternLM/xtuner.git
 cd /root/finetune/xtuner
-pip install -e '.[deepspeed]'
+pip install -e '.[deepspeed]' transformers==4.39.0
 ```
 >`-e` 表示在可编辑模式下安装项目，因此对代码所做的任何本地修改都会生效
 
