@@ -484,7 +484,7 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
-streamlit run /root/Tutorial/tools/xtuner_streamlit_demo.py
+streamlit run /root/Tutorial/tools/L1_XTuner_code/xtuner_streamlit_demo.py
 ```
 
 运行后，确保端口映射正常，如果映射已断开则需要重新做一次端口映射。
