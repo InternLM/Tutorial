@@ -30,8 +30,6 @@ from transformers.utils import logging
 from transformers import AutoTokenizer, AutoModelForCausalLM  # isort: skip
 
 logger = logging.get_logger(__name__)
-
-
 model_name_or_path="/root/finetune/models/internlm2-chat-7b"
 
 @dataclass
@@ -234,6 +232,7 @@ def combine_history(prompt):
 
 def main():
     st.title('internlm2_5-7b-chat-assistant')
+
     # torch.cuda.empty_cache()
     print('load model begin.')
     model, tokenizer = load_model()
@@ -253,7 +252,9 @@ def main():
     # Accept user input
     if prompt := st.chat_input('What is up?'):
         # Display user message in chat message container
+
         with st.chat_message('user', avatar='user'):
+
             st.markdown(prompt)
         real_prompt = combine_history(prompt)
         # Add user message to chat history
@@ -264,6 +265,7 @@ def main():
         })
 
         with st.chat_message('robot', avatar='assistant'):
+
             message_placeholder = st.empty()
             for cur_response in generate_interactive(
                     model=model,
@@ -287,3 +289,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

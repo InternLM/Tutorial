@@ -223,6 +223,8 @@ python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 
 `assistant_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
 
+
+
 <details>
 <summary>此时 data 文件夹下应该有如下结构</summary>
 
@@ -240,6 +242,7 @@ python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 ```shell
 cat assistant_Tuner_change.jsonl | head -n 3
 ```
+
 此处结果太长不再展示，主要是检查自己要修改的名字是否在数据中。
 
 ## 训练启动
@@ -275,6 +278,7 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/finetune/data/assistant_Tuner_change.jsonl'
+
 
 evaluation_inputs = [
 -    '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'

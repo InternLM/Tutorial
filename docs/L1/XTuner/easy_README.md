@@ -210,11 +210,13 @@ if __name__ == "__main__":
 
 ```shell
 # usage：python change_script.py {input_file.jsonl} {output_file.jsonl}
+
 cd ~/finetune/data
 python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 ```
 
 `assistant_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
+
 
 <details>
 <summary>此时 data 文件夹下应该有如下结构</summary>
@@ -374,6 +376,7 @@ export PATH=/root/finetune/env/bin:$PATH
 pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
+
 xtuner convert pth_to_hf ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
 ```
 
