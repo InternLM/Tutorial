@@ -111,8 +111,6 @@ xtuner list-cfg
 ```shell
 mkdir -p /root/finetune/data && cd /root/finetune/data
 cp -r /root/Tutorial/data/assistant_Tuner.jsonl  /root/finetune/data
-#复制存放jsonl格式的训练数据的文件夹JsonData到/root/finetune/data
-#这里要改一下jsondata的地址！！！
 ```
 
 <details>
@@ -212,7 +210,7 @@ if __name__ == "__main__":
 
 ```shell
 # usage：python change_script.py {input_file.jsonl} {output_file.jsonl}
-cd ~/finetune
+cd ~/finetune/data
 python change_script.py ./data/assist_Tuner.jsonl ./data/assist_Tuner_change.jsonl
 ```
 
