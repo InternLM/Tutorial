@@ -569,7 +569,27 @@ git_036_introduction # 请统一 改为git_<id>_introduction 格式,方便审核
   </tr>
 </table>
 
+管理员审核合并之后如下所示
 
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/07ae8dfa-ebae-4682-a2bf-c6e52024b802" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+具体如下
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9578136c-fbde-407a-92fc-bdcf97bb7565" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+如果出现发现提交时未有换行，可以回到6.5 章节的注意，根据注意事项修改一下再提交就好啦
 
 
 
