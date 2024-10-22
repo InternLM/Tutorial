@@ -211,10 +211,10 @@ if __name__ == "__main__":
 ```shell
 # usage：python change_script.py {input_file.jsonl} {output_file.jsonl}
 cd ~/finetune/data
-python change_script.py ./data/assist_Tuner.jsonl ./data/assist_Tuner_change.jsonl
+python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 ```
 
-`assist_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
+`assistant_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
 
 <details>
 <summary>此时 data 文件夹下应该有如下结构</summary>
@@ -244,7 +244,7 @@ cat output_file.jsonl | head -n 3
 
 ```shell
 mkdir /root/finetune/models
-ln -ls /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
 ```
 
 ### **步骤 1.** 修改 Config
@@ -267,7 +267,7 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 + pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
-+ alpaca_en_path = '/root/finetune/data/assist_Tuner.jsonl'
++ alpaca_en_path = '/root/finetune/data/assist_Tuner_change.jsonl'
 
 evaluation_inputs = [
 -    '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'
@@ -345,7 +345,7 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
-xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
+xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
 
 ### **步骤 3.** 权重转换
@@ -374,7 +374,7 @@ export PATH=/root/finetune/env/bin:$PATH
 pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
-xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
+xtuner convert pth_to_hf ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
 ```
 
 模型格式转换完成后，我们的目录结构应该是这样子的。

@@ -218,10 +218,10 @@ if __name__ == "__main__":
 ```shell
 # usage：python change_script.py {input_file.jsonl} {output_file.jsonl}
 cd ~/finetune/data
-python change_script.py ./data/assist_Tuner.jsonl ./data/assist_Tuner_change.jsonl
+python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 ```
 
-`assist_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
+`assistant_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
 
 <details>
 <summary>此时 data 文件夹下应该有如下结构</summary>
@@ -251,7 +251,7 @@ cat output_file.jsonl | head -n 3
 
 ```shell
 mkdir /root/finetune/models
-ln -ls /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
 ```
 
 ### **步骤 1.** 修改 Config
@@ -274,7 +274,7 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 + pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
-+ alpaca_en_path = '/root/finetune/data/assist_Tuner.jsonl'
++ alpaca_en_path = '/root/finetune/data/assistant_Tuner_change.jsonl'
 
 evaluation_inputs = [
 -    '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'
@@ -350,7 +350,7 @@ alpaca_en = dict(
 cd /root/fintune
 conda activate xtuner_env
 
-xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
+xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
 
 ### **步骤 3.** 权重转换
