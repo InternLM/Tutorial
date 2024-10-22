@@ -430,7 +430,7 @@ git checkout -b class_036 # 自定义一个新的分支
 【本课程学习基础】:CV、NLP、LLM
 【本期活动目标】:一起学习，快乐暑假，闯关达人!
 ```
-
+> 注意，在GitHub中需要再每一行的后面多打几个空格才能换行
 
 <table align="center">
    <tr>
