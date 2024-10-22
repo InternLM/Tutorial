@@ -16,6 +16,7 @@
 * 一个属于自己的语言聊天机器人
 
 本节课对应的视频链接：暂无
+
 XTuner 文档链接：[XTuner-doc-cn](https://xtuner.readthedocs.io/zh-cn/latest/)
 
 ## 环境配置与数据准备
