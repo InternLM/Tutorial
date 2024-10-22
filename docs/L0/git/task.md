@@ -46,4 +46,4 @@
 
 将Pull Request链接闯关材料提交到以下问卷，助教老师批改后将获得 50 算力点奖励！！！，完成项目申报后请联系浦语小助手（微信ID：InternLM）申请额外的团队项目算力资源～
 
-提交地址：[https://aicarrier.feishu.cn/share/base/form/shrcnZ4bQ4YmhEtMtnKxZUcf1vd](https://aicarrier.feishu.cn/share/base/form/shrcnZ4bQ4YmhEtMtnKxZUcf1vd)
+提交地址：https://aicarrier.feishu.cn/share/base/form/shrcnUqshYPt7MdtYRTRpkiOFJd
