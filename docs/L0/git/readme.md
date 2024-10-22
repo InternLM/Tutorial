@@ -402,7 +402,7 @@ git checkout -b class origin/class
 ### **6.4 创建分支**
 ```bash
 git checkout -b class_036 # 自定义一个新的分支
-#git checkout -b class_id 分支名字改为你的id分支名称
+#git checkout -b class_id 分支名字改为你的uid分支名称
 ```
 
 <table align="center">
@@ -419,7 +419,7 @@ git checkout -b class_036 # 自定义一个新的分支
 
 ### **6.5 创建自己的介绍文件**
 
-这里提供了介绍文件的模板（路径 `./icamp4/camp4_id.md`）
+这里提供了介绍文件的模板（路径 `./icamp4/id.md`）
 ```bash
 【大家可以叫我】:InternLM
 【坐标】:上海
@@ -435,10 +435,10 @@ git checkout -b class_036 # 自定义一个新的分支
 <table align="center">
    <tr>
     <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.png" alt="Description of the image" style="height: 200px;  margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.jpg" alt="Description of the image" style="height: 200px;  margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
       <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.png" alt="Description of the image" style="height: 200px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.jpg" alt="Description of the image" style="height: 200px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
    <tr>
@@ -446,7 +446,7 @@ git checkout -b class_036 # 自定义一个新的分支
       示例文件
     </td>
       <td align="center">
-      将id号改为自己的报名id
+      将id号改为自己的报名uid
     </td>
   </tr>
 </table>
@@ -457,7 +457,7 @@ git checkout -b class_036 # 自定义一个新的分支
 
 ```bash
 git add .
-git commit -m "add git_camp4_036_introduction" # 提交信息记录
+git commit -m "add git_camp4_036_introduction" # 提交信息记录,这里需要修改为自己的uid
 ```
 
 <table align="center">
@@ -570,25 +570,7 @@ git_036_introduction # 请统一 git_<id>_introduction 格式,方便审核
 </table>
 
 
-### **6.9 合并到自己仓库**
-在分支中选择自己分支，点击“Create pull request”即可
 
-<table align="center">
-  <tr>
-    <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-16.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    </td>
-  </tr>
-</table>
-
-
-<table align="center">
-  <tr>
-    <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-17.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
-    </td>
-  </tr>
-</table>
 
 
 ## **7. 作业**
