@@ -39,7 +39,7 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
 
 ```shell
-pip install -t /root/finetune/env 'xtuner[deepspeed]' timm==1.0.9 
+pip install -t /root/finetune/env 'xtuner[deepspeed]' timm==1.0.9 transformers==4.39.0
 ```
 
 每次使用前，需要运行一下命令，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包（同一个终端下只需运行一次）：
