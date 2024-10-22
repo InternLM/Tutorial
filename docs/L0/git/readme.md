@@ -318,7 +318,7 @@ git checkout -b class_036 # 自定义一个新的分支
 
 
 ### **6.5 创建自己的介绍文件**
-- 将id号改为自己的报名id
+- 将id号改为自己的报名uid
 
 ```bash
 【大家可以叫我】:InternLM
@@ -330,23 +330,25 @@ git checkout -b class_036 # 自定义一个新的分支
 【本课程学习基础】:CV、NLP、LLM
 【本期活动目标】:一起学习，快乐暑假，闯关达人!
 ```
+> 注意，若出现文件中发现没有换行的情况，可以在每句话后加两个空格再换行即可
 
 <div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.png" alt="image">
+    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-3.jpg" alt="image">
 </div>
 
 示例文件路径
-./icamp4/camp4_id.md
+./icamp4/id.md
+（这里的id需要修改为报名表单的uid号）
 
 <div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.png" alt="image">
+    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-4.jpg" alt="image">
 </div>
 
 ### **6.6 提交更改分支**
 
 ```bash
 git add .
-git commit -m "add git_camp4_036_introduction" # 提交信息记录
+git commit -m "add git_camp4_036_introduction" # 提交信息记录，这里需要改为你的uid
 ```
 
 <div align="center">
@@ -407,7 +409,7 @@ git push origin class_036
     <img src="https://github.com/random-zhou/ailabImage/blob/main/image-12.png" alt="image">
 </div>
 
-在“Add a title中”输入 "add git_<id>_introduction",将
+在“Add a title中”输入 "git_uid_introduction",将
 
 <div align="center">
     <img src="https://github.com/random-zhou/ailabImage/blob/main/image-13.png" alt="image">
@@ -415,7 +417,7 @@ git push origin class_036
 
 
 ```bash
-git_036_introduction # 请统一 git_<id>_introduction 格式,方便审核
+git_036_introduction # 请统一 git_<uid>_introduction 格式,方便审核
 
 ```
 
@@ -436,16 +438,7 @@ git_036_introduction # 请统一 git_<id>_introduction 格式,方便审核
 </div>
 
 
-### **6.9 合并到自己仓库**
-在分支中选择自己分支，点击“Merge pull request”即可
 
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-16.png" alt="image">
-</div>
-
-<div align="center">
-    <img src="https://github.com/random-zhou/ailabImage/blob/main/image-17.png" alt="image">
-</div>
 
 
 ## **7. 作业**
