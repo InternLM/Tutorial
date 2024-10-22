@@ -39,7 +39,7 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
 
 ```shell
-pip install -t /root/finetune/env 'xtuner[deepspeed]' timm==1.0.9 
+pip install -t /root/finetune/env 'xtuner[deepspeed]' timm==1.0.9 transformers==4.39.0
 ```
 
 每次使用前，需要运行一下命令，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包（同一个终端下只需运行一次）：
@@ -111,8 +111,6 @@ xtuner list-cfg
 ```shell
 mkdir -p /root/finetune/data && cd /root/finetune/data
 cp -r /root/Tutorial/data/assistant_Tuner.jsonl  /root/finetune/data
-#复制存放jsonl格式的训练数据的文件夹JsonData到/root/finetune/data
-#这里要改一下jsondata的地址！！！
 ```
 
 <details>
@@ -212,11 +210,13 @@ if __name__ == "__main__":
 
 ```shell
 # usage：python change_script.py {input_file.jsonl} {output_file.jsonl}
-cd ~/finetune
-python change_script.py ./data/assist_Tuner.jsonl ./data/assist_Tuner_change.jsonl
+
+cd ~/finetune/data
+python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 ```
 
-`assist_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
+`assistant_Tuner_change.jsonl` 是修改后符合 XTuner 格式的训练数据。
+
 
 <details>
 <summary>此时 data 文件夹下应该有如下结构</summary>
@@ -233,7 +233,7 @@ python change_script.py ./data/assist_Tuner.jsonl ./data/assist_Tuner_change.jso
 ### **步骤 3.** 查看数据
 
 ```shell
-cat output_file.jsonl | head -n 3
+cat assistant_Tuner_change.jsonl | head -n 3
 ```
 此处结果太长不再展示，主要是检查自己要修改的名字是否在数据中。
 
@@ -246,7 +246,7 @@ cat output_file.jsonl | head -n 3
 
 ```shell
 mkdir /root/finetune/models
-ln -ls /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
 ```
 
 ### **步骤 1.** 修改 Config
@@ -269,7 +269,7 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 + pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
-+ alpaca_en_path = '/root/finetune/data/assist_Tuner.jsonl'
++ alpaca_en_path = '/root/finetune/data/assist_Tuner_change.jsonl'
 
 evaluation_inputs = [
 -    '请给我介绍五个上海的景点', 'Please tell me five scenic spots in Shanghai'
@@ -347,7 +347,7 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
-xtuner train ./internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
+xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
 
 ### **步骤 3.** 权重转换
@@ -376,7 +376,8 @@ export PATH=/root/finetune/env/bin:$PATH
 pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
-xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
+
+xtuner convert pth_to_hf ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
 ```
 
 模型格式转换完成后，我们的目录结构应该是这样子的。
@@ -486,7 +487,7 @@ conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
-streamlit run /root/InternLM/Tutorial/tools/xtuner_streamlit_demo.py
+streamlit run /root/Tutorial/tools/L1_XTuner_code/xtuner_streamlit_demo.py
 ```
 
 运行后，确保端口映射正常，如果映射已断开则需要重新做一次端口映射。
