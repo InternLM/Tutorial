@@ -231,7 +231,7 @@ python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 ### **步骤 3.** 查看数据
 
 ```shell
-cat output_file.jsonl | head -n 3
+cat assistant_Tuner_change.jsonl | head -n 3
 ```
 此处结果太长不再展示，主要是检查自己要修改的名字是否在数据中。
 
