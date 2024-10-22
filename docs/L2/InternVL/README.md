@@ -46,33 +46,6 @@
 
 ## 1.1.训练环境配置
 
-### 1.1.a.使用浦语开发机InternStudio
-
-进入预设的虚拟环境:
-
-```Bash
-conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
-```
-
-这个环境中预设了pytorch，因此安装会快一些。
-
-安装XTuner和timm，用-t的目的是为了把包下载在指定路径下，这样可以防止污染这个环境:
-
-```Bash
-pip install -t /root/internvl_course 'xtuner[deepspeed]' timm==1.0.9  # 防止污染环境
-```
-
-每次使用前，需要运行一下命令，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包;还要把`bin`文件夹添加到PATH环境变量中，这样才能找到你用pip安装的命令行工具（同一个终端下只需运行一次）：
-```Bash
-export PYTHONPATH=/root/internvl_course:$PYTHONPATH
-export PATH=/root/internvl_course/bin:$PATH
-```
-
-
-在本教程中后续提到训练环境均指"/root/share/pre_envs/pytorch2.3.1cu12.1"环境。
-
-### 1.1.b.使用自己的机器
-
 新建虚拟环境并进入:
 
 ```Bash
@@ -314,11 +287,9 @@ python process_food.py
 
 ## 3.4.开始微调🐱🏍
 
-运行命令，开始微调（如果是利用浦语开发机配置的环境，需要先运行第一行，把自定义的安装包的路径添加到PYTHONPATH环境变量中，这样python才能找到你安装的包，在自己机器用非pip install -t安装的可以忽视第一行）：
+运行命令，开始微调：
 
 ```Bash
-export PYTHONPATH=/root/internvl_course:$PYTHONPATH  # 让python能找到第一步安装在其他路径下的包
-export PATH=/root/internvl_course/bin:$PATH  # 让系统可以找到你安装的命令行工具
 xtuner train internvl_v2_internlm2_2b_lora_finetune_food --deepspeed deepspeed_zero2
 ```
 
