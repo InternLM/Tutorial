@@ -17,7 +17,7 @@
 |:-----|:----|:----|:-----|
 |第 1 关| Linux 前置基础 |[任务](docs/L0/linux/task.md)、[文档](docs/L0/linux)、[视频]| 50元算力点 |
 |第 2 关|Python 前置基础 | [任务](docs/L0/Python/task.md)、[文档](docs/L0/Python)、[视频]| 50元算力点|
-|第 3 关|Git 前置基础|[任务](docs/L0/git/task.md)、[文档](docs/L0/git)、[视频]| 50元算力点 |
+|第 3 关|Git 前置基础|[任务](docs/L0/git/task.md)、[文档](docs/L0/git/)、[视频]| 50元算力点 |
 |第 4 关|玩转「HF/魔搭/魔乐」平台|[任务](docs/L0/maas/task.md)、[文档](docs/L0/maas)、[视频]| 50元算力点 |
 
 
@@ -30,8 +30,8 @@
 |第 2 关| 玩转书生「多模态对话」和「AI搜索」产品 | [任务]、[文档]、[视频]| 100元算力点 |
 |第 3 关| 浦语提示词工程实践 | [任务](docs/L1/Prompt/tasks.md)、[文档](docs/L1/Prompt)、[视频]| 100元算力点 |
 |第 4 关| InternLM + LlamaIndex RAG 实践|[任务](docs/L1/LlamaIndex/task.md)、[文档](docs/L1/LlamaIndex)、[视频]| 100元算力点 |
-|第 6 关| XTuner 微调个人小助手认知 | [任务]、[文档]、[视频]| 100元算力点 |
-|第 7 关| OpenCompass 评测书生大模型实践 | [任务](docs/L1/Evaluation/task.md)、[文档](docs/L1/Evaluation/)、[视频]| 100元算力点 |
+|第 6 关| XTuner 微调个人小助手认知 | [任务](docs/L1/XTuner/task.md)、[文档](docs/L1/XTuner)、[视频]| 100元算力点 |
+|第 7 关| OpenCompass 评测书生大模型实践 | [任务]、[文档]、[视频]| 100元算力点 |
 
 
 
