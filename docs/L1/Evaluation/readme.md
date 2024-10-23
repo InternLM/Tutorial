@@ -4,21 +4,18 @@
 # OpenCompass 评测
 
 
-本节课程主要聚焦于大语言模型的评测，同时也会简要介绍多模态大模型的评测方法。课程内容分为两个主要部分：
+OpenCompass 是一个功能强大的大模型评测工具，支持两种便捷的评测方式：
+- **直接评测**：通过加载模型权重文件进行评测
+- **API 模式评测**：对已部署的模型服务进行评测，无需加载模型权重
 
-- 大语言模型评测(基础任务)：我们将使用 OpenCompass 进行评测，它支持两种评测方式, 
-  
-  - **直接评测**：通过直接加载模型权重文件进行评测
-  - **API 模式评测**：针对已部署为 API 服务的模型进行评测
-- 多模态大模型评测(进阶任务)：我们将使用 VLMEvalKit 进行评测，详细内容请参考[教程](vlmevalkit.md)
+本教程将带你使用 OpenCompass 评测 InternLM2.5-Chat-1.8B 在 C-Eval 数据集上的性能。整个评测过程非常简单，包含三个步骤：
+1. 配置阶段：准备环境，选择模型和数据集
+2. 推理评估：运行评测获取模型输出并打分
+3. 查看报告：自动生成 CSV 和 TXT 格式的评测报告
 
-本文将以 InternLM2.5-Chat-1.8B 模型为例，演示如何使用 OpenCompass 在 C-Eval 数据集上进行评测。一个完整的模型评估过程通常包含以下三个阶段：
+> 注：如果你对多模态模型感兴趣，可以参考[VLMEvalKit教程](vlmevalkit.md)进行多模态评测。
 
-- 配置阶段：设置评估环境，选择目标模型和评测数据集
-- 推理与评估：模型根据数据集生成输出，并将输出结果与标准答案进行对比评分
-- 结果可视化：评估完成后，OpenCompass 会自动生成易读的评测报告，以 CSV 和 TXT 格式保存
-
-更多详细信息，请参考 OpenCompass 官方[教程文档](https://opencompass.readthedocs.io/en/latest/tutorial.html)。
+更多使用说明，请参考 OpenCompass [官方文档](https://opencompass.readthedocs.io/en/latest/tutorial.html)。
 
 
 ## 配置
