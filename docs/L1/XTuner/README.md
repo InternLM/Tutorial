@@ -267,7 +267,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/fi
 cd /root/finetune
 mkdir ./config
 cd config
-xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
+xtuner copy-cfg internlm2_5_chat_7b_qlora_alpaca_e3 ./
 ```
 修改以下几行
 
