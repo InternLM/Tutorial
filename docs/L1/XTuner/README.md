@@ -31,8 +31,8 @@ cd ~
 #git clone 本repo
 git clone https://github.com/InternLM/Tutorial.git -b camp4
 mkdir -p /root/finetune && cd /root/finetune
-conda create --name xtuner-env python=3.10 -y
-conda activate xtuner-env
+conda create --name xtuner_env python=3.10 -y
+conda activate xtuner_env
 ```
 ### **步骤 1.** 安装 XTuner
 此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
@@ -250,11 +250,11 @@ cat assistant_Tuner_change.jsonl | head -n 3
 
 在InternStudio开发机中的已经提供了微调模型，可以直接软链接即可。
 
-本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b
+本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat
 
 ```shell
 mkdir /root/finetune/models
-ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/finetune/models/internlm2_5-7b-chat
 ```
 
 ### **步骤 1.** 修改 Config
@@ -273,8 +273,8 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 #######################################################################
 #                          PART 1  Settings                           #
 #######################################################################
-- pretrained_model_name_or_path = 'internlm/internlm2-chat-7b'
-+ pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
+- pretrained_model_name_or_path = 'internlm/internlm2_5-7b-chat'
++ pretrained_model_name_or_path = '/root/finetune/models/internlm2_5-7b-chat'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/finetune/data/assistant_Tuner_change.jsonl'
@@ -430,7 +430,7 @@ conda activate xtuner_env
 
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
-xtuner convert merge /root/finetune/models/internlm2-chat-7b ./hf ./merged --max-shard-size 2GB
+xtuner convert merge /root/finetune/models/internlm2_5-7b-chat ./hf ./merged --max-shard-size 2GB
 ```
 
 模型合并完成后，我们的目录结构应该是这样子的。
@@ -477,7 +477,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 
 ```diff
 # 直接修改脚本文件第18行
-- model_name_or_path = "Shanghai_AI_Laboratory/internlm2-chat-7b"
+- model_name_or_path = "Shanghai_AI_Laboratory/internlm2_5-7b-chat"
 + model_name_or_path = "./merged"
 ```
 
