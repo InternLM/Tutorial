@@ -31,15 +31,17 @@ cd ~
 #git clone 本repo
 git clone https://github.com/InternLM/Tutorial.git -b camp4
 mkdir -p /root/finetune && cd /root/finetune
-conda create --name xtuner_env python=3.10 -y
-conda activate xtuner_env
+conda create -n xtuner-env python=3.10 -y
+conda activate xtuner-env
 ```
 ### **步骤 1.** 安装 XTuner
 此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
 ```shell
 git clone https://github.com/InternLM/xtuner.git
 cd /root/finetune/xtuner
-pip install -e '.[deepspeed]' transformers==4.39.0
+pip install  -e '.[all]'
+pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
+pip install transformers==4.39.0
 ```
 >`-e` 表示在可编辑模式下安装项目，因此对代码所做的任何本地修改都会生效
 
@@ -352,7 +354,7 @@ alpaca_en = dict(
 
 ```shell
 cd /root/fintune
-conda activate xtuner_env
+conda activate xtuner-env
 
 xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
@@ -375,7 +377,7 @@ xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deep
 
 ```bash
 cd /root/fintune/work_dirs/assistTuner
-conda activate xtuner_env
+conda activate xtuner-env
 
 # 先获取最后保存的一个pth文件
 pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
@@ -426,7 +428,7 @@ xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file}
 
 ```bash
 cd /root/fintune/work_dirs/assistTuner
-conda activate xtuner_env
+conda activate xtuner-env
 
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
@@ -485,7 +487,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 
 
 ```bash
-conda activate xtuner_env
+conda activate xtuner-env
 
 streamlit run /root/Tutorial/tools/L1_XTuner_code/xtuner_streamlit_demo.py
 ```
