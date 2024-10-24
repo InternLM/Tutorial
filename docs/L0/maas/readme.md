@@ -59,7 +59,6 @@ Github CodeSpace是Github推出的线上代码平台，提供了一系列templat
 在界面下方的终端（terminal）安装以下依赖，便于模型运行。
 
 ```bash
-conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 # 安装transformers
 pip install transformers==4.38
 pip install sentencepiece==0.1.99
