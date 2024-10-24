@@ -59,7 +59,6 @@ Github CodeSpace是Github推出的线上代码平台，提供了一系列templat
 在界面下方的终端（terminal）安装以下依赖，便于模型运行。
 
 ```bash
-conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 # 安装transformers
 pip install transformers==4.38
 pip install sentencepiece==0.1.99
@@ -207,14 +206,14 @@ https://huggingface.co/spaces
       
 </div>
 
-创建成功后会自动跳转到一个默认的HTML页面。创建好项目后，回到我们的CodeSpace，clone项项目。
+创建成功后会自动跳转到一个默认的HTML页面。创建好项目后，回到我们的CodeSpace，接着clone项目。
 
 **注意这里请替换你自己的username**
 
 ```bash
 cd /workspaces/codespaces-jupyter
 # 请将<your_username>替换你自己的username
-git clone git clone https://huggingface.co/spaces/<your_username>/intern_cobuild
+git clone https://huggingface.co/spaces/<your_username>/intern_cobuild
 cd /workspaces/codespaces-jupyter/intern_cobuild
 ```
 
