@@ -39,6 +39,7 @@ conda activate xtuner-env
 ```shell
 git clone https://github.com/InternLM/xtuner.git
 cd /root/finetune/xtuner
+
 pip install  -e '.[all]'
 pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
 pip install transformers==4.39.0
@@ -256,6 +257,7 @@ cat assistant_Tuner_change.jsonl | head -n 3
 
 ```shell
 mkdir /root/finetune/models
+
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/finetune/models/internlm2_5-7b-chat
 ```
 

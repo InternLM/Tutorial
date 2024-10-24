@@ -247,6 +247,7 @@ cat assistant_Tuner_change.jsonl | head -n 3
 ```shell
 mkdir /root/finetune/models
 ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/finetune/models/internlm2_5-7b-chat
+
 ```
 
 ### **步骤 1.** 修改 Config
