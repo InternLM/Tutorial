@@ -7,7 +7,7 @@ Hi, 大家好~ 本节课程会带大家体验书生系列的大模型产品，�
 
 # 1. 书生产品矩阵
 
-- **[书生·浦语](https://internlm-chat.intern-ai.org.cn/)：**基于原生的 InternLM2.5 最新 Chat 模型 (InternLM2.5-20B) 搭建聊天机器人应用。模型使用 LMDeploy 量化部署并进行了诸多工程上的优化。另外，所有注册用户默认开放 3 百万 Tokens/月的 API 调用额度。
+- [**书生·浦语**](https://internlm-chat.intern-ai.org.cn/)：基于原生的 InternLM2.5 最新 Chat 模型 (InternLM2.5-20B) 搭建聊天机器人应用。模型使用 LMDeploy 量化部署并进行了诸多工程上的优化。另外，所有注册用户默认开放 3 百万 Tokens/月的 API 调用额度。
 
 ![image.png](./img/image.png)
 
@@ -106,7 +106,7 @@ curl --location 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/complet
 - RPM (Requests per Minute)：10
 - TPM (Tokens per Minute)：5000
 
-**注意：**实战营的同学们，最好不要使用下图中的“申请更高流控配置”来申请 API 的限流策略。这功能一般是开放给企业用户，审核非常严格！！！可以参考下面一节的三个渠道来提高 RPM, TPM 以及 Tokens。
+**注意**：实战营的同学们，最好不要使用下图中的“申请更高流控配置”来申请 API 的限流策略。这功能一般是开放给企业用户，审核非常严格！！！可以参考下面一节的三个渠道来提高 RPM, TPM 以及 Tokens。
 
 ![image.png](./img/image%2011.png)
 
@@ -114,9 +114,9 @@ curl --location 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/complet
 
 总的来说我们提供了 3 个渠道让实战营的同学获取 tokens 并提高限流策略：
 
-- **实战营闯关：**比如，通过入门课程的《Python 基础知识》闯关
-- **申请项目：**完成项目等级和初版GitHub Repo和技术架构图
-- **共学计划邀请同学：**邀请 6 位同学以上参加书生大模型实战营
+- **实战营闯关**：比如，通过入门课程的《Python 基础知识》闯关
+- **申请项目**：完成项目等级和初版GitHub Repo和技术架构图
+- **共学计划邀请同学**：邀请 6 位同学以上参加书生大模型实战营
 
 详细获取方式可查看[《闯关手册》](https://aicarrier.feishu.cn/wiki/QtJnweAW1iFl8LkoMKGcsUS9nld)~
 
@@ -139,9 +139,9 @@ MindSearch 是一个开源的 AI 搜索引擎。它会对你提出的问题进�
 
 解决子问题的步骤分为以下 3 步：
 
-- **思考：**我需要在互联网上搜索什么资料来回答这个问题？子节点总结搜索关键词调用搜索引擎搜索到海量参考网页。
-- **信息来源：**根据首次搜索到的网页摘要，子节点决定知否对网页进行全文精读。
-- **信息整合：**整合精读网页的所有信息形成子节点的结论。
+- **思考**：我需要在互联网上搜索什么资料来回答这个问题？子节点总结搜索关键词调用搜索引擎搜索到海量参考网页。
+- **信息来源**：根据首次搜索到的网页摘要，子节点决定知否对网页进行全文精读。
+- **信息整合**：整合精读网页的所有信息形成子节点的结论。
 
 ![image.png](./img/image%2013.png)
 
