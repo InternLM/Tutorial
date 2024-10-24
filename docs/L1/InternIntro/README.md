@@ -1,5 +1,5 @@
 # 玩转书生「多模态对话」与「AI搜索」产品
-<img width="900" alt="img_v3_02fv_2c1bc9df-de6d-400a-9253-dcb361e2fb6g" src="https://github.com/user-attachments/assets/401ffd8f-12ce-4e0e-9153-7eb31a5a6b55">
+<img width="900" alt="img_v3_02fv_2c1bc9df-de6d-400a-9253-dcb361e2fb6g" src="https://github.com/user-attachments/assets/401ffd8f-12ce-4e0e-9153-7eb31a5a6b55"><br>
 Hi, 大家好~ 本节课程会带大家体验书生系列的大模型产品，让我们一起探索生成式AI的世界吧！
 
 > 目前，书生系列下的所有产品均免费向所有社区用户提供服务：无会员、无广告、高性能部署！我们希望让所有对大模型技术、应用、开发工具链感兴趣的小伙伴第一时间体验到相应的功能。
