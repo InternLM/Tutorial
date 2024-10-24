@@ -9,11 +9,11 @@ Hi, 大家好~ 本节课程会带大家体验书生系列的大模型产品，�
 
 - [**书生·浦语**](https://internlm-chat.intern-ai.org.cn/)：基于原生的 InternLM2.5 最新 Chat 模型 (InternLM2.5-20B) 搭建聊天机器人应用。模型使用 LMDeploy 量化部署并进行了诸多工程上的优化。另外，所有注册用户默认开放 3 百万 Tokens/月的 API 调用额度。
 
-![image.png](./img/image.png)
+![image](https://github.com/user-attachments/assets/992483f1-3b7b-4909-9f9b-872d8e9affee)
 
 - **MindSearch**：InternLM 组织今年开源的 AI 搜索引擎 (框架)，基于多智能体技术将你提出的问题进行分析、拆解、网页搜索，最终给出有参考依据的高可信度回答。目前可直接在**书生·浦语**产品内体验以 InternLM2.5-20B 为 Agent 的 MindSearch 官方实现。
 
-![image.png](./img/image%201.png)
+![image 1](https://github.com/user-attachments/assets/7afe678e-9acc-4985-a65d-8a00967ac62c)
 
 - [**书生·万象**](https://internvl.opengvlab.com/)：InternVL 开源模型的官方产品，原生支持图文多模态对话能力。
 
@@ -23,17 +23,17 @@ Hi, 大家好~ 本节课程会带大家体验书生系列的大模型产品，�
 
 相信参与课程的同学都对这类产品非常熟悉了，与所有大语言模型产品相同。你可以与浦语进行以，”代码编程、文章创作、灵感创意、角色扮演、语言翻译、逻辑推理等等”任意主题的对话。也可在对话内尝试 prompt enginering 让浦语完成更复杂任务。
 
-![image.png](./img/image%202.png)
+![image 2](https://github.com/user-attachments/assets/ed0605e3-de26-4107-be01-dd8e5fa5e15f)
 
 ## (2) 调用 API
 
 在左侧导航栏点击“更多”即可进入 [API 控制台](https://internlm.intern-ai.org.cn/api/document)
 
-![image.png](./img/image%203.png)
+![image 3](https://github.com/user-attachments/assets/669d9642-d48a-4699-ad41-4e788d109efb)
 
 API 控制台内包含 “API 文档”、“API Tokens”、“限流策略”、“调用明细” 4 个模块。下面，我们将以首次调用浦语 Chat API 的用户视角了解这 4 个模块的功能。
 
-![image.png](./img/image%204.png)
+![image 4](https://github.com/user-attachments/assets/c6b12d3d-7c8b-46db-989e-e0e096dc9a5a)
 
 ### API 文档
 
@@ -46,7 +46,7 @@ API 控制台内包含 “API 文档”、“API Tokens”、“限流策略”�
 
 等等快速开始使用浦语 API 的说明。更重要的是，浦语 API 已经**支持 Tool Call (Beta) 功能**啦！所有字段与 OpenAI 对齐，让使用 ChatGPT API 格式的同学可以无缝切换到浦语 API。
 
-![image.png](./img/image%205.png)
+![image 5](https://github.com/user-attachments/assets/eb0c290b-eda3-4a7c-9e88-6c7cef7d15e6)
 
 以下是使用 `curl` 工具非流式调用浦语 API 的一段示例代码：
 
@@ -75,11 +75,11 @@ curl --location 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/complet
 
 从上面的代码可以看到，调用浦语 API 时需要在请求 Header 内传入 Authorization Tokens (`Authorization: Bearer xxxxxxx`) 参数用于用户身份验证。我们需要在 [API Tokens 模块](https://internlm.intern-ai.org.cn/api/tokens)内创建此 API Tokens 替换掉 `xxxxxxx` 。
 
-![image.png](./img/image%206.png)
+![image 6](https://github.com/user-attachments/assets/846f36d0-8da2-44c0-bab8-fe6ab2e189cb)
 
-![image.png](./img/image%207.png)
+![image 7](https://github.com/user-attachments/assets/127b7ab6-019a-4072-835d-237e75289f32)
 
-![image.png](./img/image%208.png)
+![image 8](https://github.com/user-attachments/assets/29e08973-e823-43d0-b5b3-d61bf93cf68b)
 
 注意在最后一步时不要着急点确认，先复制好 tokens 妥善保管到自己的文件或者权限管理服务中。**点击确认后将不再显示此 Token。**
 
@@ -93,13 +93,13 @@ curl --location 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/complet
 | --- | --- | --- | --- |
 | internlm2.5-latest | 默认指向我们最新发布的 internlm2.5 系列模型，当前指向`internlm2.5-20b-0719` | 32K | 4,096 tokens |
 
-![image.png](./img/image%209.png)
+![image 9](https://github.com/user-attachments/assets/67db5831-bcec-48ce-8755-3047c155c9c9)
 
 ### 查看 API Usage 与 API Rate Limits
 
 我们为所有社区新注册的用户提供了 1 百万 Input Tokens/月，3 百万 Output Tokens/月 的**免费调用额度**！可在 [API Usage 模块](https://internlm.intern-ai.org.cn/api/callDetail)查看到本月已用 Tokens 的数量，以及请求次数、请求 Tokens 的历史调用曲线。
 
-![image.png](./img/image%2010.png)
+![image 10](https://github.com/user-attachments/assets/89ab248c-450b-4d5a-9d04-2027a5e40641)
 
 在 [API 限流策略](https://internlm.intern-ai.org.cn/api/strategy)模块可以查询到我们对这个账户调用 API 频率的流控限制，所有新注册的社区用户默认值为：
 
@@ -108,7 +108,7 @@ curl --location 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/complet
 
 **注意**：实战营的同学们，最好不要使用下图中的“申请更高流控配置”来申请 API 的限流策略。这功能一般是开放给企业用户，审核非常严格！！！可以参考下面一节的三个渠道来提高 RPM, TPM 以及 Tokens。
 
-![image.png](./img/image%2011.png)
+![image 11](https://github.com/user-attachments/assets/70972efb-47a5-4e4b-9404-0a70c4097616)
 
 ### 如何获取更多模型 Tokens，提升 RPM/TPM
 
@@ -133,7 +133,7 @@ MindSearch 是一个开源的 AI 搜索引擎。它会对你提出的问题进�
 
 两个子问题 (如下图)
 
-![image.png](./img/image%2012.png)
+![image 12](https://github.com/user-attachments/assets/5c0ae8cb-dee0-4e1f-9d79-86fd684baa3f)
 
 ## (2) 解决子问题
 
@@ -143,14 +143,14 @@ MindSearch 是一个开源的 AI 搜索引擎。它会对你提出的问题进�
 - **信息来源**：根据首次搜索到的网页摘要，子节点决定知否对网页进行全文精读。
 - **信息整合**：整合精读网页的所有信息形成子节点的结论。
 
-![image.png](./img/image%2013.png)
+![image 13](https://github.com/user-attachments/assets/0e5b4e16-2bae-462b-b43e-2530f56bde38)
 
-![image.png](./img/image%2014.png)
+![image 14](https://github.com/user-attachments/assets/de68afef-625f-4ece-bd2b-fa134350229a)
 
 ## (3) 总结子节点结论
 
 一般情况下主节点会根据子节点得出的结论，总结形成最终回复
 
-![image.png](./img/image%2015.png)
+![image 15](https://github.com/user-attachments/assets/29ab92fb-1f79-4127-9a8a-0e46a6014cb1)
 
 部分情况下，主节点会根据子节点得到的结论进一步拆解子问题回到步骤 (1) 直到得到最终结论。
