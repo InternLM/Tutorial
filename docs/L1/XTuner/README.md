@@ -31,7 +31,7 @@ cd ~
 #git clone 本repo
 git clone https://github.com/InternLM/Tutorial.git -b camp4
 mkdir -p /root/finetune && cd /root/finetune
-conda create --name xtuner-env python=3.10 -y
+conda create -n xtuner-env python=3.10 -y
 conda activate xtuner-env
 ```
 ### **步骤 1.** 安装 XTuner
@@ -39,7 +39,10 @@ conda activate xtuner-env
 ```shell
 git clone https://github.com/InternLM/xtuner.git
 cd /root/finetune/xtuner
-pip install -e '.[deepspeed]' transformers==4.39.0
+
+pip install  -e '.[all]'
+pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
+pip install transformers==4.39.0
 ```
 >`-e` 表示在可编辑模式下安装项目，因此对代码所做的任何本地修改都会生效
 
@@ -250,11 +253,12 @@ cat assistant_Tuner_change.jsonl | head -n 3
 
 在InternStudio开发机中的已经提供了微调模型，可以直接软链接即可。
 
-本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b
+本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat
 
 ```shell
 mkdir /root/finetune/models
-ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
+
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/finetune/models/internlm2_5-7b-chat
 ```
 
 ### **步骤 1.** 修改 Config
@@ -265,7 +269,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/fine
 cd /root/finetune
 mkdir ./config
 cd config
-xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
+xtuner copy-cfg internlm2_5_chat_7b_qlora_alpaca_e3 ./
 ```
 修改以下几行
 
@@ -273,8 +277,8 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 #######################################################################
 #                          PART 1  Settings                           #
 #######################################################################
-- pretrained_model_name_or_path = 'internlm/internlm2-chat-7b'
-+ pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
+- pretrained_model_name_or_path = 'internlm/internlm2_5-7b-chat'
++ pretrained_model_name_or_path = '/root/finetune/models/internlm2_5-7b-chat'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/finetune/data/assistant_Tuner_change.jsonl'
@@ -352,7 +356,7 @@ alpaca_en = dict(
 
 ```shell
 cd /root/fintune
-conda activate xtuner_env
+conda activate xtuner-env
 
 xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
@@ -375,7 +379,7 @@ xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deep
 
 ```bash
 cd /root/fintune/work_dirs/assistTuner
-conda activate xtuner_env
+conda activate xtuner-env
 
 # 先获取最后保存的一个pth文件
 pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
@@ -426,11 +430,11 @@ xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file}
 
 ```bash
 cd /root/fintune/work_dirs/assistTuner
-conda activate xtuner_env
+conda activate xtuner-env
 
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
-xtuner convert merge /root/finetune/models/internlm2-chat-7b ./hf ./merged --max-shard-size 2GB
+xtuner convert merge /root/finetune/models/internlm2_5-7b-chat ./hf ./merged --max-shard-size 2GB
 ```
 
 模型合并完成后，我们的目录结构应该是这样子的。
@@ -477,7 +481,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 
 ```diff
 # 直接修改脚本文件第18行
-- model_name_or_path = "Shanghai_AI_Laboratory/internlm2-chat-7b"
+- model_name_or_path = "Shanghai_AI_Laboratory/internlm2_5-7b-chat"
 + model_name_or_path = "./merged"
 ```
 
@@ -485,7 +489,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 
 
 ```bash
-conda activate xtuner_env
+conda activate xtuner-env
 
 streamlit run /root/Tutorial/tools/L1_XTuner_code/xtuner_streamlit_demo.py
 ```

@@ -242,11 +242,12 @@ cat assistant_Tuner_change.jsonl | head -n 3
 
 在InternStudio开发机中的已经提供了微调模型，可以直接软链接即可。
 
-本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b
+本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat
 
 ```shell
 mkdir /root/finetune/models
-ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/finetune/models/internlm2_5-7b-chat
+
 ```
 
 ### **步骤 1.** 修改 Config
@@ -257,7 +258,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/fine
 cd /root/finetune
 mkdir ./config
 cd config
-xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
+xtuner copy-cfg internlm2_5_chat_7b_qlora_alpaca_e3 ./
 ```
 修改以下几行
 
@@ -265,8 +266,8 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 #######################################################################
 #                          PART 1  Settings                           #
 #######################################################################
-- pretrained_model_name_or_path = 'internlm/internlm2-chat-7b'
-+ pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
+- pretrained_model_name_or_path = 'internlm2_5-7b-chat'
++ pretrained_model_name_or_path = '/root/finetune/models/internlm2_5-7b-chat'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/finetune/data/assist_Tuner_change.jsonl'
@@ -428,7 +429,7 @@ export PATH=/root/finetune/env/bin:$PATH
 
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
-xtuner convert merge /root/finetune/models/internlm2-chat-7b ./hf ./merged --max-shard-size 2GB
+xtuner convert merge /root/finetune/models/internlm2_5-7b-chat ./hf ./merged --max-shard-size 2GB
 ```
 
 模型合并完成后，我们的目录结构应该是这样子的。
@@ -475,7 +476,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 
 ```diff
 # 直接修改脚本文件第18行
-- model_name_or_path = "Shanghai_AI_Laboratory/internlm2-chat-7b"
+- model_name_or_path = "Shanghai_AI_Laboratory/internlm2_5-7b-chat"
 + model_name_or_path = "./merged"
 ```
 
