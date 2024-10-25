@@ -355,6 +355,7 @@ alpaca_en = dict(
 运行命令进行微调
 
 ```shell
+
 cd /root/finetune
 conda activate xtuner-env
 
