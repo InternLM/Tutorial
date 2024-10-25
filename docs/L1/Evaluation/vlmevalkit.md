@@ -15,6 +15,7 @@ VLMEvalKit (python 包名为 vlmeval) 是一款专为大型视觉语言模型 (L
 ```bash
 git clone https://github.com/open-compass/VLMEvalKit.git
 cd VLMEvalKit
+git checkout v0.2rc1  # 使用稳定版本
 pip install -e .
 ```
 
@@ -95,7 +96,7 @@ python run.py --data MMBench-Video --model InternVL2-1B --nframe 16 --pack
 
 首先进行安装:
 ```bash
-pip install lmdeploy openai
+pip install lmdeploy==0.6.1 openai==1.52.0
 ```
 
 假设我们使用 internlm2_5-1_8b-chat 作为评判，端口为 23333，密钥为 sk-123456（在这个本地部署的场景中，OPENAI_API_KEY 可以随意设置，只要遵循指定的格式（以 "sk-" 开头，后跟任意字符））, 然后可以通过一行代码部署本地评判 LLM：
@@ -121,7 +122,7 @@ model_name
 ```
 OPENAI_API_KEY=sk-123456
 OPENAI_API_BASE=http://0.0.0.0:23333/v1/chat/completions
-LOCAL_LLM='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat'
+LOCAL_LLM='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat' # 注册的模型名称
 ```
 
 最后，你可以运行第2步中的命令，使用本地评判 LLM 来评估你的 VLM, 例如:

@@ -159,12 +159,12 @@ python run.py configs/eval_tutorial_demo.py --debug
 
 ## 评测 API 模型
 
-OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以以相同的方式或甚至在一个设置中评估这两种模型类型。
+OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以使用相同的方式甚至在一个设置中评估这两种模型类型。
 
 首先安装和部署模型:
 
 ```bash
-pip install lmdeploy openai
+pip install lmdeploy==0.6.1 openai==1.52.0
 
 lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --server-port 23333
 ```
@@ -209,9 +209,9 @@ models = [
     dict(
         abbr='InternLM-2.5-1.8B-Chat',
         type=OpenAI,
-        path='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/',
+        path='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/', # 注册的模型名称
         key='sk-123456',
-        openai_api_base='http://0.0.0.0:23333/v1/chat/completions',
+        openai_api_base='http://0.0.0.0:23333/v1/chat/completions', 
         meta_template=api_meta_template,
         query_per_second=1,
         max_out_len=2048,
