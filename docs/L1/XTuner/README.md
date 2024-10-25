@@ -340,7 +340,7 @@ alpaca_en = dict(
 </details>
 
 
-本教程已经将改好的 config 放在了 `~/Tutorial/configs/internlm2_chat_7b_qlora_alpaca_e3_copy.py` 同学们可以直接使用（前置步骤路径一致的情况下）
+本教程已经将改好的 config 放在了 `~/Tutorial/configs/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py` 同学们可以直接使用（前置步骤路径一致的情况下）
 
 
 ### **步骤 2.** 启动微调
@@ -349,7 +349,7 @@ alpaca_en = dict(
 
 当我们准备好了所有内容，我们只需要将使用 `xtuner train` 命令令即可开始训练。
 
-> `xtuner train` 命令用于启动模型微调进程。该命令需要一个参数：`CONFIG` 用于指定微调配置文件。这里我们使用修改好的配置文件 `internlm2_chat_7b_qlora_alpaca_e3_copy.py`。  
+> `xtuner train` 命令用于启动模型微调进程。该命令需要一个参数：`CONFIG` 用于指定微调配置文件。这里我们使用修改好的配置文件 `internlm2_5_chat_7b_qlora_alpaca_e3_copy.py`。  
 > 训练过程中产生的所有文件，包括日志、配置文件、检查点文件、微调后的模型等，默认保存在 `work_dirs` 目录下，我们也可以通过添加 `--work-dir` 指定特定的文件保存位置。`--deepspeed` 则为使用 deepspeed， deepspeed 可以节约显存。
 
 运行命令进行微调
@@ -358,7 +358,7 @@ alpaca_en = dict(
 cd /root/fintune
 conda activate xtuner-env
 
-xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
+xtuner train ./config/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
 
 ### **步骤 3.** 权重转换
@@ -385,7 +385,7 @@ conda activate xtuner-env
 pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
-xtuner convert pth_to_hf ./internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
+xtuner convert pth_to_hf ./internlm2_5_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
 ```
 
 模型格式转换完成后，我们的目录结构应该是这样子的。
