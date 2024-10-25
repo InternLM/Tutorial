@@ -343,7 +343,7 @@ alpaca_en = dict(
 运行命令进行微调
 
 ```shell
-cd /root/fintune
+cd /root/finetune
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH

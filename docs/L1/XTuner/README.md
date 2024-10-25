@@ -355,7 +355,7 @@ alpaca_en = dict(
 运行命令进行微调
 
 ```shell
-cd /root/fintune
+cd /root/finetune
 conda activate xtuner-env
 
 xtuner train ./config/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
