@@ -483,7 +483,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 ```diff
 # 直接修改脚本文件第18行
 - model_name_or_path = "Shanghai_AI_Laboratory/internlm2_5-7b-chat"
-+ model_name_or_path = "./merged"
++ model_name_or_path = "/root/finetune/work_dirs/assistTuner/merged"
 ```
 
 然后，我们可以直接启动应用。
