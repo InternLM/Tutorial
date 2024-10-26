@@ -379,6 +379,7 @@ xtuner train ./config/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py --deepspeed de
 
 ```bash
 cd /root/finetune/work_dirs/assistTuner
+
 conda activate xtuner-env
 
 # 先获取最后保存的一个pth文件

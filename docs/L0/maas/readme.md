@@ -253,17 +253,17 @@ cd /workspaces/codespaces-jupyter/intern_cobuild
 保存后就可以push到远程仓库上了，它会自动更新页面。
 
 ```bash
-git add.
+git add .
 git commit -m "update: colearn page"
 git push
 ```
 
 ```
 如果报错：remote: Password authentication in git is no longer supported. You must use a user access token or an SSH key instead.
-请再次设置这个项目的验证
+请再次设置这个项目的验证，这个地方需要用户的Access Tokens（具体获取方式见下文 "2.1.5 模型上传"）
 git remote set-url origin https://<user_name>:<token>@huggingface.co/<repo_path>
 例如：
-git remote set-url origin https:/jack:hf_xxxxx@huggingface.co/spaces/jack/intern_cobuild/
+git remote set-url origin https://jack:hf_xxxxx@huggingface.co/spaces/jack/intern_cobuild/
 然后再次git push即可
 ```
 
@@ -288,8 +288,8 @@ Hugging Face同样是跟Git相关联，通常大模型的模型文件都比较�
 
 ```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt-get install git-lfs
-git lfs install
+# sudo apt-get install git-lfs # CodeSpace里面可能会有aptkey冲突且没有足够权限
+git lfs install # 直接在git环境下配置git LFS
 pip install huggingface_hub
 ```
 
@@ -346,6 +346,8 @@ huggingface-cli login
 
 创建项目
 ```bash
+cd /workspaces/codespaces-jupyter
+
 #intern_study_L0_4就是model_name
 huggingface-cli repo create intern_study_L0_4
 
