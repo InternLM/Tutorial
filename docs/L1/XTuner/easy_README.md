@@ -368,13 +368,13 @@ xtuner train ./config/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py --deepspeed de
 
 
 ```bash
-cd /root/fintune/work_dirs/assistTuner
+cd /root/finetune/work_dirs/assistTuner
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
 # 先获取最后保存的一个pth文件
-pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
+pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
@@ -422,7 +422,7 @@ xtuner convert pth_to_hf ./config/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py ${
 
 
 ```bash
-cd /root/fintune/work_dirs/assistTuner
+cd /root/finetune/work_dirs/assistTuner
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
