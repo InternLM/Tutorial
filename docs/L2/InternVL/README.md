@@ -72,7 +72,7 @@ pip install transformers==4.39.0
 ```Bash
 conda create -n lmdeploy python=3.10 -y
 conda activate lmdeploy
-pip install lmdeploy gradio timm==1.0.9
+pip install lmdeploy gradio==4.44.1 timm==1.0.9
 ```
 
 "lmdeploy"为推理使用环境名。
