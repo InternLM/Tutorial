@@ -59,6 +59,8 @@ conda activate xtuner-env
 
 ```Bash
 pip install -U 'xtuner[deepspeed]' timm==1.0.9
+pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
+pip install transformers==4.39.0
 ```
 
 训练环境既为安装成功。
@@ -70,7 +72,7 @@ pip install -U 'xtuner[deepspeed]' timm==1.0.9
 ```Bash
 conda create -n lmdeploy python=3.10 -y
 conda activate lmdeploy
-pip install lmdeploy gradio
+pip install lmdeploy gradio timm==1.0.9
 ```
 
 "lmdeploy"为推理使用环境名。
