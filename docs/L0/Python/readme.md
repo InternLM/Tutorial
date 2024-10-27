@@ -68,7 +68,7 @@ conda activate /root/envs/myenv
 myenv这个文件夹里包含了整个虚拟环境，所以理论上将他直接拷贝到任意一台安装了conda的机器上都能直接激活使用，这也是在内网机器上做环境配置的一种效率较高的解决方案。
 
 
-# Ch2: 使用pip安装Python三方依赖包
+# Ch2 使用pip安装Python三方依赖包
 
 在Python开发中，安装和管理第三方包是日常任务。pip是Python官方的包管理工具，全称为“Python Package Installer”，用于方便地安装、升级和管理Python包。
 
