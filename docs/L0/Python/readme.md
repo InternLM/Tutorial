@@ -507,7 +507,7 @@ source ~/.bashrc
 ```shell
 pyd ./myscript.py
 ```
-# Ch5: Python调用InternLM api
+# Ch5 Python调用InternLM api
 ## 5.1 如何获取api key
 
 前往书生浦语的[API文档](https://internlm.intern-ai.org.cn/api/document),登陆后点击API tokens。初次使用可能会需要先填写邀请码。
