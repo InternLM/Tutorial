@@ -43,7 +43,7 @@ pip install -e .
 apt-get update
 apt-get install cmake
 pip install -r requirements.txt
-pip install protobuf
+pip install protobuf==4.25.3
 ```
 
 ### 数据集准备
