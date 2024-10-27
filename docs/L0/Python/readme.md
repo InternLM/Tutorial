@@ -10,6 +10,7 @@
 - Conda虚拟环境
 - pip安装三方依赖包
 - VScode中的Python Debug
+- 调用InternLM API
 - Python基础语法
 
 **学习完成后，完成以下两个任务并经过助教批改视为闯关成功**。
