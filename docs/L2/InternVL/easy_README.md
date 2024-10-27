@@ -29,7 +29,7 @@ export PATH=/root/internvl_course/bin:$PATH
 ```Bash
 conda create -n lmdeploy python=3.10 -y
 conda activate lmdeploy
-pip install lmdeploy gradio timm==1.0.9
+pip install lmdeploy gradio==4.44.1 timm==1.0.9
 ```
 
 # 2.LMDeploy部署
