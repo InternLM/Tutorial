@@ -44,6 +44,7 @@ apt-get update
 apt-get install cmake
 pip install -r requirements.txt
 pip install protobuf==4.25.3
+pip install huggingface-hub==0.23.2
 ```
 
 ### 数据集准备
