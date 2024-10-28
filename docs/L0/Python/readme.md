@@ -388,7 +388,7 @@ debug面板各按钮功能介绍：
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/1dab2877-0835-4a3c-80aa-c1a556d0205d" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/user-attachments/assets/77ee93d7-24ce-4ec9-b245-4be6f7b18b7d" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
