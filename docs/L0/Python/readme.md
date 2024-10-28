@@ -539,10 +539,10 @@ pyd ./myscript.py
   </tr>
 </table>
 
-这里一定要注意，浦语的token只有刚创建的时候才能看到全文，后续没法再查看已经创建好的token，所以创建完了以后记得先复制保存到本地。
+这里一定要注意，浦语的token只有刚创建的时候才能看到全文，后续没法再查看已经创建好的token，如果忘记需要重新创建，所以创建完了以后记得先复制保存到本地。
 
 ## 5.2 如何使用InternLM api
-我们可以使用openai python sdk来调用InternLM api。注意在配置token时，更推荐使用环境变量来配置以避免token泄露。
+我们可以使用openai python sdk来调用InternLM api。注意在配置api key时，更推荐使用环境变量来配置以避免token泄露。
 
 ```python
 #./internlm_test.py
@@ -585,8 +585,7 @@ export api_key="填入你的api token"
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/66714c0d-7abe-4faf-bd27-55ffca6a8f55
-      " alt="Description of the image" style="height: auto;width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/user-attachments/assets/66714c0d-7abe-4faf-bd27-55ffca6a8f55" alt="Description of the image" style="height: auto;width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
