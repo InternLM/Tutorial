@@ -15,7 +15,6 @@ VLMEvalKit (python 包名为 vlmeval) 是一款专为大型视觉语言模型 (L
 ```bash
 git clone https://github.com/open-compass/VLMEvalKit.git
 cd VLMEvalKit
-git checkout v0.2rc1  # 使用稳定版本
 pip install -e .
 ```
 
@@ -33,10 +32,26 @@ VLMEvalKit 会根据你的环境变量配置来决定使用哪个模型作为评
 **VLM 配置**：所有 VLMs 都在 `vlmeval/config.py` 中配置。对于某些 VLMs，在进行评估之前，你需要配置代码根目录（如 MiniGPT-4、PandaGPT 等）或模型权重根目录（如 LLaVA-v1-7B 等）。在评估时，你应该使用 `vlmeval/config.py` 中 `supported_VLM` 指定的模型名称来选择 VLM。
 
 
-![config](https://github.com/user-attachments/assets/56578745-a8e1-4aa1-88fb-47d21874864b)
+```python
+internvl_series = {
+    'InternVL-Chat-V1-1': partial(InternVLChat, model_path='OpenGVLab/InternVL-Chat-V1-1', version='V1.1'),
+    'InternVL-Chat-V1-2': partial(InternVLChat, model_path='OpenGVLab/InternVL-Chat-V1-2', version='V1.2'),
+    'InternVL-Chat-V1-2-Plus': partial(InternVLChat, model_path='OpenGVLab/InternVL-Chat-V1-2-Plus', version='V1.2'),
+    'InternVL-Chat-V1-5': partial(InternVLChat, model_path='OpenGVLab/InternVL-Chat-V1-5', version='V1.5'),
+    'Mini-InternVL-Chat-2B-V1-5': partial(InternVLChat, model_path='OpenGVLab/Mini-InternVL-Chat-2B-V1-5', version='V1.5'),
+    'Mini-InternVL-Chat-4B-V1-5': partial(InternVLChat, model_path='OpenGVLab/Mini-InternVL-Chat-4B-V1-5', version='V1.5'),
+    # InternVL2 series
+    'InternVL2-1B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-1B', version='V2.0'),
+    'InternVL2-2B': partial(InternVLChat, model_path="/share/new_models/OpenGVLab/InternVL2-2B", version='V2.0'), # 此处修改成本地路径
+    'InternVL2-4B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-4B', version='V2.0'),
+    'InternVL2-8B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-8B', version='V2.0'),
+    'InternVL2-26B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-26B', version='V2.0'),
+    'InternVL2-40B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-40B', version='V2.0', load_in_8bit=True),
+    'InternVL2-76B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-Llama3-76B', version='V2.0'),
+}
+```
 
-
-例如我们这里指定了本地模型的路径 `INTERVL2_1B_MODEL_PTH, INTERVL2_2B_MODEL_PTH`. 一些 VLMs 需要额外配置步骤, 例如 InstructBLIP 需要安装 LAVIS 库.
+此处我们指定好了 `InternVL2-2B` 的本地路径. 一些 VLMs 需要额外配置步骤, 例如 InstructBLIP 需要安装 LAVIS 库.
 
 <!-- **代码准备和安装**: InstructBLIP ([LAVIS](https://github.com/salesforce/LAVIS)), LLaVA ([LLaVA](https://github.com/haotian-liu/LLaVA)), MiniGPT-4 ([MiniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4)), mPLUG-Owl2 ([mPLUG-Owl2](https://github.com/X-PLUG/mPLUG-Owl/tree/main/mPLUG-Owl2)), OpenFlamingo-v2 ([OpenFlamingo](https://github.com/mlfoundations/open_flamingo)), PandaGPT-13B ([PandaGPT](https://github.com/yxuansu/PandaGPT)), TransCore-M ([TransCore-M](https://github.com/PCIResearch/TransCore-M)).
 
