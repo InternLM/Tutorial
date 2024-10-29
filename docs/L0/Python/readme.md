@@ -10,6 +10,7 @@
 - Conda虚拟环境
 - pip安装三方依赖包
 - VScode中的Python Debug
+- 调用InternLM API
 - Python基础语法
 
 **学习完成后，完成以下两个任务并经过助教批改视为闯关成功**。
@@ -67,7 +68,7 @@ conda activate /root/envs/myenv
 myenv这个文件夹里包含了整个虚拟环境，所以理论上将他直接拷贝到任意一台安装了conda的机器上都能直接激活使用，这也是在内网机器上做环境配置的一种效率较高的解决方案。
 
 
-# Ch2: 使用pip安装Python三方依赖包
+# Ch2 使用pip安装Python三方依赖包
 
 在Python开发中，安装和管理第三方包是日常任务。pip是Python官方的包管理工具，全称为“Python Package Installer”，用于方便地安装、升级和管理Python包。
 
@@ -387,7 +388,7 @@ debug面板各按钮功能介绍：
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/1dab2877-0835-4a3c-80aa-c1a556d0205d" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/user-attachments/assets/77ee93d7-24ce-4ec9-b245-4be6f7b18b7d" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
@@ -507,7 +508,87 @@ source ~/.bashrc
 ```shell
 pyd ./myscript.py
 ```
+# Ch5 Python调用InternLM api
+## 5.1 如何获取api key
 
+前往书生浦语的[API文档](https://internlm.intern-ai.org.cn/api/document),登陆后点击API tokens。初次使用可能会需要先填写邀请码。
 
-# Ch5: Python基础
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/0782e686-3e4a-45e9-ab50-2de1a90d17ff" alt="Description of the image" style="height: auto;width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+然后创建一个新的api token。
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/fc250165-34e3-47a3-a7fd-703511bebe43" alt="Description of the image" style="height: auto;width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/737f315b-7609-47aa-b3dd-d8de3c4feadf" alt="Description of the image" style="height: auto; width: 600px;margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+这里一定要注意，浦语的token只有刚创建的时候才能看到全文，后续没法再查看已经创建好的token，如果忘记需要重新创建，所以创建完了以后记得先复制保存到本地。
+
+## 5.2 如何使用InternLM api
+我们可以使用openai python sdk来调用InternLM api。注意在配置api key时，更推荐使用环境变量来配置以避免token泄露。
+
+```python
+#./internlm_test.py
+from openai import OpenAI
+import os
+def internlm_gen(prompt,client):
+    '''
+    LLM生成函数
+    Param prompt: prompt string
+    Param client: OpenAI client 
+    '''
+    response = client.chat.completions.create(
+        model="internlm2.5-latest",
+        messages=[
+            {"role": "user", "content": prompt},
+      ],
+        stream=False
+    )
+    return response.choices[0].message.content
+
+api_key = os.getenv('api_key')
+#api_key = "" #也可以明文写在代码内，不推荐
+client = OpenAI(base_url="https://internlm-chat.intern-ai.org.cn/puyu/api/v1/",api_key=api_key)
+prompt = '''你好！你是谁？'''
+response = internlm_gen(prompt,client)
+print(response)
+```
+我们可以在终端中临时将token加入变量，此时该环境变量只在当前终端内有效。所以该种方法需要我们在该终端中运行我们的py脚本。
+```shell
+export api_key="填入你的api token"
+python internlm_test.py
+```
+若是想永久加入环境变量，可以对 *~/.bashrc* 文件中添加以下命令。
+```shell
+export api_key="填入你的api token"
+```
+保存后记得`source ~/.bashrc`。
+
+运行效果如下：
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/66714c0d-7abe-4faf-bd27-55ffca6a8f55" alt="Description of the image" style="height: auto;width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+# Ch6: Python基础
 本课程也提供一个简易的Python基础教程(内容较多，请前往[ch5_python_intro.md](./ch5_python_intro.md)浏览)。

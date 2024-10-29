@@ -242,11 +242,12 @@ cat assistant_Tuner_change.jsonl | head -n 3
 
 在InternStudio开发机中的已经提供了微调模型，可以直接软链接即可。
 
-本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b
+本模型位于/root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat
 
 ```shell
 mkdir /root/finetune/models
-ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/finetune/models/internlm2-chat-7b
+ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/finetune/models/internlm2_5-7b-chat
+
 ```
 
 ### **步骤 1.** 修改 Config
@@ -257,7 +258,7 @@ ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b /root/fine
 cd /root/finetune
 mkdir ./config
 cd config
-xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
+xtuner copy-cfg internlm2_5_chat_7b_qlora_alpaca_e3 ./
 ```
 修改以下几行
 
@@ -265,8 +266,8 @@ xtuner copy-cfg internlm2_chat_7b_qlora_alpaca_e3 ./
 #######################################################################
 #                          PART 1  Settings                           #
 #######################################################################
-- pretrained_model_name_or_path = 'internlm/internlm2-chat-7b'
-+ pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
+- pretrained_model_name_or_path = 'internlm2_5-7b-chat'
++ pretrained_model_name_or_path = '/root/finetune/models/internlm2_5-7b-chat'
 
 - alpaca_en_path = 'tatsu-lab/alpaca'
 + alpaca_en_path = '/root/finetune/data/assist_Tuner_change.jsonl'
@@ -327,7 +328,7 @@ alpaca_en = dict(
 </details>
 
 
-本教程已经将改好的 config 放在了 `~/Tutorial/configs/internlm2_chat_7b_qlora_alpaca_e3_copy.py` 同学们可以直接使用（前置步骤路径一致的情况下）
+本教程已经将改好的 config 放在了 `~/Tutorial/configs/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py` 同学们可以直接使用（前置步骤路径一致的情况下）
 
 
 ### **步骤 2.** 启动微调
@@ -336,18 +337,18 @@ alpaca_en = dict(
 
 当我们准备好了所有内容，我们只需要将使用 `xtuner train` 命令令即可开始训练。
 
-> `xtuner train` 命令用于启动模型微调进程。该命令需要一个参数：`CONFIG` 用于指定微调配置文件。这里我们使用修改好的配置文件 `internlm2_chat_7b_qlora_alpaca_e3_copy.py`。  
+> `xtuner train` 命令用于启动模型微调进程。该命令需要一个参数：`CONFIG` 用于指定微调配置文件。这里我们使用修改好的配置文件 `internlm2_5_chat_7b_qlora_alpaca_e3_copy.py`。  
 > 训练过程中产生的所有文件，包括日志、配置文件、检查点文件、微调后的模型等，默认保存在 `work_dirs` 目录下，我们也可以通过添加 `--work-dir` 指定特定的文件保存位置。`--deepspeed` 则为使用 deepspeed， deepspeed 可以节约显存。
 
 运行命令进行微调
 
 ```shell
-cd /root/fintune
+cd /root/finetune
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
-xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
+xtuner train ./config/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deepspeed_zero2 --work-dir ./work_dirs/assistTuner
 ```
 
 ### **步骤 3.** 权重转换
@@ -367,17 +368,17 @@ xtuner train ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py --deepspeed deep
 
 
 ```bash
-cd /root/fintune/work_dirs/assistTuner
+cd /root/finetune/work_dirs/assistTuner
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
 # 先获取最后保存的一个pth文件
-pth_file=`ls -t /root/fintune/work_dirs/assistTuner/*.pth | head -n 1`
+pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 
-xtuner convert pth_to_hf ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
+xtuner convert pth_to_hf ./config/internlm2_5_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf
 ```
 
 模型格式转换完成后，我们的目录结构应该是这样子的。
@@ -421,14 +422,14 @@ xtuner convert pth_to_hf ./config/internlm2_chat_7b_qlora_alpaca_e3_copy.py ${pt
 
 
 ```bash
-cd /root/fintune/work_dirs/assistTuner
+cd /root/finetune/work_dirs/assistTuner
 conda activate /root/share/pre_envs/pytorch2.3.1cu12.1
 export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
-xtuner convert merge /root/finetune/models/internlm2-chat-7b ./hf ./merged --max-shard-size 2GB
+xtuner convert merge /root/finetune/models/internlm2_5-7b-chat ./hf ./merged --max-shard-size 2GB
 ```
 
 模型合并完成后，我们的目录结构应该是这样子的。
@@ -475,7 +476,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 
 ```diff
 # 直接修改脚本文件第18行
-- model_name_or_path = "Shanghai_AI_Laboratory/internlm2-chat-7b"
+- model_name_or_path = "Shanghai_AI_Laboratory/internlm2_5-7b-chat"
 + model_name_or_path = "./merged"
 ```
 

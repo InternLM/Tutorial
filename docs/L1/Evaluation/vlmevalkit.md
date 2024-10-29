@@ -14,7 +14,6 @@ VLMEvalKit (python 包名为 vlmeval) 是一款专为大型视觉语言模型 (L
 
 ```bash
 git clone https://github.com/open-compass/VLMEvalKit.git
-cd VLMEvalKit
 pip install -e .
 ```
 
@@ -135,9 +134,7 @@ client = OpenAI(
 model_name = client.models.list().data[0].id
 model_name
 ```
-显示结果为 `/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat` 
-
-配置对应环境变量，以告诉 VLMEvalKit 如何使用本地评判 LLM。正如上面提到的，也可以在  `$VLMEvalKit/.env` 文件中设置：
+显示结果为 `/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat`, 接着配置对应环境变量，以告诉 VLMEvalKit 如何使用本地评判 LLM。正如上面提到的，也可以在  `$VLMEvalKit/.env` 文件中设置：
 
 ```
 OPENAI_API_KEY=sk-123456
@@ -150,6 +147,5 @@ LOCAL_LLM='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat' # 注
 ```bash
 python run.py --data MMBench_DEV_EN MME SEEDBench_IMG --model InternVL2-2B --verbose
 ```
-
 ![image](https://github.com/user-attachments/assets/64b48085-6d45-489f-8de9-c5e4426598f0)
 

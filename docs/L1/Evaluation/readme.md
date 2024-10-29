@@ -168,7 +168,7 @@ OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您
 ```bash
 pip install lmdeploy==0.6.1 openai==1.52.0
 
-lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --server-port 23333 
+lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --server-port 23333
 ```
 
 成功部署以后会看到如下输出:
@@ -195,6 +195,7 @@ client = OpenAI(
 )
 model_name = client.models.list().data[0].id
 model_name  # 注册的模型名称需要被用于后续配置.
+
 ```
 
 创建配置脚本 `/root/opencompass/configs/models/hf_internlm/hf_internlm2_5_1_8b_chat_api.py`

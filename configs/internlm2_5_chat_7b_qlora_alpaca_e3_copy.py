@@ -24,11 +24,11 @@ from xtuner.utils import PROMPT_TEMPLATE, SYSTEM_TEMPLATE
 #                          PART 1  Settings                           #
 #######################################################################
 # Model
-pretrained_model_name_or_path = '/root/finetune/models/internlm2-chat-7b'
+pretrained_model_name_or_path = '/root/finetune/models/internlm2_5-7b-chat'
 use_varlen_attn = False
 
 # Data
-alpaca_en_path = '/root/finetune/data/assist_Tuner.jsonl'
+alpaca_en_path = '/root/finetune/data/assistant_Tuner_change.jsonl'
 prompt_template = PROMPT_TEMPLATE.internlm2_chat
 max_length = 2048
 pack_to_max_length = True
@@ -38,7 +38,7 @@ sequence_parallel_size = 1
 
 # Scheduler & Optimizer
 batch_size = 1  # per_device
-accumulative_counts = 16
+accumulative_counts = 1
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0
 max_epochs = 3
