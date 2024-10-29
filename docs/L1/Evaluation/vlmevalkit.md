@@ -42,7 +42,8 @@ internvl_series = {
     'Mini-InternVL-Chat-4B-V1-5': partial(InternVLChat, model_path='OpenGVLab/Mini-InternVL-Chat-4B-V1-5', version='V1.5'),
     # InternVL2 series
     'InternVL2-1B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-1B', version='V2.0'),
-    'InternVL2-2B': partial(InternVLChat, model_path="/share/new_models/OpenGVLab/InternVL2-2B", version='V2.0'), # 此处修改成本地路径
+    # 此处修改成等待评估模型的本地路径
+    'InternVL2-2B': partial(InternVLChat, model_path="/share/new_models/OpenGVLab/InternVL2-2B", version='V2.0'), 
     'InternVL2-4B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-4B', version='V2.0'),
     'InternVL2-8B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-8B', version='V2.0'),
     'InternVL2-26B': partial(InternVLChat, model_path='OpenGVLab/InternVL2-26B', version='V2.0'),
@@ -51,7 +52,7 @@ internvl_series = {
 }
 ```
 
-此处我们指定好了 `InternVL2-2B` 的本地路径. 一些 VLMs 需要额外配置步骤, 例如 InstructBLIP 需要安装 LAVIS 库.
+此处我们指定好了等待评估模型 `InternVL2-2B` 的本地路径. 一些 VLMs 需要额外配置步骤, 例如 InstructBLIP 需要安装 LAVIS 库.
 
 <!-- **代码准备和安装**: InstructBLIP ([LAVIS](https://github.com/salesforce/LAVIS)), LLaVA ([LLaVA](https://github.com/haotian-liu/LLaVA)), MiniGPT-4 ([MiniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4)), mPLUG-Owl2 ([mPLUG-Owl2](https://github.com/X-PLUG/mPLUG-Owl/tree/main/mPLUG-Owl2)), OpenFlamingo-v2 ([OpenFlamingo](https://github.com/mlfoundations/open_flamingo)), PandaGPT-13B ([PandaGPT](https://github.com/yxuansu/PandaGPT)), TransCore-M ([TransCore-M](https://github.com/PCIResearch/TransCore-M)).
 
