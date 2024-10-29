@@ -122,6 +122,9 @@ pip install lmdeploy==0.6.1 openai==1.52.0
 lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --cache-max-entry-count 0.4 --server-port 23333
 ```
 
+![image](https://github.com/user-attachments/assets/e84c2ce9-5e49-435b-b4f9-b58a60b49dad)
+
+
 使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
 ```python
 from openai import OpenAI
@@ -147,5 +150,5 @@ LOCAL_LLM='/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat' # 注
 python run.py --data MMBench_DEV_EN MME SEEDBench_IMG --model InternVL2-2B --verbose
 ```
 
-![local_llm](https://github.com/user-attachments/assets/551da64f-8ce7-4880-84ce-a5f8b808e123)
+![image](https://github.com/user-attachments/assets/64b48085-6d45-489f-8de9-c5e4426598f0)
 
