@@ -125,6 +125,7 @@ models = [
 
 ```bash
 python run.py --datasets ceval_gen --models hf_internlm2_5_1_8b_chat --debug
+# 如果出现 rouge 导入报错, 请 pip uninstall rouge 之后再次安装 pip install rouge==1.0.1 可解决问题.
 ``` 
 评测完成后，将会看到：
 
@@ -167,7 +168,7 @@ OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您
 ```bash
 pip install lmdeploy==0.6.1 openai==1.52.0
 
-lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --server-port 23333
+lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/ --server-port 23333 
 ```
 
 成功部署以后会看到如下输出:
@@ -189,11 +190,11 @@ INFO:     127.0.0.1:38584 - "POST /v1/chat/completions HTTP/1.1" 200 OK
 ```python
 from openai import OpenAI
 client = OpenAI(
-    api_key='sk-123456',
+    api_key='sk-123456', # 可以设置成随意的字符串
     base_url="http://0.0.0.0:23333/v1"
 )
 model_name = client.models.list().data[0].id
-model_name
+model_name  # 注册的模型名称需要被用于后续配置.
 ```
 
 创建配置脚本 `/root/opencompass/configs/models/hf_internlm/hf_internlm2_5_1_8b_chat_api.py`
