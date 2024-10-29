@@ -234,7 +234,7 @@ python change_script.py ./assistant_Tuner.jsonl ./assistant_Tuner_change.jsonl
 ```
 |-- /finetune/data/
     |-- assistant_Tuner.jsonl
-	|-- assistant_Tuner_change.jsonl
+    |-- assistant_Tuner_change.jsonl
 ```
 
 </details>
