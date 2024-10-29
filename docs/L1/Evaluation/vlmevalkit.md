@@ -135,6 +135,7 @@ client = OpenAI(
 model_name = client.models.list().data[0].id
 model_name
 ```
+显示结果为 `/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat` 
 
 配置对应环境变量，以告诉 VLMEvalKit 如何使用本地评判 LLM。正如上面提到的，也可以在  `$VLMEvalKit/.env` 文件中设置：
 
