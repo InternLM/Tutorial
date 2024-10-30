@@ -163,7 +163,7 @@ python run.py configs/eval_tutorial_demo.py --debug
 
 OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以使用相同的方式甚至在一个设置中评估这两种模型类型。
 
-首先安装和部署模型:
+首先打开一个终端, 安装和部署模型:
 
 ```bash
 pip install lmdeploy==0.6.1 openai==1.52.0
@@ -185,7 +185,7 @@ INFO:     127.0.0.1:38584 - "POST /v1/chat/completions HTTP/1.1" 200 OK
 ```
 
 
-使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
+新开一个终端, 使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
 
 ```python
 from openai import OpenAI
