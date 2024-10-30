@@ -15,12 +15,15 @@ Hello大家好，迎来到实战营第四期的llamaindex+Internlm2 RAG课程，
 给模型注入新知识的方式，可以简单分为两种方式，一种是内部的，即更新模型的权重，另一个就是外部的方式，给模型注入格外的上下文或者说外部信息，不改变它的的权重。
 第一种方式，改变了模型的权重即进行模型训练，这是一件代价比较大的事情，大语言模型具体的训练过程，可以参考[InternLM2技术报告](https://arxiv.org/abs/2403.17297)。
 第二种方式，并不改变模型的权重，只是给模型引入格外的信息。类比人类编程的过程，第一种方式相当于你记住了某个函数的用法，第二种方式相当于你阅读函数文档然后短暂的记住了某个函数的用法。
+
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/5a72331f-1726-4e4e-9a69-75141cfd313e)
+
 对比两种注入知识方式，第二种更容易实现。RAG 正是这种方式。它能够让基础模型实现非参数知识更新，无需训练就可以掌握新领域的知识。本次课程选用了 LlamaIndex 框架。LlamaIndex 是一个上下文增强的 LLM 框架，旨在通过将其与特定上下文数据集集成，增强大型语言模型（LLMs）的能力。它允许您构建应用程序，既利用 LLMs 的优势，又融入您的私有或领域特定信息。
 
 ### RAG 效果比对
 
 如图所示，由于`xtuner`是一款比较新的框架， `InternLM2-Chat-1.8B` 训练数据库中并没有收录到它的相关信息。左图中问答均未给出准确的答案。右图未对 `InternLM2-Chat-1.8B` 进行任何增训的情况下，通过 RAG 技术实现的新增知识问答。
+
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/3785a449-770a-45e1-a7ea-7cfd33a00076)
 
 ## 2. 环境、模型准备
@@ -30,12 +33,15 @@ Hello大家好，迎来到实战营第四期的llamaindex+Internlm2 RAG课程，
 这里以在 [Intern Studio](https://studio.intern-ai.org.cn/) 服务器上部署 LlamaIndex 为例。
 
 首先，打开 `Intern Studio` 界面，点击 **创建开发机** 配置开发机系统。
+
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/e325d0c1-6816-4ea5-ba4a-f509bdd42323)
 
 填写 `开发机名称` 后，点击 选择镜像 使用 `Cuda11.7-conda` 镜像，然后在资源配置中，使用 `30% A100 * 1` 的选项，然后立即创建开发机器。
+
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/8c25b923-fda8-4af2-a4dc-2f4cf44845c9)
 
 点击 `进入开发机` 选项。
+
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/6bc3cde2-6309-4e14-9278-a65cd74d4a3a)
 
 进入开发机后，创建新的 conda 环境，命名为 `llamaindex`，在命令行模式下运行：
@@ -74,6 +80,7 @@ pip install einops==0.7.0 protobuf==5.26.1
 ```
 
 环境激活后，命令行左边会显示当前（也就是 `llamaindex` ）的环境名称，如下图所示:
+
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/bcfedc90-0d9d-4679-b1e9-4709b05711f3)
 
 ### 2.2 安装 Llamaindex
@@ -178,6 +185,9 @@ cd ~/llamaindex_demo/
 python llamaindex_internlm.py
 ```
 
+**如果报错`CUDA error:` 请检查torch版本是否为2.0.1，因为当安装某些依赖时，可能会自动升级torch版本**
+
+
 结果为：
 ![image](https://github.com/Shengshenlan/tutorial/assets/57640594/ac3f481d-cc5b-44be-b281-2cab7289f027)
 回答的效果并不好，并不是我们想要的 xtuner。
@@ -194,7 +204,7 @@ pip install llama-index-embeddings-huggingface==0.2.0 llama-index-embeddings-ins
 ```bash
 在这一步请确定llama-index-embeddings-huggingface安装成功
 如果存在not found错误，请重新安装
-pip install llama-index-embeddings-huggingface==0.2.0
+# pip install llama-index-embeddings-huggingface==0.2.0
 确保 huggingface_hub==0.23.1
 ```
 
