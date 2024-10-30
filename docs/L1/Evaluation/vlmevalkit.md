@@ -15,6 +15,7 @@ VLMEvalKit (python 包名为 vlmeval) 是一款专为大型视觉语言模型 (L
 ```bash
 git clone https://github.com/open-compass/VLMEvalKit.git
 pip install -e .
+pip install timm==1.0.11
 ```
 
 **设置密钥**
@@ -103,7 +104,7 @@ lmdeploy serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm2_5-1
 ![image](https://github.com/user-attachments/assets/e84c2ce9-5e49-435b-b4f9-b58a60b49dad)
 
 
-使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
+新打开一个终端, 使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
 ```python
 from openai import OpenAI
 client = OpenAI(
