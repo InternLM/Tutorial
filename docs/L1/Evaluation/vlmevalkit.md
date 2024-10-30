@@ -88,18 +88,6 @@ torchrun --nproc-per-node=8 run.py --data MMBench_DEV_EN MME SEEDBench_IMG --mod
 torchrun --nproc-per-node=2 run.py --data MME --model InternVL2-2B --verbose
 ```
 
-<!-- **用于评测视频多模态评测集的命令**
-
-```bash
-# 使用 `python` 运行时，只实例化一个 VLM，并且它可能使用多个 GPU。
-# 这推荐用于评估参数量非常大的 VLMs（如 IDEFICS-80B-Instruct）。
-
-# 在 MMBench-Video 上评测 IDEFCIS2-8B, 视频采样 8 帧作为输入，不采用 pack 模式评测
-torchrun --nproc-per-node=8 run.py --data MMBench-Video --model InternVL2-1B --nframe 8
-# 在 MMBench-Video 上评测 GPT-4o (API 模型), 视频采样 16 帧作为输入，采用 pack 模式评测
-python run.py --data MMBench-Video --model InternVL2-1B --nframe 16 --pack
-``` -->
-
 评估结果将作为日志打印出来。此外，结果文件也会在目录 `$YOUR_WORKING_DIRECTORY/{model_name}` 中生成。以 `.csv` 结尾的文件包含评估的指标。
 
 ## 部署本地语言模型作为评判LLM
@@ -111,7 +99,7 @@ python run.py --data MMBench-Video --model InternVL2-1B --nframe 16 --pack
 pip install lmdeploy==0.6.1 openai==1.52.0
 ```
 
-假设我们使用 internlm2_5-1_8b-chat 作为评判，端口为 23333，密钥为 sk-123456（在这个本地部署的场景中，OPENAI_API_KEY 可以随意设置，只要遵循指定的格式（以 "sk-" 开头，后跟任意字符））, 然后可以通过一行代码部署本地评判 LLM：
+假设我们使用 internlm2_5-1_8b-chat 作为评判，端口为 23333，密钥为 sk-123456（在这个本地部署的场景中，OPENAI_API_KEY 可以随意设置，只要遵循指定的格式）, 然后可以通过一行代码部署本地评判 LLM：
 
 ```bash
 # --cache-max-entry-count 0.4 设置用于减少 GPU 占用
