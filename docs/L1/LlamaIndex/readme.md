@@ -185,7 +185,10 @@ cd ~/llamaindex_demo/
 python llamaindex_internlm.py
 ```
 
-**如果报错`CUDA error:` 请检查torch版本是否为2.0.1，因为当安装某些依赖时，可能会自动升级torch版本**
+**如果报错`CUDA error:` 请检查torch版本是否为2.0.1，因为当安装某些依赖时，可能会自动升级torch版本，那么请重新降低版本至2.0.1**
+```bash
+pip install torch==2.0.1
+```
 
 
 结果为：
