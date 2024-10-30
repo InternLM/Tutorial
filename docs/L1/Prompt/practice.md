@@ -34,7 +34,6 @@ pip install -r requirements.txt
 （1）申请浦语的 API , 获取 API Token：
 https://internlm.intern-ai.org.cn/api/document
 
-> 如果遇到“请求过于频繁，请稍后再试”报错，是 API 存在调用频率限制，可以使用[硅基流动](https://cloud.siliconflow.cn/i/TxUlXG3u)注册免费的 API
 
 （2） 修改下面命令中的 API_KEY 等配置，在命令行执行命令，即可完成书籍创作
 
@@ -45,7 +44,19 @@ export MODEL_NAME=internlm2.5-latest
 
 python3 book_writer.py
 ```
-（3）创作好的书籍在 books 文件夹下。
+（3）创作好的书籍在 books 文件夹下，写好的书籍示例（仅供参考）： [爱的编码：解密人类情感基因](./book.md).
+
+（4）注意：
+
+> 如果遇到“请求过于频繁，请稍后再试”报错，是 API 存在调用频率限制，可以使用[硅基流动](https://cloud.siliconflow.cn/i/TxUlXG3u)注册免费的 API 服务。配置 API_KEY，修改下面的命令并执行：
+
+```
+export API_KEY=sk-xxx
+export BASE_URL=https://api.siliconflow.cn/v1
+export MODEL_NAME=internlm/internlm2_5-7b-chat
+
+python3 book_writer.py
+```
 
 #### 2.4 项目拆解
 
