@@ -14,6 +14,7 @@ VLMEvalKit (python 包名为 vlmeval) 是一款专为大型视觉语言模型 (L
 
 ```bash
 git clone https://github.com/open-compass/VLMEvalKit.git
+cd VLMEvalKit/
 pip install -e .
 pip install timm==1.0.11
 ```
