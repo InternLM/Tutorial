@@ -10,7 +10,7 @@
 
 ## 进阶任务 (闯关不要求完成此任务)
 
-任选下面其中1个任务基于LangGPT格式编写提示词 (**优秀学员最少编写两组**)，使用[书生·浦语大模型](https://internlm-chat.intern-ai.org.cn/suggestion) 进行对话评测。
+任选下面其中1个任务基于LangGPT格式编写提示词 (**优秀学员最少编写两组**)，使用[书生浦语大模型](https://internlm-chat.intern-ai.org.cn/suggestion) 进行对话评测。
 
 
 - 公文写作助手
