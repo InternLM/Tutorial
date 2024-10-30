@@ -194,10 +194,9 @@ client = OpenAI(
     base_url="http://0.0.0.0:23333/v1"
 )
 model_name = client.models.list().data[0].id
-model_name  # 注册的模型名称需要被用于后续配置.
-
+model_name # 注册的模型名称需要被用于后续配置.
 ```
-
+结果显示 `/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/`, 接着, 
 创建配置脚本 `/root/opencompass/configs/models/hf_internlm/hf_internlm2_5_1_8b_chat_api.py`
 
 ```python
