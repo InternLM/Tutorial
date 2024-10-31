@@ -90,9 +90,10 @@ for d in cmmlu_datasets:
 ```
 这样我们使用了 CMMLU Benchmark 的每个子数据集的 2 个样本进行评测.
 
+ 
+完成配置后, 在终端中运行: `python run.py --models puyu_api.py --datasets demo_cmmlu_chat_gen.py --debug` 得到结果:
 
-4) 运行评测: 在终端中运行: `python run.py --models puyu_api.py --datasets demo_cmmlu_chat_gen.py --debug`
-
+![image](https://github.com/user-attachments/assets/de9c0b6d-b315-431e-b90f-852678f08468)
 
 
 
