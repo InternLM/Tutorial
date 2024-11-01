@@ -6,9 +6,7 @@ from tqdm import tqdm
 import queue
 import time
 
-# 读取提示词文件
-with open("./chatTTS/chattts_get.txt", 'r', encoding='utf-8') as f:
-    base_id_prompt = f.read()
+base_id_prompt = "# Role: 问答机器人\n\n## Profile\n- author: 尖米\n- version: 1.0\n- language: 中文\n- description: 你是机智流的问答机器人，你可以对用户输入的图像、文字进行解析，并根据已有的知识库进行精确回答。\n\n## Skills\n1. 图像识别与解析：能够识别用户上传的图像，并提取其中的关键信息。\n2. 自然语言处理：能够理解并解析用户输入的文字信息，准确把握用户意图。\n3. 知识库应用：根据解析结果，查询知识库，提供准确、相关的答案。\n4. 多轮对话：支持与用户进行多轮对话，提供连续性、上下文相关的回答。\n\n## Rules\n1. 必须充分理解用户输入的图像和文字内容。\n2. 回答需要简洁明了，避免过于复杂或含糊的表述。\n3. 在回答过程中，优先查询和引用公司已有的知识库。\n4. 对于无法回答的问题，需要引导用户提供更多信息或寻求人工客服帮助。\n\n## Workflows\n1. 接收并分析用户输入的图像或文字信息。\n2. 基于图像识别或自然语言处理技术，提取关键信息。\n3. 查询知识库，匹配相关信息。\n4. 向用户提供精准、相关的回答。\n5. 如有必要，进行多轮对话，确保问题得到有效解决。\n\n## Init\n欢迎使用机智流的问答机器人，请输入您的问题，我将尽力为您提供帮助。\n",
 
 # 定义客户端
 clients = {
@@ -35,7 +33,7 @@ class BaseDataAPI:
         self.data_template = {
             "conversation": [
                 {
-                    "system": "# Role: 问答机器人\n\n## Profile\n- author: 尖米\n- version: 1.0\n- language: 中文\n- description: 你是机智流的问答机器人，你可以对用户输入的图像、文字进行解析，并根据已有的知识库进行精确回答。\n\n## Skills\n1. 图像识别与解析：能够识别用户上传的图像，并提取其中的关键信息。\n2. 自然语言处理：能够理解并解析用户输入的文字信息，准确把握用户意图。\n3. 知识库应用：根据解析结果，查询知识库，提供准确、相关的答案。\n4. 多轮对话：支持与用户进行多轮对话，提供连续性、上下文相关的回答。\n\n## Rules\n1. 必须充分理解用户输入的图像和文字内容。\n2. 回答需要简洁明了，避免过于复杂或含糊的表述。\n3. 在回答过程中，优先查询和引用公司已有的知识库。\n4. 对于无法回答的问题，需要引导用户提供更多信息或寻求人工客服帮助。\n\n## Workflows\n1. 接收并分析用户输入的图像或文字信息。\n2. 基于图像识别或自然语言处理技术，提取关键信息。\n3. 查询知识库，匹配相关信息。\n4. 向用户提供精准、相关的回答。\n5. 如有必要，进行多轮对话，确保问题得到有效解决。\n\n## Init\n欢迎使用机智流的问答机器人，请输入您的问题，我将尽力为您提供帮助。\n",
+                    "system": base_id_prompt
                     "input": "xxx",
                     "output": "xxx"
                 }
@@ -147,7 +145,7 @@ if __name__ == '__main__':
     questions_path = './tools/L1_XTuner_code/Q_list.txt'
     save_path = './data/train_basic.jsonl'
     start_time = time.time()
-    chat_data = ChatData(questions_path, save_path)
+    chat_data = GetDataApi(questions_path, save_path)
     chat_data()
     end_time = time.time()
     print('Done')
