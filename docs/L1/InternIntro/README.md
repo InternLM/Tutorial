@@ -1,17 +1,17 @@
 # 玩转书生「多模态对话」与「AI搜索」产品
 <img width="900" alt="img_v3_02fv_2c1bc9df-de6d-400a-9253-dcb361e2fb6g" src="https://github.com/user-attachments/assets/401ffd8f-12ce-4e0e-9153-7eb31a5a6b55"><br>
-Hi, 大家好~ 本节课程会带大家体验书生系列的大模型产品，让我们一起探索生成式AI的世界吧！
+Hi, 大家好~ 本节课程会带大家体验书生系列的大模型产品，让我们跟着书生的足迹一起探索生成式AI的世界吧！
 
 > 目前，书生系列下的所有产品均免费向所有社区用户提供服务：无会员、无广告、高性能部署！我们希望让所有对大模型技术、应用、开发工具链感兴趣的小伙伴第一时间体验到相应的功能。
 > 
 
 # 1. 书生产品矩阵
 
-- [**书生·浦语**](https://internlm-chat.intern-ai.org.cn/)：基于原生的 InternLM2.5 最新 Chat 模型 (InternLM2.5-20B) 搭建聊天机器人应用。模型使用 LMDeploy 量化部署并进行了诸多工程上的优化。另外，所有注册用户默认开放 3 百万 Tokens/月的 API 调用额度。
+- [**书生·浦语**](https://internlm-chat.intern-ai.org.cn/)：基于原生的 InternLM2.5 最新 Chat 模型 (InternLM2.5-20B) 搭建聊天机器人应用。模型使用 LMDeploy 量化部署并进行了诸多工程上的优化。所有注册用户默认开放 3 百万 Tokens/月的 API 调用额度！
 
 ![image](https://github.com/user-attachments/assets/992483f1-3b7b-4909-9f9b-872d8e9affee)
 
-- **MindSearch**：InternLM 组织今年开源的 AI 搜索引擎 (框架)，基于多智能体技术将你提出的问题进行分析、拆解、网页搜索，最终给出有参考依据的高可信度回答。目前可直接在**书生·浦语**产品内体验以 InternLM2.5-20B 为 Agent 的 MindSearch 官方实现。
+- [**MindSearch**](https://internlm-chat.intern-ai.org.cn/suggestion/oVmlpR34V9U6v9KBQ1TN7IpPQh1Z89ONciSGUKmgFFA=)：InternLM 组织今年开源的 AI 搜索引擎 (框架)，基于多智能体技术将你提出的问题进行分析、拆解、网页搜索，最终给出有参考依据的高可信度回答。目前可直接在**书生·浦语**产品内体验以 InternLM2.5-20B 为 Agent 的 MindSearch 官方实现。
 
 ![image 1](https://github.com/user-attachments/assets/7afe678e-9acc-4985-a65d-8a00967ac62c)
 
@@ -122,7 +122,7 @@ curl --location 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/complet
 
 # 3. MindSearch
 
-MindSearch 是一个开源的 AI 搜索引擎。它会对你提出的问题进行分析并拆解为数个子问题，在互联网上搜索、总结得到各个子问题的答案，最后通过模型总结得到最终答案。书生·浦语上的智能体为 MindSearch 的官方实现 (基于 InternLM2.5-20B) 具有与 [Perplexity.ai](http://perplexity.ai/) Pro 相当的性能。
+[MindSearch](https://internlm-chat.intern-ai.org.cn/suggestion/oVmlpR34V9U6v9KBQ1TN7IpPQh1Z89ONciSGUKmgFFA=) 是一个开源的 AI 搜索引擎。它会对你提出的问题进行分析并拆解为数个子问题，在互联网上搜索、总结得到各个子问题的答案，最后通过模型总结得到最终答案。书生·浦语上的智能体为 MindSearch 的官方实现 (基于 InternLM2.5-20B) 具有与 [Perplexity.ai](http://perplexity.ai/) Pro 相当的性能。
 
 ## (1) 拆解问题
 
