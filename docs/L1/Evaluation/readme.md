@@ -37,7 +37,7 @@ pip install huggingface_hub==0.25.2
 考虑到 openai 的 API 服务暂时在国内无法直接使用，我们这里以评测 internlm 模型为例，介绍如何评测 API 模型。
 
 
-1) 打开网站 https://internlm.intern-ai.org.cn/api/document 获得 api key 和 api 服务地址, 在终端中运行:
+1) 打开网站浦语官方地址 https://internlm.intern-ai.org.cn/api/document 获得 api key 和 api 服务地址 (也可以从第三方平台 [硅基流动](https://siliconflow.cn/zh-cn/siliconcloud) 获取), 在终端中运行:
 
 ```bash
 export INTERNLM_API_KEY=xxxxxxxxxxxxxxxxxxxxxxx # 填入你申请的 API Key
