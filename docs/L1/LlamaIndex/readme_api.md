@@ -129,7 +129,7 @@ touch openai_Internlm.py
 touch llamaindex_internlm.py
 ```
 
-`3.1、使用浦语API 进行使用`
+`3.1、使用浦语API 进行使用（默认）`
 
 由于LlamaIndex不支持浦语API，需要自己编写浦语API代码
 
@@ -137,7 +137,7 @@ touch llamaindex_internlm.py
 
 打开openai_Internlm.py，把docs/L1/LlamaIndex/openai_Internlm.py中的代码贴入进去
 
-`3.2、使用硅基流动 API进行使用`
+`3.2、使用硅基流动 API进行使用（可选）`
 
 https://cloud.siliconflow.cn/models?mfs=internlm 从硅基流动网站上获取api key
 
