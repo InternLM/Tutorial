@@ -103,6 +103,7 @@ cd /root/llamaindex_demo
 conda activate llamaindex
 python download_hf.py
 ```
+更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
 
 推荐用户从modelscope下载
 
@@ -114,7 +115,6 @@ git lfs install
 git clone https://www.modelscope.cn/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2.git
 ```
 
-更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
 
 ### 2.4 下载 NLTK 相关资源
 我们在使用开源词向量模型构建开源词向量的时候，需要用到第三方库 `nltk` 的一些资源。正常情况下，其会自动从互联网上下载，但可能由于网络原因会导致下载中断，此处我们可以从国内仓库镜像地址下载相关资源，保存到服务器上。
