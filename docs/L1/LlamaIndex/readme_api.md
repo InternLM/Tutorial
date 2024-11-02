@@ -144,12 +144,12 @@ touch llamaindex_internlm.py
 
 https://cloud.siliconflow.cn/models?mfs=internlm 从硅基流动网站上获取api key
 
+```python
+from llama_index.llms.openai_like import OpenAILike
+
 url = "https://api.siliconflow.cn/v1"
 
 key = "sk-请填写准确的 token！"
-
-```python
-from llama_index.llms.openai_like import OpenAILike
 
 llm = OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
 ```
