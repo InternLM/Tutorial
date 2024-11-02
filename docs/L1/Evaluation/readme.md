@@ -43,7 +43,7 @@ pip install huggingface_hub==0.25.2
 export INTERNLM_API_KEY=xxxxxxxxxxxxxxxxxxxxxxx # 填入你申请的 API Key
 ```
 
-2) 配置模型: 在终端中运行 `cd /root/opencompass/` 和 `touch opencompass/configs/models/openai/puyu_api.py`, 然后打开文件, 贴入以下代码:
+2) 配置模型: 在终端中运行 `cd /root/opencompass/` 和 `touch configs/models/openai/puyu_api.py`, 然后打开文件, 贴入以下代码:
 
 
 ```python
