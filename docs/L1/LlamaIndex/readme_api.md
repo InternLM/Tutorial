@@ -134,33 +134,27 @@ unzip averaged_perceptron_tagger.zip
 
 ## 3. LlamaIndex 
 
-`使用浦语 API进行使用（可选）`
-
-由于LlamaIndex不支持浦语API，需要自己编写浦语API代码
-
-打开openai_llm.py，把docs/L1/LlamaIndex/openai_llm.py中的代码贴入进去
-
-打开openai_Internlm.py，把docs/L1/LlamaIndex/openai_Internlm.py中的代码贴入进去
-
-https://internlm.intern-ai.org.cn/api/document  获取api key的地址
-
-运行以下指令，新建一个python文件
-```bash
-cd ~/llamaindex_demo
-touch openai_llm.py
-touch openai_Internlm.py
-touch llamaindex_internlm.py
-```
-
 `使用硅基流动 API进行使用（默认）`
 
 https://cloud.siliconflow.cn/models?mfs=internlm 从硅基流动网站上获取api key
 
+`使用浦语 API进行使用（可选）`
+
+由于LlamaIndex不支持浦语API，需要自己编写浦语API代码
+
+把docs/L1/LlamaIndex/openai_llm.py文件放到~/llamaindex_demo目录下
+
+把docs/L1/LlamaIndex/openai_Internlm.py放到~/llamaindex_demo目录下
+
+https://internlm.intern-ai.org.cn/api/document  获取api key的地址
+
+
 运行以下指令，新建一个python文件
 ```bash
 cd ~/llamaindex_demo
 touch llamaindex_internlm.py
 ```
+
 
 打开llamaindex_internlm.py 贴入以下代码
 ```python
