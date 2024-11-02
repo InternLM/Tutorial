@@ -142,7 +142,7 @@ touch llamaindex_internlm.py
 ```
 
 
-`3.1、使用浦语 API进行使用（默认）`
+ ### 3.1、使用浦语 API进行使用（默认）
 
 由于LlamaIndex不支持浦语API，需要自己编写浦语API代码
 
@@ -151,41 +151,37 @@ touch llamaindex_internlm.py
 打开openai_Internlm.py，把docs/L1/LlamaIndex/openai_Internlm.py中的代码贴入进去
 
 
-
-`3.2、使用硅基流动 API进行使用（可选）`
+ ### 3.2、使用硅基流动 API进行使用（可选）
 
 https://cloud.siliconflow.cn/models?mfs=internlm 从硅基流动网站上获取api key
 
-```python
-from llama_index.llms.openai_like import OpenAILike
-
-url = "https://api.siliconflow.cn/v1"
-
-key = "sk-请填写准确的 token！"
-
-llm = OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
-```
 
 打开llamaindex_internlm.py 贴入以下代码
 ```python
-url =  "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/"
-key = "eyJ0eXBlIjoiSl...请填写准确的 token！"
 
-# https://internlm.intern-ai.org.cn/api/document  获取api key的地址
+
 
 from llama_index.core.llms import ChatMessage
 from openai_Internlm import OpenAIInternlm
 from llama_index.legacy.callbacks import CallbackManager
 from llama_index.llms.openai_like import OpenAILike
 
+provider = "puyu"
+
+if provider == "silicon":
+   url = "https://api.siliconflow.cn/v1"
+   key = "sk-请填写准确的 token！"
+   #使用硅基流动 API进行使用初始化llm
+   llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
+else:
+   url =  "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/"
+   key = "eyJ0eXBlIjoiSl...请填写准确的 token！"
+   # https://internlm.intern-ai.org.cn/api/document  获取api key的地址
+   #使用浦语API 进行使用初始化llm
+   llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
+
 # Create an instance of CallbackManager
 callback_manager = CallbackManager()
-
-#使用浦语API 进行使用初始化llm
-llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
-
-##使用硅基流动 API进行使用初始化llm
-#llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
 
 rsp = llm.chat(messages=[ChatMessage(content="xtuner是什么？")])
 print(rsp)
