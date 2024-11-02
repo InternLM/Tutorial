@@ -72,6 +72,7 @@ pip install llama-index-llms-openai==0.2.16
 pip install llama-index-llms-replicate==0.3.0
 pip install llama-index-llms-openai-like==0.2.0
 pip install llama-index-embeddings-huggingface==0.3.1
+pip install llama-index-embeddings-instructor==0.2.1
 ```
 
 ### 2.3 下载 Sentence Transformer 模型
@@ -195,7 +196,6 @@ python llamaindex_internlm.py
 安装 `LlamaIndex` 词嵌入向量依赖
 ```bash
 conda activate llamaindex
-pip install llama-index-embeddings-huggingface llama-index-embeddings-instructor
 ```
 运行以下命令，获取知识库
 ```bash
