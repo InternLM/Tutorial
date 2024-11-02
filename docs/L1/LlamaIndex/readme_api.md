@@ -162,7 +162,7 @@ from llama_index.llms.openai_like import OpenAILike
 # Create an instance of CallbackManager
 callback_manager = CallbackManager()
 
-#使用使用浦语API 进行使用初始化llm
+#使用浦语API 进行使用初始化llm
 llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
 
 ##使用硅基流动 API进行使用初始化llm
@@ -228,7 +228,7 @@ embed_model = HuggingFaceEmbedding(
 #这样在后续的索引构建过程中就会使用这个模型。
 Settings.embed_model = embed_model
 
-#使用使用浦语API 进行使用初始化llm
+#使用浦语API 进行使用初始化llm
 llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
 
 ##使用硅基流动 API进行使用初始化llm
@@ -300,7 +300,7 @@ def init_models():
     )
     Settings.embed_model = embed_model
 
-    #使用使用浦语API 进行使用初始化llm
+    #使用浦语API 进行使用初始化llm
     llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
     
     ##使用硅基流动 API进行使用初始化llm
