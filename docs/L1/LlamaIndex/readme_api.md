@@ -104,9 +104,13 @@ conda activate llamaindex
 python download_hf.py
 ```
 
-#推荐用户从modelscope下载
+推荐用户从modelscope下载
+
+https://modelscope.cn/models/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2/summary
 
 ```
+git lfs install
+
 git clone https://www.modelscope.cn/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2.git
 ```
 
