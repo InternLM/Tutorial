@@ -193,7 +193,7 @@ python llamaindex_internlm.py
 
 回答的效果并不好，并不是我们想要的xtuner。
 ## 4. LlamaIndex RAG
-安装 `LlamaIndex` 词嵌入向量依赖
+激活环境
 ```bash
 conda activate llamaindex
 ```
