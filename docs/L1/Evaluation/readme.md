@@ -85,10 +85,10 @@ with read_base():
 # 每个数据集只取前2个样本进行评测
 for d in cmmlu_datasets:
     d['abbr'] = 'demo_' + d['abbr']
-    d['reader_cfg']['test_range'] = '[0:2]'
+    d['reader_cfg']['test_range'] = '[0:4]'
 
 ```
-这样我们使用了 CMMLU Benchmark 的每个子数据集的 2 个样本进行评测.
+这样我们使用了 CMMLU Benchmark 的每个子数据集的 4 个样本进行评测.
 
  
 完成配置后, 在终端中运行: `python run.py --models puyu_api.py --datasets demo_cmmlu_chat_gen.py --debug` 得到结果:
