@@ -73,7 +73,7 @@ models = [
 ]
 ```
 
-3) 配置数据集: 在终端中运行 `cd /root/opencompass/` 和 `touch configs/datasets/demo/demo_cmmlu_chat_gen.py`, 然后打开文件, 贴入以下代码:
+3) 配置数据集: 在终端中运行 `cd /root/opencompass/` 和 `touch opencompass/configs/datasets/demo/demo_cmmlu_chat_gen.py`, 然后打开文件, 贴入以下代码:
 
 ```python
 from mmengine import read_base
