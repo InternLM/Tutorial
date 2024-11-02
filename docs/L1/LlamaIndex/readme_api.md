@@ -129,7 +129,9 @@ touch openai_Internlm.py
 touch llamaindex_internlm.py
 ```
 由于LlamaIndex不支持浦语API，需要自己编写浦语API代码
+
 打开openai_llm.py，把docs/L1/LlamaIndex/openai_llm.py中的代码贴入进去
+
 打开openai_Internlm.py，把docs/L1/LlamaIndex/openai_Internlm.py中的代码贴入进去
 
 打开llamaindex_internlm.py 贴入以下代码
