@@ -273,7 +273,7 @@ python llamaindex_RAG.py
 运行之前首先安装依赖
 
 ```shell
-pip install streamlit
+pip install streamlit==1.39.0
 ```
 
 运行以下指令，新建一个python文件
