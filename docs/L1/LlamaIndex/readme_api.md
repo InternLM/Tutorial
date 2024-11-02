@@ -1385,6 +1385,7 @@ cd ~/llamaindex_demo/
 python llamaindex_RAG.py
 ```
 结果为：
+
 <img width="518" alt="image" src="https://github.com/user-attachments/assets/7a976178-2301-47eb-b53b-168cb0ef90a3">
 
 
