@@ -43,7 +43,7 @@ pip install huggingface_hub==0.25.2
 export INTERNLM_API_KEY=xxxxxxxxxxxxxxxxxxxxxxx # 填入你申请的 API Key
 ```
 
-2) 配置模型: 在终端中运行: `touch opencompass/configs/models/openai/puyu_api.py`, 然后打开文件, 贴入以下代码:
+2) 配置模型: 在终端中运行 `cd /root/pencompass/` 和 `touch opencompass/configs/models/openai/puyu_api.py`, 然后打开文件, 贴入以下代码:
 
 
 ```python
@@ -73,7 +73,7 @@ models = [
 ]
 ```
 
-3) 配置数据集: 在终端中运行: `touch /Users/gongqian/Desktop/opencompass/opencompass/configs/datasets/demo/demo_cmmlu_chat_gen.py`, 然后打开文件, 贴入以下代码:
+3) 配置数据集: 在终端中运行 `cd /root/pencompass/` 和 `touch opencompass/configs/datasets/demo/demo_cmmlu_chat_gen.py`, 然后打开文件, 贴入以下代码:
 
 ```python
 from mmengine import read_base
