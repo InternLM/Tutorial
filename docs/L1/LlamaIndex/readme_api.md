@@ -16,8 +16,9 @@
 
 ### RAG 效果比对
 
-如图所示，由于`xtuner`是一款比较新的框架， `internlm2.5-latest` 训练数据库中并没有收录到它的相关信息。左图中问答均未给出准确的答案。右图未对 `internlm2.5-latest` 进行任何增训的情况下，通过 RAG 技术实现的新增知识问答。
-![image](https://github.com/Shengshenlan/tutorial/assets/57640594/3785a449-770a-45e1-a7ea-7cfd33a00076)
+如图所示，由于`xtuner`是一款比较新的框架， `浦语 API ` 训练数据库中并没有收录到它的相关信息。左图中问答均未给出准确的答案。右图未对 `浦语 API ` 进行任何增训的情况下，通过 RAG 技术实现的新增知识问答。
+![image](https://github.com/user-attachments/assets/690c4b5a-aec0-480f-9bf7-42c110645ce3)
+
 ## 2. 环境、模型准备
 ### 2.1 配置基础环境
 这里以在 [Intern Studio](https://studio.intern-ai.org.cn/) 服务器上部署LlamaIndex为例。
@@ -99,7 +100,7 @@ cd /root/llamaindex_demo
 conda activate llamaindex
 python download_hf.py
 
-git下载
+在modelscope使用git下载词向量模型（推荐使用这个）
 git clone https://www.modelscope.cn/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2.git
 ```
 更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
@@ -1314,7 +1315,8 @@ cd ~/llamaindex_demo/
 python llamaindex_internlm.py
 ```
 结果为：
-![image](https://github.com/Shengshenlan/tutorial/assets/57640594/ac3f481d-cc5b-44be-b281-2cab7289f027)
+<img width="370" alt="image" src="https://github.com/user-attachments/assets/d892f5c9-1243-4b2d-8551-8aa483d2f986">
+
 回答的效果并不好，并不是我们想要的xtuner。
 ## 4. LlamaIndex RAG
 安装 `LlamaIndex` 词嵌入向量依赖
@@ -1382,7 +1384,8 @@ cd ~/llamaindex_demo/
 python llamaindex_RAG.py
 ```
 结果为：
-![image](https://github.com/Shengshenlan/tutorial/assets/57640594/8d363e3f-edf9-4573-bd58-5b54fd8981df)
+<img width="518" alt="image" src="https://github.com/user-attachments/assets/7a976178-2301-47eb-b53b-168cb0ef90a3">
+
 
 借助RAG技术后，就能获得我们想要的答案了。
 
@@ -1486,15 +1489,18 @@ streamlit run app.py
 
 然后在命令行点击，红框里的url。
 
-![image](https://github.com/user-attachments/assets/dc1e0e8c-bec3-49ad-b522-44f14c64ea01)
+![image](https://github.com/user-attachments/assets/15625b3b-ef47-4848-b448-de0b7668b9fc)
+
 
 即可进入以下网页，然后就可以开始尝试问问题了。
 
-![1721404075545](https://github.com/user-attachments/assets/1f55ae89-2568-4cd5-8e50-564ed032d275)
+![image](https://github.com/user-attachments/assets/ff270976-cd2f-4b75-bc83-4bad0060ff86)
+
 
 询问结果为：
 
-![1721404159357](https://github.com/user-attachments/assets/6b479645-3bf6-4b94-b8e9-df4ea2e18530)
+![image](https://github.com/user-attachments/assets/04df06bd-d7ec-45aa-b4fc-83e37cd896c1)
+
 
 ## 6. 小结
 恭喜你，成功通关本关卡！继续加油！你成功使用 LlamaIndex 运行了浦语API，并实现了知识库的构建与检索。这为管理和利用大规模知识库提供了强大的工具和方法。接下来，可以进一步优化和扩展功能，以满足更复杂的需求。
