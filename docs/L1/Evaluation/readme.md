@@ -29,7 +29,7 @@ pip install huggingface_hub==0.25.2
 
 
 
-## 评测 API 模型
+## 评测 API 模型 
 
 如果你想要评测通过 API 访问的大语言模型，整个过程其实很简单。首先你需要获取模型的 API 密钥（API Key）和接口地址。以 OpenAI 的 GPT 模型为例，你只需要在 OpenAI 官网申请一个 API Key，然后在评测配置文件中设置好这个密钥和相应的模型参数就可以开始评测了。评测过程中，评测框架会自动向模型服务发送测试用例，获取模型的回复并进行打分分析。整个过程你不需要准备任何模型文件，也不用担心本地计算资源是否足够，只要确保网络连接正常即可。
 
@@ -85,23 +85,23 @@ with read_base():
 # 每个数据集只取前2个样本进行评测
 for d in cmmlu_datasets:
     d['abbr'] = 'demo_' + d['abbr']
-    d['reader_cfg']['test_range'] = '[0:4]' # 这里每个数据集只取四个样本, 为了快速运行你也可以修改成 [0:1]
+    d['reader_cfg']['test_range'] = '[0:1]' # 这里每个数据集只取1个样本, 方便快速评测.
 
 
 ```
-这样我们使用了 CMMLU Benchmark 的每个子数据集的 4 个样本进行评测.
+这样我们使用了 CMMLU Benchmark 的每个子数据集的 1 个样本进行评测.
 
  
-完成配置后, 在终端中运行: `python run.py --models puyu_api.py --datasets demo_cmmlu_chat_gen.py --debug` 得到结果:
+完成配置后, 在终端中运行: `python run.py --models puyu_api.py --datasets demo_cmmlu_chat_gen.py --debug` 预计运行10分钟后, 得到结果:
 
-![image](https://github.com/user-attachments/assets/de9c0b6d-b315-431e-b90f-852678f08468)
-
-
+![image](https://github.com/user-attachments/assets/74213aca-1b83-4065-be84-68a318e8da48)
 
 
 
 
-## 评测本地模型
+
+
+## 评测本地模型 (预计3h)
 
 
 如果你想要评测本地部署的大语言模型，首先需要获取到完整的模型权重文件。以开源模型为例，你可以从 Hugging Face 等平台下载模型文件。接下来，你需要准备足够的计算资源，比如至少一张显存够大的 GPU，因为模型文件通常都比较大。有了模型和硬件后，你需要在评测配置文件中指定模型路径和相关参数，然后评测框架就会自动加载模型并开始评测。这种评测方式虽然前期准备工作相对繁琐，需要考虑硬件资源，但好处是评测过程完全在本地完成，不依赖网络状态，而且你可以更灵活地调整模型参数，深入了解模型的性能表现。这种方式特别适合需要深入研究模型性能或进行模型改进的研发人员。
@@ -168,7 +168,7 @@ models = [
 python run.py --datasets ceval_gen --models hf_internlm2_5_1_8b_chat --debug
 # 如果出现 rouge 导入报错, 请 pip uninstall rouge 之后再次安装 pip install rouge==1.0.1 可解决问题.
 ``` 
-评测完成后，将会看到：
+评测比较费时, 预计2~4个小时评测完成后，将会看到：
 
 ![image](https://github.com/user-attachments/assets/86062cae-2c82-42c3-a0ad-884aa331b58f)
 
@@ -269,6 +269,6 @@ models = [
 opencompass --models hf_internlm2_5_1_8b_chat_api --datasets ceval_gen --debug # opencompass 命令基本等价于 python run.py 命令
 ```
 
-得到结果
+得到结果: 
 
 ![image](https://github.com/user-attachments/assets/2d076f75-3e15-4100-975f-1d2eae31a4b2)
