@@ -100,7 +100,7 @@ cd /root/llamaindex_demo
 conda activate llamaindex
 python download_hf.py
 
-在modelscope使用git下载词向量模型（推荐使用这个）
+在modelscope使用git下载词向量模型（`推荐使用这个`）
 git clone https://www.modelscope.cn/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2.git
 ```
 更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
@@ -1315,6 +1315,7 @@ cd ~/llamaindex_demo/
 python llamaindex_internlm.py
 ```
 结果为：
+
 <img width="370" alt="image" src="https://github.com/user-attachments/assets/d892f5c9-1243-4b2d-8551-8aa483d2f986">
 
 回答的效果并不好，并不是我们想要的xtuner。
