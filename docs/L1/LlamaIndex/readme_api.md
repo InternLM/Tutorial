@@ -128,11 +128,23 @@ touch openai_llm.py
 touch openai_Internlm.py
 touch llamaindex_internlm.py
 ```
+3.1、使用浦语API 进行使用
+
 由于LlamaIndex不支持浦语API，需要自己编写浦语API代码
 
 打开openai_llm.py，把docs/L1/LlamaIndex/openai_llm.py中的代码贴入进去
 
 打开openai_Internlm.py，把docs/L1/LlamaIndex/openai_Internlm.py中的代码贴入进去
+
+3.2、使用硅基流动 API进行使用
+
+https://cloud.siliconflow.cn/models?mfs=internlm
+
+url = "https://api.siliconflow.cn/v1"
+
+key = "sk-请填写准确的 token！"
+
+llm = OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
 
 打开llamaindex_internlm.py 贴入以下代码
 ```python
@@ -144,12 +156,16 @@ key = "eyJ0eXBlIjoiSl...请填写准确的 token！"
 from llama_index.core.llms import ChatMessage
 from openai_Internlm import OpenAIInternlm
 from llama_index.legacy.callbacks import CallbackManager
+from llama_index.llms.openai_like import OpenAILike
 
 # Create an instance of CallbackManager
 callback_manager = CallbackManager()
 
-# llm = InternlmChat(model="internlm2.5-latest",api_key=key,callback_manager=callback_manager)
+#使用使用浦语API 进行使用初始化llm
 llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
+
+##使用硅基流动 API进行使用初始化llm
+#llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
 
 rsp = llm.chat(messages=[ChatMessage(content="xtuner是什么？")])
 print(rsp)
@@ -190,6 +206,7 @@ touch llamaindex_RAG.py
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.core.settings import Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.llms.openai_like import OpenAILike
 
 from llama_index.legacy.callbacks import CallbackManager
 
@@ -210,7 +227,12 @@ embed_model = HuggingFaceEmbedding(
 #这样在后续的索引构建过程中就会使用这个模型。
 Settings.embed_model = embed_model
 
+#使用使用浦语API 进行使用初始化llm
 llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
+
+##使用硅基流动 API进行使用初始化llm
+#llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
+
 Settings.llm = llm
 
 #从指定目录读取所有文档，并加载数据到内存中
@@ -257,6 +279,7 @@ import streamlit as st
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from openai_Internlm import OpenAIInternlm
+from llama_index.llms.openai_like import OpenAILike
 from llama_index.legacy.callbacks import CallbackManager
 
 url =  "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/"
@@ -276,8 +299,12 @@ def init_models():
     )
     Settings.embed_model = embed_model
 
+    #使用使用浦语API 进行使用初始化llm
     llm = OpenAIInternlm(api_base=url, api_key=key, model="internlm2.5-latest", is_chat_model=True,callback_manager=callback_manager)
     
+    ##使用硅基流动 API进行使用初始化llm
+    #llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
+
     Settings.llm = llm
 
     documents = SimpleDirectoryReader("/root/llamaindex_demo/data").load_data()
