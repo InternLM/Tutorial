@@ -132,7 +132,7 @@ unzip averaged_perceptron_tagger.zip
 ```
 之后使用时服务器即会自动使用已有资源，无需再次下载
 
-## 3. LlamaIndex 
+## 3. LlamaIndex 使用API直接推理
 
 `使用硅基流动 API进行使用（默认）`
 
@@ -160,19 +160,19 @@ touch llamaindex_internlm.py
 ```python
 
 from llama_index.core.llms import ChatMessage
-from openai_Internlm import OpenAIInternlm
 from llama_index.legacy.callbacks import CallbackManager
-from llama_index.llms.openai_like import OpenAILike
 
 ###silicon---硅基流动、puyu---浦语
 provider = "silicon" 
 
 if provider == "silicon":
+   from llama_index.llms.openai_like import OpenAILike
    url = "https://api.siliconflow.cn/v1"
    key = "sk-请填写准确的 token！"
    #使用硅基流动 API进行使用初始化llm
    llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
 else:
+   from openai_Internlm import OpenAIInternlm
    url =  "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/"
    key = "eyJ0eXBlIjoiSl...请填写准确的 token！"
    #使用浦语API 进行使用初始化llm
@@ -219,21 +219,19 @@ touch llamaindex_RAG.py
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.core.settings import Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.llms.openai_like import OpenAILike
-
 from llama_index.legacy.callbacks import CallbackManager
-
-from openai_Internlm import OpenAIInternlm
 
 ###silicon---硅基流动、puyu---浦语
 provider = "silicon"
 
 if provider == "silicon":
+   from llama_index.llms.openai_like import OpenAILike
    url = "https://api.siliconflow.cn/v1"
    key = "sk-请填写准确的 token！"
    #使用硅基流动 API进行使用初始化llm
    llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
 else:
+   from openai_Internlm import OpenAIInternlm
    url =  "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/"
    key = "eyJ0eXBlIjoiSl...请填写准确的 token！"
    # https://internlm.intern-ai.org.cn/api/document  获取api key的地址
@@ -298,19 +296,19 @@ touch app.py
 import streamlit as st
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from openai_Internlm import OpenAIInternlm
-from llama_index.llms.openai_like import OpenAILike
 from llama_index.legacy.callbacks import CallbackManager
 
 ###silicon---硅基流动、puyu---浦语
 provider = "silicon" 
 
 if provider == "silicon":
+   from llama_index.llms.openai_like import OpenAILike
    url = "https://api.siliconflow.cn/v1"
    key = "sk-请填写准确的 token！"
    #使用硅基流动 API进行使用初始化llm
    llm =OpenAILike(model="internlm/internlm2_5-7b-chat", api_base=url, api_key=key, is_chat_model=True,callback_manager=callback_manager)
 else:
+   from openai_Internlm import OpenAIInternlm
    url =  "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/"
    key = "eyJ0eXBlIjoiSl...请填写准确的 token！"
    # https://internlm.intern-ai.org.cn/api/document  获取api key的地址
