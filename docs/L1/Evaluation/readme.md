@@ -43,7 +43,7 @@ pip install huggingface_hub==0.25.2
 export INTERNLM_API_KEY=xxxxxxxxxxxxxxxxxxxxxxx # 填入你申请的 API Key
 ```
 
-2) 配置模型: 在终端中运行 `cd /root/opencompass/` 和 `touch configs/models/openai/puyu_api.py`, 然后打开文件, 贴入以下代码:
+2) 配置模型: 在终端中运行 `cd /root/opencompass/` 和 `touch opencompass/configs/models/openai/puyu_api.py`, 然后打开文件, 贴入以下代码:
 
 
 ```python
@@ -73,7 +73,7 @@ models = [
 ]
 ```
 
-3) 配置数据集: 在终端中运行 `cd /root/opencompass/` 和 `touch opencompass/configs/datasets/demo/demo_cmmlu_chat_gen.py`, 然后打开文件, 贴入以下代码:
+3) 配置数据集: 在终端中运行 `cd /root/opencompass/` 和 `touch configs/datasets/demo/demo_cmmlu_chat_gen.py`, 然后打开文件, 贴入以下代码:
 
 ```python
 from mmengine import read_base
@@ -85,7 +85,8 @@ with read_base():
 # 每个数据集只取前2个样本进行评测
 for d in cmmlu_datasets:
     d['abbr'] = 'demo_' + d['abbr']
-    d['reader_cfg']['test_range'] = '[0:4]'
+    d['reader_cfg']['test_range'] = '[0:4]' # 这里每个数据集只取四个样本, 为了速度你也可以修改成 [0:1]
+
 
 ```
 这样我们使用了 CMMLU Benchmark 的每个子数据集的 4 个样本进行评测.
