@@ -142,7 +142,7 @@ touch llamaindex_internlm.py
 ```
 
 
-`使用浦语 API进行使用（默认）`
+`使用浦语 API进行使用（可选）`
 
 由于LlamaIndex不支持浦语API，需要自己编写浦语API代码
 
@@ -150,7 +150,7 @@ touch llamaindex_internlm.py
 
 打开openai_Internlm.py，把docs/L1/LlamaIndex/openai_Internlm.py中的代码贴入进去
 
-`使用硅基流动 API进行使用（可选）`
+`使用硅基流动 API进行使用（默认）`
 
 https://cloud.siliconflow.cn/models?mfs=internlm 从硅基流动网站上获取api key
 
@@ -163,7 +163,8 @@ from openai_Internlm import OpenAIInternlm
 from llama_index.legacy.callbacks import CallbackManager
 from llama_index.llms.openai_like import OpenAILike
 
-provider = "silicon" ###silicon---硅基流动、puyu---浦语
+###silicon---硅基流动、puyu---浦语
+provider = "silicon" 
 
 if provider == "silicon":
    url = "https://api.siliconflow.cn/v1"
@@ -224,7 +225,8 @@ from llama_index.legacy.callbacks import CallbackManager
 
 from openai_Internlm import OpenAIInternlm
 
-provider = "silicon" ###silicon---硅基流动、puyu---浦语
+###silicon---硅基流动、puyu---浦语
+provider = "silicon"
 
 if provider == "silicon":
    url = "https://api.siliconflow.cn/v1"
@@ -300,7 +302,8 @@ from openai_Internlm import OpenAIInternlm
 from llama_index.llms.openai_like import OpenAILike
 from llama_index.legacy.callbacks import CallbackManager
 
-provider = "silicon" ###silicon---硅基流动、puyu---浦语
+###silicon---硅基流动、puyu---浦语
+provider = "silicon" 
 
 if provider == "silicon":
    url = "https://api.siliconflow.cn/v1"
