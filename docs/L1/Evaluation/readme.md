@@ -85,7 +85,7 @@ with read_base():
 # 每个数据集只取前2个样本进行评测
 for d in cmmlu_datasets:
     d['abbr'] = 'demo_' + d['abbr']
-    d['reader_cfg']['test_range'] = '[0:4]' # 这里每个数据集只取四个样本, 为了速度你也可以修改成 [0:1]
+    d['reader_cfg']['test_range'] = '[0:4]' # 这里每个数据集只取四个样本, 为了快速运行你也可以修改成 [0:1]
 
 
 ```
