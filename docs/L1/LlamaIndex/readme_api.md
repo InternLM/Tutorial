@@ -35,7 +35,7 @@
 
 进入开发机后，创建新的conda环境，命名为 `llamaindex`，在命令行模式下运行：
 ```bash
-conda create -n llamaindex python=3.10
+conda create -n llamaindex python=3.11.7
 ```
 复制完成后，在本地查看环境。
 ```bash
@@ -66,10 +66,12 @@ pip install einops==0.7.0 protobuf==5.26.1
 安装 Llamaindex和相关的包
 ```bash
 conda activate llamaindex
-pip install llama-index-core
-pip install llama-index-llms-openai
-pip install llama-index-llms-replicate
-pip install llama-index-embeddings-huggingface
+pip install llama-index==0.11.20
+pip install llama-index-core==0.11.21
+pip install llama-index-llms-openai==0.2.16
+pip install llama-index-llms-replicate==0.3.0
+pip install llama-index-llms-openai-like==0.2.0
+pip install llama-index-embeddings-huggingface==0.3.1
 ```
 
 ### 2.3 下载 Sentence Transformer 模型
