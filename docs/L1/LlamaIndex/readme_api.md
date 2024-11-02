@@ -103,8 +103,10 @@ cd /root/llamaindex_demo
 conda activate llamaindex
 python download_hf.py
 
-在modelscope使用git下载词向量模型（`推荐使用这个`）
+#推荐用户从modelscope下载
+
 git clone https://www.modelscope.cn/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2.git
+
 ```
 更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
 
