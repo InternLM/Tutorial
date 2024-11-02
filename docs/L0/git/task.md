@@ -43,7 +43,12 @@
 
 
 ## 闯关材料提交
+作业要求：Git 课程任务笔记， 包括破冰活动：自我介绍截图，个人项目/笔记仓库链接。（注意！！！，提交的可以是CSDN、知乎等平台的文章链接。不是仓库链接）
 
-将Pull Request链接闯关材料提交到以下问卷，助教老师批改后将获得 50 算力点奖励！！！，完成项目申报后请联系浦语小助手（微信ID：InternLM）申请额外的团队项目算力资源～
+将文章链接提交到以下问卷，助教老师批改后将获得 50 算力点奖励！！！
+提交地址：https://aicarrier.feishu.cn/share/base/form/shrcnUqshYPt7MdtYRTRpkiOFJd （作业及信息登记链接）
 
-提交地址：https://aicarrier.feishu.cn/share/base/form/shrcnUqshYPt7MdtYRTRpkiOFJd
+此外，完成项目申报后请联系浦语小助手（微信ID：InternLM）申请额外的团队项目算力资源～
+https://aicarrier.feishu.cn/wiki/JuXvwHzGni2A2Rksd8Rczpvxngb （书生大模型开源社区项目申报说明）
+
+
