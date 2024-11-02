@@ -133,14 +133,6 @@ unzip averaged_perceptron_tagger.zip
 之后使用时服务器即会自动使用已有资源，无需再次下载
 
 ## 3. LlamaIndex 
-运行以下指令，新建一个python文件
-```bash
-cd ~/llamaindex_demo
-touch openai_llm.py
-touch openai_Internlm.py
-touch llamaindex_internlm.py
-```
-
 
 `使用浦语 API进行使用（可选）`
 
@@ -152,10 +144,23 @@ touch llamaindex_internlm.py
 
 https://internlm.intern-ai.org.cn/api/document  获取api key的地址
 
+运行以下指令，新建一个python文件
+```bash
+cd ~/llamaindex_demo
+touch openai_llm.py
+touch openai_Internlm.py
+touch llamaindex_internlm.py
+```
+
 `使用硅基流动 API进行使用（默认）`
 
 https://cloud.siliconflow.cn/models?mfs=internlm 从硅基流动网站上获取api key
 
+运行以下指令，新建一个python文件
+```bash
+cd ~/llamaindex_demo
+touch llamaindex_internlm.py
+```
 
 打开llamaindex_internlm.py 贴入以下代码
 ```python
