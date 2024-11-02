@@ -105,7 +105,8 @@ python download_hf.py
 ```
 更多关于镜像使用可以移步至 [HF Mirror](https://hf-mirror.com/) 查看。
 
-推荐用户从modelscope下载
+
+ `推荐用户从modelscope下载 `
 
 https://modelscope.cn/models/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2/summary
 
