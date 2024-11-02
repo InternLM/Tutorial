@@ -35,7 +35,7 @@
 
 进入开发机后，创建新的conda环境，命名为 `llamaindex`，在命令行模式下运行：
 ```bash
-conda create -n llamaindex python=3.11.7
+conda create -n llamaindex python=3.10
 ```
 复制完成后，在本地查看环境。
 ```bash
