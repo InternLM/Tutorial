@@ -56,8 +56,7 @@ conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 pytorch-cuda=
 ```
 **安装python 依赖包**
 ```bash
-pip install einops
-pip install  protobuf
+pip install einops==0.7.0 protobuf==5.26.1
 ```
 
 环境激活后，命令行左边会显示当前（也就是 `llamaindex` ）的环境名称，如下图所示:
@@ -153,7 +152,7 @@ python llamaindex_internlm.py
 安装 `LlamaIndex` 词嵌入向量依赖
 ```bash
 conda activate llamaindex
-pip install llama-index-embeddings-huggingface llama-index-embeddings-instructor
+pip install llama-index-embeddings-huggingface==0.2.0 llama-index-embeddings-instructor==0.1.3
 ```
 运行以下命令，获取知识库
 ```bash

@@ -47,6 +47,7 @@ mkdir -p /root/agent_camp3
 cd /root/agent_camp3
 git clone https://github.com/InternLM/lagent.git
 cd lagent && git checkout 81e7ace && pip install -e . && cd ..
+pip install griffe==0.48.0
 ```
 
 ## Lagent Web Demo 使用
