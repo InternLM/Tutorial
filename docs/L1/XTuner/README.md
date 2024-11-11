@@ -39,6 +39,8 @@ conda activate xtuner-env
 ```shell
 git clone https://github.com/InternLM/xtuner.git
 cd /root/finetune/xtuner
+**pip install --trusted-host mirrors.aliyun.com -e .['all'] -i https://mirrors.aliyun.com/pypi/simple/**
+#下面的命令安装会很长， 而且报错
 
 pip install  -e '.[all]'
 pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
