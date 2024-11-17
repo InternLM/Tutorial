@@ -50,6 +50,9 @@ python3 book_writer.py
 
 > 如果遇到“请求过于频繁，请稍后再试”报错，是 API 存在调用频率限制，可以使用[硅基流动](https://cloud.siliconflow.cn/i/TxUlXG3u)注册免费的 API 服务。配置 API_KEY，修改下面的命令并执行：
 
+注意：写博客时切记删除自己的 api_key！
+
+
 ```
 export API_KEY=sk-xxx
 export BASE_URL=https://api.siliconflow.cn/v1

@@ -383,7 +383,7 @@ cd /root/finetune/work_dirs/assistTuner
 conda activate xtuner-env
 
 # 先获取最后保存的一个pth文件
-pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1`
+pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1 | sed 's/:$//'`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 xtuner convert pth_to_hf ./internlm2_5_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf

@@ -61,5 +61,3 @@ print(res_json)
 ### 任务三(可选)
 使用VScode连接开发机后使用`pip install -t`命令安装一个numpy到看开发机`/root/myenvs`目录下，并成功在一个新建的python文件中引用。
 
-
-## 学员优秀作业参考

@@ -591,4 +591,4 @@ export api_key="填入你的api token"
 </table>
 
 # Ch6: Python基础
-本课程也提供一个简易的Python基础教程(内容较多，请前往[ch5_python_intro.md](./ch5_python_intro.md)浏览)。
+本课程也提供一个简易的Python基础教程(内容较多，请前往[python_intro.md](./ch6_python_intro.md)浏览)。

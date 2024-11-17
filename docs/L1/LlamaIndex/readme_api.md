@@ -159,7 +159,7 @@ touch test_internlm.py
 ```python
 from openai import OpenAI
 
-base_url = "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/",
+base_url = "https://internlm-chat.intern-ai.org.cn/puyu/api/v1/"
 api_key = "sk-请填写准确的 token！"
 model="internlm2.5-latest"
 
@@ -241,7 +241,7 @@ llm =OpenAILike(model=model, api_base=api_base_url, api_key=api_key, is_chat_mod
 #初始化一个HuggingFaceEmbedding对象，用于将文本转换为向量表示
 embed_model = HuggingFaceEmbedding(
 #指定了一个预训练的sentence-transformer模型的路径
-    model_name="/root/model/paraphrase-multilingual-MiniLM-L12-v2"
+    model_name="/root/model/sentence-transformer"
 )
 #将创建的嵌入模型赋值给全局设置的embed_model属性，
 #这样在后续的索引构建过程中就会使用这个模型。
@@ -317,7 +317,7 @@ st.title("llama_index_demo")
 @st.cache_resource
 def init_models():
     embed_model = HuggingFaceEmbedding(
-        model_name="/root/model/paraphrase-multilingual-MiniLM-L12-v2"
+        model_name="/root/model/sentence-transformer"
     )
     Settings.embed_model = embed_model
 
