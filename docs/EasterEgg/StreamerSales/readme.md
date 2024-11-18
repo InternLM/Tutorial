@@ -47,7 +47,8 @@
     - [4. 配置视频路径](#4-配置视频路径)
   - [🔊 TTS \& 🎙️ ASR](#-tts--️-asr)
   - [🌐 Agent](#-agent)
-  - [🚀 量化 \& 部署](#-量化--部署)
+  - [🚀 量化](#-量化)
+  - [🛰 部署](#-部署)
   - [结语](#结语)
 
 
@@ -79,6 +80,8 @@ pip install -r requirements.txt
 ```
 
 安装需要花费一点时间，请耐心等待
+
+如果您想直接部署体验，可以参考 [🛰 部署](#-部署) 章节
 
 ## 📜 微调数据
 
@@ -547,7 +550,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 
 目前我接入了天气查询和快递预计时间查询，可以让主播根据实时天气和快递时间回答用户问题，这里接入天气是因为一些极端天气会导致快递延误，大模型有了天气信息的加持可以做到提醒客户配送可能会延时。
 
-## 🚀 量化 & 部署
+## 🚀 量化
 
 1. 将 pth 转为 HF 格式的模型
 
@@ -591,9 +594,84 @@ python ./benchmark/get_benchmark_report.py
 +---------------------------------+------------------------+-----------------+
 ```
 
-5. 启动 Web APP
+## 🛰 部署
+
+**注意**：如果您发现下载权重经常 timeout ，参考 [权重文件结构](./weights/README.md) 文档，文档内已有超链接可访问源模型路径，可进行自行下载
+
+启动分为两种方式：
+
+<details close>
+<summary><b>前后端分离版本 ( > v0.7.1 )</b>：适合分布式部署，可以配置负载均衡，更适合生产环境。</summary>
+
+**注意**：每个服务都要用一个 terminal 去启动，后面会使用 docker-compose 串起来
+
+1. TTS 服务
 
 ```bash
+conda activate streamer-sales
+uvicorn server.tts.tts_server:app --host 0.0.0.0 --port 8001 # tts
+```
+
+2. 数字人 服务
+
+```bash
+conda activate streamer-sales
+uvicorn server.digital_human.digital_human_server:app --host 0.0.0.0 --port 8002 # digital human
+```
+
+3. ASR 服务
+
+```bash
+conda activate streamer-sales
+uvicorn server.asr.asr_server:app --host 0.0.0.0 --port 8003 # asr
+```
+
+4. LLM 服务
+
+```bash
+conda activate streamer-sales
+export MODELSCOPE_CACHE="./weights/llm_weights"
+export LMDEPLOY_USE_MODELSCOPE=True
+lmdeploy serve api_server HinGwenWoong/streamer-sales-lelemiao-7b \
+                          --server-port 23333 \
+                          --model-name internlm2 \
+                          --session-len 32768 \
+                          --cache-max-entry-count 0.1 \
+                          --model-format hf
+```
+
+如果需要换成 4bit 模型，修改两处地方就行：
+
+- `HinGwenWoong/streamer-sales-lelemiao-7b` -> `HinGwenWoong/streamer-sales-lelemiao-7b-4bit`
+- `--model-format hf` -> `--model-format awq`
+
+5. 中台服务
+
+```bash
+conda activate streamer-sales
+
+# Agent Key (如果没有请忽略)
+export DELIVERY_TIME_API_KEY="${快递 EBusinessID},${快递 api_key}"
+export WEATHER_API_KEY="${天气 API key}"
+
+uvicorn server.base.base_server:app --host 0.0.0.0 --port 8000 # base: llm + rag + agent
+```
+
+6. 前端
+
+```bash
+conda activate streamer-sales
+streamlit run app.py --server.address=0.0.0.0 --server.port 7860 
+```
+
+</details>
+
+<details close>
+<summary><b>前后端融合版本 ( <= v0.7.1 )</b>：适合初学者或者只是想部署玩玩的用户</summary>
+
+```bash
+
+git checkout v0.7.1
 
 # Agent Key (如果没有请忽略)
 export DELIVERY_TIME_API_KEY="${快递 EBusinessID},${快递 api_key}"
@@ -601,6 +679,8 @@ export WEATHER_API_KEY="${天气 API key}"
 
 streamlit run app.py --server.address=0.0.0.0 --server.port 7860
 ```
+
+</details>
 
 使用浏览器打开 `http://127.0.0.1:7860` 即可访问 Web 页面
 
