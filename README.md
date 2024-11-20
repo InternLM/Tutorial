@@ -41,7 +41,7 @@
 |:-----|:----|:----|:-----|
 |第 1 关| 探索书生大模型能力边界 | [任务]| 100元算力点 |
 |第 2 关| Lagent 自定义你的 Agent 智能体 | [任务]、[文档]、[视频]| 100元算力点 |
-|第 3 关| LMDeploy 量化部署进阶实践 | [任务]、[文档]、[视频]| 100元算力点 |
+|第 3 关| LMDeploy 量化部署进阶实践 | [任务](docs/L2/LMDeploy/task.md)、[文档](docs/L2/LMDeploy)、[视频](https://www.bilibili.com/video/BV18aUHY3EEG/)| 100元算力点 |
 |第 4 关| InternVL 多模态模型部署微调实践 | [任务](docs/L2/InternVL/task.md)、[文档](docs/L2/InternVL)、[视频](https://www.bilibili.com/video/BV1nESCYWEnN)| 100元算力点 |
 |第 5 关| 茴香豆：企业级知识库问答工具 | [任务]、[文档]、[视频]| 100元算力点 |
 |第 6 关| MindSearch深度解析及实践 | [任务]、[文档] | 100元算力点 |
