@@ -103,7 +103,7 @@ Lagent 目前已经支持了包括 AutoGPT、ReAct 等在内的多个经典智�
 - 需要对Tokenizer和模型架构进行定制，增加开发和维护成本。
 - 调用流程固定，降低了模型的灵活性，难以适应快速变化的任务。
 
-**（1）InternLM2案例分析：**工具调用使用了如`<|plugin|>`、`<|interpreter|>`、`<|action_start|>`和`<|action_end|>`等特殊标记，确保每个调用都符合指定的格式。模型在执行任务时，依靠这些标记与系统紧密协作，保障任务的精准执行。链接：[InternLM/agent at main · InternLM/InternLM](https://github.com/InternLM/InternLM/tree/main/agent)
+**（1）InternLM2案例分析：** 工具调用使用了如`<|plugin|>`、`<|interpreter|>`、`<|action_start|>`和`<|action_end|>`等特殊标记，确保每个调用都符合指定的格式。模型在执行任务时，依靠这些标记与系统紧密协作，保障任务的精准执行。链接：[InternLM/agent at main · InternLM/InternLM](https://github.com/InternLM/InternLM/tree/main/agent)
 
 
 
