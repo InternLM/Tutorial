@@ -109,7 +109,7 @@ Lagent 目前已经支持了包括 AutoGPT、ReAct 等在内的多个经典智�
 
 ## 3 动手实践
 
-### 3.1环境配置
+### 3.1 环境配置
 
 开发机选择 30% A100，镜像选择为 Cuda12.2-conda。
 
@@ -593,7 +593,7 @@ streamlit run agent_api_web_demo.py
   <img src="https://s1.imagehub.cc/images/2024/11/20/a278dd9829d85bd67467ce8e6c4fe1ce.png" width="800" />
 </div>
 
-在等待server 都完全启动后，我们在 **本地** 的 PowerShell 中输入如下指令来进行端口映射：
+在等待server启动成功后，我们在 **本地** 的 PowerShell 中输入如下指令来进行端口映射：
 
 ```bash
 ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p <你的 SSH 端口号>
@@ -1125,10 +1125,11 @@ if __name__ == '__main__':
 
 第二步批评和文献检索的结果：
 
-<img src="C:\Users\cjy\Documents\Tencent Files\1726562224\nt_qq\nt_data\Pic\2024-11\Ori\65c4aad0b24d8e99e396369cc5bd8486.png" alt="65c4aad0b24d8e99e396369cc5bd8486" style="zoom:67%;" />
+< img src="https://s1.imagehub.cc/images/2024/11/21/4387d69aa99ef8710952f6625c13c101.jpg" alt="第二步" border="0">
 
 第三步最后完善的内容，可以看到其中包括了检索得到的文献，使得博客内容更加具有可信度。
 
 <img src="https://s1.imagehub.cc/images/2024/11/20/16faa0c4718c372d1088293f814a1d33.png" alt="7f185a158313f525dccd4aa6b4a6c7ab" border="0" style="zoom:67%;" >
 
-至此，我们完成了本节课所有内容，希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟
+
+**至此，我们完成了本节课所有内容，** 希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟
