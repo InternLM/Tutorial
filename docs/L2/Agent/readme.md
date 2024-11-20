@@ -13,7 +13,10 @@ Agent是**一种能够自主感知环境并根据感知结果采取行动的实�
 - **适应性**：根据环境变化调整自身行为。
 - **目的性**：所有行为都以实现特定目标为导向。
 
-<img src="https://s1.imagehub.cc/images/2024/11/04/eac389cdf83fd305c7131d7f208ad578.png" alt="FVQA 第 2 页.drawio" style="zoom: 25%;" />
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/04/eac389cdf83fd305c7131d7f208ad578.png" width="400" />
+</div>
+
 
 ### 1.2 Agent的应用场景
 
@@ -52,7 +55,10 @@ Lagent 目前已经支持了包括 AutoGPT、ReAct 等在内的多个经典智�
 
 其基本结构如下所示：
 
-<img src="https://github.com/InternLM/lagent/assets/24351120/cefc4145-2ad8-4f80-b88b-97c05d1b9d3e" alt="image" style="zoom: 25%;" />
+<div align="center">
+  <img src="https://github.com/InternLM/lagent/assets/24351120/cefc4145-2ad8-4f80-b88b-97c05d1b9d3e" width="800" />
+</div>
+
 
 ### 2.2 常见工具调用能力范式
 
@@ -107,9 +113,13 @@ Lagent 目前已经支持了包括 AutoGPT、ReAct 等在内的多个经典智�
 
 开发机选择 30% A100，镜像选择为 Cuda12.2-conda。
 
-<img src="https://s1.imagehub.cc/images/2024/11/04/627cf2208192ad08cb2460f7c30fe21a.png" alt="image 20241023163215363" style="zoom:67%;" />
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/04/627cf2208192ad08cb2460f7c30fe21a.png" width="700" />
+</div>
 
-<img src="https://s1.imagehub.cc/images/2024/11/04/07551c110d9526bb3ee21aab74d11ab0.png" alt="image 20241023163141745" style="zoom:78%;" />
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/04/07551c110d9526bb3ee21aab74d11ab0.png" width="700" />
+</div>
 
 首先来为 Lagent 配置一个可用的环境。
 
@@ -129,7 +139,9 @@ pip install datasets==3.1.0
 
 等待安装完成~
 
-<img src="https://s1.imagehub.cc/images/2024/11/04/d1c2046c82478ae703e08b0bc77a7de4.png" alt="image 20241023163511989" style="zoom: 50%; text-align: center;" />
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/04/d1c2046c82478ae703e08b0bc77a7de4.png" width="1000" />
+</div>
 
 接下来，我们通过源码安装的方式安装 lagent。
 
@@ -577,7 +589,9 @@ if __name__ == '__main__':
 streamlit run agent_api_web_demo.py
 ```
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/a278dd9829d85bd67467ce8e6c4fe1ce.png" alt="image" border="0" style="zoom:80%;" >
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/a278dd9829d85bd67467ce8e6c4fe1ce.png" width="800" />
+</div>
 
 在等待server 都完全启动后，我们在 **本地** 的 PowerShell 中输入如下指令来进行端口映射：
 
@@ -587,23 +601,33 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p <你的 SSH 端口�
 
 接下来，在本地浏览器中打开 `localhost:8501`：
 
-![image 20241023205534674](https://s1.imagehub.cc/images/2024/11/04/064bfe720e414a7ac0334b41b14bfaf9.png)
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/04/064bfe720e414a7ac0334b41b14bfaf9.png" width="400" />
+</div>
 
 可以看到页面如下：
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/92464bdc6a7a03ec1bb4929ef1a9b9ba.png" alt="image" border="0" style="zoom:50%;" >
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/92464bdc6a7a03ec1bb4929ef1a9b9ba.png" width="800" />
+</div>
 
 可以尝试进行几轮简单的对话，并让其搜索文献，会发现大模型现在尽管有比较好的对话能力，但是并不能帮我们准确的找到文献，例如输入指令“帮我搜索一下最新版本的MindSearch论文”：
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/ffae18d9c2a82d95302e9a6b62c86674.png" alt="image" border="0">
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/ffae18d9c2a82d95302e9a6b62c86674.png" width="800" />
+</div>
 
 提示未找到插件: ArxivSearch，因为此时插件没有正确选择。
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/e08fcf64611802870e36cc19ba8472de.png" alt="image" border="0">
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/e08fcf64611802870e36cc19ba8472de.png" width="800" />
+</div>
 
 现在将ArxivSearch选择上，再次输入指令“帮我搜索一下最新版本的MindSearch论文”，可以看到，通过调用外部工具，大模型成功理解了我们的任务，得到了我们需要的文献：
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/d1237cd84362f803e2394afba90d9de3.png" alt="image" border="0">
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/d1237cd84362f803e2394afba90d9de3.png" width="600" />
+</div>
 
 <img src="https://s1.imagehub.cc/images/2024/11/20/e4a591a27fd51b5aad16fa73de5f4f10.png" alt="image" border="0" style="zoom:80%;" >
 
@@ -845,7 +869,9 @@ def render_assistant(self, agent_return):
 
 Multi-Agents博客写作系统的流程图如下：
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/3e2ca7d0f5754baf7bd4274f311da228.png" alt="未命名绘图.drawio" border="0" style="zoom: 15%;" >
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/3e2ca7d0f5754baf7bd4274f311da228.png" width="500" />
+</div>
 
 首先，创建一个新的 Python 文件 `multi_agents_api_web_demo.py`，并进入 `lagent` 环境：
 
@@ -1105,4 +1131,4 @@ if __name__ == '__main__':
 
 <img src="https://s1.imagehub.cc/images/2024/11/20/16faa0c4718c372d1088293f814a1d33.png" alt="7f185a158313f525dccd4aa6b4a6c7ab" border="0" style="zoom:67%;" >
 
-至此，我们完成了本节课的所有内容，希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟
+至此，我们完成了本节课所有内容，希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟
