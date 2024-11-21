@@ -218,7 +218,7 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
 </table>
 
 ## 3.2在vscode中选择conda虚拟环境
-当我们新建完一个python文件后，需要在右下角单击选择我们的python解释器才能运行。这边我们回看到当前本机上已经安装好的所有python解释器，直接选择要使用的环境中的解释器就行。
+当我们新建完一个python文件后，需要在右下角单击选择我们的python解释器才能运行。这边我们会看到当前本机上已经安装好的所有python解释器，直接选择要使用的环境中的解释器就行。
 <table align="center">
   <tr>
     <td align="center">
@@ -474,7 +474,7 @@ vscode支持通过remote的方法连接我们在命令行中发起的debug serve
 
 **注意：已经有配置好的json文件**
 
-如果已经配置好的debug json配置文件，则需要在原json上增加配置。可以通过`Run and Debug`卡片左上角的下拉菜单单击`Add configuration`，或者点击设置按钮打开配置文件，在配置文件的右下角也会有一个`Add configuration`。剩下的步骤就和前面一样选择`Python debugger`-`Remote attach`，剩下的全都保持默认直接回车就可以了，也就是我们的server地址为 **localhost:5678**。
+如果有已经配置好的debug json配置文件，则需要在原json上增加配置。可以通过`Run and Debug`卡片左上角的下拉菜单单击`Add configuration`，或者点击设置按钮打开配置文件，在配置文件的右下角也会有一个`Add configuration`。剩下的步骤就和前面一样选择`Python debugger`-`Remote attach`，剩下的全都保持默认直接回车就可以了，也就是我们的server地址为 **localhost:5678**。
 <table align="center">
   <tr>
     <td align="center">
@@ -498,7 +498,7 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 * `--wait-for-client`参数会让我们的debug server在等客户端连入后才开始运行debug。在这就是要等到我们在run and debug界面启动debug。
 ----
 **注意：**
-在开发机上使用该debug方式运行的时候可能会报以下`warning`。此时，debug可能不能正常运行，需要按他提示地给python加上`-Xfrozen_modules=off`参数禁用冻结模块即可。
+在开发机上使用该debug方式运行的时候可能会报以下`warning`。此时，debug可能不能正常运行，需要按他提示的给python加上`-Xfrozen_modules=off`参数禁用冻结模块即可。
 
 ```
 Debugger warning: It seems that frozen modules are being used, which may make the debugger miss breakpoints. Please pass -Xfrozen_modules=off to python to disable frozen modules.
