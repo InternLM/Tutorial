@@ -18,6 +18,7 @@ Agent是**一种能够自主感知环境并根据感知结果采取行动的实�
 </div>
 
 
+
 ### 1.2 Agent的应用场景
 
 Agent技术的应用领域其实十分广泛，涵盖了从交通、医疗到教育、家居和娱乐等生活的方方面面，以下列举2个实际例子。
@@ -35,6 +36,8 @@ Agent技术的应用领域其实十分广泛，涵盖了从交通、医疗到教
 - **目标**：精准诊断、降低费用。
 - **传感器**：症状输入、患者自述。
 - **执行器**：检测、诊断、处方。
+
+
 
 ## 2 Lagent 介绍
 
@@ -56,8 +59,9 @@ Lagent 目前已经支持了包括 AutoGPT、ReAct 等在内的多个经典智�
 其基本结构如下所示：
 
 <div align="center">
-  <img src="https://github.com/InternLM/lagent/assets/24351120/cefc4145-2ad8-4f80-b88b-97c05d1b9d3e" width="800" />
+  <img src="https://github.com/InternLM/lagent/assets/24351120/cefc4145-2ad8-4f80-b88b-97c05d1b9d3e" width="700" />
 </div>
+
 
 
 ### 2.2 常见工具调用能力范式
@@ -103,7 +107,7 @@ Lagent 目前已经支持了包括 AutoGPT、ReAct 等在内的多个经典智�
 - 需要对Tokenizer和模型架构进行定制，增加开发和维护成本。
 - 调用流程固定，降低了模型的灵活性，难以适应快速变化的任务。
 
-**（1）InternLM2案例分析：** 工具调用使用了如`<|plugin|>`、`<|interpreter|>`、`<|action_start|>`和`<|action_end|>`等特殊标记，确保每个调用都符合指定的格式。模型在执行任务时，依靠这些标记与系统紧密协作，保障任务的精准执行。链接：[InternLM/agent at main · InternLM/InternLM](https://github.com/InternLM/InternLM/tree/main/agent)
+**（1）InternLM2案例分析：** 工具调用使用了如`<|plugin|>`、`<|interpreter|>`、`<|action_start|>`和`<|action_end|>`等特殊标记，确保每个调用都符合指定的格式。模型在执行任务时，依靠这些标记与系统紧密协作，保障任务的精准执行。文档链接：[InternLM-Chat Agent](https://github.com/InternLM/InternLM/tree/main/agent)
 
 
 
@@ -117,9 +121,11 @@ Lagent 目前已经支持了包括 AutoGPT、ReAct 等在内的多个经典智�
   <img src="https://s1.imagehub.cc/images/2024/11/04/627cf2208192ad08cb2460f7c30fe21a.png" width="700" />
 </div>
 
+
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/04/07551c110d9526bb3ee21aab74d11ab0.png" width="700" />
 </div>
+
 
 首先来为 Lagent 配置一个可用的环境。
 
@@ -143,6 +149,7 @@ pip install datasets==3.1.0
   <img src="https://s1.imagehub.cc/images/2024/11/04/d1c2046c82478ae703e08b0bc77a7de4.png" width="1000" />
 </div>
 
+
 接下来，我们通过源码安装的方式安装 lagent。
 
 ```cmd
@@ -153,6 +160,8 @@ git clone https://github.com/InternLM/lagent.git
 cd lagent && git checkout e304e5d && pip install -e . && cd ..
 pip install griffe==0.48.0
 ```
+
+
 
 ### 3.2 Lagent框架中Agent的使用
 
@@ -172,7 +181,7 @@ Action，也称为工具，Lagent中集成了很多好用的工具，提供了�
 
 让我们来体验一下，让LLM调用Arxiv文献检索这个工具：
 
-在`agent_api_web_demo.py`中写入下面的代码，这里实现 `CustomAPILLM` 类，该类继承自 `BaseAPILLM`，封装了对 API 的调用逻辑，然后利用`Streamlit`启动Web服务：
+在`agent_api_web_demo.py`中写入下面的代码，这里利用 `GPTAPI` 类，该类继承自 `BaseAPILLM`，封装了对 API 的调用逻辑，然后利用`Streamlit`启动Web服务：
 
 ```python
 import copy
@@ -189,69 +198,27 @@ from lagent.prompts.parsers import PluginParser
 from lagent.agents.stream import INTERPRETER_CN, META_CN, PLUGIN_CN, AgentForInternLM, get_plugin_prompt
 from lagent.llms.base_api import BaseAPILLM
 from lagent.schema import AgentStatusCode
+from lagent.llms import GPTAPI
 
-YOUR_TOKEN_HERE = ""      # 请注意，这里要替换为自己实际授权令牌！！！
-
-class CustomAPILLM(BaseAPILLM):
-    """自定义的 API LLM 类，用于调用外部 API 进行文本生成。"""
-
-    def __init__(self, model_type, meta_template=None, **gen_params):
-        super().__init__(model_type, meta_template=meta_template, **gen_params)
-
-    def call_api(self, messages):
-        """调用外部 API 并返回响应结果。"""
-        url = 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions'
-        headers = {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + YOUR_TOKEN_HERE  
-        }
-        data = {
-            "model": self.model_type,
-            "messages": messages,
-            "n": 1,
-            "temperature": self.gen_params['temperature'],
-            "top_p": self.gen_params['top_p'],
-            "stream": False,
-        }
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception(f"API 调用失败，状态码: {response.status_code}")
-
-    def generate(self, inputs: Union[str, List[str]], **gen_params) -> Union[str, List[str]]:
-        """调用外部 API。"""
-        if isinstance(inputs, str):
-            inputs = [{"role": "user", "content": inputs}]
-        elif isinstance(inputs, list) and isinstance(inputs[0], str):
-            inputs = [{"role": "user", "content": text} for text in inputs]
-
-        # 调用 call_api 并返回响应
-        response = self.call_api(inputs)
-        content = response["choices"][0]["message"]["content"]
-
-        if len(inputs) == 1:
-            return content
-        else:
-            return [content]
+# 替换为自己的授权令牌
+YOUR_TOKEN_HERE = ""
 
 class SessionState:
     """管理会话状态的类。"""
 
     def init_state(self):
         """初始化会话状态变量。"""
-        st.session_state['assistant'] = []
-        st.session_state['user'] = []
+        st.session_state['assistant'] = []  # 助手消息历史
+        st.session_state['user'] = []  # 用户消息历史
+        # 初始化插件列表
         action_list = [
             ArxivSearch(),
         ]
-        st.session_state['plugin_map'] = {
-            action.name: action for action in action_list
-        }
-        st.session_state['model_map'] = {}
-        st.session_state['model_selected'] = None
-        st.session_state['plugin_actions'] = set()
-        st.session_state['history'] = []
+        st.session_state['plugin_map'] = {action.name: action for action in action_list}
+        st.session_state['model_map'] = {}  # 存储模型实例
+        st.session_state['model_selected'] = None  # 当前选定模型
+        st.session_state['plugin_actions'] = set()  # 当前激活插件
+        st.session_state['history'] = []  # 聊天历史
 
     def clear_state(self):
         """清除当前会话状态。"""
@@ -262,44 +229,43 @@ class SessionState:
         if 'chatbot' in st.session_state:
             st.session_state['chatbot']._session_history = []
 
+
 class StreamlitUI:
     """管理 Streamlit 界面的类。"""
 
     def __init__(self, session_state: SessionState):
-        self.init_streamlit()
         self.session_state = session_state
-        self.plugin_action = []  # 插件操作列表
+        self.plugin_action = []  # 当前选定的插件
         # 初始化提示词
         self.meta_prompt = META_CN
         self.da_prompt = INTERPRETER_CN
         self.plugin_prompt = PLUGIN_CN
+        self.init_streamlit()
 
     def init_streamlit(self):
         """初始化 Streamlit 的 UI 设置。"""
         st.set_page_config(
             layout='wide',
             page_title='lagent-web',
-            page_icon='./docs/imgs/lagent_icon.png')
+            page_icon='./docs/imgs/lagent_icon.png'
+        )
         st.header(':robot_face: :blue[Lagent] Web Demo ', divider='rainbow')
         st.sidebar.title('模型控制')
-        st.session_state['file'] = set()
-        st.session_state['ip'] = None
+        st.session_state['file'] = set()  # 存储上传文件列表
+        st.session_state['ip'] = None  # 初始化模型 IP
 
     def setup_sidebar(self):
         """设置侧边栏，选择模型和插件。"""
+        # 模型名称和 IP 输入框
         model_name = st.sidebar.text_input('模型名称：', value='internlm2.5-latest')
+        model_ip = st.sidebar.text_input('模型IP：', value='127.0.0.1:23333')
+
+        # 提示词设置
         self.meta_prompt = st.sidebar.text_area('系统提示词', value=META_CN)
         self.da_prompt = st.sidebar.text_area('数据分析提示词', value=INTERPRETER_CN)
         self.plugin_prompt = st.sidebar.text_area('插件提示词', value=PLUGIN_CN)
-        model_ip = st.sidebar.text_input('模型IP：', value='127.0.0.1:23333')
 
-        # 确保 model_map 已初始化
-        if model_name not in st.session_state['model_map']:
-            st.session_state['model_map'][model_name] = self.call_api
-
-        model = st.session_state['model_map'][model_name]
-
-        # 添加插件选择
+        # 插件选择
         plugin_name = st.sidebar.multiselect(
             '插件选择',
             options=list(st.session_state['plugin_map'].keys()),
@@ -307,72 +273,34 @@ class StreamlitUI:
         )
         da_flag = st.sidebar.checkbox('数据分析', value=False)
 
-        # 创建插件操作列表
-        self.plugin_action = [
-            st.session_state['plugin_map'][name] for name in plugin_name
-        ]
+        # 根据选择的插件生成插件操作列表
+        self.plugin_action = [st.session_state['plugin_map'][name] for name in plugin_name]
 
         # 动态生成插件提示
         if self.plugin_action:
             self.plugin_prompt = get_plugin_prompt(self.plugin_action)
 
-        # 初始化或更新 chatbot
-        if 'chatbot' in st.session_state:
-            if self.plugin_action:
-                st.session_state['chatbot'].plugin_executor = ActionExecutor(
-                    actions=self.plugin_action)
-            else:
-                st.session_state['chatbot'].plugin_executor = None
-
-            if da_flag:
-                st.session_state['chatbot'].interpreter_executor = ActionExecutor(
-                    actions=[IPythonInterpreter()])
-            else:
-                st.session_state['chatbot'].interpreter_executor = None
-
-            # 更新提示词
-            st.session_state['chatbot'].meta_prompt = self.meta_prompt
-            st.session_state['chatbot'].plugin_prompt = self.plugin_prompt
-            st.session_state['chatbot'].interpreter_prompt = self.da_prompt
-
         # 清空对话按钮
         if st.sidebar.button('清空对话', key='clear'):
             self.session_state.clear_state()
 
-        uploaded_file = st.sidebar.file_uploader('上传文件')
+        uploaded_file = st.sidebar.file_uploader('上传文件')  # 文件上传
 
-        return model_name, model, self.plugin_action, uploaded_file, model_ip
-
-    def call_api(self, prompt="你是一个机器人"):
-        """使用外部 API 请求生成响应（用于模型初始化）。"""
-        url = 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions'
-        headers = {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + YOUR_TOKEN_HERE
-        }
-        data = {
-            "model": "internlm2.5-latest",
-            "messages": [{"role": "assistant", "content": prompt}],
-            "n": 1,
-            "temperature": 0.8,
-            "top_p": 0.9,
-            "stream": False,
-        }
-        response = requests.post(url, headers=headers, json=data)
-        return response
+        return model_name, model_ip, self.plugin_action, uploaded_file
 
     def initialize_chatbot(self, model_name, plugin_action):
-        """使用 CustomAPILLM 初始化 chatbot。"""
-        # meta_template 是一个包含字典的列表，并包含所有角色
+        """初始化 GPTAPI 实例作为 chatbot。"""
         self.meta_prompt = [
             {"role": "system", "content": self.meta_prompt, "api_role": "system"},
             {"role": "user", "content": "", "api_role": "user"},
-            {"role": "assistant", "content": "", "api_role": "assistant"}
+            {"role": "assistant", "content": "", "api_role": "assistant"},
+            {"role": "environment", "content": "", "api_role": "environment"}
         ]
 
-        # 使用 CustomAPILLM 类
-        api_model = CustomAPILLM(
+        api_model = GPTAPI(
             model_type=model_name,
+            api_base="https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
+            key=YOUR_TOKEN_HERE,
             meta_template=self.meta_prompt,
             max_new_tokens=512,
             temperature=0.8,
@@ -381,121 +309,17 @@ class StreamlitUI:
         return api_model
 
     def render_user(self, prompt: str):
-        """渲染用户的输入。"""
+        """渲染用户输入内容。"""
         with st.chat_message('user'):
             st.markdown(prompt)
 
     def render_assistant(self, agent_return):
-        """渲染助手的响应，包括处理插件的结果。"""
+        """渲染助手响应内容。"""
+        print("agent_return", agent_return)
         with st.chat_message('assistant'):
-            if hasattr(agent_return, "content"):
-                content = agent_return.content
-            else:
-                content = str(agent_return)
+            content = getattr(agent_return, "content", str(agent_return))
+            st.markdown(content if isinstance(content, str) else str(content))
 
-            if isinstance(content, list):
-                content = '\n'.join(content)
-            elif not isinstance(content, str):
-                content = str(content)
-
-            st.markdown(content)
-
-            json_match = re.search(r'\{.*\}', content)
-            if json_match:
-                json_string = json_match.group()
-                try:
-                    action_data = json.loads(json_string)
-                    plugin_name = action_data.get('name')
-                    parameters = action_data.get('parameters', {})
-
-                    # 提取插件的基本名称
-                    base_plugin_name = plugin_name.split('.')[0]
-
-                    if base_plugin_name in [action.name for action in self.plugin_action]:
-                        plugin = st.session_state['plugin_map'][base_plugin_name]
-
-                        # 根据插件类型调用不同的方法
-                        if base_plugin_name == "ArxivSearch":
-                            arxiv_results = plugin.get_arxiv_article_information(parameters.get('query', ''))
-                            # 解析和显示 Arxiv 信息
-                            results = arxiv_results.get('content', '').split('\n\n')
-                            for result in results:
-                                lines = result.split('\n')
-                                if len(lines) >= 4:
-                                    published = lines[0].replace('Published: ', '').strip()
-                                    title = lines[1].replace('Title: ', '').strip()
-                                    authors = lines[2].replace('Authors: ', '').strip()
-                                    summary = ' '.join(lines[3:]).replace('Summary: ', '').strip()
-
-                                    st.markdown(f"  **标题**: {title}")
-                                    st.markdown(f"  **作者**: {authors}")
-                                    st.markdown(f"  **发表日期**: {published}")
-                                    st.markdown(f"  **摘要**: {summary}\n")
-                                else:
-                                    st.warning("无法解析论文信息，格式不正确。")
-                        else:
-                            st.warning(f"未找到插件: {base_plugin_name}")
-                    else:
-                        st.warning(f"未找到插件: {base_plugin_name}")
-                except json.JSONDecodeError:
-                    st.error("无法解析 action 中的 JSON 数据，请检查其格式是否正确。")
-
-    def render_plugin_args(self, action):
-        """渲染插件的参数。"""
-        action_name = action.type
-        args = action.args
-        parameter_dict = dict(name=action_name, parameters=args)
-        parameter_str = 'json\n' + json.dumps(
-            parameter_dict, indent=4, ensure_ascii=False) + '\n'
-        st.markdown(parameter_str)
-
-    def render_interpreter_args(self, action):
-        """渲染解释器的参数。"""
-        st.info(action.type)
-        st.markdown(action.args['text'])
-
-    def render_action(self, action):
-        """渲染动作，包括思考过程和结果。"""
-        st.markdown(action.thought)
-        if action.type == 'IPythonInterpreter':
-            self.render_interpreter_args(action)
-        elif action.type == 'FinishAction':
-            pass
-        else:
-            self.render_plugin_args(action)
-        self.render_action_results(action)
-
-    def render_action_results(self, action):
-        if isinstance(action.result, dict):
-            if 'text' in action.result:
-                st.markdown('\n' + action.result['text'] + '\n')
-            if 'image' in action.result:
-                for image_path in action.result['image']:
-                    image_data = open(image_path, 'rb').read()
-                    st.image(image_data, caption='Generated Image')
-            if 'video' in action.result:
-                video_data = action.result['video']
-                video_data = open(video_data, 'rb').read()
-                st.video(video_data)
-            if 'audio' in action.result:
-                audio_data = action.result['audio']
-                audio_data = open(audio_data, 'rb').read()
-                st.audio(audio_data)
-        elif isinstance(action.result, list):
-            for item in action.result:
-                if item['type'] == 'text':
-                    st.markdown('\n' + item['content'] + '\n')
-                elif item['type'] == 'image':
-                    image_data = open(item['content'], 'rb').read()
-                    st.image(image_data, caption='Generated Image')
-                elif item['type'] == 'video':
-                    video_data = open(item['content'], 'rb').read()
-                    st.video(video_data)
-                elif item['type'] == 'audio':
-                    audio_data = open(item['content'], 'rb').read()
-                    st.audio(audio_data)
-        if action.errmsg:
-            st.error(action.errmsg)
 
 def main():
     """主函数，运行 Streamlit 应用。"""
@@ -511,27 +335,30 @@ def main():
         )
         st.header(':robot_face: :blue[Lagent] Web Demo ', divider='rainbow')
 
-    # 设置侧边栏并获取模型和插件
-    model_name, model, plugin_action, uploaded_file, _ = st.session_state['ui'].setup_sidebar()
+    # 设置侧边栏并获取模型和插件信息
+    model_name, model_ip, plugin_action, uploaded_file = st.session_state['ui'].setup_sidebar()
+    plugins = [dict(type=f"lagent.actions.{plugin.__class__.__name__}") for plugin in plugin_action]
 
-    # 初始化 chatbot 和 agent
-    if 'chatbot' not in st.session_state or model_name != st.session_state['chatbot'].model_type:
+    if (
+        'chatbot' not in st.session_state or
+        model_name != st.session_state['chatbot'].model_type or
+        'last_plugin_action' not in st.session_state or
+        plugin_action != st.session_state['last_plugin_action']
+    ):
         st.session_state['chatbot'] = st.session_state['ui'].initialize_chatbot(model_name, plugin_action)
-        plugins = [
-            dict(type='lagent.actions.ArxivSearch'),
-        ]
+        st.session_state['last_plugin_action'] = plugin_action  # 更新插件状态
 
-        # 创建 AgentForInternLM 实例并存储在 session_state 中
+        # 初始化 AgentForInternLM
         st.session_state['agent'] = AgentForInternLM(
             llm=st.session_state['chatbot'],
             plugins=plugins,
             output_format=dict(
                 type=PluginParser,
                 template=PLUGIN_CN,
-                prompt=get_plugin_prompt(plugins)
+                prompt=get_plugin_prompt(plugin_action)
             )
         )
-        # 清空会话历史
+        # 清空对话历史
         st.session_state['session_history'] = []
 
     if 'agent' not in st.session_state:
@@ -542,44 +369,30 @@ def main():
         st.session_state['ui'].render_user(prompt)
         st.session_state['ui'].render_assistant(agent_return)
 
+    # 处理用户输入
     if user_input := st.chat_input(''):
-        with st.container():
-            st.session_state['ui'].render_user(user_input)
+        st.session_state['ui'].render_user(user_input)
         res = agent(user_input, session_id=0)
         st.session_state['ui'].render_assistant(res)
+
+        # 更新会话状态
+        st.session_state['user'].append(user_input)
         st.session_state['assistant'].append(copy.deepcopy(res))
 
+        # 处理文件上传
         if uploaded_file and uploaded_file.name not in st.session_state['file']:
             st.session_state['file'].add(uploaded_file.name)
             file_bytes = uploaded_file.read()
-            file_type = uploaded_file.type
-            if 'image' in file_type:
-                st.image(file_bytes, caption='Uploaded Image')
-            elif 'video' in file_type:
-                st.video(file_bytes, caption='Uploaded Video')
-            elif 'audio' in file_type:
-                st.audio(file_bytes, caption='Uploaded Audio')
-            postfix = uploaded_file.name.split('.')[-1]
-            prefix = hashlib.md5(file_bytes).hexdigest()
-            filename = f'{prefix}.{postfix}'
-            file_path = os.path.join(root_dir, filename)
+            file_path = os.path.join("tmp_dir", hashlib.md5(file_bytes).hexdigest())
             with open(file_path, 'wb') as tmpfile:
                 tmpfile.write(file_bytes)
-            file_size = os.stat(file_path).st_size / 1024 / 1024
-            file_size = f'{round(file_size, 2)} MB'
-            user_input = [
-                dict(role='user', content=user_input),
-                dict(role='user', content=json.dumps(dict(path=file_path, size=file_size)), name='file')
-            ]
-        else:
-            user_input = [dict(role='user', content=user_input)]
+            st.markdown(f"文件已上传：{uploaded_file.name}")
 
     st.session_state['last_status'] = AgentStatusCode.END
 
+
 if __name__ == '__main__':
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    root_dir = os.path.join(root_dir, 'tmp_dir')
-    os.makedirs(root_dir, exist_ok=True)
+    os.makedirs("tmp_dir", exist_ok=True)
     main()
 ```
 
@@ -593,6 +406,7 @@ streamlit run agent_api_web_demo.py
   <img src="https://s1.imagehub.cc/images/2024/11/20/a278dd9829d85bd67467ce8e6c4fe1ce.png" width="800" />
 </div>
 
+
 在等待server启动成功后，我们在 **本地** 的 PowerShell 中输入如下指令来进行端口映射：
 
 ```bash
@@ -605,35 +419,33 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p <你的 SSH 端口�
   <img src="https://s1.imagehub.cc/images/2024/11/04/064bfe720e414a7ac0334b41b14bfaf9.png" width="400" />
 </div>
 
+
 可以看到页面如下：
 
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/20/92464bdc6a7a03ec1bb4929ef1a9b9ba.png" width="800" />
 </div>
 
-可以尝试进行几轮简单的对话，并让其搜索文献，会发现大模型现在尽管有比较好的对话能力，但是并不能帮我们准确的找到文献，例如输入指令“帮我搜索一下最新版本的MindSearch论文”：
+
+可以尝试进行几轮简单的对话，并让其搜索文献，会发现大模型现在尽管有比较好的对话能力，但是并不能帮我们准确的找到文献，**例如输入指令“帮我搜索一下最新版本的MindSearch论文”**，会提示没有这方面的能力：
 
 <div align="center">
-  <img src="https://s1.imagehub.cc/images/2024/11/20/ffae18d9c2a82d95302e9a6b62c86674.png" width="800" />
+  <img src="https://s1.imagehub.cc/images/2024/11/21/16023d59499dae1c012aaafd234e5b51.png" width="800" />
 </div>
 
-提示未找到插件: ArxivSearch，因为此时插件没有正确选择。
+
+现在**将ArxivSearch插件选择上**，再次输入指令“帮我搜索一下最新版本的MindSearch论文”，可以看到，通过调用外部工具，大模型成功理解了我们的任务，得到了我们需要的文献：
 
 <div align="center">
-  <img src="https://s1.imagehub.cc/images/2024/11/20/e08fcf64611802870e36cc19ba8472de.png" width="800" />
+    <img src="https://s1.imagehub.cc/images/2024/11/21/0fae63f4b70c6d684639e25604932744.png" alt="image" width="800" />
 </div>
 
-现在将ArxivSearch选择上，再次输入指令“帮我搜索一下最新版本的MindSearch论文”，可以看到，通过调用外部工具，大模型成功理解了我们的任务，得到了我们需要的文献：
 
-<div align="center">
-  <img src="https://s1.imagehub.cc/images/2024/11/20/d1237cd84362f803e2394afba90d9de3.png" width="600" />
-</div>
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/e4a591a27fd51b5aad16fa73de5f4f10.png" alt="image" border="0" style="zoom:80%;" >
 
 ### 3.3 制作一个属于自己的Agent
 
-在完成了上面的内容后，可能就会同学好奇了，那么我应该如何基于Lagent框架实现一个自己的工具，赋予LLM额外的能力？本节将会以实时天气查询为例子，通过调用和风天气API，介绍如何自定义一个自己的Agent。
+在完成了上面的内容后，可能就会同学好奇了，**那么我应该如何基于Lagent框架实现一个自己的工具，赋予LLM额外的能力？**本节将会以实时天气查询为例子，通过调用和风天气API，介绍如何自定义一个自己的Agent。
 
 Lagent 框架的工具部分文档可以在此处查看：[Lagent 工具文档](https://lagent.readthedocs.io/zh-cn/latest/tutorials/action.html)。
 
@@ -645,7 +457,7 @@ Lagent 框架的工具部分文档可以在此处查看：[Lagent 工具文档](
 
 （3）简单工具的 `run` 方法可选被 `tool_api` 装饰；工具包内每个子工具的功能都需要被 `tool_api` 装饰
 
-首先，为了使用和风天气的 API 服务，你需要获取一个 API Key。请按以下步骤操作：
+首先，为了使用和风天气的 API 服务，你**需要获取一个 API Key**。请按以下步骤操作：
 
 （1）访问 [和风天气 API 文档](https://dev.qweather.com/docs/api/)（需要注册账号）。
 
@@ -667,7 +479,7 @@ cd /root/agent_camp4/lagent/lagent/actions
 touch weather_query.py
 ```
 
-将下面的代码复制进去，注意要将刚刚申请的API Key填写进去：
+将下面的代码复制进去，**注意要将刚刚申请的API Key填写进去：**
 
 ```python
 import requests
@@ -768,96 +580,37 @@ __all__ = [
 ```diff
 - from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter
 + from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter, WeatherQuery
-+ action_list = [ArxivSearch(),]
-- action_list = [ArxivSearch(), WeatherQuery(),]  # 添加天气查询插件
-- plugins = [
--            dict(type='lagent.actions.ArxivSearch'),
--        ]
-+ plugins =[dict(type='lagent.actions.ArxivSearch'),dict(type='lagent.actions.WeatherQuery')]
+- # 初始化插件列表
+-        action_list = [
+-            ArxivSearch(),
+-       ]
++        action_list = [
++            ArxivSearch(),
++            WeatherQuery(),
++       ]
 ```
 
-增加对天气查询响应的处理，在`render_assistant`方法中修改为：
+**再次启动Web程序，`streamlit run agent_api_web_demo.py`。**
 
-```python
-def render_assistant(self, agent_return):
-        """渲染助手的响应，包括处理插件的结果。"""
-        print("agent_return", agent_return)
-        with st.chat_message('assistant'):
-            if hasattr(agent_return, "content"):
-                content = agent_return.content
-            else:
-                content = str(agent_return)
+可以看到左侧的插件栏多了天气查询插件，我们首先**输入命令“帮我查询一下南京现在的天气”**，可以看到模型无法知道现在的实时天气情况。
 
-            if isinstance(content, list):
-                content = '\n'.join(content)
-            elif not isinstance(content, str):
-                content = str(content)
+<div align="center">
+    <img src="https://s1.imagehub.cc/images/2024/11/21/466bb67ba5fe956cbbe0a77cc4f3204f.png" alt="image" width="800" />
+</div>
 
-            st.markdown(content)
+现在，我们**将2个插件同时勾选上**，用以说明模型具备识别调用不同工具的能力，什么任务对应什么工具来解决。
 
-            json_match = re.search(r'\{.*\}', content)
-            if json_match:
-                json_string = json_match.group()
-                try:
-                    action_data = json.loads(json_string)
-                    plugin_name = action_data.get('name')
-                    parameters = action_data.get('parameters', {})
+这次我们查询一下南京（随便什么城市都行的☀️）的天气，**输入命令“帮我查询一下南京现在的天气”。**现在，大模型通过天气查询的API准确地完成了这个任务：
 
-                    # 提取插件的基本名称
-                    base_plugin_name = plugin_name.split('.')[0]
+<div align="center">
+<img src="https://s1.imagehub.cc/images/2024/11/21/36ce946cf7ff69a4fb7a4437bb2819d6.png" alt="image" width="800" />
+</div>
 
-                    if base_plugin_name in [action.name for action in self.plugin_action]:
-                        plugin = st.session_state['plugin_map'][base_plugin_name]
+如果我们再次询问，让其搜索文献，可以看到，模型具备了根据任务情况调用不同工具的能力。
 
-                        # 根据插件类型调用不同的方法
-                        if base_plugin_name == "ArxivSearch":
-                            arxiv_results = plugin.get_arxiv_article_information(parameters.get('query', ''))
-                            # 解析和显示 Arxiv 信息
-                            results = arxiv_results.get('content', '').split('\n\n')
-                            for result in results:
-                                lines = result.split('\n')
-                                if len(lines) >= 4:
-                                    published = lines[0].replace('Published: ', '').strip()
-                                    title = lines[1].replace('Title: ', '').strip()
-                                    authors = lines[2].replace('Authors: ', '').strip()
-                                    summary = ' '.join(lines[3:]).replace('Summary: ', '').strip()
-
-                                    st.markdown(f"  **标题**: {title}")
-                                    st.markdown(f"  **作者**: {authors}")
-                                    st.markdown(f"  **发表日期**: {published}")
-                                    st.markdown(f"  **摘要**: {summary}\n")
-                                else:
-                                    st.warning("无法解析论文信息，格式不正确。")
-                        elif base_plugin_name == "WeatherQuery":
-                            # 调用 WeatherQuery 插件的方法
-                            weather_results = plugin.run(parameters.get('location', ''))
-                            if "result" in weather_results:
-                                weather_info = weather_results["result"]
-                                st.markdown("### 天气信息")
-                                st.markdown(f"- **地点**: {weather_info['location']}")
-                                st.markdown(f"- **天气**: {weather_info['weather']}")
-                                st.markdown(f"- **温度**: {weather_info['temperature']}")
-                                st.markdown(f"- **风向**: {weather_info['wind_direction']}")
-                                st.markdown(f"- **风速**: {weather_info['wind_speed']}")
-                                st.markdown(f"- **湿度**: {weather_info['humidity']}")
-                                st.markdown(f"- **报告时间**: {weather_info['report_time']}")
-                            else:
-                                st.error(f"天气查询失败：{weather_results.get('errmsg', '未知错误')}")
-                        else:
-                            st.warning(f"未找到插件: {base_plugin_name}")
-                    else:
-                        st.warning(f"未找到插件: {base_plugin_name}")
-                except json.JSONDecodeError:
-                    st.error("无法解析 action 中的 JSON 数据，请检查其格式是否正确。")
-```
-
-再次启动Web程序，`streamlit run agent_api_web_demo.py`。
-
-可以看到左侧的插件栏多了天气查询插件，我们将2个插件同时勾选上，这样可以说明模型具备识别调用不同工具的能力，什么任务对应什么工具来解决。
-
-这次我们查询一下南京（随便什么城市都行的☀️）的天气，输入命令“帮我查询一下南京现在的天气”。现在，大模型通过天气查询的API准确地完成了这个任务：
-
-<img src="https://s1.imagehub.cc/images/2024/11/20/8f72148a9abdb26bf16b9684593d7a2c.png" alt="image" border="0" style="zoom:67%;" >
+<div align="center">
+<img src="https://s1.imagehub.cc/images/2024/11/21/55c62789b70fd6d5b19932ad03e35fc1.png" alt="image" width="800" />
+</div>
 
 ### 3.4 Multi-Agents博客写作系统的搭建
 
@@ -873,6 +626,7 @@ Multi-Agents博客写作系统的流程图如下：
   <img src="https://s1.imagehub.cc/images/2024/11/20/3e2ca7d0f5754baf7bd4274f311da228.png" width="500" />
 </div>
 
+
 首先，创建一个新的 Python 文件 `multi_agents_api_web_demo.py`，并进入 `lagent` 环境：
 
 ```bash
@@ -884,6 +638,7 @@ touch multi_agents_api_web_demo.py
 将下面的代码填入`multi_agents_api_web_demo.py`:
 
 ```python
+# 引入必要的库
 import asyncio
 import json
 import re
@@ -896,54 +651,15 @@ from lagent.agents.stream import PLUGIN_CN, get_plugin_prompt
 from lagent.schema import AgentMessage
 from lagent.actions import ArxivSearch
 from lagent.hooks import Hook
+from lagent.llms import GPTAPI
 
 YOUR_TOKEN_HERE = ""
 
-# 自定义API模型，用于调用外部API并处理LLM的响应
-class CustomAPILLM:
-    def __init__(self, model_type, **gen_params):
-        """
-        初始化API模型
-        :param model_type: 模型名称
-        :param gen_params: 生成参数，如temperature、top_p等
-        """
-        self.model_type = model_type
-        self.gen_params = gen_params
-
-    def call_api(self, messages):
-        """
-        调用外部API并返回响应结果
-        :param messages: 聊天消息列表
-        :return: API响应内容
-        """
-        url = 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions'
-        headers = {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + YOUR_TOKEN_HERE
-        }
-        data = {
-            "model": self.model_type,
-            "messages": messages,
-            "n": 1,
-            "temperature": self.gen_params.get('temperature', 0.8),
-            "top_p": self.gen_params.get('top_p', 0.9),
-            "stream": False,
-        }
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception(f"API调用失败，状态码：{response.status_code}")
-
-    def chat(self, messages, **kwargs):
-        """
-        聊天功能的实现
-        :param messages: 聊天消息列表
-        :return: 聊天内容
-        """
-        response = self.call_api(messages)
-        content = response["choices"][0]["message"]["content"]
-        return content
+llm = GPTAPI(
+    model_type="internlm2.5-latest",
+    api_base="https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
+    key=YOUR_TOKEN_HERE
+)
 
 # Hook类，用于对消息添加前缀
 class PrefixedMessageHook(Hook):
@@ -978,7 +694,7 @@ class AsyncBlogger:
         :param critic_prefix: 批评消息前缀
         :param max_turn: 最大轮次
         """
-        self.llm = CustomAPILLM(model_type=model_type, temperature=0.8, top_p=0.9)
+        self.llm = llm
         self.plugins = [dict(type='lagent.actions.ArxivSearch')]
         self.writer = Agent(
             self.llm,
@@ -1117,19 +833,26 @@ if __name__ == '__main__':
 
 输入一个感兴趣的话题：
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/3d226bda74afd199fbc911bf7da1a018.png" alt="7d5ec89c1fb8ac7117c9e694d7208303" border="0" style="zoom:67%;" >
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/3d226bda74afd199fbc911bf7da1a018.png" width="700" />
+</div>
 
 第一步生成的结果：
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/13f15190cdce7b5d343d9868ba528ec3.png" alt="0586d35b3ee4755a65988223dc4fc322" border="0" style="zoom:67%;" >
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/13f15190cdce7b5d343d9868ba528ec3.png" width="700" />
+</div>
 
 第二步批评和文献检索的结果：
 
-< img src="https://s1.imagehub.cc/images/2024/11/21/4387d69aa99ef8710952f6625c13c101.jpg" alt="第二步" border="0">
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/21/4387d69aa99ef8710952f6625c13c101.jpg" width="700" />
+</div>
 
 第三步最后完善的内容，可以看到其中包括了检索得到的文献，使得博客内容更加具有可信度。
 
-<img src="https://s1.imagehub.cc/images/2024/11/20/16faa0c4718c372d1088293f814a1d33.png" alt="7f185a158313f525dccd4aa6b4a6c7ab" border="0" style="zoom:67%;" >
-
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/20/16faa0c4718c372d1088293f814a1d33.png" width="700" />
+</div>
 
 **至此，我们完成了本节课所有内容，** 希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟
