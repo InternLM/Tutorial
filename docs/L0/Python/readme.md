@@ -217,7 +217,17 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
   </tr>
 </table>
 
-## 3.2如何在Vscode中打开终端
+## 3.2在vscode中选择conda虚拟环境
+当我们新建完一个python文件后，需要在右下角单击选择我们的python解释器才能运行。这边我们回看到当前本机上已经安装好的所有python解释器，直接选择要使用的环境中的解释器就行。
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9d1ad52c-82a2-4f84-bb3e-7e74aa04ac54" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+## 3.3如何在Vscode中打开终端
 
 可以有两种常用的方法打开终端：
 1. 单击VSCode页面底部状态栏中的“终端”图标（通常显示为两个图标一个`X`和一个`！`），可以快速打开VSCode的终端面板。
