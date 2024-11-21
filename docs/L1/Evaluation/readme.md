@@ -3,103 +3,141 @@
 
 # OpenCompass 评测
 
-本节课程聚焦于大语言模型的评测，同时也简要介绍多模态大模型的评测方法. 课程内容分为两个主要部分：
+本节课程聚焦于大语言模型的评测，在后续的课程中我们将介绍多模态大模型的评测方法。
 
-- 对于于大语言模型的评测，我们可以使用 OpenCompass 评测，是本次实践的基础任务；
-- 对于多模态大模型评测，我们则可以使用 VLMEvalKit 评测，属于进阶任务，请查看[教程](vlmevalkit.md)。
+OpenCompass 提供了 **API 模式评测**和**本地直接评测**两种方式。其中 API 模式评测针对那些以 API 服务形式部署的模型，而本地直接评测则面向那些可以获取到模型权重文件的情况。
 
-
-OpenCompass 是一个功能强大的大模型评测工具，支持两种便捷的评测方式：
-- **直接评测**：通过加载模型权重文件进行评测
-- **API 模式评测**：对已部署的模型服务进行评测，无需加载模型权重
-
-本教程将带你使用以上两种方式评测 InternLM2.5-Chat-1.8B 在 C-Eval 数据集上的性能。整个评测过程非常简单，包含三个步骤：
-1. 配置阶段：准备环境，选择模型和数据集
-2. 推理评估：运行评测获取模型输出并打分
-3. 查看报告：自动生成 CSV 和 TXT 格式的评测报告
-
-
-更多使用说明，请参考 OpenCompass [官方文档](https://opencompass.readthedocs.io/en/latest/tutorial.html)。
-
-
-## 配置
-
-
-### 环境准备
-
-创建开发机和 Conda 环境之后, 安装 OpenCompass 及其相关软件包 (注意：一定要先 cd /root)
+我们首先在训练营提供的开发机上创建用于评测 conda 环境:
 
 ```bash
 conda create -n opencompass python=3.10
 conda activate opencompass
-conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 
 cd /root
 git clone -b 0.3.3 https://github.com/open-compass/opencompass
 cd opencompass
 pip install -e .
-
-
-apt-get update
-apt-get install cmake
 pip install -r requirements.txt
-pip install protobuf==4.25.3
+pip install huggingface_hub==0.25.2
 ```
 
-### 数据集准备
+更多使用说明，请参考 OpenCompass [官方文档](https://opencompass.readthedocs.io/en/latest/tutorial.html)。
 
+
+
+## 评测 API 模型 
+
+如果你想要评测通过 API 访问的大语言模型，整个过程其实很简单。首先你需要获取模型的 API 密钥（API Key）和接口地址。以 OpenAI 的 GPT 模型为例，你只需要在 OpenAI 官网申请一个 API Key，然后在评测配置文件中设置好这个密钥和相应的模型参数就可以开始评测了。评测过程中，评测框架会自动向模型服务发送测试用例，获取模型的回复并进行打分分析。整个过程你不需要准备任何模型文件，也不用担心本地计算资源是否足够，只要确保网络连接正常即可。
+
+
+考虑到 openai 的 API 服务暂时在国内无法直接使用，我们这里以评测 internlm 模型为例，介绍如何评测 API 模型。
+
+
+1) 打开网站浦语官方地址 https://internlm.intern-ai.org.cn/api/document 获得 api key 和 api 服务地址 (也可以从第三方平台 [硅基流动](https://siliconflow.cn/zh-cn/siliconcloud) 获取), 在终端中运行:
+
+```bash
+export INTERNLM_API_KEY=xxxxxxxxxxxxxxxxxxxxxxx # 填入你申请的 API Key
+```
+
+2) 配置模型: 在终端中运行 `cd /root/opencompass/` 和 `touch opencompass/configs/models/openai/puyu_api.py`, 然后打开文件, 贴入以下代码:
+
+
+```python
+import os
+from opencompass.models import OpenAISDK
+
+
+internlm_url = 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/' # 你前面获得的 api 服务地址
+internlm_api_key = os.getenv('INTERNLM_API_KEY')
+
+models = [
+    dict(
+        # abbr='internlm2.5-latest',
+        type=OpenAISDK,
+        path='internlm2.5-latest', # 请求服务时的 model name
+        # 换成自己申请的APIkey
+        key=internlm_api_key, # API key
+        openai_api_base=internlm_url, # 服务地址
+        rpm_verbose=True, # 是否打印请求速率
+        query_per_second=0.16, # 服务请求速率
+        max_out_len=1024, # 最大输出长度
+        max_seq_len=4096, # 最大输入长度
+        temperature=0.01, # 生成温度
+        batch_size=1, # 批处理大小
+        retry=3, # 重试次数
+    )
+]
+```
+
+3) 配置数据集: 在终端中运行 `cd /root/opencompass/` 和 `touch opencompass/configs/datasets/demo/demo_cmmlu_chat_gen.py`, 然后打开文件, 贴入以下代码:
+
+```python
+from mmengine import read_base
+
+with read_base():
+    from ..cmmlu.cmmlu_gen_c13365 import cmmlu_datasets
+
+
+# 每个数据集只取前2个样本进行评测
+for d in cmmlu_datasets:
+    d['abbr'] = 'demo_' + d['abbr']
+    d['reader_cfg']['test_range'] = '[0:1]' # 这里每个数据集只取1个样本, 方便快速评测.
+
+
+```
+这样我们使用了 CMMLU Benchmark 的每个子数据集的 1 个样本进行评测.
+
+ 
+完成配置后, 在终端中运行: `python run.py --models puyu_api.py --datasets demo_cmmlu_chat_gen.py --debug`. 预计运行10分钟后, 得到结果:
+
+![image](https://github.com/user-attachments/assets/74213aca-1b83-4065-be84-68a318e8da48)
+
+
+
+
+
+
+## 评测本地模型
+
+
+如果你想要评测本地部署的大语言模型，首先需要获取到完整的模型权重文件。以开源模型为例，你可以从 Hugging Face 等平台下载模型文件。接下来，你需要准备足够的计算资源，比如至少一张显存够大的 GPU，因为模型文件通常都比较大。有了模型和硬件后，你需要在评测配置文件中指定模型路径和相关参数，然后评测框架就会自动加载模型并开始评测。这种评测方式虽然前期准备工作相对繁琐，需要考虑硬件资源，但好处是评测过程完全在本地完成，不依赖网络状态，而且你可以更灵活地调整模型参数，深入了解模型的性能表现。这种方式特别适合需要深入研究模型性能或进行模型改进的研发人员。
+
+
+我们接下以评测 InternLM2-Chat-1.8B 在 C-Eval 数据集上的性能为例，介绍如何评测本地模型。
+
+### 相关配置
+
+
+安装相关软件包:
+
+```bash
+cd /root/opencompass
+conda activate opencompass
+conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
+apt-get update
+apt-get install cmake
+pip install protobuf==4.25.3
+pip install huggingface-hub==0.23.2
+```
+
+为了方便评测，我们首先将数据集下载到本地:
 
 ```bash
 cp /share/temp/datasets/OpenCompassData-core-20231110.zip /root/opencompass/
 unzip OpenCompassData-core-20231110.zip
 ```
-将会在 OpenCompass 下看到data文件夹.
+将会在 OpenCompass 下看到data文件夹. 
 
 
 
-### 配置文件
+### 加载本地模型进行评测
 
-列出所有跟 InternLM 及 C-Eval 相关的配置
+
+在 OpenCompass 中，模型和数据集的配置文件都存放在 `configs` 文件夹下。我们可以通过运行 `list_configs` 命令列出所有跟 InternLM 及 C-Eval 相关的配置。
 
 ```bash
 python tools/list_configs.py internlm ceval
 ```
-将会看到如下输出
-
-```
-+----------------------------------------+----------------------------------------------------------------------+
-| Model                                  | Config Path                                                          |
-|----------------------------------------+----------------------------------------------------------------------|
-| hf_internlm2_1_8b                      | configs/models/hf_internlm/hf_internlm2_1_8b.py                      |
-| hf_internlm2_20b                       | configs/models/hf_internlm/hf_internlm2_20b.py                       |
-| hf_internlm2_7b                        | configs/models/hf_internlm/hf_internlm2_7b.py                        |
-| hf_internlm2_base_20b                  | configs/models/hf_internlm/hf_internlm2_base_20b.py                  |
-| hf_internlm2_base_7b                   | configs/models/hf_internlm/hf_internlm2_base_7b.py                   |
-| hf_internlm2_chat_1_8b                 | configs/models/hf_internlm/hf_internlm2_chat_1_8b.py                 |
-| hf_internlm2_chat_1_8b_sft             | configs/models/hf_internlm/hf_internlm2_chat_1_8b_sft.py             |
-| hf_internlm2_chat_20b                  | configs/models/hf_internlm/hf_internlm2_chat_20b.py                  |
-| hf_internlm2_chat_20b_sft              | configs/models/hf_internlm/hf_internlm2_chat_20b_sft.py              |
-| ...                                    | ...                                                                  |     
-+----------------------------------------+----------------------------------------------------------------------+
-+--------------------------------+-------------------------------------------------------------------+
-| Dataset                        | Config Path                                                       |
-|--------------------------------+-------------------------------------------------------------------|
-| ceval_clean_ppl                | configs/datasets/ceval/ceval_clean_ppl.py                         |
-| ceval_contamination_ppl_810ec6 | configs/datasets/contamination/ceval_contamination_ppl_810ec6.py  |
-| ceval_gen                      | configs/datasets/ceval/ceval_gen.py                               |
-| ceval_gen_2daf24               | configs/datasets/ceval/ceval_gen_2daf24.py                        |
-| ceval_gen_5f30c7               | configs/datasets/ceval/ceval_gen_5f30c7.py                        |
-| ceval_ppl                      | configs/datasets/ceval/ceval_ppl.py                               |
-| ceval_ppl_1cd8bf               | configs/datasets/ceval/ceval_ppl_1cd8bf.py                        |
-| ceval_ppl_578f8d               | configs/datasets/ceval/ceval_ppl_578f8d.py                        |
-| ...                            | ...                                                               |
-+--------------------------------+-------------------------------------------------------------------+
-```
-
-
-
-
-## 启动评测(10% A100 8GB 资源)
 
 打开 opencompass 文件夹下 `configs/models/hf_internlm/的 hf_internlm2_5_1_8b_chat.py` 文件, 修改如下:
 
@@ -124,8 +162,9 @@ models = [
 
 ```bash
 python run.py --datasets ceval_gen --models hf_internlm2_5_1_8b_chat --debug
+# 如果出现 rouge 导入报错, 请 pip uninstall rouge 之后再次安装 pip install rouge==1.0.1 可解决问题.
 ``` 
-评测完成后，将会看到：
+评测比较费时, 预计2~4个小时评测完成后，将会看到：
 
 ![image](https://github.com/user-attachments/assets/86062cae-2c82-42c3-a0ad-884aa331b58f)
 
@@ -137,7 +176,7 @@ cd /root/opencompass/configs/
 touch eval_tutorial_demo.py
 ```
 
-打开eval_tutorial_demo.py 贴入以下代码
+打开 `eval_tutorial_demo.py` 贴入以下代码
 
 ```python
 from mmengine.config import read_base
@@ -157,11 +196,11 @@ python run.py configs/eval_tutorial_demo.py --debug
 ```
 
 
-## 评测 API 模型
+## 将本地模型通过部署成API服务再评测
 
-OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以使用相同的方式甚至在一个设置中评估这两种模型类型。
+前面我们介绍了如何评测 API 模型和本地模型, 现在我们介绍如何将本地模型部署成 API 服务, 然后通过评测 API 服务的方式来评测本地模型. OpenCompass 通过其设计，不会真正区分开源模型和 API 模型。您可以使用相同的方式甚至在一个设置中评估这两种模型类型。
 
-首先安装和部署模型:
+首先打开一个终端, 安装和部署模型:
 
 ```bash
 pip install lmdeploy==0.6.1 openai==1.52.0
@@ -183,18 +222,18 @@ INFO:     127.0.0.1:38584 - "POST /v1/chat/completions HTTP/1.1" 200 OK
 ```
 
 
-使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
+新开一个终端, 使用以下 Python 代码获取由 LMDeploy 注册的模型名称：
 
 ```python
 from openai import OpenAI
 client = OpenAI(
-    api_key='sk-123456',
+    api_key='sk-123456', # 可以设置成随意的字符串
     base_url="http://0.0.0.0:23333/v1"
 )
 model_name = client.models.list().data[0].id
-model_name
+model_name # 注册的模型名称需要被用于后续配置.
 ```
-
+结果显示 `/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat/`, 接着, 
 创建配置脚本 `/root/opencompass/configs/models/hf_internlm/hf_internlm2_5_1_8b_chat_api.py`
 
 ```python
@@ -226,6 +265,6 @@ models = [
 opencompass --models hf_internlm2_5_1_8b_chat_api --datasets ceval_gen --debug # opencompass 命令基本等价于 python run.py 命令
 ```
 
-得到结果
+得到结果: 
 
 ![image](https://github.com/user-attachments/assets/2d076f75-3e15-4100-975f-1d2eae31a4b2)

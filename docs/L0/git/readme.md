@@ -357,12 +357,13 @@ https://github.com/InternLM/Tutorial/tree/camp4
       <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg3.jpg" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
-</table>
+</table>  
 
+### **注意取消勾选仅克隆当前分支**
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg4.png" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/Jun-Howie/AIPPT-for-InternLM/blob/main/images/fork.png" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
@@ -370,7 +371,16 @@ https://github.com/InternLM/Tutorial/tree/camp4
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/random-zhou/ailabImage/blob/main/docimg5.jpg" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/Jun-Howie/AIPPT-for-InternLM/blob/main/images/branch.png" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/Jun-Howie/AIPPT-for-InternLM/blob/main/images/download.png" alt="Description of the image" style="height: auto; width: 800px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
@@ -574,7 +584,7 @@ git_036_introduction # 请统一 改为git_<id>_introduction 格式,方便审核
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/07ae8dfa-ebae-4682-a2bf-c6e52024b802" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-18.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
@@ -584,7 +594,7 @@ git_036_introduction # 请统一 改为git_<id>_introduction 格式,方便审核
 <table align="center">
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/9578136c-fbde-407a-92fc-bdcf97bb7565" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+      <img src="https://github.com/random-zhou/ailabImage/blob/main/image-19.png" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
     </td>
   </tr>
 </table>
