@@ -185,23 +185,13 @@ Action，也称为工具，Lagent中集成了很多好用的工具，提供了�
 
 ```python
 import copy
-import hashlib
-import json
 import os
-from typing import Dict, List, Union
-import re
+from typing import List
 import streamlit as st
-import requests
-
-from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter
+from lagent.actions import ArxivSearch
 from lagent.prompts.parsers import PluginParser
 from lagent.agents.stream import INTERPRETER_CN, META_CN, PLUGIN_CN, AgentForInternLM, get_plugin_prompt
-from lagent.llms.base_api import BaseAPILLM
-from lagent.schema import AgentStatusCode
 from lagent.llms import GPTAPI
-
-# 替换为自己的授权令牌
-YOUR_TOKEN_HERE = ""
 
 class SessionState:
     """管理会话状态的类。"""
@@ -219,15 +209,13 @@ class SessionState:
         st.session_state['model_selected'] = None  # 当前选定模型
         st.session_state['plugin_actions'] = set()  # 当前激活插件
         st.session_state['history'] = []  # 聊天历史
+        st.session_state['api_base'] = None  # 初始化API base地址
 
     def clear_state(self):
         """清除当前会话状态。"""
         st.session_state['assistant'] = []
         st.session_state['user'] = []
         st.session_state['model_selected'] = None
-        st.session_state['file'] = set()
-        if 'chatbot' in st.session_state:
-            st.session_state['chatbot']._session_history = []
 
 
 class StreamlitUI:
@@ -238,7 +226,6 @@ class StreamlitUI:
         self.plugin_action = []  # 当前选定的插件
         # 初始化提示词
         self.meta_prompt = META_CN
-        self.da_prompt = INTERPRETER_CN
         self.plugin_prompt = PLUGIN_CN
         self.init_streamlit()
 
@@ -250,28 +237,27 @@ class StreamlitUI:
             page_icon='./docs/imgs/lagent_icon.png'
         )
         st.header(':robot_face: :blue[Lagent] Web Demo ', divider='rainbow')
-        st.sidebar.title('模型控制')
-        st.session_state['file'] = set()  # 存储上传文件列表
-        st.session_state['ip'] = None  # 初始化模型 IP
 
     def setup_sidebar(self):
         """设置侧边栏，选择模型和插件。"""
-        # 模型名称和 IP 输入框
+        # 模型名称和 API Base 输入框
         model_name = st.sidebar.text_input('模型名称：', value='internlm2.5-latest')
-        model_ip = st.sidebar.text_input('模型IP：', value='127.0.0.1:23333')
-
-        # 提示词设置
-        self.meta_prompt = st.sidebar.text_area('系统提示词', value=META_CN)
-        self.da_prompt = st.sidebar.text_area('数据分析提示词', value=INTERPRETER_CN)
-        self.plugin_prompt = st.sidebar.text_area('插件提示词', value=PLUGIN_CN)
-
+        # 注意，如果采用硅基流动API，模型名称需要更改为：internlm/internlm2_5-7b-chat 或者 internlm/internlm2_5-20b-chat
+        # ================================== 硅基流动的API ==================================
+        # api_base = st.sidebar.text_input(
+        #     'API Base 地址：', value='https://api.siliconflow.cn/v1/chat/completions'
+        # )
+        # ================================== 浦语官方的API ==================================
+        api_base = st.sidebar.text_input(
+            'API Base 地址：', value='https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions'
+        )
+        # ==================================================================================
         # 插件选择
         plugin_name = st.sidebar.multiselect(
             '插件选择',
             options=list(st.session_state['plugin_map'].keys()),
             default=[],
         )
-        da_flag = st.sidebar.checkbox('数据分析', value=False)
 
         # 根据选择的插件生成插件操作列表
         self.plugin_action = [st.session_state['plugin_map'][name] for name in plugin_name]
@@ -284,24 +270,28 @@ class StreamlitUI:
         if st.sidebar.button('清空对话', key='clear'):
             self.session_state.clear_state()
 
-        uploaded_file = st.sidebar.file_uploader('上传文件')  # 文件上传
+        return model_name, api_base, self.plugin_action
 
-        return model_name, model_ip, self.plugin_action, uploaded_file
-
-    def initialize_chatbot(self, model_name, plugin_action):
+    def initialize_chatbot(self, model_name, api_base, plugin_action):
         """初始化 GPTAPI 实例作为 chatbot。"""
-        self.meta_prompt = [
+        token = os.getenv("token")
+        if not token:
+            st.error("未检测到环境变量 `token`，请设置环境变量，例如 `export token='your_token_here'` 后重新运行 X﹏X")
+            st.stop()  # 停止运行应用
+            
+        # 创建完整的 meta_prompt，保留原始结构并动态插入侧边栏配置
+        meta_prompt = [
             {"role": "system", "content": self.meta_prompt, "api_role": "system"},
             {"role": "user", "content": "", "api_role": "user"},
-            {"role": "assistant", "content": "", "api_role": "assistant"},
+            {"role": "assistant", "content": self.plugin_prompt, "api_role": "assistant"},
             {"role": "environment", "content": "", "api_role": "environment"}
         ]
 
         api_model = GPTAPI(
             model_type=model_name,
-            api_base="https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
-            key=YOUR_TOKEN_HERE,
-            meta_template=self.meta_prompt,
+            api_base=api_base,
+            key=token,  # 从环境变量中获取授权令牌
+            meta_template=meta_prompt,
             max_new_tokens=512,
             temperature=0.8,
             top_p=0.9
@@ -315,7 +305,6 @@ class StreamlitUI:
 
     def render_assistant(self, agent_return):
         """渲染助手响应内容。"""
-        print("agent_return", agent_return)
         with st.chat_message('assistant'):
             content = getattr(agent_return, "content", str(agent_return))
             st.markdown(content if isinstance(content, str) else str(content))
@@ -323,6 +312,52 @@ class StreamlitUI:
 
 def main():
     """主函数，运行 Streamlit 应用。"""
+    st.set_page_config(layout='wide', page_title='Lagent Web Demo', page_icon='🤖')
+    st.title("多代理博客优化助手")
+    
+    model_type = st.sidebar.text_input('模型名称', 'internlm2.5-latest')
+    api_base = st.sidebar.text_input('API Base 地址：', 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions')
+    topic = st.sidebar.text_input('输入一个话题：', 'Self-Supervised Learning')
+    generate_button = st.sidebar.button('生成博客内容')
+
+    # 检查模型状态是否需要更新
+    if (
+        'blogger' not in st.session_state or
+        st.session_state['model_type'] != model_type or
+        st.session_state['api_base'] != api_base
+    ):
+        st.session_state['blogger'] = AsyncBlogger(
+            model_type=model_type,
+            api_base=api_base,
+            writer_prompt="你是一位优秀的AI内容写作者，请撰写一篇有吸引力且信息丰富的博客内容。",
+            critic_prompt="""
+                作为一位严谨的批评者，请给出建设性的批评和改进建议，并基于相关主题使用已有的工具推荐一些参考文献，推荐的关键词应该是英语形式，简洁且切题。
+                请按照以下格式提供反馈：
+                1. 批评建议：
+                - （具体建议）
+                2. 推荐的关键词：
+                - （关键词1, 关键词2, ...）
+            """,
+            critic_prefix="请批评以下内容，并提供改进建议：\n\n"
+        )
+        st.session_state['model_type'] = model_type
+        st.session_state['api_base'] = api_base
+
+    if generate_button:
+        update_placeholder = st.empty()
+
+        async def run_async_blogger():
+            message = AgentMessage(
+                sender='user',
+                content=f"请撰写一篇关于{topic}的博客文章，要求表达专业，生动有趣，并且易于理解。"
+            )
+            result = await st.session_state['blogger'].forward(message, update_placeholder)
+            return result
+
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(run_async_blogger())
+        
     if 'ui' not in st.session_state:
         session_state = SessionState()
         session_state.init_state()
@@ -336,17 +371,21 @@ def main():
         st.header(':robot_face: :blue[Lagent] Web Demo ', divider='rainbow')
 
     # 设置侧边栏并获取模型和插件信息
-    model_name, model_ip, plugin_action, uploaded_file = st.session_state['ui'].setup_sidebar()
+    model_name, api_base, plugin_action = st.session_state['ui'].setup_sidebar()
     plugins = [dict(type=f"lagent.actions.{plugin.__class__.__name__}") for plugin in plugin_action]
 
+    # 检查是否需要更新 chatbot 和 agent
     if (
         'chatbot' not in st.session_state or
         model_name != st.session_state['chatbot'].model_type or
         'last_plugin_action' not in st.session_state or
-        plugin_action != st.session_state['last_plugin_action']
+        plugin_action != st.session_state['last_plugin_action'] or
+        api_base != st.session_state['api_base']    
     ):
-        st.session_state['chatbot'] = st.session_state['ui'].initialize_chatbot(model_name, plugin_action)
+        # 更新 Chatbot
+        st.session_state['chatbot'] = st.session_state['ui'].initialize_chatbot(model_name, api_base, plugin_action)
         st.session_state['last_plugin_action'] = plugin_action  # 更新插件状态
+        st.session_state['api_base'] = api_base  # 更新 API Base 地址
 
         # 初始化 AgentForInternLM
         st.session_state['agent'] = AgentForInternLM(
@@ -372,6 +411,8 @@ def main():
     # 处理用户输入
     if user_input := st.chat_input(''):
         st.session_state['ui'].render_user(user_input)
+
+        # 调用模型时确保侧边栏的系统提示词和插件提示词生效
         res = agent(user_input, session_id=0)
         st.session_state['ui'].render_assistant(res)
 
@@ -379,34 +420,23 @@ def main():
         st.session_state['user'].append(user_input)
         st.session_state['assistant'].append(copy.deepcopy(res))
 
-        # 处理文件上传
-        if uploaded_file and uploaded_file.name not in st.session_state['file']:
-            st.session_state['file'].add(uploaded_file.name)
-            file_bytes = uploaded_file.read()
-            file_path = os.path.join("tmp_dir", hashlib.md5(file_bytes).hexdigest())
-            with open(file_path, 'wb') as tmpfile:
-                tmpfile.write(file_bytes)
-            st.markdown(f"文件已上传：{uploaded_file.name}")
-
-    st.session_state['last_status'] = AgentStatusCode.END
+    st.session_state['last_status'] = None
 
 
 if __name__ == '__main__':
-    os.makedirs("tmp_dir", exist_ok=True)
     main()
 ```
 
-在终端中输入：
+在终端中记得先将获取的API密钥写入环境变量，然后再输入启动命令：
 
 ```cmd
+export token='your_token_here'
 streamlit run agent_api_web_demo.py
 ```
 
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/20/a278dd9829d85bd67467ce8e6c4fe1ce.png" width="800" />
 </div>
-
-
 在等待server启动成功后，我们在 **本地** 的 PowerShell 中输入如下指令来进行端口映射：
 
 ```bash
@@ -418,28 +448,33 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p <你的 SSH 端口�
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/04/064bfe720e414a7ac0334b41b14bfaf9.png" width="400" />
 </div>
-
-
-可以看到页面如下：
+当然，**如果忘记输入环境变量，启动时会报错**❌，比如下面这个错误示例：
 
 <div align="center">
-  <img src="https://s1.imagehub.cc/images/2024/11/20/92464bdc6a7a03ec1bb4929ef1a9b9ba.png" width="800" />
+  <img src="https://s1.imagehub.cc/images/2024/11/22/ed635c6ddec258c7550ad3ef048c3efe.png" width="800" />
 </div>
 
+如果正确输入密钥，可以看到页面如下。
+
+页面的侧边栏有三个内容，分别是**模型名称、API Base地址和插件选择**，其中如果采用浦语的API，模型名称可以选择internlm2.5-latest，默认指向最新发布的 InternLM2.5 系列模型，当前指向`internlm2.5-20b-0719`，窗口长度是32K，最大输出4096Tokens。
+
+**备注：**如果采用硅基流动API，模型名称需要更改为：`internlm/internlm2_5-7b-chat` 或者 `internlm/internlm2_5-20b-chat`。
+
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/22/1ae4d4104a4691d1d6d5577bdd7a4ba6.png" width="800" />
+</div>
 
 可以尝试进行几轮简单的对话，并让其搜索文献，会发现大模型现在尽管有比较好的对话能力，但是并不能帮我们准确的找到文献，**例如输入指令“帮我搜索一下最新版本的MindSearch论文”**，会提示没有这方面的能力：
 
 <div align="center">
-  <img src="https://s1.imagehub.cc/images/2024/11/21/16023d59499dae1c012aaafd234e5b51.png" width="800" />
+  <img src="https://s1.imagehub.cc/images/2024/11/22/34793ffc1a547a5023c9b1548eb7e56a.png" width="800" />
 </div>
-
 
 现在**将ArxivSearch插件选择上**，再次输入指令“帮我搜索一下最新版本的MindSearch论文”，可以看到，通过调用外部工具，大模型成功理解了我们的任务，得到了我们需要的文献：
 
 <div align="center">
-    <img src="https://s1.imagehub.cc/images/2024/11/21/0fae63f4b70c6d684639e25604932744.png" alt="image" width="800" />
+    <img src="https://s1.imagehub.cc/images/2024/11/22/ba026957617995c0b61741bf04c84216.png" alt="image" width="800" />
 </div>
-
 
 
 
@@ -479,7 +514,11 @@ cd /root/agent_camp4/lagent/lagent/actions
 touch weather_query.py
 ```
 
-将下面的代码复制进去，**注意要将刚刚申请的API Key填写进去：**
+将下面的代码复制进去，**注意要将刚刚申请的API Key在终端中输入进去：**
+
+```cmd
+export weather_token='your_token_here'
+```
 
 ```python
 import requests
@@ -489,8 +528,10 @@ from lagent.schema import ActionReturn, ActionStatusCode
 class WeatherQuery(BaseAction):
     def __init__(self):
         super().__init__()
-        # 下面需要替换为你的和风天气 API Key
-        self.api_key = ""
+        self.api_key = os.getenv("weather_token")
+        print(self.api_key)
+        if not self.api_key:
+            raise EnvironmentError("未找到环境变量 'token'。请设置你的和风天气 API Key 到 'weather_token' 环境变量中，比如export weather_token='xxx' ")
 
     @tool_api
     def run(self, location: str) -> dict:
@@ -521,7 +562,6 @@ class WeatherQuery(BaseAction):
                 if geo_data.get("code") != "200" or not geo_data.get("location"):
                     raise Exception(f"GeoAPI 返回错误码：{geo_data.get('code')} 或未找到位置")
 
-                # 使用返回的第一个 LocationID
                 location = geo_data["location"][0]["id"]
 
             # 构建天气查询的 API 请求 URL
@@ -537,10 +577,10 @@ class WeatherQuery(BaseAction):
             weather_info = {
                 "location": location,
                 "weather": data["now"]["text"],
-                "temperature": data["now"]["temp"] + "°C",  # 添加单位
+                "temperature": data["now"]["temp"] + "°C", 
                 "wind_direction": data["now"]["windDir"],
-                "wind_speed": data["now"]["windSpeed"] + " km/h",  # 添加单位
-                "humidity": data["now"]["humidity"] + "%",  # 添加单位
+                "wind_speed": data["now"]["windSpeed"] + " km/h",  
+                "humidity": data["now"]["humidity"] + "%",
                 "report_time": data["updateTime"]
             }
 
@@ -578,8 +618,8 @@ __all__ = [
 打开`agent_api_web_demo.py`, 修改内容如下，目的是将该工具注册进大模型的插件列表中，使得其可以知道。
 
 ```diff
-- from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter
-+ from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter, WeatherQuery
+- from lagent.actions import ArxivSearch
++ from lagent.actions import ArxivSearch, WeatherQuery
 - # 初始化插件列表
 -        action_list = [
 -            ArxivSearch(),
@@ -595,22 +635,25 @@ __all__ = [
 可以看到左侧的插件栏多了天气查询插件，我们首先**输入命令“帮我查询一下南京现在的天气”**，可以看到模型无法知道现在的实时天气情况。
 
 <div align="center">
-    <img src="https://s1.imagehub.cc/images/2024/11/21/466bb67ba5fe956cbbe0a77cc4f3204f.png" alt="image" width="800" />
+    <img src="https://s1.imagehub.cc/images/2024/11/22/5e6634022c0ba4d6aa782c836cd2476f.png" alt="image" width="800" />
 </div>
+
 
 现在，我们**将2个插件同时勾选上**，用以说明模型具备识别调用不同工具的能力，什么任务对应什么工具来解决。
 
 这次我们查询一下南京（随便什么城市都行的☀️）的天气，**输入命令“帮我查询一下南京现在的天气”。** 现在，大模型通过天气查询的API准确地完成了这个任务：
 
 <div align="center">
-<img src="https://s1.imagehub.cc/images/2024/11/21/36ce946cf7ff69a4fb7a4437bb2819d6.png" alt="image" width="800" />
+<img src="https://s1.imagehub.cc/images/2024/11/22/538c8a644fcd20b239148ac58efd75a3.png" alt="image" width="800" />
 </div>
+
 
 如果我们再次询问，让其搜索文献，可以看到，模型具备了根据任务情况调用不同工具的能力。
 
 <div align="center">
-<img src="https://s1.imagehub.cc/images/2024/11/21/55c62789b70fd6d5b19932ad03e35fc1.png" alt="image" width="800" />
+<img src="https://s1.imagehub.cc/images/2024/11/22/c86cefce21c587e12617f20578f4043a.png" alt="image" width="800" />
 </div>
+
 
 ### 3.4 Multi-Agents博客写作系统的搭建
 
@@ -638,7 +681,7 @@ touch multi_agents_api_web_demo.py
 将下面的代码填入`multi_agents_api_web_demo.py`:
 
 ```python
-# 引入必要的库
+import os
 import asyncio
 import json
 import re
@@ -653,13 +696,9 @@ from lagent.actions import ArxivSearch
 from lagent.hooks import Hook
 from lagent.llms import GPTAPI
 
-YOUR_TOKEN_HERE = ""
-
-llm = GPTAPI(
-    model_type="internlm2.5-latest",
-    api_base="https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions",
-    key=YOUR_TOKEN_HERE
-)
+YOUR_TOKEN_HERE = os.getenv("token")
+if not YOUR_TOKEN_HERE:
+    raise EnvironmentError("未找到环境变量 'token'，请设置后再运行程序。")
 
 # Hook类，用于对消息添加前缀
 class PrefixedMessageHook(Hook):
@@ -683,18 +722,26 @@ class PrefixedMessageHook(Hook):
             if message.sender in self.senders:
                 message.content = self.prefix + message.content
 
-# 博客生成类，整合写作者和批评者
 class AsyncBlogger:
-    def __init__(self, model_type, writer_prompt, critic_prompt, critic_prefix='', max_turn=2):
+    """博客生成类，整合写作者和批评者。"""
+
+    def __init__(self, model_type, api_base, writer_prompt, critic_prompt, critic_prefix='', max_turn=2):
         """
         初始化博客生成器
         :param model_type: 模型类型
+        :param api_base: API 基地址
         :param writer_prompt: 写作者提示词
         :param critic_prompt: 批评者提示词
         :param critic_prefix: 批评消息前缀
         :param max_turn: 最大轮次
         """
-        self.llm = llm
+        self.model_type = model_type
+        self.api_base = api_base
+        self.llm = GPTAPI(
+            model_type=model_type,
+            api_base=api_base,
+            key=YOUR_TOKEN_HERE
+        )
         self.plugins = [dict(type='lagent.actions.ArxivSearch')]
         self.writer = Agent(
             self.llm,
@@ -773,7 +820,15 @@ class AsyncBlogger:
 
         return message
 
-# Streamlit 用户界面
+def setup_sidebar():
+    """设置侧边栏，选择模型。"""
+    model_name = st.sidebar.text_input('模型名称：', value='internlm2.5-latest')
+    api_base = st.sidebar.text_input(
+        'API Base 地址：', value='https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions'
+    )
+    
+    return model_name, api_base
+    
 def main():
     """
     主函数：构建Streamlit界面并处理用户交互
@@ -781,27 +836,33 @@ def main():
     st.set_page_config(layout='wide', page_title='Lagent Web Demo', page_icon='🤖')
     st.title("多代理博客优化助手")
 
-    # Sidebar 输入
-    model_type = st.sidebar.text_input('模型名称', 'internlm2.5-latest')
-    topic = st.text_input('输入一个话题:', 'Self-Supervised Learning')
+    model_type, api_base = setup_sidebar()
+    topic = st.text_input('输入一个话题：', 'Self-Supervised Learning')
     generate_button = st.button('生成博客内容')
 
-    if generate_button:
-        blogger = AsyncBlogger(
+    if (
+        'blogger' not in st.session_state or
+        st.session_state['model_type'] != model_type or
+        st.session_state['api_base'] != api_base
+    ):
+        st.session_state['blogger'] = AsyncBlogger(
             model_type=model_type,
+            api_base=api_base,
             writer_prompt="你是一位优秀的AI内容写作者，请撰写一篇有吸引力且信息丰富的博客内容。",
             critic_prompt="""
-                作为一位严谨的批评者，请给出建设性的批评和改进建议，并基于相关主题使用已有的工具推荐一些参考文献，推荐的关键词应该是英语形式，简洁且切题。。
+                作为一位严谨的批评者，请给出建设性的批评和改进建议，并基于相关主题使用已有的工具推荐一些参考文献，推荐的关键词应该是英语形式，简洁且切题。
                 请按照以下格式提供反馈：
                 1. 批评建议：
                 - （具体建议）
                 2. 推荐的关键词：
                 - （关键词1, 关键词2, ...）
-                """,
+            """,
             critic_prefix="请批评以下内容，并提供改进建议：\n\n"
         )
+        st.session_state['model_type'] = model_type
+        st.session_state['api_base'] = api_base
 
-        # 占位符用于逐步更新内容
+    if generate_button:
         update_placeholder = st.empty()
 
         async def run_async_blogger():
@@ -809,13 +870,12 @@ def main():
                 sender='user',
                 content=f"请撰写一篇关于{topic}的博客文章，要求表达专业，生动有趣，并且易于理解。"
             )
-            result = await blogger.forward(message, update_placeholder)
+            result = await st.session_state['blogger'].forward(message, update_placeholder)
             return result
 
-        # 启动异步任务
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        final_message = loop.run_until_complete(run_async_blogger())
+        loop.run_until_complete(run_async_blogger())
 
 if __name__ == '__main__':
     main()
@@ -854,5 +914,4 @@ if __name__ == '__main__':
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/20/16faa0c4718c372d1088293f814a1d33.png" width="700" />
 </div>
-
 **至此，我们完成了本节课所有内容，** 希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟
