@@ -242,8 +242,9 @@ class StreamlitUI:
         """设置侧边栏，选择模型和插件。"""
         # 模型名称和 API Base 输入框
         model_name = st.sidebar.text_input('模型名称：', value='internlm2.5-latest')
-        # 注意，如果采用硅基流动API，模型名称需要更改为：internlm/internlm2_5-7b-chat 或者 internlm/internlm2_5-20b-chat
+        
         # ================================== 硅基流动的API ==================================
+        # 注意，如果采用硅基流动API，模型名称需要更改为：internlm/internlm2_5-7b-chat 或者 internlm/internlm2_5-20b-chat
         # api_base = st.sidebar.text_input(
         #     'API Base 地址：', value='https://api.siliconflow.cn/v1/chat/completions'
         # )
@@ -312,52 +313,6 @@ class StreamlitUI:
 
 def main():
     """主函数，运行 Streamlit 应用。"""
-    st.set_page_config(layout='wide', page_title='Lagent Web Demo', page_icon='🤖')
-    st.title("多代理博客优化助手")
-    
-    model_type = st.sidebar.text_input('模型名称', 'internlm2.5-latest')
-    api_base = st.sidebar.text_input('API Base 地址：', 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1/chat/completions')
-    topic = st.sidebar.text_input('输入一个话题：', 'Self-Supervised Learning')
-    generate_button = st.sidebar.button('生成博客内容')
-
-    # 检查模型状态是否需要更新
-    if (
-        'blogger' not in st.session_state or
-        st.session_state['model_type'] != model_type or
-        st.session_state['api_base'] != api_base
-    ):
-        st.session_state['blogger'] = AsyncBlogger(
-            model_type=model_type,
-            api_base=api_base,
-            writer_prompt="你是一位优秀的AI内容写作者，请撰写一篇有吸引力且信息丰富的博客内容。",
-            critic_prompt="""
-                作为一位严谨的批评者，请给出建设性的批评和改进建议，并基于相关主题使用已有的工具推荐一些参考文献，推荐的关键词应该是英语形式，简洁且切题。
-                请按照以下格式提供反馈：
-                1. 批评建议：
-                - （具体建议）
-                2. 推荐的关键词：
-                - （关键词1, 关键词2, ...）
-            """,
-            critic_prefix="请批评以下内容，并提供改进建议：\n\n"
-        )
-        st.session_state['model_type'] = model_type
-        st.session_state['api_base'] = api_base
-
-    if generate_button:
-        update_placeholder = st.empty()
-
-        async def run_async_blogger():
-            message = AgentMessage(
-                sender='user',
-                content=f"请撰写一篇关于{topic}的博客文章，要求表达专业，生动有趣，并且易于理解。"
-            )
-            result = await st.session_state['blogger'].forward(message, update_placeholder)
-            return result
-
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(run_async_blogger())
-        
     if 'ui' not in st.session_state:
         session_state = SessionState()
         session_state.init_state()
@@ -374,7 +329,6 @@ def main():
     model_name, api_base, plugin_action = st.session_state['ui'].setup_sidebar()
     plugins = [dict(type=f"lagent.actions.{plugin.__class__.__name__}") for plugin in plugin_action]
 
-    # 检查是否需要更新 chatbot 和 agent
     if (
         'chatbot' not in st.session_state or
         model_name != st.session_state['chatbot'].model_type or
@@ -425,6 +379,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 ```
 
 在终端中记得先将获取的API密钥写入环境变量，然后再输入启动命令：
@@ -768,7 +723,6 @@ class AsyncBlogger:
         :param update_placeholder: Streamlit占位符
         :return: 最终优化的博客内容
         """
-        # 占位符用于逐步显示各阶段结果
         step1_placeholder = update_placeholder.container()
         step2_placeholder = update_placeholder.container()
         step3_placeholder = update_placeholder.container()
