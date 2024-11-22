@@ -838,6 +838,7 @@ if __name__ == '__main__':
     main()
 ```
 
+运行`streamlit run multi_agents_api_web_demo.py`，启动Web服务
 输入话题，比如`Semi-Supervised Learning`：
 
 可以看到，Multi-Agents博客写作系统正在按照下面的3步骤，生成、批评和完善内容。
