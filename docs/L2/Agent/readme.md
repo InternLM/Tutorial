@@ -478,6 +478,7 @@ export weather_token='your_token_here'
 ```
 
 ```python
+import os
 import requests
 from lagent.actions.base_action import BaseAction, tool_api
 from lagent.schema import ActionReturn, ActionStatusCode
