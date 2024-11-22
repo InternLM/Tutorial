@@ -403,6 +403,7 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p <你的 SSH 端口�
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/04/064bfe720e414a7ac0334b41b14bfaf9.png" width="400" />
 </div>
+
 当然，**如果忘记输入环境变量，启动时会报错**❌，比如下面这个错误示例：
 
 <div align="center">
@@ -413,7 +414,7 @@ ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p <你的 SSH 端口�
 
 页面的侧边栏有三个内容，分别是**模型名称、API Base地址和插件选择**，其中如果采用浦语的API，模型名称可以选择internlm2.5-latest，默认指向最新发布的 InternLM2.5 系列模型，当前指向`internlm2.5-20b-0719`，窗口长度是32K，最大输出4096Tokens。
 
-**备注：**如果采用硅基流动API，模型名称需要更改为：`internlm/internlm2_5-7b-chat` 或者 `internlm/internlm2_5-20b-chat`。
+**备注：** 如果采用硅基流动API，模型名称需要更改为：`internlm/internlm2_5-7b-chat` 或者 `internlm/internlm2_5-20b-chat`。
 
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/22/1ae4d4104a4691d1d6d5577bdd7a4ba6.png" width="800" />
@@ -868,4 +869,5 @@ if __name__ == '__main__':
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/20/16faa0c4718c372d1088293f814a1d33.png" width="700" />
 </div>
-**至此，我们完成了本节课所有内容，** 希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟
+
+**至此，我们完成了本节课所有内容。** 希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🌟🌟🌟
