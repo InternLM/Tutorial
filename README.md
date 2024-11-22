@@ -30,8 +30,8 @@
 |第 2 关| 玩转书生「多模态对话」和「AI搜索」产品 | [任务](docs/L1/InternIntro/tasks.md)、[文档](docs/L1/InternIntro)、[视频](https://www.bilibili.com/video/BV1ExDQYyEAA)| 100元算力点 |
 |第 3 关| 浦语提示词工程实践 | [任务](docs/L1/Prompt/tasks.md)、[文档](docs/L1/Prompt)、[视频](https://www.bilibili.com/video/BV1tjS7YfEWJ/)| 100元算力点 |
 |第 4 关| InternLM + LlamaIndex RAG 实践|[任务](docs/L1/LlamaIndex/task.md)、[文档](docs/L1/LlamaIndex)、[视频](https://www.bilibili.com/video/BV1YzDJY1E2i/)| 100元算力点 |
-|第 6 关| XTuner 微调个人小助手认知 | [任务](docs/L1/XTuner/task.md)、[文档](docs/L1/XTuner)、[视频](https://www.bilibili.com/video/BV1G9SJYGEtD)| 100元算力点 |
-|第 7 关| OpenCompass 评测书生大模型实践 | [任务](https://github.com/InternLM/Tutorial/blob/camp4/docs/L1/Evaluation/task.md)、[文档](https://github.com/InternLM/Tutorial/blob/camp4/docs/L1/Evaluation/)、[视频](https://www.bilibili.com/video/BV1dtD4YKENj)| 100元算力点 |
+|第 5 关| XTuner 微调个人小助手认知 | [任务](docs/L1/XTuner/task.md)、[文档](docs/L1/XTuner)、[视频](https://www.bilibili.com/video/BV1G9SJYGEtD)| 100元算力点 |
+|第 6 关| OpenCompass 评测书生大模型实践 | [任务](https://github.com/InternLM/Tutorial/blob/camp4/docs/L1/Evaluation/task.md)、[文档](https://github.com/InternLM/Tutorial/blob/camp4/docs/L1/Evaluation/)、[视频](https://www.bilibili.com/video/BV1dtD4YKENj)| 100元算力点 |
 
 
 

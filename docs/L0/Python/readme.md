@@ -217,7 +217,17 @@ VScode下载地址：[Visual Studio Code - Code Editing. Redefined](https://code
   </tr>
 </table>
 
-## 3.2如何在Vscode中打开终端
+## 3.2在vscode中选择conda虚拟环境
+当我们新建完一个python文件后，需要在右下角单击选择我们的python解释器才能运行。这边我们会看到当前本机上已经安装好的所有python解释器，直接选择要使用的环境中的解释器就行。
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9a7cefee-be80-44fe-86a8-ec05cebc2e50" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+## 3.3如何在Vscode中打开终端
 
 可以有两种常用的方法打开终端：
 1. 单击VSCode页面底部状态栏中的“终端”图标（通常显示为两个图标一个`X`和一个`！`），可以快速打开VSCode的终端面板。
@@ -439,7 +449,7 @@ vscode支持通过remote的方法连接我们在命令行中发起的debug serve
 
 还是点击VSCode侧边栏的“Run and Debug”（运行和调试），单击"create a lauch.json file"
 
-选择debugger时选择python debuger。选择debug config时选择remote attach就行，随后会让我们选择debug server的地址，因为我们是在本地debug，所以全都保持默认直接回车就可以了，也就是我们的server地址为 **localhost:5678**。
+选择debugger时选择python debugger。选择debug config时选择remote attach就行，随后会让我们选择debug server的地址，因为我们是在本地debug，所以全都保持默认直接回车就可以了，也就是我们的server地址为 **localhost:5678**。
 
 <table align="center">
   <tr>
@@ -460,6 +470,20 @@ vscode支持通过remote的方法连接我们在命令行中发起的debug serve
   </tr>
 </table>
 
+----
+
+**注意：已经有配置好的json文件**
+
+如果有已经配置好的debug json配置文件，则需要在原json上增加配置。可以通过`Run and Debug`卡片左上角的下拉菜单单击`Add configuration`，或者点击设置按钮打开配置文件，在配置文件的右下角也会有一个`Add configuration`。剩下的步骤就和前面一样选择`Python debugger`-`Remote attach`，剩下的全都保持默认直接回车就可以了，也就是我们的server地址为 **localhost:5678**。
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/8f7a2ea7-9954-4367-91a1-2efc894d0d4e" alt="Description of the image" style="height: auto; width: 600px; margin: 10px auto; padding: 8px 8px 0 8px; border: 1px solid #3f3f3f">
+    </td>
+  </tr>
+</table>
+
+----
 
 ### 4.3.2 debug命令行
 
@@ -472,6 +496,19 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 * `./myscript.py`可以替换为我们想要debug的python文件，后面可以和直接在命令行中启动python一样跟上输入的参数。记得要先在想要debug的python文件打好断点并保存。
 
 * `--wait-for-client`参数会让我们的debug server在等客户端连入后才开始运行debug。在这就是要等到我们在run and debug界面启动debug。
+----
+**注意：**
+在开发机上使用该debug方式运行的时候可能会报以下`warning`。此时，debug可能不能正常运行，需要按他提示的给python加上`-Xfrozen_modules=off`参数禁用冻结模块即可。
+
+```
+Debugger warning: It seems that frozen modules are being used, which may make the debugger miss breakpoints. Please pass -Xfrozen_modules=off to python to disable frozen modules.
+```
+```shell
+python -m -Xfrozen_modules=off debugpy --listen 5678 --wait-for-client ./myscript.py
+```
+
+-----
+
 
 先在终端中发起debug server，然后再去vscode debug页面单击一下绿色箭头开启debug。
 
@@ -484,6 +521,7 @@ python -m debugpy --listen 5678 --wait-for-client ./myscript.py
 </table>
 
 接下来的操作就和上面一样了。
+
 
 ### 4.3.3 使用别名简化命令
 
@@ -592,3 +630,4 @@ export api_key="填入你的api token"
 
 # Ch6: Python基础
 本课程也提供一个简易的Python基础教程(内容较多，请前往[python_intro.md](./ch6_python_intro.md)浏览)。
+

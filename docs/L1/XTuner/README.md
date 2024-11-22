@@ -190,14 +190,14 @@ if __name__ == "__main__":
     parser.add_argument("input_file", help="Input JSONL file to process")
     parser.add_argument("output_file", help="Output file for processed JSONL")
     parser.add_argument("--old_text", default="尖米", help="Text to be replaced")
-    parser.add_argument("--new_text", default="机智流", help="Text to replace with")
+    parser.add_argument("--new_text", default="闻星", help="Text to replace with")
     args = parser.parse_args()
 
     main(args.input_file, args.output_file, args.old_text, args.new_text)
 ```
 
 然后修改如下：
-打开 `change_script.py` ，修改 `--new_text` 中 `default="机智流"` 为你的名字。
+打开 `change_script.py` ，修改 `--new_text` 中 `default="闻星"` 为你的名字。
 
 ```diff
 if __name__ == "__main__":
@@ -209,7 +209,7 @@ if __name__ == "__main__":
     parser.add_argument("output_file", help="Output file for processed JSONL")
 
     parser.add_argument("--old_text", default="尖米", help="Text to be replaced")
--	parser.add_argument("--new_text", default="机智流", help="Text to replace with")
+-	parser.add_argument("--new_text", default="闻星", help="Text to replace with")
 +   parser.add_argument("--new_text", default="你的名字", help="Text to replace with")
 
     args = parser.parse_args()

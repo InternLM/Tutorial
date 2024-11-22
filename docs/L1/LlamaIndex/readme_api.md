@@ -120,7 +120,11 @@ https://modelscope.cn/models/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2
 ```
 git lfs install
 
+cd /root/model/
+
 git clone https://www.modelscope.cn/Ceceliachenen/paraphrase-multilingual-MiniLM-L12-v2.git
+
+mv paraphrase-multilingual-MiniLM-L12-v2 sentence-transformer
 ```
 
 
@@ -262,11 +266,15 @@ response = query_engine.query("xtuner是什么?")
 print(response)
 ```
 之后运行
+
 ```bash
 conda activate llamaindex
 cd ~/llamaindex_demo/
 python llamaindex_RAG.py
 ```
+
+注意：第一次运行会下载相关数据需要一段时间，请耐心等待，如中断可能导致第二次运行因为文件损坏报错！！！
+
 结果为：
 
 <img width="518" alt="image" src="https://github.com/user-attachments/assets/7a976178-2301-47eb-b53b-168cb0ef90a3">
