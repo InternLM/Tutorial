@@ -392,13 +392,14 @@ streamlit run agent_api_web_demo.py
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/20/a278dd9829d85bd67467ce8e6c4fe1ce.png" width="800" />
 </div>
+
 在等待server启动成功后，我们在 **本地** 的 PowerShell 中输入如下指令来进行端口映射：
 
 ```bash
 ssh -CNg -L 8501:127.0.0.1:8501 root@ssh.intern-ai.org.cn -p <你的 SSH 端口号>
 ```
 
-接下来，在本地浏览器中打开 `localhost:8501`：
+接下来，在本地浏览器中打开 [http://localhost:8501/](http://localhost:8501/)：
 
 <div align="center">
   <img src="https://s1.imagehub.cc/images/2024/11/04/064bfe720e414a7ac0334b41b14bfaf9.png" width="400" />
