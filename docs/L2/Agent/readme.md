@@ -698,7 +698,8 @@ class AsyncBlogger:
         self.llm = GPTAPI(
             model_type=model_type,
             api_base=api_base,
-            key=YOUR_TOKEN_HERE
+            key=YOUR_TOKEN_HERE,
+            max_new_tokens=4096,
         )
         self.plugins = [dict(type='lagent.actions.ArxivSearch')]
         self.writer = Agent(
