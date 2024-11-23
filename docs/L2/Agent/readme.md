@@ -14,7 +14,7 @@ Agent是**一种能够自主感知环境并根据感知结果采取行动的实�
 - **目的性**：所有行为都以实现特定目标为导向。
 
 <div align="center">
-  <img src="https://s1.imagehub.cc/images/2024/11/04/eac389cdf83fd305c7131d7f208ad578.png" width="400" />
+  <img src="https://s1.imagehub.cc/images/2024/11/23/9ed4032e26d9ef7ec5e4c456a76278d5.png" width="400" />
 </div>
 
 
