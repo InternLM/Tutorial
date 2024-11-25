@@ -18,7 +18,7 @@
 
 对于一个7B（70亿）参数的模型，每个参数使用16位浮点数（等于 2个 Byte）表示，则模型的权重大小约为：
 
-**70×10^9 parameters×2 Bytes/parameter=14GB**
+**7×10^9 parameters×2 Bytes/parameter=14GB**
 
 **70亿个参数×每个参数占用2个字节=14GB**
 
