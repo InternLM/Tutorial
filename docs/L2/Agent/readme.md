@@ -461,10 +461,12 @@ Lagent 框架的工具部分文档可以在此处查看：[Lagent 工具文档](
 
 （5）创建后，回到“项目管理”页面，找到你的 API Key 并复制保存。
 
-<img src="https://s1.imagehub.cc/images/2024/11/07/61e7a96c04e232652984a6abec9ff2da.png" alt="image" border="0" style="zoom: 50%;" >
+<div align="center">
+  <img src="https://s1.imagehub.cc/images/2024/11/07/61e7a96c04e232652984a6abec9ff2da.png" width="800" />
+</div>
 
 <div align="center">
-  <img src="https://s1.imagehub.cc/images/2024/11/25/998334e8caaa210a50db975af88d52cf.png" width="500" />
+  <img src="https://s1.imagehub.cc/images/2024/11/25/998334e8caaa210a50db975af88d52cf.png" width="800" />
 </div>
 
 接着，我们需要在`laegnt/actions`文件夹下面创建一个天气查询的工具程序。
