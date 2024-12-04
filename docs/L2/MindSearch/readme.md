@@ -131,7 +131,7 @@ conda activate mindsearch
 
 # 进入你clone的项目目录
 cd /workspaces/codespaces-blank/MindSearch
-python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine TencentSearch --asy
+python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine DuckDuckGoSearch --asy
 ```
 
 - --lang: 模型的语言，en 为英语，cn 为中文。
@@ -179,14 +179,14 @@ python frontend/mindsearch_gradio.py
 </table>
 
 
-在这一步中，可能终端会打印报错信息，但是只要前端页面上没有出现报错就行。如果前端页面上出现错误并终止，那么可能是MindSearch 中 searcher 模块的问题。在上面的例子中我们使用的是TencentSearch，因此你也可以尝试其他的搜索引擎API。如我们可以替换为BingSearch 或者 DuckDuckGoSearch进行尝试。
+在这一步中，可能终端会打印报错信息，但是只要前端页面上没有出现报错就行。如果前端页面上出现错误并终止，那么可能是MindSearch 中 searcher 模块的问题。在上面的例子中我们使用的是DuckDuckGoSearch，因此你也可以尝试其他的搜索引擎API。如我们可以替换为BingSearch 或者 TencentSearch 进行尝试。
 
 
 ```bash
 # BingSearch
 python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine BingSearch --asy
 # DuckDuckGoSearch
-# python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine DuckDuckGoSearch --asy
+# python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine TencentSearch --asy
 ```
 
 ## 2.5. 部署到自己的 HuggingFace Spaces上
