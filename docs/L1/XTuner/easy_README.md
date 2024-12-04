@@ -374,7 +374,7 @@ export PYTHONPATH=/root/finetune/env:$PYTHONPATH
 export PATH=/root/finetune/env/bin:$PATH
 
 # 先获取最后保存的一个pth文件
-pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1`
+pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1 | sed 's/:$//'`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 

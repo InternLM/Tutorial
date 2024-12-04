@@ -190,14 +190,14 @@ if __name__ == "__main__":
     parser.add_argument("input_file", help="Input JSONL file to process")
     parser.add_argument("output_file", help="Output file for processed JSONL")
     parser.add_argument("--old_text", default="尖米", help="Text to be replaced")
-    parser.add_argument("--new_text", default="机智流", help="Text to replace with")
+    parser.add_argument("--new_text", default="闻星", help="Text to replace with")
     args = parser.parse_args()
 
     main(args.input_file, args.output_file, args.old_text, args.new_text)
 ```
 
 然后修改如下：
-打开 `change_script.py` ，修改 `--new_text` 中 `default="机智流"` 为你的名字。
+打开 `change_script.py` ，修改 `--new_text` 中 `default="闻星"` 为你的名字。
 
 ```diff
 if __name__ == "__main__":
@@ -209,7 +209,7 @@ if __name__ == "__main__":
     parser.add_argument("output_file", help="Output file for processed JSONL")
 
     parser.add_argument("--old_text", default="尖米", help="Text to be replaced")
--	parser.add_argument("--new_text", default="机智流", help="Text to replace with")
+-	parser.add_argument("--new_text", default="闻星", help="Text to replace with")
 +   parser.add_argument("--new_text", default="你的名字", help="Text to replace with")
 
     args = parser.parse_args()
@@ -383,7 +383,7 @@ cd /root/finetune/work_dirs/assistTuner
 conda activate xtuner-env
 
 # 先获取最后保存的一个pth文件
-pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1`
+pth_file=`ls -t /root/finetune/work_dirs/assistTuner/*.pth | head -n 1 | sed 's/:$//'`
 export MKL_SERVICE_FORCE_INTEL=1
 export MKL_THREADING_LAYER=GNU
 xtuner convert pth_to_hf ./internlm2_5_chat_7b_qlora_alpaca_e3_copy.py ${pth_file} ./hf

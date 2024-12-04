@@ -10,7 +10,7 @@
 
 ## 进阶任务（闯关不要求完成此任务）
 
-- 将自我认知的模型上传到 HuggingFace/Modelscope/魔乐平台，并将应用部署到 HuggingFace/Modelscope/魔乐平台
+- 将自我认知的模型上传到 HuggingFace/Modelscope/魔乐平台，并将应用部署到 HuggingFace/Modelscope/魔乐平台 (优秀学员必做)
 - 参与社区共建，获取浦语 api 创建自己的数据用于微调（有创意的成果有机会获得优秀学员提名）
 
 ## 闯关材料提交 (完成任务并且提交材料视为闯关成功)
