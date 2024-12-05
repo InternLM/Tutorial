@@ -101,7 +101,7 @@ conda init
 conda activate mindsearch
 # 进入你clone的项目目录
 cd /workspaces/codespaces-blank/MindSearch
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ### 2.3. 获取硅基流动API KEY
