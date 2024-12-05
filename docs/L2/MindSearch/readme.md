@@ -24,16 +24,13 @@ MindSearch 是一个开源的 AI 搜索引擎框架，具有与 Perplexity.ai Pr
 ![output](https://github.com/user-attachments/assets/6f3c649e-a8db-445d-95bc-7f59562ecb8b)
 
 
-```
-https://huggingface.co/ 
-```
 
 ### 2.2 开发环境配置
 
 在入门岛我们已经提到过，想要简单部署到hugging face上，我们需要将开发机平台从InternStudio 替换成 GitHub CodeSpace。且随着硅基流动提供了免费的InternLM2.5-7B-Chat的API服务，大大降低了部署门槛，我们无需GPU资源也可以部署和使用MindSearch，这也是可以利用CodeSpace完成本次实验的原因。
 那就让我们一起来看看如何使用硅基流动的API来部署MindSearch吧~
 
-1. 打开codespace主页，选择Blank模板进行创建
+### 2.2.1. 打开codespace主页，选择Blank模板进行创建
 
 <table align="center">
   <tr>
@@ -43,50 +40,7 @@ https://huggingface.co/
   </tr>
 </table>
 
-然后我们就在该目录下将 MindSearch 仓库 clone 下来。
-
-```bash
-# 当前目录应该是/workspaces/codespaces-blank
-cd /workspaces/codespaces-blank
-git clone https://github.com/InternLM/MindSearch.git
-cd MindSearch
-```
-
-2. 安装MindSearch的依赖
-
-在进入MindSearch的目录后，我们需要安装依赖，但是目前官方提供的安装方式会出现版本冲突
-
-```bash
-# 直接从requirement.txt进行安装可能会出现版本冲突，可以尝试一下，如果有解决办法可以提issue/pr
-# pip install -r requirements.txt
-```
-
-因此我们需要修改requirements.txt来避开冲突，对requirements.txt的修改如下
-
-```
-git+https://github.com/InternLM/lagent.git#egg=lagent
-tenacity
-duckduckgo_search==5.3.1b1
-einops
-fastapi
-gradio==5.3.0
-janus
-matplotlib
-pydantic==2.6.4
-python-dotenv
-pyvis
-schemdraw
-sse-starlette
-termcolor
-transformers==4.41.0
-uvicorn
-```
-
-- 从源码直接安装 lagent
-- 删除了requirement里面的lmdeploy
-- 补充tenacity
-
-3. 创建conda环境隔离
+### 2.2.2. 创建conda环境隔离并安装依赖
 
 如果只针对于这个实验的话，其实在codespace里面不用单独创建conda环境。但是隔离是一个好习惯，因此我们还是创建一个相应的虚拟环境来隔离
 
@@ -95,12 +49,14 @@ conda create -n mindsearch python=3.10 -y
 conda init
 ```
 
-如果是新建的codespace，在第一次创建conda环境时，需要conda init，再另启一个终端并activate
+如果是新建的codespace，在第一次创建conda环境时，需要conda init，**再另启一个终端并activate** 
 
 ```bash
 conda activate mindsearch
-# 进入你clone的项目目录
-cd /workspaces/codespaces-blank/MindSearch
+
+cd /workspaces/codespaces-blank
+git clone https://github.com/InternLM/MindSearch.git && cd MindSearch && git checkout ae5b0c5
+
 pip install -r requirements.txt
 ```
 
@@ -126,7 +82,7 @@ pip install -r requirements.txt
 由于硅基流动 API 的相关配置已经集成在了 MindSearch 中，所以我们在一个终端A中可以直接执行下面的代码来启动 MindSearch 的后端。
 
 ```bash
-export SILICON_API_KEY=上面复制的密钥
+export SILICON_API_KEY=<上面复制的API KEY>
 conda activate mindsearch
 
 # 进入你clone的项目目录
@@ -234,18 +190,7 @@ python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engi
 What are the top 10 e-commerce websites?
 ```
 
-测试时可能会发现页面输出一个大大的ROOT然后卡住不动了
-
-
-<table align="center">
-  <tr>
-    <td>
-        <img src="https://github.com/user-attachments/assets/b2177b5c-17d2-4a3b-bcc2-d27a442663dc" alt="Image 6" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-    </td>
-  </tr>
-</table>
-
-查看logs，最后两行可能报如下错误
+测试时可能会发现页面卡住了很久（两三分钟），我们可以查看日志，最后两行可能报如下错误：
 
 ```bash
 graph.add_edge(start_node="root", end_node("contract_enforcement"))
@@ -257,10 +202,11 @@ graph.add_edge(start_node="root", end_node("contract_enforcement"))
 <table align="center">
   <tr>
     <td>
-        <img src="https://github.com/user-attachments/assets/df332b84-31af-4233-8c76-7e99e841d3f1" alt="Image 6" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <img src="https://github.com/user-attachments/assets/2d97faab-6bfb-4a00-9e46-2e261db854fe" alt="Image 6" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
     </td>
   </tr>
 </table>
+
 
 至此，我们就完成了MindSearch在Hugging Face上面的部署。课程任务请访问[闯关任务](./task.md)
 
