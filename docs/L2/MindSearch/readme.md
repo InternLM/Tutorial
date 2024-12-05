@@ -1,6 +1,6 @@
 # MindSearch深度解析实践
 
-<img width="900" alt="img_v3_02fm_1cdd62bb-61dc-490f-8720-97f70ce4455g" src="">
+  <img width="900" alt="img_v3_02h8_f7bf813c-aa3c-4f2b-a007-8d4c6954837g" src="https://github.com/user-attachments/assets/528df2e7-d980-4067-abfd-3c6f05d10c5c">
 
 ## 1. 闯关任务
 
@@ -20,7 +20,7 @@ MindSearch 是一个开源的 AI 搜索引擎框架，具有与 Perplexity.ai Pr
 - 💻 多种用户界面：为用户提供各种接口，包括 React、Gradio、Streamlit 和本地调试。根据需要选择任意类型。
 - 🧠 动态图构建过程：MindSearch 将用户查询分解为图中的子问题节点，并根据 WebSearcher 的搜索结果逐步扩展图。
 
-  
+
 ![output](https://github.com/user-attachments/assets/6f3c649e-a8db-445d-95bc-7f59562ecb8b)
 
 
