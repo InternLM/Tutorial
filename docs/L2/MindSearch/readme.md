@@ -124,15 +124,16 @@ python frontend/mindsearch_gradio.py
 
 如果启动前端后没有自动打开前端页面的话，我们可以手动用7882的端口转发地址打开gradio的前端页面~
 然后就可以体验MindSearch gradio版本啦~
-比如向其询问：什么是MindSearch？等待一段时间后，会在页面上输出它的结果。
+比如向其询问："Find legal precedents in contract law." 等待一段时间后，会在页面上输出它的结果。
 
 <table align="center">
   <tr>
     <td>
-        <img src="https://github.com/user-attachments/assets/b114e98c-a5d7-4cd2-8da9-512d0ba5b61a" alt="Image 4" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+        <img src="https://github.com/user-attachments/assets/818a668d-7d2b-4ff4-8845-e86b3e6ab895" alt="Image 4" style="width:100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
     </td>
   </tr>
 </table>
+
 
 
 在这一步中，可能终端会打印报错信息，但是只要前端页面上没有出现报错就行。如果前端页面上出现错误并终止，那么可能是MindSearch 中 searcher 模块的问题。在上面的例子中我们使用的是DuckDuckGoSearch，因此你也可以尝试其他的搜索引擎API。如我们可以替换为BingSearch 或者 TencentSearch 进行尝试。
@@ -141,7 +142,7 @@ python frontend/mindsearch_gradio.py
 ```bash
 # BingSearch
 python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine BingSearch --asy
-# DuckDuckGoSearch
+# TencentSearch
 # python -m mindsearch.app --lang cn --model_format internlm_silicon --search_engine TencentSearch --asy
 ```
 
