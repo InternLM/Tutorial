@@ -5,6 +5,7 @@ import copy
 from tqdm import tqdm
 import queue
 import time
+import os
 
 base_id_prompt = "# Role: 问答机器人\n\n## Profile\n- author: 尖米\n- version: 1.0\n- language: 中文\n- description: 你是机智流的问答机器人，你可以对用户输入的图像、文字进行解析，并根据已有的知识库进行精确回答。\n\n## Skills\n1. 图像识别与解析：能够识别用户上传的图像，并提取其中的关键信息。\n2. 自然语言处理：能够理解并解析用户输入的文字信息，准确把握用户意图。\n3. 知识库应用：根据解析结果，查询知识库，提供准确、相关的答案。\n4. 多轮对话：支持与用户进行多轮对话，提供连续性、上下文相关的回答。\n\n## Rules\n1. 必须充分理解用户输入的图像和文字内容。\n2. 回答需要简洁明了，避免过于复杂或含糊的表述。\n3. 在回答过程中，优先查询和引用公司已有的知识库。\n4. 对于无法回答的问题，需要引导用户提供更多信息或寻求人工客服帮助。\n\n## Workflows\n1. 接收并分析用户输入的图像或文字信息。\n2. 基于图像识别或自然语言处理技术，提取关键信息。\n3. 查询知识库，匹配相关信息。\n4. 向用户提供精准、相关的回答。\n5. 如有必要，进行多轮对话，确保问题得到有效解决。\n\n## Init\n欢迎使用机智流的问答机器人，请输入您的问题，我将尽力为您提供帮助。\n",
 
@@ -33,7 +34,7 @@ class BaseDataAPI:
         self.data_template = {
             "conversation": [
                 {
-                    "system": base_id_prompt
+                    "system": base_id_prompt,
                     "input": "xxx",
                     "output": "xxx"
                 }
@@ -98,6 +99,14 @@ class GetDataApi(BaseDataAPI):
 
 class ChatData(BaseDataAPI):
     def __init__(self, train_data, save_path, client_name="internlm"):
+        save_dir = os.path.dirname(save_path)
+        if save_dir:  # 如果save_path包含目录路径
+            os.makedirs(save_dir, exist_ok=True)
+        
+        # 如果文件不存在,创建空文件
+        if not os.path.exists(save_path):
+            with open(save_path, 'w', encoding='utf-8') as f:
+                pass  # 创建空文件
         super().__init__(train_data, save_path, client_name=client_name)
         self.train_data = train_data
 
@@ -105,28 +114,26 @@ class ChatData(BaseDataAPI):
         with open(self.train_data, 'r', encoding='utf-8') as f:
             return f.readlines()
 
-    def ask_for_tts(self, question, save_ask):
+    def ask_for_tts(self, question):
+        messages = [
+            {"role": "system", "content": str(base_id_prompt[0]) if isinstance(base_id_prompt, tuple) else str(base_id_prompt)},
+            {"role": "user", "content": str(question)}
+        ]
         chat_rsp = self.client.chat.completions.create(
             model="internlm2.5-latest",  # 或 "glm-4"
-            messages=[
-                {"role": "system", "content": base_id_prompt},
-                {"role": "user", "content": question}
-            ],
+            messages=messages,
             stream=False,
         )
-        return self.build_data(save_ask, chat_rsp)
+        return self.build_data(question, chat_rsp)
 
     def __call__(self):
         train_data = self.load_data()
         answer_queue = queue.Queue()
-        with ThreadPoolExecutor(max_workers=10) as pool:
+        with ThreadPoolExecutor(max_workers=1) as pool:
             print("Asking...")
             futures = []
             for item in train_data:
-                item = json.loads(item)
-                question = item['conversation'][0]['output']
-                save_ask = item['conversation'][0]['input']
-                futures.append(pool.submit(self.ask_for_tts, question, save_ask))
+                futures.append(pool.submit(self.ask_for_tts, item))
 
             for future in tqdm(futures):
                 result = future.result()
@@ -144,8 +151,9 @@ class ChatData(BaseDataAPI):
 if __name__ == '__main__':
     questions_path = './tools/L1_XTuner_code/Q_list.txt'
     save_path = './data/train_basic.jsonl'
+
     start_time = time.time()
-    chat_data = GetDataApi(questions_path, save_path)
+    chat_data = ChatData(questions_path, save_path)
     chat_data()
     end_time = time.time()
     print('Done')
