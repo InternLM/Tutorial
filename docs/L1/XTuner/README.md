@@ -35,29 +35,13 @@ conda create -n xtuner-env python=3.10 -y
 conda activate xtuner-env
 ```
 ### **步骤 1.** 安装 XTuner
-此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
+此处使用pip安装，更多的安装方法请回到前面看 XTuner 文档
 ```shell
-git clone https://github.com/InternLM/xtuner.git
-cd /root/finetune/xtuner
-
-pip install  -e '.[all]'
+pip install xtuner==0.1.23 timm==1.0.9
+pip install 'xtuner[deepspeed]'
 pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
-pip install transformers==4.39.0
+pip install transformers==4.39.0 peft==0.13.2
 ```
->`-e` 表示在可编辑模式下安装项目，因此对代码所做的任何本地修改都会生效
-
-<details>
-<summary>如果安装过程出现错误，请参考以下解决方案：</summary>
-> WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1007)'))': /pypi/simple/bitsandbytes/
-
-> Could not fetch URL https://mirrors.aliyun.com/pypi/simple/bitsandbytes/: There was a problem confirming the ssl certificate: HTTPSConnectionPool(host='mirrors.aliyun.com', port=443): Max retries exceeded with url: /pypi/simple/bitsandbytes/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1007)'))) - skipping
-
-> INFO: pip is looking at multiple versions of xtuner to determine which version is compatible with other requirements. This could take a while.
-
-> ERROR: Could not find a version that satisfies the requirement bitsandbytes>=0.40.0.post4 (from xtuner) (from versions: none)，可以 `Ctrl + C` 退出后换成 `pip install --trusted-host mirrors.aliyun.com -e '.[deepspeed]' -i https://mirrors.aliyun.com/pypi/simple/`
-
-</details>
-
 
 ### 验证安装
 为了验证 XTuner 是否安装正确，我们将使用命令打印配置文件。
