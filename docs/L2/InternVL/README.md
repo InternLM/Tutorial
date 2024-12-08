@@ -58,9 +58,10 @@ conda activate xtuner-env
 安装与deepspeed集成的xtuner和相关包：
 
 ```Bash
-pip install -U 'xtuner[deepspeed]' timm==1.0.9
+pip install xtuner==0.1.23 timm==1.0.9
+pip install 'xtuner[deepspeed]'
 pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
-pip install transformers==4.39.0
+pip install transformers==4.39.0 peft==0.13.2
 ```
 
 训练环境既为安装成功。
@@ -72,7 +73,7 @@ pip install transformers==4.39.0
 ```Bash
 conda create -n lmdeploy python=3.10 -y
 conda activate lmdeploy
-pip install lmdeploy gradio==4.44.1 timm==1.0.9
+pip install lmdeploy==0.6.1 gradio==4.44.1 timm==1.0.9
 ```
 
 "lmdeploy"为推理使用环境名。
@@ -175,7 +176,7 @@ python demo.py
 在InternStudio开发机的`/root/xtuner`路径下，即为开机自带的xtuner，先进入工作目录并激活训练环境：
 
 ```Bash
-cd root/xtuner
+cd /root/xtuner
 conda activate xtuner-env  # 或者是你自命名的训练环境
 ```
 
