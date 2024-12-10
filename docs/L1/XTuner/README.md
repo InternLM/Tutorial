@@ -486,6 +486,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 ```bash
 conda activate xtuner-env
 
+pip install streamlit==1.31.0
 streamlit run /root/Tutorial/tools/L1_XTuner_code/xtuner_streamlit_demo.py
 ```
 
