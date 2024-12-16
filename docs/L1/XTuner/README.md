@@ -15,8 +15,6 @@
 * 针对业务场景（如特殊自我认知的机器人）的微调能力
 * 一个属于自己的语言聊天机器人
 
-本节课对应的视频链接：暂无
-
 XTuner 文档链接：[XTuner-doc-cn](https://xtuner.readthedocs.io/zh-cn/latest/)
 
 ## 环境配置与数据准备
@@ -35,16 +33,12 @@ conda create -n xtuner-env python=3.10 -y
 conda activate xtuner-env
 ```
 ### **步骤 1.** 安装 XTuner
-此处推荐源码安装，更多的安装方法请回到前面看 XTuner 文档
-```shell
-git clone https://github.com/InternLM/xtuner.git
-cd /root/finetune/xtuner
+此处推荐用我 freeze 的 requirements.txt，更多的安装方法请回到前面看 XTuner 文档
 
-pip install  -e '.[all]'
-pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu121
-pip install transformers==4.39.0
+```shell
+cd /root/Tutorial/docs/L1/XTuner
+pip install -r requirements.txt
 ```
->`-e` 表示在可编辑模式下安装项目，因此对代码所做的任何本地修改都会生效
 
 <details>
 <summary>如果安装过程出现错误，请参考以下解决方案：</summary>
@@ -492,6 +486,7 @@ cd ~/Tutorial/tools/L1_XTuner_code
 ```bash
 conda activate xtuner-env
 
+pip install streamlit==1.31.0
 streamlit run /root/Tutorial/tools/L1_XTuner_code/xtuner_streamlit_demo.py
 ```
 

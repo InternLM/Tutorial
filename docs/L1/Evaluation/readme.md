@@ -19,6 +19,8 @@ cd opencompass
 pip install -e .
 pip install -r requirements.txt
 pip install huggingface_hub==0.25.2
+
+pip install importlib-metadata
 ```
 
 更多使用说明，请参考 OpenCompass [官方文档](https://opencompass.readthedocs.io/en/latest/tutorial.html)。
