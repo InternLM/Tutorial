@@ -516,3 +516,39 @@ model = AutoModel.from_pretrained("Intern/internlm2_5-1_8b-chat", trust_remote_c
 
 #### 2.3.2 上传模型
 在魔乐社区一般有两种方法，第一种是安装好openmid后使用openmind的API来上传文件，另一个就是用git命令来推送文件，跟一般的git工作流相类似。可参考[上传文件 | 魔乐社区](https://modelers.cn/docs/zh/openmind-hub-client/basic_tutorial/upload.html)
+
+### 2.4 始智AI平台
+
+始智AI平台（wisemodel）是一个中立开放的AI开源社区， 是一个提供多样化开源模型、数据集以及训练和微调的一站式平台。
+
+#### 2.4.1 下载internlm2-7B模型
+
+注册好该平台后，我们可以在创建好的InternStudio开发机下下载模型
+
+```bash
+cd /
+mkdir wise_model
+cd wise_model
+```
+
+假设的账户名是username，那么可以用以下方式，下载公有仓库的模型
+
+```bash
+git lfs install
+git clone https://www.wisemodel.cn/username/llava-internlm2-7b.git
+```
+
+如果涉及到私有仓库，需要创建git token进行操作，具体请参考[上传文件 | 始智AI-wisemodel](https://wisemodel.cn/docs/%E6%A8%A1%E5%9E%8B%E4%B8%8A%E4%BC%A0)
+
+#### 2.4.2 上传模型
+
+假设你的模型文件位于/work/my_model_dir本地目录下：
+
+```bash
+cd my_test_model  #进入同步模型仓库的目录
+cp -rf /work/my_model_dir/* .  #从/work/my_model_dir本地目录把文件拷贝到模型仓库
+git add -A . #执行更新git目录
+git commit -m "commit message"  #合并文件并填写更新说明
+git push  #将本地文件上传更新
+```
+
