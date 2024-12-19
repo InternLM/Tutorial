@@ -521,7 +521,7 @@ model = AutoModel.from_pretrained("Intern/internlm2_5-1_8b-chat", trust_remote_c
 
 始智AI平台（wisemodel）是一个中立开放的AI开源社区， 是一个提供多样化开源模型、数据集以及训练和微调的一站式平台。
 
-#### 2.4.1 下载internlm2-7B模型
+#### 2.4.1 下载llava-internlm2-7B模型
 
 注册好该平台后，我们可以在创建好的InternStudio开发机下下载模型
 
