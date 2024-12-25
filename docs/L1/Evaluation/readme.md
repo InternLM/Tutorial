@@ -103,7 +103,7 @@ for d in cmmlu_datasets:
 如果你想要评测本地部署的大语言模型，首先需要获取到完整的模型权重文件。以开源模型为例，你可以从 Hugging Face 等平台下载模型文件。接下来，你需要准备足够的计算资源，比如至少一张显存够大的 GPU，因为模型文件通常都比较大。有了模型和硬件后，你需要在评测配置文件中指定模型路径和相关参数，然后评测框架就会自动加载模型并开始评测。这种评测方式虽然前期准备工作相对繁琐，需要考虑硬件资源，但好处是评测过程完全在本地完成，不依赖网络状态，而且你可以更灵活地调整模型参数，深入了解模型的性能表现。这种方式特别适合需要深入研究模型性能或进行模型改进的研发人员。
 
 
-我们接下以评测 InternLM2-Chat-1.8B 在 C-Eval 数据集上的性能为例，介绍如何评测本地模型。
+我们接下以评测 InternLM2.5-1.8B-Chat 在 C-Eval 数据集上的性能为例，介绍如何评测本地模型。
 
 ### 相关配置
 
@@ -113,11 +113,22 @@ for d in cmmlu_datasets:
 ```bash
 cd /root/opencompass
 conda activate opencompass
-conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia -y
+conda install pytorch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 apt-get update
 apt-get install cmake
 pip install protobuf==4.25.3
-pip install huggingface-hub==0.23.2
+```
+
+为了解决一些本地评测时出现的报错问题，我们还需要重装一些 python 库
+
+```bash
+pip uninstall numpy -y
+pip install "numpy<2.0.0,>=1.23.4"
+pip uninstall pandas -y
+pip install "pandas<2.0.0"
+pip install onnxscript
+pip uninstall transformers -y
+pip install transformers==4.39.0
 ```
 
 为了方便评测，我们首先将数据集下载到本地:
@@ -158,7 +169,7 @@ models = [
 # python run.py --datasets ceval_gen --models hf_internlm2_5_1_8b_chat --debug
 ```
 
-可以通过以下命令评测 InternLM2-Chat-1.8B 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
+可以通过以下命令评测 InternLM2.5-1.8B-Chat 模型在 C-Eval 数据集上的性能。由于 OpenCompass 默认并行启动评估过程，我们可以在第一次运行时以 --debug 模式启动评估，并检查是否存在问题。在 --debug 模式下，任务将按顺序执行，并实时打印输出。
 
 ```bash
 python run.py --datasets ceval_gen --models hf_internlm2_5_1_8b_chat --debug

@@ -5,7 +5,7 @@
 ## 基础任务（完成此任务即完成闯关）
 
 - 使用 OpenCompass 评测浦语 API 记录复现过程并截图。（注意：写博客提交作业时切记删除自己的 api_key！）
-- 使用 OpenCompass 评测 internlm2.5-chat-1.8b 模型在 ceval 数据集上的性能，记录复现过程并截图。（可选）
+- 使用 OpenCompass 评测 InternLM2.5-1.8B-Chat 模型在 ceval 数据集上的性能，记录复现过程并截图。（可选）
 
 ## 进阶任务（闯关不要求完成此任务）
 
