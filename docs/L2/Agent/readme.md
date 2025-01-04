@@ -891,30 +891,30 @@ if __name__ == '__main__':
 ## 4.1 设置环境变量
 
 首先创建一个新的Spaces，SDK 选择 Streamlit，你会发现在创建的页面中我们并没有关于环境变量或者密钥的选项，不急，先点击 Create Spaces
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/5be353916f253e7f96ac8bbe89a20ac.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/5be353916f253e7f96ac8bbe89a20ac.png)
 
 然后就会跳转到如下页面，点击右上角 Settings
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230222238.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230222238.png)
 
 然后往下翻，找到 Variables and secrets，找到右上角创建 New secret
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230222401.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230222401.png)
 这里我们输入两个 api_key，一个是 `token` ——你的浦语/硅基流动 api，一个是 `weather_token` ——你的和风天气 api，要注意名称不要写错。
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230222936.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230222936.png)
 
 然后点击 Save 就保存好你的密钥了。
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230223159.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230223159.png)
 
-你可能会文为什么用 Secret 不用 Variable 呢，我们根据 huggingface 的官方文档 [Spaces Overview](https://huggingface.co/docs/hub/spaces-overview#managing-secrets) 的解释
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230225352.png)
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230225421.png)
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230225444.png)
-虽然根据官方文档的描述，secret 比 Variable 更保险， `Spaces Secrets Scanner` 会对 `os.getenv()` 方法报警，但从下面的小实验中可以看到，在 streamlit 页面中两者其实并不区别（当然官方文档也提到了：For Streamlit Spaces, secrets are exposed to your app through [Streamlit Secrets Management](https://blog.streamlit.io/secrets-in-sharing-apps/), and public variables are directly available as environment variables）
+你可能会问为什么用 Secret 不用 Variable 呢，我们根据 huggingface 的官方文档 [Spaces Overview](https://huggingface.co/docs/hub/spaces-overview#managing-secrets) 的解释
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230225352.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230225421.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230225444.png)
+虽然根据官方文档的描述，Secret 比 Variable 更保险， `Spaces Secrets Scanner` 会对 `os.getenv()` 方法报警，但从下面的小实验中可以看到，在 streamlit 页面中两者其实并无区别（当然官方文档也提到了：For Streamlit Spaces, secrets are exposed to your app through [Streamlit Secrets Management](https://blog.streamlit.io/secrets-in-sharing-apps/), and public variables are directly available as environment variables）
 
-首先我们创建一个 variable 做对比
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230223340.png)
+首先我们创建一个 Variable 做对比
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230223340.png)
 然后我们现在就有三个环境变量了
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230223614.png)
-我们用下面这段代码测试，这三个环境变量是否可见，先测试 variable
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230223614.png)
+我们用下面这段代码测试，这三个环境变量是否可见，先测试 Variable
 ```
 import streamlit as st
 import os
@@ -929,7 +929,7 @@ st.title('环境变量展示')
 st.write('visible_token:', visible_token)
 ```
 
-可以看到，就这么水灵灵的就暴露出来了 ![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230224142.png)
+可以看到，就这么水灵灵的就暴露出来了 ![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230224142.png)
 那么 Secret 呢
 ```
 import streamlit as st
@@ -945,8 +945,8 @@ st.write('weather_token:', weather_token)
 ```
 
 很遗憾，仍然是可以暴露的
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241230225904.png)
-但可不可以用呢，答案是**放心用，没问题的**，因为只要你傻傻地自己写代码暴露 api 别人是没办法获取你写在 Huggingface Spaces 环境变量中的 api_token 的，所以放心大胆的使用就好了。当然如果你对这种办法有些膈应，决定可能有暴露的风险，或者单纯不想让别人用你的 api，我们下面将介绍一种方法来解决这个问题。
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241230225904.png)
+但可不可以用呢，答案是**放心用，没问题的**，因为只要你不傻傻地自己写代码暴露 api 别人是没办法获取你写在 Huggingface Spaces 环境变量中的 api_token 的，所以放心大胆的使用就好了。当然如果你对这种办法有些膈应，觉得可能有暴露的风险，或者单纯不想让别人用你的 api，我们下面将介绍另一种方法来解决这个问题。
 
 ## 4.2 编写 MultiPage
 
@@ -961,10 +961,10 @@ class_registry==2.1.2
 datasets==3.1.0
 griffe==0.48.0
 ```
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241219175535.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241219175535.png)
 
 不过实测发现 huggingfaces 上的 docker 找不到 `requirements/optional.txt` 和 `requirements/runtime.txt`
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223085959.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223085959.png)
 
 我们将其手动添加至 `requirements.txt` 中，拷贝下面这段代码：
 ```
@@ -1007,13 +1007,13 @@ timeout-decorator
 typing-extensions
 griffe==0.48.0
 ```
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223091226.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223091226.png)
 
 
 由于 Huggingface Spaces 要求 file 中必须有一个名称为 `app.py` 的文件，否则会出现 `No application file` 错误。
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223085618.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223085618.png)
 
-我们当然可以把 `agent_api_web_demo.py` 和 `multi_agents_api_web_demo.py` 更名为 `app.py`，然而考虑到这两个页面文件会调用到其他代码，我们有不希望把时间浪费在找依赖上，于是我们直接在 `agent_camp4/lagent` 文件夹下做一个 `app.py` 的入口文件当作 HomePage，编写一个多页面的 streamlit 首页实现对天气查询小助手和博客写作小助手两个 agent 的导航，代码如下（我们这里采用代码写入环境变量的方式，这样子别人来访问的时候可以不用消耗你自己的 api_token，而是让他们自己填写）
+我们当然可以把 `agent_api_web_demo.py` 和 `multi_agents_api_web_demo.py` 更名为 `app.py`，然而考虑到这两个页面文件会调用到其他代码，我们又不希望把时间浪费在找依赖上，于是我们直接在 `agent_camp4/lagent` 文件夹下做一个 `app.py` 的入口文件当作 HomePage，编写一个多页面的 streamlit 首页实现对天气查询小助手和博客写作小助手两个 agent 的导航，代码如下（我们这里采用代码写入环境变量的方式，这样子别人来访问的时候可以不用消耗你自己的 api_token，而是让他们自己填写）
 ```python
 import streamlit as st
 import os
@@ -1050,10 +1050,10 @@ else:
 此外由于 streamlit 要求一个页面内**只能有一个** `st.set_page_config()` 函数，因此需要把 `agent_api_web_demo.py` 和 `multi_agents_api_web_demo.py` 中的相应代码注释掉，不然会报错
 
 `agent_api_web_demo.py` 第 49~53 行和第 136~140 行
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223090619.png)
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223090707.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223090619.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223090707.png)
  `multi_agents_api_web_demo.py` 第 153 行
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223090819.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223090819.png)
 
 然后我们就可以将 `agent_camp4/lagent` 文件夹下需要的文件用 `rsync` 全都拷贝到自己新建的 huggingface Spaces 仓库下了（注意！由于 git 文件和 `README` 中有仓库的配置信息，一定要警惕不能被覆盖掉，保持原来的就行，然后别忘了把 `{your_huggingface_name}` 替换成自己的 huggingface 用户名）
 ```
@@ -1066,8 +1066,8 @@ git push
 ```
 
 这样我们就在 huggingface 上部署成功了~~
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223092958.png)
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223092847.png)
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223092907.png)
-![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/Pasted%20image%2020241223092818.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223092958.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223092847.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223092907.png)
+![](https://raw.githubusercontent.com/fresh-little-lemon/image/main/InternLM-Tutorial/Pasted%20image%2020241223092818.png)
 
