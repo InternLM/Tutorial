@@ -882,13 +882,13 @@ if __name__ == '__main__':
 
 **至此，我们完成了本节课所有内容。** 希望大家通过今天的学习，能够更加系统地掌握Agent和Multi-Agents的核心思想和实现方法，并在实际开发中灵活运用。🎉🎉🎉
 
-# 4 Huggingface Spaces 部署
+## 4 Huggingface Spaces 部署
 
 本部分由社区[甘施羽](https://github.com/fresh-little-lemon/)同学贡献🎉🎉
 
 小伙伴们可能在将 agent 的代码部署到 Huggingface Spaces 时遇到了一些困难，比如我不想让别人看到我的 api_key 但我又不知道环境变量怎么设？agent 的 demo 里引用了别的代码的内容，有没有比较方便的办法保留原本的文档结构，直接把天气和博客两个代码一锅端一块儿提交？接下来将手把手教大家解决上面两个痛点。
 
-## 4.1 设置环境变量
+### 4.1 设置环境变量
 
 首先创建一个新的Spaces，SDK 选择 Streamlit，你会发现在创建的页面中我们并没有关于环境变量或者密钥的选项，不急，先点击 Create Spaces
 ![](https://github.com/fresh-little-lemon/image/tree/main/InternML-Tutorial/5be353916f253e7f96ac8bbe89a20ac.png)
