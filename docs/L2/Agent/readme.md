@@ -884,6 +884,8 @@ if __name__ == '__main__':
 
 # 4 Huggingface Spaces 部署
 
+本部分由社区[甘施羽](https://github.com/fresh-little-lemon/)同学贡献🎉🎉
+
 小伙伴们可能在将 agent 的代码部署到 Huggingface Spaces 时遇到了一些困难，比如我不想让别人看到我的 api_key 但我又不知道环境变量怎么设？agent 的 demo 里引用了别的代码的内容，有没有比较方便的办法保留原本的文档结构，直接把天气和博客两个代码一锅端一块儿提交？接下来将手把手教大家解决上面两个痛点。
 
 ## 4.1 设置环境变量
