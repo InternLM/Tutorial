@@ -888,7 +888,7 @@ if __name__ == '__main__':
 
 小伙伴们可能在将 agent 的代码部署到 Huggingface Spaces 时遇到了一些困难，比如我不想让别人看到我的 api_key 但我又不知道环境变量怎么设？agent 的 demo 里引用了别的代码的内容，有没有比较方便的办法保留原本的文档结构，直接把天气和博客两个代码一锅端一块儿提交？接下来将手把手教大家解决上面两个痛点。
 
-### 4.1 设置环境变量
+### 4.1 Spaces本地设置环境变量
 
 首先创建一个新的Spaces，SDK 选择 Streamlit，你会发现在创建的页面中我们并没有关于环境变量或者密钥的选项，不急，先点击 Create Spaces
 ![](https://github.com/fresh-little-lemon/image/tree/main/InternML-Tutorial/5be353916f253e7f96ac8bbe89a20ac.png)
@@ -948,7 +948,7 @@ st.write('weather_token:', weather_token)
 ![](https://github.com/fresh-little-lemon/image/tree/main/InternML-Tutorial/Pasted%20image%2020241230225904.png)
 但可不可以用呢，答案是**放心用，没问题的**，因为只要你不傻傻地自己写代码暴露 api 别人是没办法获取你写在 Huggingface Spaces 环境变量中的 api_token 的，所以放心大胆的使用就好了。当然如果你对这种办法有些膈应，觉得可能有暴露的风险，或者单纯不想让别人用你的 api，我们下面将介绍另一种方法来解决这个问题。
 
-## 4.2 编写 MultiPage
+### 4.2 获取用户输入token与多页面导航
 
 首先因为 Huggingface Spaces在初始化时需要提供 python 环境的清单，因此我们修改 `/root/agent_camp4/lagent/requirements.txt` ，在其中添加如下 python 包
 ```
