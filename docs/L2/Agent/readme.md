@@ -1049,7 +1049,7 @@ else:
 
 此外由于 streamlit 要求一个页面内**只能有一个** `st.set_page_config()` 函数，因此需要把 `agent_api_web_demo.py` 和 `multi_agents_api_web_demo.py` 中的相应代码注释掉，不然会报错
 
-`agent_api_web_demo.py` 第 49~53 行和第 136~140 行
+`agent_api_web_demo.py` 第 49\~53 行和第 136\~140 行
 ![](https://github.com/fresh-little-lemon/image/tree/main/InternML-Tutorial/Pasted%20image%2020241223090619.png)
 ![](https://github.com/fresh-little-lemon/image/tree/main/InternML-Tutorial/Pasted%20image%2020241223090707.png)
  `multi_agents_api_web_demo.py` 第 153 行
