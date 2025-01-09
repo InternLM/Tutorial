@@ -79,14 +79,15 @@ config.json文件中 默认文件要修改三个地方：
 
 1. 打开 Obsidian，进入设置 → 社区插件。
 2. 搜索并安装 `Obsidian Local GPT` 插件。
-   ![](/WasmEdge/Picture1.png)
+  <img width="468" alt="Picture1" src="https://github.com/user-attachments/assets/e5ac5e94-490c-4bff-aa74-b855908654f5" />
+
 3. 安装完成后，启用插件: Enable
 
 
 ### **4.2 配置 Local GPT 插件**
 
 1. 在插件设置中，选择 `OpenAI compatible` 作为 API provider。
-![](/WasmEdge/Picture2.png)
+<img width="468" alt="Picture2" src="https://github.com/user-attachments/assets/825e1aa0-5c71-4a62-be33-c7539821ceb0" />
 2. 在 `OpenAI compatible server URL` 中输入第三步最后生成的 API URL。
 3. 在 `API key` 中输入 `LlamaEdge`。
 4. 刷新模型列表，选择 `internLM` 作为默认模型。
