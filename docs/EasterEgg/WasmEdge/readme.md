@@ -60,7 +60,7 @@ gaianet start
 curl -X POST https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network/v1/models
 ```
 确认返回的模型信息是否正确。  
-```json
+```
 {"object":"list","data":[{"id": "Llama-3.2-3B-Instruct","created":1730452234,"object": "model","owned_by": "Not
 specified"},{"id": "Nomic-embed-text-v1.5","created":1)730452234,"object":"model","owned_by": Not specified")-1}
 ```
