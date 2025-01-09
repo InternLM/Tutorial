@@ -43,7 +43,7 @@
 ```
 curl -sSfL 'https://github.com/GaiaNet-AI/gaianet-node/releases/latest/download/install.sh' | bash
 ```  
-下载向量数据库、 LlamaEdge API server 和默认的大模型（ Llama）
+这个命令行会下载向量数据库、 LlamaEdge API server 和默认的大模型（ Llama）
 
 ### **3.2 初始化 Gaia 节点**
 
