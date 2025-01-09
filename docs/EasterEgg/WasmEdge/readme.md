@@ -7,10 +7,10 @@
 
 ### **1.1 背景介绍**
 
-**作者介绍**: Miley Fu，WasmEdge Runtime 创始成员，CNCF 大使，2024年8月当选为 Linux 基金会 KubeCon、开源峰会和 AI Dev 大会联合主席。  
-**WasmEdge**: 一个开源的 WebAssembly 运行时/容器，是CNCF基金会下面的项目，支持多种语言编写的 AI 应用跨平台运行，包括跨CPU GPU 和操作系统。支持各大开源大模型，包括多模态模型。支持多种底层架构/硬件。  
-**Gaia**: 基于WasmEdge的一套软件，允许一键在本地设备或云端运行大模型节点，生成兼容 OpenAI API 的 URL，支持自定义知识库。  
-**[internlm2_5-7b-chat 模型](https://link.zhihu.com/?target=https%3A//huggingface.co/internlm/internlm2_5-7b-chat)**，是上海人工智能实验室开源的大模型，引入了一个70亿参数的基础模型以及一个为实际应用设计的聊天模型。
+**讲师介绍**: Miley Fu，WasmEdge Runtime 创始成员，CNCF 大使，2024年8月当选为 Linux 基金会 KubeCon、开源峰会和 AI Dev 大会联合主席。  
+[**WasmEdge**](https://github.com/WasmEdge/WasmEdge): 一个开源的 WebAssembly 运行时/容器，是CNCF基金会下面的项目，支持多种语言编写的 AI 应用跨平台运行，包括跨CPU GPU 和操作系统。支持各大开源大模型，包括多模态模型。支持多种底层架构/硬件。  
+[**Gaia**](https://github.com/GaiaNet-AI/gaianet-node/blob/main/README.md): 基于WasmEdge的一套软件，允许一键在本地设备或云端运行大模型节点，生成兼容 OpenAI API 的 URL，支持自定义知识库。  
+[**internlm2_5-7b-chat 模型**](huggingface.co/internlm/internlm2_5-7b-chat): 上海人工智能实验室开源的大模型，引入了一个70亿参数的基础模型以及一个为实际应用设计的聊天模型。
 
 ### **1.2 课程目标**
 
@@ -20,9 +20,15 @@
 
 ### **2.1 安装环境**
 
-**安装 Gaia 软件**: 下载并安装 Gaia。[_https://docs.gaianet.ai/node-guide/quick-start/_](https://docs.gaianet.ai/node-guide/quick-start/)   
-**下载 InternLM 2.5 7B 模型**: 从 Hugging Face 下载 InternLM 模型。[_https://huggingface.co/second-state/internlm2_5-7b-chat-GGUF/resolve/main/internlm2_5-7b-chat-Q5_K_M.gguf_](https://huggingface.co/second-state/internlm2_5-7b-chat-GGUF/resolve/main/internlm2_5-7b-chat-Q5_K_M.gguf)   
-**安装 Obsidian**: 下载并安装 Obsidian 笔记软件。[_https://obsidian.md/download_](https://obsidian.md/download)   
+**安装 Gaia 软件**:   
+下载并安装 Gaia：  
+[_https://docs.gaianet.ai/node-guide/quick-start/_](https://docs.gaianet.ai/node-guide/quick-start/)   
+**下载 InternLM 2.5 7B 模型**:     
+从 Hugging Face 下载 InternLM 模型。  
+[_https://huggingface.co/second-state/internlm2_5-7b-chat-GGUF/resolve/main/internlm2_5-7b-chat-Q5_K_M.gguf_](https://huggingface.co/second-state/internlm2_5-7b-chat-GGUF/resolve/main/internlm2_5-7b-chat-Q5_K_M.gguf)   
+**安装 Obsidian**:   
+下载并安装 Obsidian 笔记软件。  
+[_https://obsidian.md/download_](https://obsidian.md/download)   
 
 ### **2.2 硬件配置**
 
@@ -36,7 +42,6 @@
 运行以下命令行安装 Gaia 节点：
 ```
 curl -sSfL 'https://github.com/GaiaNet-AI/gaianet-node/releases/latest/download/install.sh' | bash
-tall_gaia.sh
 ```  
 下载向量数据库、 LlamaEdge API server 和默认的大模型（ Llama）
 
@@ -55,12 +60,15 @@ gaianet start
 curl -X POST https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network/v1/models
 ```
 确认返回的模型信息是否正确。  
-`{"object":"list","data":[{"id": "Llama-3.2-3B-Instruct","created":1730452234,"object": "model","owned_by": "Not
-specified"},{"id": "Nomic-embed-text-v1.5","created":1)730452234,"object":"model","owned_by": Not specified")-1}`
+```json
+{"object":"list","data":[{"id": "Llama-3.2-3B-Instruct","created":1730452234,"object": "model","owned_by": "Not
+specified"},{"id": "Nomic-embed-text-v1.5","created":1)730452234,"object":"model","owned_by": Not specified")-1}
+```
+
 
 ### **3.4 把Llama3.2替换为 InternLM 模型**
 
-1. 打开并修改 `config.json` 文件，将默认模型替换为 InternLM：
+A. 打开并修改 `config.json` 文件，将默认模型替换为 InternLM：
 `vi gaianet/config.json`
 config.json文件中 默认文件要修改三个地方：
 
@@ -70,10 +78,10 @@ config.json文件中 默认文件要修改三个地方：
 
    c. `prompt_template: "chatml"`
  
-3. 停止当前运行的Llama3.2模型：`gaianet stop`gaianet stop
-4. 下载 internLM 模型：gaianet init
-5. 重新启动节点：`gaianet start`ggaianet start
-6. 确认 InternLM 模型已成功在本地运行了，得到了与OpenAI API兼容的URL👇
+B. 停止当前运行的Llama3.2模型：`gaianet stop`gaianet stop  
+C. 下载 InternLM 模型：`gaianet init`  
+D. 重新启动节点：`gaianet start`ggaianet start  
+E. 确认 InternLM 模型已成功在本地运行了，得到了与OpenAI API兼容的URL👇  
 [https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network](https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network/)
 
 ## **4. 配置 Obsidian 与 InternLM 集成**
@@ -98,7 +106,7 @@ config.json文件中 默认文件要修改三个地方：
 
 3. 在 `API key` 中输入 `LlamaEdge`。  
 
-4. 刷新模型列表，选择 `internLM` 作为默认模型。  
+4. 刷新模型列表，选择 `InternLM` 作为默认模型。  
 
 ### **4.3 使用快捷键调用 InternLM**
 
@@ -115,7 +123,7 @@ config.json文件中 默认文件要修改三个地方：
 [WasmEdge 官方文档](https://wasmedge.org/docs/)  
 [Gaia 官方文档](https://docs.gaianet.ai/node-guide/quick-start/)
 * * *
-**注意**: 本文档为开发者提供详细的步骤和配置说明，确保开发者能够顺利部署和集成 InternLM 智能体。如有问题，请参考相关文档或联系社区支持。这节课只展示了其中一种种潜在的应用，还可以在Gaia和 internlm2_5-7b-chat 上开发更多有意思的 AI 应用噢！
+**注意**: 本文档为开发者提供详细的步骤和配置说明，确保开发者能够顺利部署和集成 InternLM 智能体。如有问题，请参考相关文档或联系社区支持。这节课只展示了其中一种种潜在的应用，还可以在Gaia和 internlm2_5-7b-chat 或其他书生大模型上开发更多有意思的 AI 应用噢！
 
 **常见问题**
 1. 端口冲突
