@@ -21,7 +21,7 @@
 ### **2.1 安装环境**
 
 **安装 Gaia 软件**:   
-下载并安装 Gaia：  
+下载并安装 Gaia。  
 [_https://docs.gaianet.ai/node-guide/quick-start/_](https://docs.gaianet.ai/node-guide/quick-start/)   
 **下载 InternLM 2.5 7B 模型**:     
 从 Hugging Face 下载 InternLM 模型。  
