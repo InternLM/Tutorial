@@ -111,7 +111,9 @@ E. 确认 InternLM 模型已成功在本地运行了，得到了与OpenAI API兼
 
 1. 默认快捷键为 `Command + M`。  
 2. 选中一段文本，按下 `Command + M`，选择“Summarize”功能。  
-3. InternLM 将自动被调用，从而生成文本总`结。还可以选择其他选项，如续写文本或者纠正语法错误。
+3. InternLM 将自动被调用，从而生成文本总结。还可以选择其他选项，如续写文本或者纠正语法错误。
+   ![WX20250110-180736@2x](https://github.com/user-attachments/assets/4f1f57a3-51d9-4394-a0ff-d5d5969acc45)
+
 
 ## **5. 总结**
 
