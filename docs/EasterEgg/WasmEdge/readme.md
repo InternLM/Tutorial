@@ -47,9 +47,8 @@ curl -sSfL 'https://github.com/GaiaNet-AI/gaianet-node/releases/latest/download/
 
 ### **3.2 初始化 Gaia 节点**
 
-初始化节点：`gaianet init`gaianet init
-启动节点：`gaianet start`g
-gaianet start
+初始化节点：`gaianet init`
+启动节点：`gaianet start`
 启动后，将生成一个公开的 OpenAI 兼容的 API URL。
 [https://0x8d2643381194979502cb2b542c7bd8bb5418408C.us.gaianet.network](https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network/)
 
@@ -77,9 +76,9 @@ config.json文件中 默认文件要修改三个地方：
 
    c. `prompt_template: "chatml"`
  
-B. 停止当前运行的Llama3.2模型：`gaianet stop`gaianet stop  
+B. 停止当前运行的Llama3.2模型：`gaianet stop`  
 C. 下载 InternLM 模型：`gaianet init`  
-D. 重新启动节点：`gaianet start`ggaianet start  
+D. 重新启动节点：`gaianet start`  
 E. 确认 InternLM 模型已成功在本地运行了，得到了与OpenAI API兼容的URL👇  
 [https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network](https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network/)
 
@@ -112,7 +111,8 @@ E. 确认 InternLM 模型已成功在本地运行了，得到了与OpenAI API兼
 1. 默认快捷键为 `Command + M`。  
 2. 选中一段文本，按下 `Command + M`，选择“Summarize”功能。  
 3. InternLM 将自动被调用，从而生成文本总结。还可以选择其他选项，如续写文本或者纠正语法错误。
-   ![WX20250110-180736@2x](https://github.com/user-attachments/assets/4f1f57a3-51d9-4394-a0ff-d5d5969acc45)
+![1736701755585](https://github.com/user-attachments/assets/813cfad9-47b5-44d7-ac14-b334e563de6d)
+
 
 
 ## **5. 总结**
