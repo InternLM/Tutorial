@@ -47,9 +47,9 @@ curl -sSfL 'https://github.com/GaiaNet-AI/gaianet-node/releases/latest/download/
 
 ### **3.2 初始化 Gaia 节点**
 
-初始化节点：`gaianet init`
-启动节点：`gaianet start`
-启动后，将生成一个公开的 OpenAI 兼容的 API URL。
+初始化节点：`gaianet init`  
+启动节点：`gaianet start`  
+启动后，将生成一个公开的 OpenAI 兼容的 API URL。  
 [https://0x8d2643381194979502cb2b542c7bd8bb5418408C.us.gaianet.network](https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.network/)
 
 ### **3.3 测试 API**
@@ -66,9 +66,9 @@ curl -X POST https://0x8d2643381194979502cb2b542c7bd8bb5418408c.us.gaianet.netwo
 
 ### **3.4 把Llama3.2替换为 InternLM 模型**
 
-A. 打开并修改 `config.json` 文件，将默认模型替换为 InternLM：
-`vi gaianet/config.json`
-config.json文件中 默认文件要修改三个地方：
+A. 打开并修改 `config.json` 文件，将默认模型替换为 InternLM：  
+`vi gaianet/config.json`  
+config.json文件中 默认文件要修改三个地方：  
 
    a. 大模型下载链接从Llama3.2 改为 Internlm2.5 7B: `https://huggingface.co/second-state/internlm2_5-7b-chat-GGUF/resolve/main/internlm2_5-7b-chat-Q5_K_M.gguf`
 
