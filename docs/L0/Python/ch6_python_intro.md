@@ -283,7 +283,7 @@ print("not b =",not b)
 ```
 
     a and b = False
-    a or b = False
+    a or b = True
     not b = True
     
 
