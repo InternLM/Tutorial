@@ -1,3 +1,5 @@
+<img width="1440" alt="B站封面" src="https://github.com/user-attachments/assets/200d376f-fe91-4768-9ed6-d9624ede9301">
+
 
 欢迎参加 InternLM Git 教程！此教程旨在帮助您学习和掌握 Git 版本控制系统的基础知识和操作技能。通过完成一系列任务，您将能够更好地理解 Git 的使用，并应用到实际的项目开发中。
 
