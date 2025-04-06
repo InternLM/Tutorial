@@ -12,7 +12,7 @@ config = configparser.ConfigParser()
 # 读取配置文件
 config.read('config.ini', encoding='utf-8')
 
-api_key = config.get("API","api_key")
+api_key = config.get("API", "api_key")
 
 
 client = OpenAI(
