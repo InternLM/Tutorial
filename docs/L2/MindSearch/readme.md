@@ -30,7 +30,7 @@ MindSearch 是一个开源的 AI 搜索引擎框架，具有与 Perplexity.ai Pr
 在入门岛我们已经提到过，想要简单部署到hugging face上，我们需要将开发机平台从InternStudio 替换成 GitHub CodeSpace。且随着硅基流动提供了免费的InternLM2.5-7B-Chat的API服务，大大降低了部署门槛，我们无需GPU资源也可以部署和使用MindSearch，这也是可以利用CodeSpace完成本次实验的原因。
 那就让我们一起来看看如何使用硅基流动的API来部署MindSearch吧~
 
-### 2.2.1. 打开codespace主页，选择Blank模板进行创建
+#### 2.2.1. 打开codespace主页，选择Blank模板进行创建
 
 <table align="center">
   <tr>
@@ -40,7 +40,7 @@ MindSearch 是一个开源的 AI 搜索引擎框架，具有与 Perplexity.ai Pr
   </tr>
 </table>
 
-### 2.2.2. 创建conda环境隔离并安装依赖
+#### 2.2.2. 创建conda环境隔离并安装依赖
 
 如果只针对于这个实验的话，其实在codespace里面不用单独创建conda环境。但是隔离是一个好习惯，因此我们还是创建一个相应的虚拟环境来隔离
 
