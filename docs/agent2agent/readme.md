@@ -1,5 +1,7 @@
 # Agent2Agent 多智能体协作
 
+> 本文档 AI + 社区共建中
+
 ## 课程简介
 
 Agent2Agent（A2A）是由 Google 发起的开放协议，定义了 AI Agent 之间互相发现、通信和协作的标准方式。如果说 MCP 解决的是「AI 与工具的连接」，A2A 解决的则是「AI 与 AI 的连接」。本课程讲解 A2A 协议的核心概念，带你用 Python SDK 实现 A2A Agent，并构建多 Agent 协作系统。

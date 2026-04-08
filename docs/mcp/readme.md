@@ -1,5 +1,7 @@
 # MCP 工具集成与科学应用
 
+> 本文档 AI + 社区共建中
+
 ## 课程简介
 
 MCP（Model Context Protocol）是由 Anthropic 发起的开放标准协议，为 AI 模型提供了连接外部工具和数据源的统一接口。自发布以来，MCP 月下载量已超过 9700 万，成为 AI 工具生态中事实上的标准。本课程从协议原理讲起，带你用 TypeScript 和 Python 开发 MCP Server，并结合 Intern-S1 科学多模态大模型实现科学领域的工具集成。
