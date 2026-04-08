@@ -66,5 +66,9 @@
 
 ## 共建
 
-- 共建地址：https://community.intern-ai.org.cn/zh/bootcamp
-- 学习过程中遇到问题，可在课程页面提交反馈
+共建地址：https://community.intern-ai.org.cn/zh/bootcamp
+
+两种反馈方式：
+
+1. **划词反馈** — 在课程教材中选中有误的内容，直接提交反馈，精确定位到具体行
+2. **课程建议** — 对整门课的内容结构、章节编排提出改进建议
