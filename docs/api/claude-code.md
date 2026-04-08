@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # Claude Code 接入 Intern-S1-Pro
 
 [Claude Code](https://github.com/anthropics/claude-code) 是 Anthropic 官方的 AI 编程终端助手，支持通过 Anthropic 兼容 API 接入第三方模型。本指南将教你如何在 Claude Code 中使用 Intern-S1-Pro 模型。

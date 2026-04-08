@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # Function Calling 与 Tool Use
 
 当你问 LLM "今天上海天气怎样"，它无法真正查天气——因为它只是一个语言模型。Function Calling 就是给 LLM 装上"遥控器"，让它能够按下按钮调用外部工具获取真实信息。

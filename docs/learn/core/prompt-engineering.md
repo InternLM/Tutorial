@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # Prompt Engineering
 
 Prompt Engineering（提示工程）是与大语言模型高效交互的核心技能。好的 Prompt 能让模型输出质量提升数倍。

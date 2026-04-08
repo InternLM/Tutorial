@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # MCP 协议详解
 
 > **配套视频**：[MCP：AI 世界的 USB 接口](https://c.vansin.top/video/v3/knowledge-mcp-v3.mp4)

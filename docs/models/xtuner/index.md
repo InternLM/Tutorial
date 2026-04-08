@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # XTuner
 
 XTuner 是书生生态中的大模型微调框架，支持 LoRA / QLoRA / Full 微调，以及 RLHF / GRPO 强化学习训练。

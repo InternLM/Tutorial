@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # 在昇腾 NPU 上部署 InternVL-U
 
 本教程基于 InternStudio 开发机实战，手把手带你在华为昇腾 NPU 上完成 InternVL-U 4B 模型的全能力部署，包括文本对话、文生图、图片编辑三大功能。

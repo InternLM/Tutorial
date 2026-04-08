@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # InternLM 书生·浦语
 
 InternLM 是书生大模型系列的核心语言模型产品线，经历了三代迭代，从 InternLM 到 InternLM3，持续推进大语言模型的开源创新。

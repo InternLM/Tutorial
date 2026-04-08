@@ -1,5 +1,7 @@
 # OpenCode 接入指南
 
+> 本文档 AI + 社区共建中
+
 OpenCode 是开源的 AI 编程终端工具（GitHub 139K Stars），支持 75+ LLM 提供商，100% 开源且不锁定任何单一模型。通过配置 OpenAI 兼容端点，可以接入 Intern-S1-Pro 作为编程助手。
 
 ## 安装

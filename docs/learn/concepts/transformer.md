@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # Transformer 架构
 
 Transformer 是现代大语言模型的基础架构，由 Google 在 2017 年的论文 "Attention Is All You Need" 中提出。

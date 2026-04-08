@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # Agent2Agent (A2A) 协议
 
 > **前置知识**：建议先学习 [AI Agent 原理与架构](/zh/docs/learn/core/ai-agent) 和 [MCP 协议](/zh/docs/learn/core/mcp-protocol)

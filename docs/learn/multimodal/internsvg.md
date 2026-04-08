@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # InternSVG：AI 矢量图形生成
 
 > **前置知识**：建议先学习 [视觉语言模型 (VLM)](/zh/docs/learn/multimodal/vlm) 和 [文生图基础](/zh/docs/learn/multimodal/text-to-image)

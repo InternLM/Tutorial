@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # OpenClaw 接入 Intern-S1-Pro
 
 [OpenClaw](https://github.com/openclaw/openclaw) 是一款开源的个人 AI 助手，运行在你自己的设备上，数据完全私有。它支持通过 WhatsApp、Telegram、微信等消息平台作为交互入口，并具备浏览网页、读写文件、执行代码等能力。

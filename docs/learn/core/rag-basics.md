@@ -1,4 +1,6 @@
 
+
+> 本文档 AI + 社区共建中
 # RAG 基础
 
 RAG（Retrieval-Augmented Generation，检索增强生成）是解决大语言模型知识局限性的核心技术。
