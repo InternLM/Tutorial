@@ -64,7 +64,7 @@
 - 有 Python 基础的在校生或工程师
 - 不需要深度学习经验，课程从零讲起
 
-## 社区
+## 共建
 
-- 实战营主页：https://community.intern-ai.org.cn/zh/bootcamp
+- 共建地址：https://community.intern-ai.org.cn/zh/bootcamp
 - 学习过程中遇到问题，可在课程页面提交反馈
