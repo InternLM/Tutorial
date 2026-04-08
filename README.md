@@ -1,5 +1,7 @@
 # 书生大模型实战营 · 第七季
 
+**共赴 AGI 时代浪潮**
+
 ![主海报](https://c.vansin.top/intern/posters/s7_poster_main.jpg)
 
 > **状态：** 内容共建中 | **学习周期：** 4-8 周 | **费用：** 免费
