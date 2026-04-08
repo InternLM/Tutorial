@@ -15,7 +15,7 @@ OpenClaw 是一个开源个人 AI 助手框架，你可以在自己的设备上�
 - OpenClaw 的核心能力：网页浏览、文件操作、代码执行
 - 通过 MCP Server 扩展 OpenClaw 的工具能力
 
-## 第 1 节：OpenClaw 概览
+## OpenClaw 概览
 
 ### 目标
 
@@ -53,7 +53,7 @@ OpenClaw 不仅仅是一个聊天机器人，它具备三大实操能力：
 - **Sessions**：每个对话的独立上下文，支持模型切换和权限控制
 - **Nodes**：不同设备（macOS/iOS/Android/Linux）的能力映射
 
-## 第 2 节：快速部署
+## 快速部署
 
 ### 目标
 
@@ -110,7 +110,7 @@ pnpm openclaw onboard --install-daemon
 pnpm gateway:watch  # 开发模式，支持热重载
 ```
 
-## 第 3 节：配置 Intern-S1-Pro 作为 AI 大脑
+## 配置 Intern-S1-Pro 作为 AI 大脑
 
 ### 目标
 
@@ -176,7 +176,7 @@ openclaw doctor
 
 该命令会检查配置文件、API 连接、平台插件等的状态，帮助排查问题。
 
-## 第 4 节：接入消息平台
+## 接入消息平台
 
 ### 目标
 
@@ -274,7 +274,7 @@ OpenClaw 默认采用 pairing 模式，即陌生人发来的消息不会被处�
 | `pairing` | 陌生人需配对码，审批后才能对话 | 个人使用（推荐） |
 | `open` | 任何人都可以直接对话 | 公开服务（需谨慎） |
 
-## 第 5 节：核心能力实战
+## 核心能力实战
 
 ### 目标
 
@@ -318,7 +318,7 @@ OpenClaw 会生成代码、通过 `system.run` 执行，并返回结果。
 - 文件操作默认限制在用户目录内
 - 网页浏览需要本地安装 Chrome/Chromium
 
-## 第 6 节：MCP Server 扩展
+## MCP Server 扩展
 
 ### 目标
 
@@ -444,7 +444,7 @@ plugins:
         args: ["my_mcp_server.py"]
 ```
 
-## 第 7 节：隐私安全与最佳实践
+## 隐私安全与最佳实践
 
 ### 目标
 

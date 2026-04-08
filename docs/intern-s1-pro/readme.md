@@ -14,7 +14,7 @@ Intern-S1-Pro 是书生生态的主力科学多模态大模型，总参数量达
 - 深度思考模式的原理与使用方法
 - 使用 lm-evaluation-harness 框架评测模型能力
 
-## 第 1 节：书生模型家族与 Intern-S1-Pro 定位
+## 书生模型家族与 Intern-S1-Pro 定位
 
 ### 目标
 
@@ -56,7 +56,7 @@ Intern-S1-Pro 是书生生态的主力科学多模态大模型，总参数量达
 | Intern-S1 | ~235B (MoE) | 标准版，性能与成本平衡 |
 | Intern-S1-mini | ~8B | 轻量版，适合端侧部署 |
 
-## 第 2 节：API 接入
+## API 接入
 
 ### 目标
 
@@ -126,7 +126,7 @@ curl https://chat.intern-ai.org.cn/api/v1/chat/completions \
   }'
 ```
 
-## 第 3 节：科学推理实战
+## 科学推理实战
 
 ### 目标
 
@@ -226,7 +226,7 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-## 第 4 节：深度思考模式
+## 深度思考模式
 
 ### 目标
 
@@ -343,7 +343,7 @@ for mode_name, result in results.items():
 
 深度思考模式会增加响应时间，但对于需要精确推理的任务，质量提升是显著的。
 
-## 第 5 节：Harness 评测框架
+## Harness 评测框架
 
 ### 目标
 
@@ -409,7 +409,7 @@ for task, metrics in results["results"].items():
     print(f"{task}: {metrics}")
 ```
 
-## 第 6 节：自行部署 Intern-S1
+## 自行部署 Intern-S1
 
 ### 目标
 

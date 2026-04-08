@@ -15,7 +15,7 @@ LMDeploy 是书生生态中的高效推理部署工具，专为大语言模型�
 - 部署多模态视觉语言模型（InternVL 系列）
 - 使用 Tensor Parallelism 实现多卡分布式推理
 
-## 第 1 节：LMDeploy 概览
+## LMDeploy 概览
 
 ### 目标
 
@@ -49,7 +49,7 @@ LMDeploy 支持主流大模型：
 - **LLM**：InternLM 系列、Llama 系列、Qwen 系列、DeepSeek-V3、Mistral、Gemma、ChatGLM 等
 - **VLM**：InternVL2/3 系列、Qwen-VL 系列、DeepSeek-VL2、LLaVA、CogVLM2 等
 
-## 第 2 节：安装与快速上手
+## 安装与快速上手
 
 ### 目标
 
@@ -112,7 +112,7 @@ with lmdeploy.pipeline("internlm/internlm3-8b-instruct") as pipe:
     print(response)
 ```
 
-## 第 3 节：搭建 OpenAI 兼容 API 服务
+## 搭建 OpenAI 兼容 API 服务
 
 ### 目标
 
@@ -198,7 +198,7 @@ for item in api_client.chat_completions_v1(
     print(item)
 ```
 
-## 第 4 节：量化部署
+## 量化部署
 
 ### 目标
 
@@ -274,7 +274,7 @@ W4A16 量化后，显存占用降低约 70%，推理速度提升约 2.4 倍。
 
 W4A16 推理需要 NVIDIA Ampere 架构及以上的 GPU（RTX 3060 及以上、A100、H100 等）。
 
-## 第 5 节：多模态模型部署
+## 多模态模型部署
 
 ### 目标
 
@@ -356,7 +356,7 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-## 第 6 节：分布式推理
+## 分布式推理
 
 ### 目标
 

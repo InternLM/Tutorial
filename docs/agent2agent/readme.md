@@ -13,7 +13,7 @@ Agent2Agent（A2A）是由 Google 发起的开放协议，定义了 AI Agent 之
 - 开发 Agent 的任务处理逻辑
 - 搭建多 Agent 协作系统
 
-## 第 1 节：A2A 协议概述
+## A2A 协议概述
 
 ### 目标
 
@@ -93,7 +93,7 @@ Message 是 Task 中的通信载体，包含具体的内容。每条 Message 有
 
 两者并不冲突。一个 A2A Agent 的内部实现完全可以使用 MCP 来调用工具。A2A 管的是 Agent 之间的协作，MCP 管的是 Agent 内部的工具调用。
 
-## 第 2 节：Python SDK 实现 A2A Agent
+## Python SDK 实现 A2A Agent
 
 ### 目标
 
@@ -309,7 +309,7 @@ if __name__ == "__main__":
     print(json.dumps(result, indent=2, ensure_ascii=False))
 ```
 
-## 第 3 节：多 Agent 协作系统
+## 多 Agent 协作系统
 
 ### 目标
 
@@ -484,7 +484,7 @@ python orchestrator.py
 python client.py
 ```
 
-## 第 4 节：Agent 设计原则与最佳实践
+## Agent 设计原则与最佳实践
 
 ### 目标
 

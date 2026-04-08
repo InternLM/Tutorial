@@ -15,7 +15,7 @@ InternSVG 是书生生态推出的统一多模态 SVG 系统，首次将文本�
 - 对已有 SVG 进行编辑、配色调整和动画添加
 - 使用 LMDeploy 部署 InternSVG 模型服务
 
-## 第 1 节：SVG 基础与矢量图形优势
+## SVG 基础与矢量图形优势
 
 ### 目标
 
@@ -52,7 +52,7 @@ SVG（Scalable Vector Graphics）是一种基于 XML 的二维矢量图形格式
 
 传统的图像生成模型（如 Stable Diffusion）输出的是像素矩阵，而 SVG 要求输出结构化的代码。SVG 代码可以很长（复杂插画可达数千 token），且必须语法正确才能渲染。这对模型的长序列生成能力和代码理解能力提出了很高的要求。
 
-## 第 2 节：InternSVG 架构与设计
+## InternSVG 架构与设计
 
 ### 目标
 
@@ -88,7 +88,7 @@ InternSVG 配套构建了 SAgoge，这是目前规模最大、覆盖最全的多
 1. **第一阶段**：在短序列、简单的静态 SVG（图标等）上训练，让模型学会基础的 SVG 语法
 2. **第二阶段**：扩展到长序列插画和复杂动画，提升模型处理复杂场景的能力
 
-## 第 3 节：环境搭建与模型部署
+## 环境搭建与模型部署
 
 ### 目标
 
@@ -140,7 +140,7 @@ lmdeploy serve api_server ./models/InternSVG-8B \
 
 启动后，服务监听在 `http://0.0.0.0:23333`，提供 OpenAI 兼容的 API 接口。
 
-## 第 4 节：文本生成 SVG
+## 文本生成 SVG
 
 ### 目标
 
@@ -219,7 +219,7 @@ print("All icons generated.")
 - 在 prompt 中明确指定 viewBox 尺寸、配色和风格，有助于保持一组图标的一致性
 - 对于复杂插画，适当提高 `max_tokens`（建议 8000 以上）
 
-## 第 5 节：图片转 SVG
+## 图片转 SVG
 
 ### 目标
 
@@ -276,7 +276,7 @@ print("Conversion complete. Saved to output_logo.svg")
 
 位图图片越简洁、轮廓越清晰，转换效果越好。
 
-## 第 6 节：SVG 编辑与动画
+## SVG 编辑与动画
 
 ### 目标
 
@@ -362,7 +362,7 @@ python utils/svg_animate.py \
 - "Add a fade-in animation that plays once over 1 second"
 - "Convert the stroke style from solid to dashed"
 
-## 第 7 节：SArena 评测与进阶
+## SArena 评测与进阶
 
 ### 目标
 

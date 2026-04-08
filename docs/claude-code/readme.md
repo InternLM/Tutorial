@@ -13,7 +13,7 @@ Claude Code 是 Anthropic 官方推出的 AI 编程终端工具，将大语言�
 - 配置 Hooks 实现代码提交前的自动检查
 - 了解 Agent SDK 构建自主运行的 AI 代理
 
-## 第 1 节：安装与配置
+## 安装与配置
 
 ### 目标
 
@@ -72,7 +72,7 @@ claude
 
 如果返回正常回复且提到 Intern-S1-Pro，说明配置成功。
 
-## 第 2 节：日常开发实战
+## 日常开发实战
 
 ### 目标
 
@@ -136,7 +136,7 @@ Claude Code 会分析代码上下文，定位问题根源，并直接修改文�
 - 用 `claude --resume` 恢复上一次会话
 - 在提示中引用文件路径，Claude Code 会自动读取内容
 
-## 第 3 节：MCP Server 开发
+## MCP Server 开发
 
 ### 目标
 
@@ -283,7 +283,7 @@ claude mcp list
 
 注册完成后，在 Claude Code 中输入「北京今天天气怎么样」，它会自动调用你的 MCP Server。
 
-## 第 4 节：Skills 与 Hooks
+## Skills 与 Hooks
 
 ### 目标
 
@@ -356,7 +356,7 @@ Hooks 让你在特定事件触发时自动执行命令。在项目根目录的 `
 }
 ```
 
-## 第 5 节：Agent SDK 简介
+## Agent SDK 简介
 
 ### 目标
 

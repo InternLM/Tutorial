@@ -13,7 +13,7 @@ MCP（Model Context Protocol）是由 Anthropic 发起的开放标准协议，�
 - 将 MCP Server 注册到 Claude Code 并调试
 - 结合 Intern-S1 构建科学领域的工具应用
 
-## 第 1 节：MCP 协议原理
+## MCP 协议原理
 
 ### 目标
 
@@ -60,7 +60,7 @@ MCP 支持两种传输机制：
 - **Stdio**：通过标准输入输出通信，适合本地进程。Claude Code 主要使用这种方式。
 - **HTTP + SSE**：通过 HTTP 请求和 Server-Sent Events 通信，适合远程服务。
 
-## 第 2 节：TypeScript MCP Server 开发
+## TypeScript MCP Server 开发
 
 ### 目标
 
@@ -305,7 +305,7 @@ claude mcp add file-analyzer node dist/index.js
 claude mcp list
 ```
 
-## 第 3 节：Python MCP Server 开发
+## Python MCP Server 开发
 
 ### 目标
 
@@ -446,7 +446,7 @@ claude mcp list
 求解方程 2x^2 - 5x + 3 = 0
 ```
 
-## 第 4 节：Intern-S1 科学应用
+## Intern-S1 科学应用
 
 ### 目标
 
@@ -574,7 +574,7 @@ if __name__ == "__main__":
 
 Intern-S1 会理解这是一个化学动力学问题，自动调用线性回归工具和单位换算工具，并结合科学知识给出分析。
 
-## 第 5 节：调试与最佳实践
+## 调试与最佳实践
 
 ### 目标
 
