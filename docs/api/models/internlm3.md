@@ -5,13 +5,11 @@ InternLM3 是书生大模型系列的第三代语言模型，仅使用 4T 高质
 
 ## 可用模型
 
-| 模型 ID | 上下文长度 | 可用 API | 说明 |
-|--------|-----------|---------|------|
-| `intern-s1-pro` | 32K | 社区 / 官方 | Intern-S1-Pro，推荐使用 |
-| `intern-s1` | 32K | 社区 / 官方 | Intern-S1，通用对话与任务处理 |
-| `internlm3-latest` | 32K | 社区 / 官方 | 别名，等同于 `intern-s1-pro`（向后兼容） |
-
-> **说明：** "社区"指社区 API (`community.intern-ai.org.cn`)，"官方"指官方 API (`chat.intern-ai.org.cn`)。详见 [API 文档首页](/docs/api) 的对比表。
+| 模型 ID | 上下文长度 | 说明 |
+|--------|-----------|------|
+| `intern-s1-pro` | 32K | Intern-S1-Pro，推荐使用 |
+| `intern-s1` | 32K | Intern-S1，通用对话与任务处理 |
+| `internlm3-latest` | 32K | 别名，等同于 `intern-s1-pro`（向后兼容） |
 
 ## 特性
 

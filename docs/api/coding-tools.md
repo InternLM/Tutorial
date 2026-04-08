@@ -7,10 +7,10 @@
 
 | 配置项 | 值 |
 |--------|-----|
-| API Base URL | `https://community.intern-ai.org.cn/api/v1` |
+| API Base URL | `https://chat.intern-ai.org.cn/api/v1` |
 | 协议 | OpenAI Chat Completions |
-| 推荐模型 | `internlm3-latest`、`internvl-latest` |
-| API Key | 在 [个人设置](/docs/api/authentication) 中获取 |
+| 推荐模型 | `intern-s1-pro`、`internvl-latest` |
+| API Key | 在 [认证鉴权](/docs/api/authentication) 中获取 |
 
 ---
 
@@ -41,8 +41,8 @@
 任何支持 OpenAI 兼容 API 的工具都可以接入 InternLM：
 
 ```bash
-export OPENAI_API_KEY="your-internlm-api-key"
-export OPENAI_BASE_URL="https://community.intern-ai.org.cn/api/v1"
+export OPENAI_API_KEY="your-api-key"
+export OPENAI_BASE_URL="https://chat.intern-ai.org.cn/api/v1"
 ```
 
 ---
