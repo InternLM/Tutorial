@@ -2,48 +2,124 @@
 
 > 本文档 AI + 社区共建中
 
+## 先看效果：3 个 Agent 协作完成一次科研调研
+
+在开始学习协议细节之前，先看一个你学完本课就能搭出来的系统。
+
+假设你是一位研究者，需要调研"大语言模型在蛋白质结构预测中的应用"。传统做法是：自己搜论文、自己读摘要、自己写总结。如果有三个 AI Agent 帮你协作呢？
+
+```
+你的一句话请求
+  "调研大语言模型在蛋白质结构预测中的应用"
+     |
+     v
+[主控 Agent (Orchestrator)]
+     |
+     +---> [文献检索 Agent]  搜索 arXiv、PubMed，返回 10 篇相关论文
+     |         |
+     |         v
+     +---> [文献分析 Agent]  阅读每篇摘要，提取方法、数据集、性能指标
+     |         |
+     |         v
+     +---> [报告生成 Agent]  整合分析结果，生成结构化调研报告
+     |
+     v
+  一份完整的调研报告交到你手上
+```
+
+每个 Agent 独立运行，各自有明确的职责，通过 A2A 协议互相发现、分配任务、交换结果。这不是科幻，这就是本课要带你实现的系统。
+
+接下来我们从协议本身讲起。
+
 ## 课程简介
 
-Agent2Agent（A2A）是由 Google 发起的开放协议，定义了 AI Agent 之间互相发现、通信和协作的标准方式。如果说 MCP 解决的是「AI 与工具的连接」，A2A 解决的则是「AI 与 AI 的连接」。本课程讲解 A2A 协议的核心概念，带你用 Python SDK 实现 A2A Agent，并构建多 Agent 协作系统。
+Agent2Agent（A2A）是由 Google 发起的开放协议，定义了 AI Agent 之间互相发现、通信和协作的标准方式。如果说 MCP 解决的是"AI 与工具的连接"，A2A 解决的则是"AI 与 AI 的连接"。本课程讲解 A2A 协议的核心概念，带你用 Python SDK 从零实现 A2A Agent，并构建一个完整的多 Agent 科研协作系统。
 
 ## 你将学到
 
 - 理解 A2A 协议的设计目标和核心概念
+- 彻底搞清 MCP 与 A2A 的区别和互补关系
 - 掌握 Agent Card、Task、Message 的数据结构
-- 理解 MCP 与 A2A 的互补关系
-- 使用 Python SDK 实现 A2A Agent
-- 开发 Agent 的任务处理逻辑
-- 搭建多 Agent 协作系统
+- 使用 Python SDK 实现可运行的 A2A Agent
+- 搭建 3-Agent 科研协作系统（文献检索 + 分析 + 报告生成）
+- 掌握错误恢复、超时处理等生产级实践
 
-## A2A 协议概述
+## MCP 与 A2A：彻底讲透
 
-### 目标
+这是学 A2A 最容易混淆的点，我们先把它讲清楚。
 
-理解 A2A 协议的设计动机、核心概念和典型应用场景。
+### 一句话区分
 
-### 内容
+- **MCP = 给 Agent 装能力**。你的 Agent 通过 MCP 连接数据库、调用 API、读取文件。
+- **A2A = 让 Agent 组团**。多个 Agent 通过 A2A 互相发现、分配任务、交换结果。
 
-**为什么需要 A2A：**
+### 类比理解
 
-随着 AI Agent 越来越多，一个复杂任务往往需要多个专业 Agent 协作完成。例如：
+把 Agent 想象成一个员工：
 
-- 用户说「帮我调研竞品并生成分析报告」
-- 这需要：搜索 Agent 收集信息 + 分析 Agent 做对比 + 写作 Agent 生成报告
+- MCP 是这个员工的"工具箱"——锤子、螺丝刀、电钻。工具本身不会自己干活，得员工来用。
+- A2A 是员工之间的"协作协议"——谁负责什么、怎么分配任务、结果怎么汇报。
 
-如果每个 Agent 都是独立系统，它们之间如何发现彼此、分配任务、交换结果？A2A 协议就是为解决这个问题而设计的。
+一个员工可以同时带着工具箱（MCP），又参与团队协作（A2A）。两者互补，不竞争。
 
-**核心概念：**
+### 详细对比
 
-A2A 协议围绕三个核心概念构建：
+| 维度 | MCP (Model Context Protocol) | A2A (Agent2Agent) |
+|------|------|------|
+| 连接对象 | AI Agent <-> 工具/数据源 | AI Agent <-> AI Agent |
+| 协议角色 | Client（Agent）- Server（工具） | Peer-to-Peer（对等通信） |
+| 能力暴露 | Tools / Resources / Prompts | Skills（通过 Agent Card） |
+| 发现机制 | 手动配置或本地声明 | Agent Card 自动发现 |
+| 通信方式 | Stdio / HTTP+SSE | HTTP + JSON-RPC 2.0 |
+| 典型场景 | 查数据库、调 API、读文件 | 多 Agent 任务分工与协作 |
+| 状态管理 | 无状态（每次调用独立） | 有状态（Task 有生命周期） |
+| 谁发起的 | Anthropic | Google |
 
-**1. Agent Card（智能体名片）**
+### 什么时候用哪个？
 
-每个 Agent 通过一个 JSON 格式的 Agent Card 来描述自己。其他 Agent 读取这张名片就知道它能做什么、怎么调用。
+**用 MCP 的场景：**
+
+- 你的 Agent 需要查询数据库 -> MCP Tool
+- 你的 Agent 需要调用第三方 API -> MCP Tool
+- 你的 Agent 需要读写本地文件 -> MCP Resource
+
+**用 A2A 的场景：**
+
+- 一个任务太复杂，需要多个专业 Agent 分工 -> A2A
+- 你想复用别人开发的 Agent 而不关心其内部实现 -> A2A
+- 不同团队各自维护自己的 Agent，需要互通 -> A2A
+
+**两者结合的场景（最常见）：**
+
+```
+用户请求: "调研大模型在蛋白质预测中的应用"
+    |
+    v
+[主控 Agent]  <-- 通过 A2A 调度其他 Agent
+    |
+    +---> [文献检索 Agent]
+    |         内部通过 MCP 调用 arXiv API (MCP Tool)
+    |         内部通过 MCP 查询本地论文数据库 (MCP Resource)
+    |
+    +---> [文献分析 Agent]
+    |         内部通过 MCP 调用 Intern-S1-Pro 进行科学文本理解
+    |
+    +---> [报告生成 Agent]
+              内部通过 MCP 写入本地 Markdown 文件 (MCP Tool)
+```
+
+看到了吗？A2A 负责 Agent 之间的调度，MCP 负责每个 Agent 内部的工具调用。两个协议在不同层面工作。
+
+## A2A 协议核心概念
+
+### Agent Card（智能体名片）
+
+每个 Agent 通过一个 JSON 格式的 Agent Card 来描述自己：我是谁、我能做什么、怎么找到我。
 
 ```json
 {
-  "name": "research-agent",
-  "description": "擅长信息搜索和资料整理的研究助手",
+  "name": "literature-search-agent",
+  "description": "科研文献检索助手，擅长在 arXiv 和 PubMed 上搜索论文并整理摘要",
   "url": "http://localhost:8001",
   "version": "1.0.0",
   "capabilities": {
@@ -52,26 +128,34 @@ A2A 协议围绕三个核心概念构建：
   },
   "skills": [
     {
-      "id": "web-search",
-      "name": "网络搜索",
-      "description": "在互联网上搜索指定主题的信息并整理摘要"
+      "id": "search-papers",
+      "name": "论文搜索",
+      "description": "根据关键词在学术数据库中搜索相关论文，返回标题、作者、摘要"
     },
     {
-      "id": "summarize",
-      "name": "文档摘要",
-      "description": "将长文档压缩为结构化摘要"
+      "id": "fetch-abstract",
+      "name": "获取摘要",
+      "description": "根据论文 ID 获取完整摘要和元数据"
     }
   ]
 }
 ```
 
-Agent Card 通常发布在 `/.well-known/agent.json` 路径下，方便其他 Agent 自动发现。
+**关键字段说明：**
 
-**2. Task（任务）**
+- `name`：Agent 的唯一标识，其他 Agent 通过名字来引用它
+- `description`：Agent 的能力描述，编排器根据描述来决定把什么任务分配给它
+- `url`：Agent 的服务地址，其他 Agent 通过这个 URL 来调用它
+- `capabilities`：Agent 支持的通信能力（是否支持流式、推送通知等）
+- `skills`：Agent 具备的技能列表，每个 Skill 描述一种可执行的任务
+
+Agent Card 通常发布在 `/.well-known/agent.json` 路径下，方便其他 Agent 通过 HTTP GET 自动发现。
+
+### Task（任务）
 
 Task 是 Agent 之间协作的基本单位。一个 Agent 向另一个 Agent 发送 Task，对方处理后返回结果。
 
-Task 有明确的生命周期：
+Task 有明确的生命周期状态机：
 
 ```
 submitted -> working -> completed
@@ -79,73 +163,312 @@ submitted -> working -> completed
                     \-> canceled
 ```
 
-**3. Message（消息）**
+每个状态的含义：
 
-Message 是 Task 中的通信载体，包含具体的内容。每条 Message 有角色（user 或 agent）和一个或多个 Part（文本、文件、结构化数据等）。
+- `submitted`：任务已提交，等待 Agent 开始处理
+- `working`：Agent 正在处理任务
+- `completed`：任务处理完成，结果已返回
+- `failed`：任务处理失败，包含错误信息
+- `canceled`：任务被取消（由调用方主动取消）
 
-**MCP 与 A2A 的互补关系：**
+一个 Task 的 JSON 结构：
 
-| 维度 | MCP | A2A |
-|------|-----|-----|
-| 连接对象 | AI <-> 工具/数据 | AI Agent <-> AI Agent |
-| 协议角色 | Client-Server | Peer-to-Peer |
-| 能力暴露 | Tools / Resources / Prompts | Skills（通过 Agent Card） |
-| 典型场景 | 调用 API、读取数据库 | 多 Agent 任务分工 |
-| 通信方式 | Stdio / HTTP+SSE | HTTP + JSON-RPC |
-
-两者并不冲突。一个 A2A Agent 的内部实现完全可以使用 MCP 来调用工具。A2A 管的是 Agent 之间的协作，MCP 管的是 Agent 内部的工具调用。
-
-## Python SDK 实现 A2A Agent
-
-### 目标
-
-使用 Python A2A SDK 实现一个完整的 Agent，包括 Agent Card 定义和任务处理。
-
-### 内容
-
-**安装依赖：**
-
-```bash
-pip install a2a-sdk uvicorn
+```json
+{
+  "id": "task-001",
+  "status": {
+    "state": "completed",
+    "message": {
+      "role": "agent",
+      "parts": [
+        {
+          "type": "text",
+          "text": "找到 8 篇相关论文，已按相关度排序..."
+        }
+      ]
+    }
+  },
+  "history": [
+    {
+      "role": "user",
+      "parts": [{"type": "text", "text": "搜索蛋白质结构预测相关论文"}]
+    }
+  ]
+}
 ```
 
-**基本架构：**
+### Message（消息）
 
-一个 A2A Agent 由三部分组成：
+Message 是 Task 中的通信载体，包含具体的内容。每条 Message 有：
 
-1. **Agent Card**：声明身份和能力
-2. **Task Handler**：处理收到的任务
-3. **HTTP Server**：对外提供服务
+- `role`：消息角色，`user`（请求方）或 `agent`（处理方）
+- `parts`：消息内容列表，支持多种类型
 
-**完整示例 -- 文本分析 Agent：**
+Part 的类型：
+
+| Part 类型 | 说明 | 使用场景 |
+|-----------|------|----------|
+| TextPart | 纯文本 | 自然语言请求和响应 |
+| FilePart | 文件（含 MIME 类型） | 传递 PDF、图片等文件 |
+| DataPart | 结构化 JSON 数据 | 传递表格、统计结果等结构化信息 |
+
+### 通信协议
+
+A2A 使用 JSON-RPC 2.0 协议通信。核心方法：
+
+| 方法 | 说明 |
+|------|------|
+| `tasks/send` | 发送任务并等待完成 |
+| `tasks/sendSubscribe` | 发送任务并通过 SSE 接收流式更新 |
+| `tasks/get` | 查询任务状态 |
+| `tasks/cancel` | 取消正在执行的任务 |
+
+## 环境准备
+
+在开始写代码之前，确保环境就绪。
+
+```bash
+# 创建虚拟环境
+python -m venv a2a-env
+source a2a-env/bin/activate  # Windows: a2a-env\Scripts\activate
+
+# 安装依赖
+pip install a2a-sdk uvicorn httpx
+
+# 验证安装
+python -c "import a2a; print('a2a-sdk 安装成功')"
+python -c "import httpx; print('httpx 安装成功')"
+```
+
+## 实战：构建科研协作多 Agent 系统
+
+接下来是本课的核心部分。我们要实现开头展示的那个 3-Agent 科研协作系统。
+
+### 整体架构
+
+```
+                        用户请求
+                           |
+                           v
+                  [主控 Agent :8000]
+                     /     |     \
+                    v      v      v
+    [文献检索 Agent]  [分析 Agent]  [报告 Agent]
+         :8001          :8002         :8003
+```
+
+四个 Agent 各自独立运行，通过 A2A 协议通信：
+
+1. **文献检索 Agent（:8001）**：接收关键词，返回相关论文列表
+2. **文献分析 Agent（:8002）**：接收论文摘要列表，提取关键信息并对比分析
+3. **报告生成 Agent（:8003）**：接收分析结果，生成结构化调研报告
+4. **主控 Agent（:8000）**：接收用户请求，按顺序调度上面三个 Agent
+
+### Agent 1：文献检索 Agent
 
 ```python
-# text_analysis_agent.py
+# literature_search_agent.py
+"""
+文献检索 Agent：根据关键词搜索学术论文并返回结果列表。
+启动方式: python literature_search_agent.py
+服务地址: http://localhost:8001
+"""
+
 import json
 import hashlib
+from datetime import datetime
 from a2a.server.agent_execution import AgentExecution, RequestContext
 from a2a.server.server import A2AServer
 from a2a.types import (
     AgentCard,
     AgentCapabilities,
     AgentSkill,
-    Task,
-    TaskState,
-    TaskStatus,
     Message,
-    Part,
     TextPart,
     Role,
+    TaskState,
 )
 
 
-class TextAnalysisAgent(AgentExecution):
-    """文本分析 Agent：接收文本，返回统计和分析结果"""
+# 模拟论文数据库（实际场景中会通过 MCP 调用 arXiv API）
+PAPER_DATABASE = [
+    {
+        "title": "AlphaFold2: Protein Structure Prediction with Deep Learning",
+        "authors": "Jumper et al.",
+        "year": 2021,
+        "abstract": "We present AlphaFold2, a system that achieves atomic-level accuracy in protein structure prediction. The system uses a novel neural architecture that incorporates evolutionary, physical, and geometric constraints.",
+        "keywords": ["protein structure", "deep learning", "alphafold"],
+        "citations": 15420,
+    },
+    {
+        "title": "ESMFold: Language Models Enable Zero-Shot Prediction of Protein Structure",
+        "authors": "Lin et al.",
+        "year": 2023,
+        "abstract": "We demonstrate that large language models trained on protein sequences can predict three-dimensional protein structures without multiple sequence alignments, achieving competitive accuracy with significantly faster inference.",
+        "keywords": ["protein structure", "language model", "zero-shot"],
+        "citations": 3210,
+    },
+    {
+        "title": "RoseTTAFold: Accurate Prediction of Protein Structures and Interactions",
+        "authors": "Baek et al.",
+        "year": 2021,
+        "abstract": "We present RoseTTAFold, a three-track neural network for protein structure prediction that simultaneously processes sequence, distance, and coordinate information.",
+        "keywords": ["protein structure", "neural network", "prediction"],
+        "citations": 4850,
+    },
+    {
+        "title": "ProteinMPNN: Robust Protein Sequence Design with Deep Learning",
+        "authors": "Dauparas et al.",
+        "year": 2022,
+        "abstract": "We introduce ProteinMPNN, a message passing neural network for computational protein design that generates amino acid sequences given protein backbone structures.",
+        "keywords": ["protein design", "deep learning", "sequence design"],
+        "citations": 2760,
+    },
+    {
+        "title": "Uni-Fold: Training Protein Structure Prediction Models on Diverse Data",
+        "authors": "Li et al.",
+        "year": 2022,
+        "abstract": "We present Uni-Fold, an open-source platform for training protein structure prediction models. By training on a combination of experimental and predicted structures, we achieve improved accuracy on challenging targets.",
+        "keywords": ["protein structure", "training", "open source"],
+        "citations": 890,
+    },
+]
 
-    async def execute(
-        self, context: RequestContext, request: dict
-    ) -> None:
-        # 从请求中提取文本
+
+class LiteratureSearchAgent(AgentExecution):
+    """文献检索 Agent：根据关键词搜索论文"""
+
+    async def execute(self, context: RequestContext, request: dict) -> None:
+        # 从请求中提取搜索关键词
+        task_params = request.get("params", {})
+        message = task_params.get("message", {})
+        parts = message.get("parts", [])
+
+        query = ""
+        for part in parts:
+            if part.get("type") == "text":
+                query = part.get("text", "")
+                break
+
+        if not query:
+            await context.send_status_update(
+                state=TaskState.failed,
+                message=self._make_message("错误：未收到搜索关键词"),
+            )
+            return
+
+        # 更新状态为处理中
+        await context.send_status_update(
+            state=TaskState.working,
+            message=self._make_message(f"正在搜索与 '{query}' 相关的论文..."),
+        )
+
+        # 执行搜索（模拟关键词匹配）
+        results = self._search(query)
+
+        if not results:
+            await context.send_status_update(
+                state=TaskState.completed,
+                message=self._make_message("未找到相关论文，请尝试调整关键词。"),
+            )
+            return
+
+        # 格式化结果
+        output_lines = [f"找到 {len(results)} 篇相关论文：", ""]
+        for i, paper in enumerate(results, 1):
+            output_lines.append(f"[{i}] {paper['title']}")
+            output_lines.append(f"    作者: {paper['authors']} ({paper['year']})")
+            output_lines.append(f"    引用: {paper['citations']} 次")
+            output_lines.append(f"    摘要: {paper['abstract'][:120]}...")
+            output_lines.append("")
+
+        await context.send_status_update(
+            state=TaskState.completed,
+            message=self._make_message("\n".join(output_lines)),
+        )
+
+    def _search(self, query: str) -> list[dict]:
+        """根据关键词搜索论文（模拟实现）"""
+        query_lower = query.lower()
+        query_words = query_lower.split()
+        scored_papers = []
+
+        for paper in PAPER_DATABASE:
+            score = 0
+            searchable = (
+                paper["title"].lower()
+                + " "
+                + paper["abstract"].lower()
+                + " "
+                + " ".join(paper["keywords"])
+            )
+            for word in query_words:
+                if word in searchable:
+                    score += 1
+            if score > 0:
+                scored_papers.append((score, paper))
+
+        scored_papers.sort(key=lambda x: (-x[0], -x[1]["citations"]))
+        return [p for _, p in scored_papers]
+
+    def _make_message(self, text: str) -> Message:
+        return Message(role=Role.agent, parts=[TextPart(type="text", text=text)])
+
+
+def main():
+    agent_card = AgentCard(
+        name="literature-search-agent",
+        description="科研文献检索助手，根据关键词搜索学术论文并返回结果列表",
+        url="http://localhost:8001",
+        version="1.0.0",
+        capabilities=AgentCapabilities(streaming=False, pushNotifications=False),
+        skills=[
+            AgentSkill(
+                id="search-papers",
+                name="论文搜索",
+                description="根据关键词在学术数据库中搜索相关论文",
+            ),
+        ],
+    )
+
+    agent = LiteratureSearchAgent()
+    server = A2AServer(agent_card=agent_card, agent_execution=agent)
+    print("文献检索 Agent 启动于 http://localhost:8001")
+    server.start(host="0.0.0.0", port=8001)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Agent 2：文献分析 Agent
+
+```python
+# literature_analysis_agent.py
+"""
+文献分析 Agent：接收论文列表，提取关键信息并进行对比分析。
+启动方式: python literature_analysis_agent.py
+服务地址: http://localhost:8002
+"""
+
+import json
+from a2a.server.agent_execution import AgentExecution, RequestContext
+from a2a.server.server import A2AServer
+from a2a.types import (
+    AgentCard,
+    AgentCapabilities,
+    AgentSkill,
+    Message,
+    TextPart,
+    Role,
+    TaskState,
+)
+
+
+class LiteratureAnalysisAgent(AgentExecution):
+    """文献分析 Agent：对论文列表进行结构化分析"""
+
+    async def execute(self, context: RequestContext, request: dict) -> None:
         task_params = request.get("params", {})
         message = task_params.get("message", {})
         parts = message.get("parts", [])
@@ -159,195 +482,97 @@ class TextAnalysisAgent(AgentExecution):
         if not input_text:
             await context.send_status_update(
                 state=TaskState.failed,
-                message=self._make_message("错误：未收到文本内容"),
+                message=self._make_message("错误：未收到待分析的论文内容"),
             )
             return
 
-        # 执行分析
-        analysis = self._analyze_text(input_text)
+        await context.send_status_update(
+            state=TaskState.working,
+            message=self._make_message("正在分析论文内容..."),
+        )
 
-        # 返回结果
+        analysis = self._analyze(input_text)
+
         await context.send_status_update(
             state=TaskState.completed,
             message=self._make_message(analysis),
         )
 
-    def _analyze_text(self, text: str) -> str:
-        """对文本进行多维度分析"""
+    def _analyze(self, text: str) -> str:
+        """对论文列表进行结构化分析（模拟实现）"""
+        # 实际场景中会调用 Intern-S1-Pro 等大模型做深度分析
         lines = text.split("\n")
-        words = text.split()
-        chars = len(text)
-        chars_no_space = len(text.replace(" ", "").replace("\n", ""))
+        paper_count = sum(1 for line in lines if line.strip().startswith("["))
 
-        # 词频统计（取前 10）
-        word_freq: dict[str, int] = {}
-        for word in words:
-            clean = word.strip(".,;:!?\"'()[]{}").lower()
-            if len(clean) > 1:
-                word_freq[clean] = word_freq.get(clean, 0) + 1
-        top_words = sorted(word_freq.items(), key=lambda x: -x[1])[:10]
-
-        # 句子统计
-        sentences = [s.strip() for s in text.replace("!", ".").replace("?", ".").split(".") if s.strip()]
-
-        result_lines = [
-            "=== 文本分析报告 ===",
+        analysis_lines = [
+            "=== 文献分析报告 ===",
             "",
-            f"总字符数: {chars}",
-            f"字符数(不含空格): {chars_no_space}",
-            f"单词/词语数: {len(words)}",
-            f"行数: {len(lines)}",
-            f"句子数: {len(sentences)}",
-            f"平均句长: {len(words) / max(len(sentences), 1):.1f} 词/句",
+            f"分析论文数量: {paper_count}",
             "",
-            "高频词 (Top 10):",
+            "--- 研究方法分类 ---",
+            "- 深度学习方法: AlphaFold2, ESMFold, RoseTTAFold, Uni-Fold",
+            "- 蛋白质设计: ProteinMPNN",
+            "- 语言模型方法: ESMFold (零样本预测)",
+            "",
+            "--- 技术趋势 ---",
+            "1. 从多序列比对(MSA)依赖 -> 零样本预测 (ESMFold 2023)",
+            "2. 从结构预测 -> 蛋白质设计 (ProteinMPNN 2022)",
+            "3. 开源平台趋势 (Uni-Fold 2022)",
+            "",
+            "--- 关键发现 ---",
+            "- 大语言模型能够从蛋白质序列中学习结构信息",
+            "- 零样本方法在速度上有显著优势，但精度仍有提升空间",
+            "- 多轨道神经网络架构(RoseTTAFold)展现了结构预测的新范式",
+            "",
+            "--- 引用排名 ---",
+            "1. AlphaFold2 (15420 引用) - 里程碑式工作",
+            "2. RoseTTAFold (4850 引用) - 重要的替代方案",
+            "3. ESMFold (3210 引用) - 语言模型新方向",
         ]
-        for word, count in top_words:
-            result_lines.append(f"  {word}: {count} 次")
-
-        # 文本指纹
-        text_hash = hashlib.md5(text.encode()).hexdigest()[:12]
-        result_lines.append(f"\n文本指纹: {text_hash}")
-
-        return "\n".join(result_lines)
+        return "\n".join(analysis_lines)
 
     def _make_message(self, text: str) -> Message:
-        return Message(
-            role=Role.agent,
-            parts=[TextPart(type="text", text=text)],
-        )
+        return Message(role=Role.agent, parts=[TextPart(type="text", text=text)])
 
 
-def create_agent_card() -> AgentCard:
-    """定义 Agent Card"""
-    return AgentCard(
-        name="text-analysis-agent",
-        description="文本分析助手，提供字符统计、词频分析、文本指纹等功能",
-        url="http://localhost:8001",
+def main():
+    agent_card = AgentCard(
+        name="literature-analysis-agent",
+        description="科研文献分析助手，对论文列表进行结构化分析和对比",
+        url="http://localhost:8002",
         version="1.0.0",
-        capabilities=AgentCapabilities(
-            streaming=False,
-            pushNotifications=False,
-        ),
+        capabilities=AgentCapabilities(streaming=False, pushNotifications=False),
         skills=[
             AgentSkill(
-                id="text-analysis",
-                name="文本分析",
-                description="接收文本内容，返回多维度统计分析报告",
+                id="analyze-papers",
+                name="论文分析",
+                description="对论文列表进行结构化分析，提取方法、趋势和关键发现",
             ),
         ],
     )
 
-
-def main():
-    agent_card = create_agent_card()
-    agent = TextAnalysisAgent()
-    server = A2AServer(
-        agent_card=agent_card,
-        agent_execution=agent,
-    )
-    server.start(host="0.0.0.0", port=8001)
+    agent = LiteratureAnalysisAgent()
+    server = A2AServer(agent_card=agent_card, agent_execution=agent)
+    print("文献分析 Agent 启动于 http://localhost:8002")
+    server.start(host="0.0.0.0", port=8002)
 
 
 if __name__ == "__main__":
     main()
 ```
 
-**启动 Agent：**
-
-```bash
-python text_analysis_agent.py
-```
-
-**调用 Agent（客户端代码）：**
+### Agent 3：报告生成 Agent
 
 ```python
-# client.py
-import httpx
+# report_generation_agent.py
+"""
+报告生成 Agent：接收分析结果，生成结构化调研报告。
+启动方式: python report_generation_agent.py
+服务地址: http://localhost:8003
+"""
+
 import json
-
-A2A_URL = "http://localhost:8001"
-
-
-def get_agent_card():
-    """获取 Agent Card"""
-    resp = httpx.get(f"{A2A_URL}/.well-known/agent.json")
-    return resp.json()
-
-
-def send_task(text: str):
-    """向 Agent 发送分析任务"""
-    payload = {
-        "jsonrpc": "2.0",
-        "method": "tasks/send",
-        "id": "task-001",
-        "params": {
-            "id": "task-001",
-            "message": {
-                "role": "user",
-                "parts": [{"type": "text", "text": text}],
-            },
-        },
-    }
-    resp = httpx.post(A2A_URL, json=payload)
-    return resp.json()
-
-
-if __name__ == "__main__":
-    # 查看 Agent 能力
-    card = get_agent_card()
-    print(f"Agent: {card['name']}")
-    print(f"Skills: {[s['name'] for s in card['skills']]}")
-    print()
-
-    # 发送分析任务
-    sample = """
-    人工智能正在深刻改变科学研究的方式。从蛋白质结构预测到药物发现，
-    从气候模拟到材料设计，AI 已经成为科学家手中不可或缺的工具。
-    书生大模型系列致力于推动 AI for Science 的发展，
-    让每一位研究者都能便捷地使用最先进的 AI 技术。
-    """
-    result = send_task(sample)
-    print(json.dumps(result, indent=2, ensure_ascii=False))
-```
-
-## 多 Agent 协作系统
-
-### 目标
-
-设计和实现一个包含多个 Agent 的协作系统，理解 Agent 之间的任务分发和结果聚合。
-
-### 内容
-
-**多 Agent 架构设计：**
-
-一个典型的多 Agent 系统包含：
-
-- **编排 Agent（Orchestrator）**：接收用户请求，拆解任务，分发给专业 Agent，聚合结果
-- **专业 Agent**：各自负责一个领域的任务处理
-
-```
-用户请求
-    |
-    v
-[编排 Agent]
-    |
-    +---> [搜索 Agent]   --> 搜索结果
-    |
-    +---> [分析 Agent]   --> 分析报告
-    |
-    +---> [写作 Agent]   --> 最终文档
-    |
-    v
-聚合结果返回用户
-```
-
-**编排 Agent 实现：**
-
-```python
-# orchestrator.py
-import httpx
-import json
+from datetime import datetime
 from a2a.server.agent_execution import AgentExecution, RequestContext
 from a2a.server.server import A2AServer
 from a2a.types import (
@@ -361,20 +586,10 @@ from a2a.types import (
 )
 
 
-class OrchestratorAgent(AgentExecution):
-    """编排 Agent：接收复杂请求，拆解并分发给专业 Agent"""
+class ReportGenerationAgent(AgentExecution):
+    """报告生成 Agent：整合分析结果，生成调研报告"""
 
-    def __init__(self, agent_registry: dict[str, str]):
-        """
-        agent_registry: Agent 名称到 URL 的映射
-        例如: {"text-analysis": "http://localhost:8001",
-               "translation": "http://localhost:8002"}
-        """
-        self.registry = agent_registry
-
-    async def execute(
-        self, context: RequestContext, request: dict
-    ) -> None:
+    async def execute(self, context: RequestContext, request: dict) -> None:
         task_params = request.get("params", {})
         message = task_params.get("message", {})
         parts = message.get("parts", [])
@@ -385,31 +600,273 @@ class OrchestratorAgent(AgentExecution):
                 input_text = part.get("text", "")
                 break
 
-        results = []
+        if not input_text:
+            await context.send_status_update(
+                state=TaskState.failed,
+                message=self._make_message("错误：未收到待整合的分析内容"),
+            )
+            return
 
-        # 依次调用已注册的 Agent
-        for agent_name, agent_url in self.registry.items():
-            try:
-                result = await self._call_agent(
-                    agent_url, agent_name, input_text
-                )
-                results.append(f"--- {agent_name} ---\n{result}")
-            except Exception as e:
-                results.append(f"--- {agent_name} ---\n调用失败: {e}")
+        await context.send_status_update(
+            state=TaskState.working,
+            message=self._make_message("正在生成调研报告..."),
+        )
 
-        combined = "\n\n".join(results)
+        report = self._generate_report(input_text)
+
         await context.send_status_update(
             state=TaskState.completed,
-            message=Message(
-                role=Role.agent,
-                parts=[TextPart(type="text", text=combined)],
+            message=self._make_message(report),
+        )
+
+    def _generate_report(self, analysis_text: str) -> str:
+        """生成结构化调研报告（模拟实现）"""
+        now = datetime.now().strftime("%Y-%m-%d %H:%M")
+        report_lines = [
+            "=" * 60,
+            "科研调研报告",
+            "=" * 60,
+            "",
+            f"生成时间: {now}",
+            f"主题: 大语言模型在蛋白质结构预测中的应用",
+            "",
+            "--- 一、研究概述 ---",
+            "",
+            "蛋白质结构预测是计算生物学的核心问题之一。近年来，深度学习",
+            "方法在该领域取得了突破性进展，尤其是 AlphaFold2 的发布标志",
+            "着该领域进入了新的阶段。大语言模型的引入（如 ESMFold）进一",
+            "步降低了预测的计算成本。",
+            "",
+            "--- 二、核心分析 ---",
+            "",
+            analysis_text,
+            "",
+            "--- 三、结论与展望 ---",
+            "",
+            "1. 大语言模型在蛋白质结构预测中展现出巨大潜力",
+            "2. 零样本预测是重要趋势，有望大幅降低计算成本",
+            "3. 从结构预测到蛋白质设计的转变正在发生",
+            "4. 开源工具和平台的建设对推动领域发展至关重要",
+            "",
+            "--- 四、推荐行动 ---",
+            "",
+            "- 关注 ESMFold 等基于语言模型的方法，评估其在特定场景的适用性",
+            "- 利用 Uni-Fold 等开源平台进行模型训练和评估",
+            "- 探索蛋白质设计方向，结合 ProteinMPNN 等工具开展应用研究",
+            "",
+            "=" * 60,
+            "报告由多 Agent 协作系统自动生成",
+            "=" * 60,
+        ]
+        return "\n".join(report_lines)
+
+    def _make_message(self, text: str) -> Message:
+        return Message(role=Role.agent, parts=[TextPart(type="text", text=text)])
+
+
+def main():
+    agent_card = AgentCard(
+        name="report-generation-agent",
+        description="科研报告生成助手，将分析结果整合为结构化调研报告",
+        url="http://localhost:8003",
+        version="1.0.0",
+        capabilities=AgentCapabilities(streaming=False, pushNotifications=False),
+        skills=[
+            AgentSkill(
+                id="generate-report",
+                name="报告生成",
+                description="将文献分析结果整合为结构化的调研报告",
+            ),
+        ],
+    )
+
+    agent = ReportGenerationAgent()
+    server = A2AServer(agent_card=agent_card, agent_execution=agent)
+    print("报告生成 Agent 启动于 http://localhost:8003")
+    server.start(host="0.0.0.0", port=8003)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### 主控 Agent（Orchestrator）
+
+这是整个系统的核心。主控 Agent 负责：
+1. 自动发现其他 Agent 的能力（读取 Agent Card）
+2. 按顺序分配任务（串行流水线模式）
+3. 将上一个 Agent 的输出传给下一个 Agent
+4. 处理错误和超时
+
+```python
+# orchestrator.py
+"""
+主控 Agent（Orchestrator）：接收用户请求，按顺序调度文献检索、分析、报告三个 Agent。
+启动方式: python orchestrator.py
+服务地址: http://localhost:8000
+"""
+
+import json
+import asyncio
+import httpx
+from a2a.server.agent_execution import AgentExecution, RequestContext
+from a2a.server.server import A2AServer
+from a2a.types import (
+    AgentCard,
+    AgentCapabilities,
+    AgentSkill,
+    Message,
+    TextPart,
+    Role,
+    TaskState,
+)
+
+
+# Agent 调用超时时间（秒）
+AGENT_TIMEOUT = 30.0
+
+# Agent 注册表：定义协作流水线的顺序
+AGENT_PIPELINE = [
+    {"name": "literature-search", "url": "http://localhost:8001"},
+    {"name": "literature-analysis", "url": "http://localhost:8002"},
+    {"name": "report-generation", "url": "http://localhost:8003"},
+]
+
+
+class OrchestratorAgent(AgentExecution):
+    """主控 Agent：编排多个专业 Agent 完成复杂任务"""
+
+    async def execute(self, context: RequestContext, request: dict) -> None:
+        task_params = request.get("params", {})
+        message = task_params.get("message", {})
+        parts = message.get("parts", [])
+
+        input_text = ""
+        for part in parts:
+            if part.get("type") == "text":
+                input_text = part.get("text", "")
+                break
+
+        if not input_text:
+            await context.send_status_update(
+                state=TaskState.failed,
+                message=self._make_message("错误：未收到用户请求"),
+            )
+            return
+
+        # 第 0 步：发现所有 Agent
+        await context.send_status_update(
+            state=TaskState.working,
+            message=self._make_message("正在发现可用的 Agent..."),
+        )
+
+        available_agents = await self._discover_agents()
+        if not available_agents:
+            await context.send_status_update(
+                state=TaskState.failed,
+                message=self._make_message(
+                    "错误：未发现可用的 Agent，请确保所有 Agent 已启动"
+                ),
+            )
+            return
+
+        agent_names = [a["name"] for a in available_agents]
+        await context.send_status_update(
+            state=TaskState.working,
+            message=self._make_message(
+                f"发现 {len(available_agents)} 个 Agent: {', '.join(agent_names)}"
             ),
         )
 
-    async def _call_agent(
-        self, url: str, name: str, text: str
-    ) -> str:
-        """调用单个 Agent"""
+        # 串行流水线：每个 Agent 的输出作为下一个 Agent 的输入
+        current_input = input_text
+        step_results = []
+
+        for i, agent_info in enumerate(available_agents):
+            step_num = i + 1
+            agent_name = agent_info["name"]
+            agent_url = agent_info["url"]
+
+            await context.send_status_update(
+                state=TaskState.working,
+                message=self._make_message(
+                    f"[步骤 {step_num}/{len(available_agents)}] "
+                    f"正在调用 {agent_name}..."
+                ),
+            )
+
+            try:
+                result = await self._call_agent(
+                    agent_url, agent_name, current_input
+                )
+                step_results.append(
+                    {"agent": agent_name, "status": "success", "result": result}
+                )
+                # 将本步结果作为下一步的输入
+                current_input = result
+
+            except asyncio.TimeoutError:
+                error_msg = f"{agent_name} 响应超时（>{AGENT_TIMEOUT}s）"
+                step_results.append(
+                    {"agent": agent_name, "status": "timeout", "result": error_msg}
+                )
+                await context.send_status_update(
+                    state=TaskState.failed,
+                    message=self._make_message(
+                        f"流水线在步骤 {step_num} 中断: {error_msg}\n\n"
+                        + self._format_step_results(step_results)
+                    ),
+                )
+                return
+
+            except Exception as e:
+                error_msg = f"{agent_name} 调用失败: {str(e)}"
+                step_results.append(
+                    {"agent": agent_name, "status": "error", "result": error_msg}
+                )
+                await context.send_status_update(
+                    state=TaskState.failed,
+                    message=self._make_message(
+                        f"流水线在步骤 {step_num} 中断: {error_msg}\n\n"
+                        + self._format_step_results(step_results)
+                    ),
+                )
+                return
+
+        # 所有步骤完成，返回最终结果
+        summary = self._format_step_results(step_results)
+        final_output = f"{current_input}\n\n{'=' * 40}\n协作摘要\n{'=' * 40}\n{summary}"
+
+        await context.send_status_update(
+            state=TaskState.completed,
+            message=self._make_message(final_output),
+        )
+
+    async def _discover_agents(self) -> list[dict]:
+        """发现可用的 Agent（通过读取 Agent Card）"""
+        available = []
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            for agent_info in AGENT_PIPELINE:
+                try:
+                    resp = await client.get(
+                        f"{agent_info['url']}/.well-known/agent.json"
+                    )
+                    if resp.status_code == 200:
+                        card = resp.json()
+                        available.append(
+                            {
+                                "name": card.get("name", agent_info["name"]),
+                                "url": agent_info["url"],
+                                "description": card.get("description", ""),
+                            }
+                        )
+                except Exception:
+                    # 该 Agent 不可用，跳过
+                    pass
+        return available
+
+    async def _call_agent(self, url: str, name: str, text: str) -> str:
+        """调用单个 Agent 并提取文本结果"""
         payload = {
             "jsonrpc": "2.0",
             "method": "tasks/send",
@@ -422,13 +879,23 @@ class OrchestratorAgent(AgentExecution):
                 },
             },
         }
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=AGENT_TIMEOUT) as client:
             resp = await client.post(url, json=payload)
             data = resp.json()
 
-        # 提取 Agent 返回的文本
+        # 从 JSON-RPC 响应中提取文本
         result = data.get("result", {})
         status = result.get("status", {})
+        state = status.get("state", "")
+
+        if state == "failed":
+            msg = status.get("message", {})
+            error_parts = msg.get("parts", [])
+            for part in error_parts:
+                if part.get("type") == "text":
+                    raise RuntimeError(part["text"])
+            raise RuntimeError(f"Agent {name} 返回失败状态")
+
         msg = status.get("message", {})
         resp_parts = msg.get("parts", [])
         for part in resp_parts:
@@ -436,36 +903,42 @@ class OrchestratorAgent(AgentExecution):
                 return part["text"]
         return "(无文本返回)"
 
+    def _format_step_results(self, results: list[dict]) -> str:
+        """格式化步骤执行摘要"""
+        lines = []
+        for r in results:
+            status_icon = (
+                "[完成]" if r["status"] == "success"
+                else "[超时]" if r["status"] == "timeout"
+                else "[失败]"
+            )
+            lines.append(f"  {status_icon} {r['agent']}")
+        return "\n".join(lines)
+
+    def _make_message(self, text: str) -> Message:
+        return Message(role=Role.agent, parts=[TextPart(type="text", text=text)])
+
 
 def main():
     agent_card = AgentCard(
-        name="orchestrator",
-        description="多 Agent 编排器，将复杂任务拆解并分发给专业 Agent 协作完成",
+        name="research-orchestrator",
+        description="科研调研编排器，协调文献检索、分析和报告生成三个 Agent 完成调研任务",
         url="http://localhost:8000",
         version="1.0.0",
-        capabilities=AgentCapabilities(
-            streaming=False, pushNotifications=False
-        ),
+        capabilities=AgentCapabilities(streaming=False, pushNotifications=False),
         skills=[
             AgentSkill(
-                id="orchestrate",
-                name="任务编排",
-                description="接收复杂请求，协调多个专业 Agent 完成任务",
+                id="research-survey",
+                name="科研调研",
+                description="接收调研主题，协调多个 Agent 完成文献检索、分析和报告生成",
             ),
         ],
     )
 
-    agent = OrchestratorAgent(
-        agent_registry={
-            "text-analysis": "http://localhost:8001",
-            # 添加更多 Agent...
-        }
-    )
-
-    server = A2AServer(
-        agent_card=agent_card,
-        agent_execution=agent,
-    )
+    agent = OrchestratorAgent()
+    server = A2AServer(agent_card=agent_card, agent_execution=agent)
+    print("主控 Agent 启动于 http://localhost:8000")
+    print("等待子 Agent 启动后即可接收请求")
     server.start(host="0.0.0.0", port=8000)
 
 
@@ -473,55 +946,392 @@ if __name__ == "__main__":
     main()
 ```
 
-**运行多 Agent 系统：**
+### 客户端：发起调研请求
+
+```python
+# research_client.py
+"""
+客户端：向主控 Agent 发起科研调研请求。
+用法: python research_client.py
+前提: 所有 4 个 Agent 已启动
+"""
+
+import httpx
+import json
+import sys
+
+ORCHESTRATOR_URL = "http://localhost:8000"
+
+
+def discover_orchestrator():
+    """发现并打印主控 Agent 的信息"""
+    try:
+        resp = httpx.get(f"{ORCHESTRATOR_URL}/.well-known/agent.json", timeout=5.0)
+        card = resp.json()
+        print(f"已连接到: {card['name']}")
+        print(f"描述: {card['description']}")
+        print(f"技能: {[s['name'] for s in card['skills']]}")
+        print()
+        return True
+    except Exception as e:
+        print(f"无法连接到主控 Agent ({ORCHESTRATOR_URL}): {e}")
+        print("请确保已启动所有 Agent")
+        return False
+
+
+def send_research_request(topic: str):
+    """向主控 Agent 发送调研请求"""
+    payload = {
+        "jsonrpc": "2.0",
+        "method": "tasks/send",
+        "id": "research-001",
+        "params": {
+            "id": "research-001",
+            "message": {
+                "role": "user",
+                "parts": [{"type": "text", "text": topic}],
+            },
+        },
+    }
+
+    print(f"发送调研请求: {topic}")
+    print("等待多 Agent 协作完成...")
+    print()
+
+    try:
+        resp = httpx.post(ORCHESTRATOR_URL, json=payload, timeout=120.0)
+        data = resp.json()
+
+        # 提取结果
+        result = data.get("result", {})
+        status = result.get("status", {})
+        state = status.get("state", "unknown")
+        msg = status.get("message", {})
+        parts = msg.get("parts", [])
+
+        print(f"任务状态: {state}")
+        print()
+
+        for part in parts:
+            if part.get("type") == "text":
+                print(part["text"])
+
+    except httpx.TimeoutException:
+        print("请求超时，请检查 Agent 是否正常运行")
+    except Exception as e:
+        print(f"请求失败: {e}")
+
+
+if __name__ == "__main__":
+    if not discover_orchestrator():
+        sys.exit(1)
+
+    topic = (
+        sys.argv[1]
+        if len(sys.argv) > 1
+        else "大语言模型在蛋白质结构预测中的应用"
+    )
+    send_research_request(topic)
+```
+
+### 运行步骤
+
+打开 4 个终端窗口，按顺序启动：
 
 ```bash
-# 终端 1：启动文本分析 Agent
-python text_analysis_agent.py
+# 终端 1 - 启动文献检索 Agent
+python literature_search_agent.py
 
-# 终端 2：启动编排 Agent
+# 终端 2 - 启动文献分析 Agent
+python literature_analysis_agent.py
+
+# 终端 3 - 启动报告生成 Agent
+python report_generation_agent.py
+
+# 终端 4 - 启动主控 Agent
 python orchestrator.py
-
-# 终端 3：发送请求
-python client.py
 ```
+
+然后在第 5 个终端发起请求：
+
+```bash
+# 使用默认主题
+python research_client.py
+
+# 或者指定调研主题
+python research_client.py "蛋白质设计的深度学习方法"
+```
+
+你会看到主控 Agent 依次调用三个子 Agent，最终输出一份完整的调研报告。
 
 ## Agent 设计原则与最佳实践
 
-### 目标
+### Agent Card 设计原则
 
-掌握设计高质量 A2A Agent 的原则和常见模式。
+1. **描述精确**：description 要准确反映 Agent 的能力边界，不夸大不模糊。编排器根据描述来分配任务，描述不准会导致分配错误。
+2. **Skill 粒度适中**：每个 Skill 对应一个明确的任务类型。太粗（"什么都能做"）等于没说；太细（"只能搜索 arXiv 2024 年的论文"）限制了复用。
+3. **版本管理**：Agent 能力变更时更新版本号，让调用方知道接口是否有变化。
 
-### 内容
-
-**Agent Card 设计原则：**
-
-1. **描述精确**：description 要准确反映 Agent 的能力边界，不夸大不模糊
-2. **Skill 粒度适中**：每个 Skill 对应一个明确的任务类型，不要过于宽泛
-3. **版本管理**：Agent 能力变更时更新版本号，便于客户端适配
-
-**任务处理原则：**
+### 任务处理原则
 
 1. **幂等性**：同一任务重复提交应得到相同结果
-2. **超时处理**：长时间运行的任务要有超时机制
-3. **状态反馈**：通过 Task 状态让调用方知道执行进度
+2. **超时处理**：长时间运行的任务要有超时机制，不能让调用方无限等待
+3. **状态反馈**：通过 Task 状态让调用方知道执行进度（尤其是 working 状态）
 4. **错误透明**：失败时返回清晰的错误信息，而不是静默失败
 
-**多 Agent 系统设计模式：**
+### 多 Agent 系统设计模式
 
 | 模式 | 说明 | 适用场景 |
 |------|------|----------|
-| 串行流水线 | A -> B -> C，每个 Agent 处理后传给下一个 | 文本翻译 -> 校对 -> 排版 |
+| 串行流水线 | A -> B -> C，每个 Agent 处理后传给下一个 | 文献检索 -> 分析 -> 报告生成 |
 | 并行扇出 | Orchestrator 同时调用多个 Agent | 多维度分析同一份数据 |
 | 层级委托 | Agent 遇到子问题时委托给专业 Agent | 复杂决策的分层处理 |
 | 投票共识 | 多个 Agent 独立处理，取多数结果 | 需要高可靠性的场景 |
 
-**安全注意事项：**
+本课的科研协作系统采用的是串行流水线模式。在实际场景中，你可以根据需求混合使用多种模式。
 
-- Agent Card 中不要暴露内部实现细节
-- Agent 之间的通信应验证来源身份
+### 安全注意事项
+
+- Agent Card 中不要暴露内部实现细节（比如数据库地址、API Key）
+- Agent 之间的通信应验证来源身份（生产环境建议加 TLS + Token 认证）
 - 限制 Agent 的操作权限，遵循最小权限原则
 - 对输入进行校验，防止注入攻击
+
+## 融入 AGI4S：科研协作场景拓展
+
+上面的示例使用了模拟数据。在真实的科研场景中，每个 Agent 的内部可以接入真实的科研工具：
+
+**文献检索 Agent 增强方案：**
+
+- 通过 MCP 接入 arXiv API，搜索真实论文
+- 通过 MCP 接入 PubMed API，覆盖生物医学领域
+- 通过 MCP 接入本地论文数据库（如 PaperScope），检索已收藏的论文
+
+**文献分析 Agent 增强方案：**
+
+- 调用 Intern-S1-Pro 进行科学文本理解和关键信息提取
+- 利用大模型的多模态能力，分析论文中的图表
+- 对比多篇论文的方法、数据集和实验结果
+
+**报告生成 Agent 增强方案：**
+
+- 调用大模型生成高质量的自然语言总结
+- 自动生成参考文献列表
+- 输出 Markdown / LaTeX 格式的报告
+
+**更多科研协作场景：**
+
+| 场景 | Agent 组合 | 协作模式 |
+|------|-----------|----------|
+| 实验设计 | 文献 Agent + 方法 Agent + 评审 Agent | 串行流水线 |
+| 数据分析 | 清洗 Agent + 统计 Agent + 可视化 Agent | 串行流水线 |
+| 论文写作 | 大纲 Agent + 段落 Agent + 润色 Agent | 串行流水线 |
+| 交叉验证 | 多个分析 Agent 独立运行 + 汇总 Agent | 并行扇出 + 汇总 |
+
+## FAQ
+
+### Q1: A2A 和 MCP 什么时候用哪个？
+
+简单判断：
+
+- 你的 Agent 需要调用一个工具或读取一个数据源 -> 用 **MCP**
+- 你需要让多个 Agent 一起完成一个任务 -> 用 **A2A**
+- 复杂系统中两者通常同时存在，A2A 管 Agent 之间的协作，MCP 管每个 Agent 内部的工具调用
+
+### Q2: Agent 之间的消息格式是什么？
+
+A2A 使用 JSON-RPC 2.0 格式。发送任务的请求长这样：
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "tasks/send",
+  "id": "request-id",
+  "params": {
+    "id": "task-id",
+    "message": {
+      "role": "user",
+      "parts": [
+        {"type": "text", "text": "你的请求内容"}
+      ]
+    }
+  }
+}
+```
+
+响应格式：
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "request-id",
+  "result": {
+    "id": "task-id",
+    "status": {
+      "state": "completed",
+      "message": {
+        "role": "agent",
+        "parts": [
+          {"type": "text", "text": "Agent 的响应内容"}
+        ]
+      }
+    }
+  }
+}
+```
+
+### Q3: 网络通信失败怎么处理？
+
+在本课的 Orchestrator 中已经展示了基本的错误处理（超时、异常捕获）。生产环境建议增加：
+
+**重试机制：**
+
+```python
+async def _call_agent_with_retry(
+    self, url: str, name: str, text: str, max_retries: int = 3
+) -> str:
+    """带重试的 Agent 调用"""
+    last_error = None
+    for attempt in range(max_retries):
+        try:
+            return await self._call_agent(url, name, text)
+        except (httpx.ConnectError, httpx.TimeoutException) as e:
+            last_error = e
+            wait_time = 2 ** attempt  # 指数退避: 1s, 2s, 4s
+            print(f"[重试] {name} 第 {attempt + 1} 次失败，{wait_time}s 后重试")
+            await asyncio.sleep(wait_time)
+        except Exception as e:
+            # 非网络错误不重试
+            raise
+    raise RuntimeError(
+        f"Agent {name} 在 {max_retries} 次重试后仍然失败: {last_error}"
+    )
+```
+
+**熔断机制：**
+
+如果某个 Agent 连续失败多次，暂时停止调用它，避免雪崩。
+
+```python
+class CircuitBreaker:
+    """简易熔断器"""
+    def __init__(self, failure_threshold: int = 5, reset_timeout: float = 60.0):
+        self.failure_count = 0
+        self.failure_threshold = failure_threshold
+        self.reset_timeout = reset_timeout
+        self.last_failure_time = 0.0
+        self.is_open = False
+
+    def record_success(self):
+        self.failure_count = 0
+        self.is_open = False
+
+    def record_failure(self):
+        import time
+        self.failure_count += 1
+        self.last_failure_time = time.time()
+        if self.failure_count >= self.failure_threshold:
+            self.is_open = True
+
+    def can_proceed(self) -> bool:
+        if not self.is_open:
+            return True
+        import time
+        if time.time() - self.last_failure_time > self.reset_timeout:
+            self.is_open = False  # 半开状态，允许尝试
+            return True
+        return False
+```
+
+### Q4: 怎么调试多 Agent 系统？
+
+多 Agent 系统调试确实比单体应用复杂，这里给出几个实用技巧：
+
+**1. 日志追踪**
+
+给每个请求分配一个 trace_id，在所有 Agent 的日志中透传，方便追踪一个请求的完整链路。
+
+```python
+import uuid
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(name)s] %(message)s",
+)
+
+class TracingMixin:
+    """日志追踪混入类"""
+    def __init__(self):
+        self.logger = logging.getLogger(self.__class__.__name__)
+
+    def log(self, trace_id: str, message: str):
+        self.logger.info(f"[trace:{trace_id}] {message}")
+```
+
+**2. 单独测试每个 Agent**
+
+先用 curl 或 httpx 单独调用每个 Agent，确认它们各自工作正常，再测试编排。
+
+```bash
+# 测试文献检索 Agent
+curl -X POST http://localhost:8001 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "method": "tasks/send",
+    "id": "test-001",
+    "params": {
+      "id": "test-001",
+      "message": {
+        "role": "user",
+        "parts": [{"type": "text", "text": "protein structure prediction"}]
+      }
+    }
+  }'
+```
+
+**3. 查看 Agent Card**
+
+确认每个 Agent 的 Agent Card 正确发布：
+
+```bash
+curl http://localhost:8001/.well-known/agent.json | python -m json.tool
+curl http://localhost:8002/.well-known/agent.json | python -m json.tool
+curl http://localhost:8003/.well-known/agent.json | python -m json.tool
+```
+
+**4. 逐步执行**
+
+在调试阶段，把 Orchestrator 的流水线改成手动触发每一步，观察中间结果是否符合预期。
+
+### Q5: A2A Agent 可以跨语言实现吗？
+
+可以。A2A 协议基于 HTTP + JSON-RPC，任何语言都能实现。你的文献检索 Agent 用 Python 写，分析 Agent 用 Go 写，报告 Agent 用 Node.js 写，都可以。只要它们遵循 A2A 协议的 Agent Card 发现和 Task 通信规范即可。
+
+目前 Google 官方提供了 Python SDK（`a2a-sdk`），社区也在开发其他语言的 SDK。
+
+### Q6: A2A 协议目前的生态成熟度如何？
+
+A2A 由 Google 于 2025 年发布，目前仍在快速演进中。协议规范已经基本稳定，Python SDK 可用于生产。建议关注 GitHub 仓库获取最新动态。
+
+生态方面，已有多个主流 AI 平台宣布支持 A2A 协议，包括 LangChain、CrewAI 等框架。
+
+### Q7: 一个 A2A Agent 能同时对外提供服务又作为 Client 调用其他 Agent 吗？
+
+可以。本课的 Orchestrator 就是这样。它对外是一个 A2A Agent（有自己的 Agent Card，可以被调用），同时它也是其他 Agent 的 Client（通过 HTTP 调用文献检索、分析、报告 Agent）。
+
+这就是 A2A 的 Peer-to-Peer 设计的好处——任何 Agent 都可以同时是服务端和客户端。
+
+## 拓展方向
+
+学完本课后，你可以继续探索：
+
+1. **接入真实 API**：用 MCP 把文献检索 Agent 接到 arXiv API 上，实现真实的论文搜索
+2. **接入大模型**：让分析 Agent 调用 Intern-S1-Pro，实现真正的科学文献理解
+3. **添加流式支持**：修改 Agent Card 的 `streaming: true`，使用 `tasks/sendSubscribe` 实现实时进度推送
+4. **持久化任务**：将 Task 状态存入数据库，支持断点续传
+5. **添加 Web UI**：用 Next.js 开发一个前端界面，展示多 Agent 协作的实时进度
 
 ## 参考资料
 
@@ -529,3 +1339,4 @@ python client.py
 - [A2A Python SDK](https://github.com/google/a2a-python)
 - [Google A2A 博客](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)
 - [MCP 官方文档](https://modelcontextprotocol.io)
+- [JSON-RPC 2.0 规范](https://www.jsonrpc.org/specification)
