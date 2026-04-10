@@ -10,9 +10,17 @@
 
 在这里，你将亲手部署大模型、开发 AI 编程工具、构建多 Agent 协作系统、生成矢量图形，甚至让 AI 帮你做科学研究。每一门课都围绕「做出来」而不是「看完了」来设计。
 
+## 你将做出什么
+
+学完这些课程，你能带走的不是证书上的分数，而是三个真正能用的东西：
+
+1. **一个可调用的大模型 API 服务** — 用 LMDeploy 量化部署，4GB 显存跑 8B 模型，对外提供 OpenAI 兼容接口
+2. **一个能连接工具的 AI Agent** — 通过 MCP 协议让 AI 访问数据库、搜索引擎、文件系统，不再只能聊天
+3. **一个在微信/Telegram 里运行的 AI 助手** — 用 OpenClaw 搭建，接入 Intern-S1-Pro，数据在你自己手里
+
 ## 为什么是第七季
 
-书生大模型实战营已经走过六季，累计服务数万名学员。第七季是一次全面升级：
+书生大模型实战营已经走过六季。第七季做了几个重要变化：
 
 - **课程方向从 3 个扩展到 6 个**，覆盖 AI 编程、AI 协议、多模态、工程部署、科学模型、AI 应用
 - **全部课程免费开放**，不设解锁门槛，按兴趣选课
@@ -26,7 +34,7 @@
 | 产品 | 定位 | 对应课程 |
 |------|------|---------|
 | **Intern-S1-Pro** | 科学多模态大模型，1T MoE 架构 | Intern-S1-Pro 科学大模型 |
-| **InternVL** | 开源视觉语言模型家族 | InternVL-U 统一多模态 |
+| **InternVL-U** | 统一多模态模型（理解+生成+编辑） | InternVL-U 统一多模态 |
 | **InternSVG** | 矢量图形 AI 生成系统 | InternSVG 矢量图形 AI |
 | **LMDeploy** | 高效推理部署工具 | LMDeploy 模型部署 |
 | **InternLM** | 高性能语言大模型 | 贯穿多门课程 |
@@ -75,7 +83,7 @@
 
 ### AI 应用（青色）
 
-在微信、Telegram 里搭建你自己的 AI 助手。OpenClaw 是开源的个人 AI 助手框架，数据完全私有，支持 20+ 消息平台。
+在微信、Telegram 里搭建你自己的 AI 助手。OpenClaw 是开源的个人 AI 助手框架，支持多平台接入，可按部署方式控制数据边界。
 
 **课程：** OpenClaw
 
@@ -110,10 +118,10 @@ Intern-S1-Pro → Claude Code → Skills → MCP → LMDeploy → InternVL-U →
 ### 工程师路线（有编程经验）
 
 ```
-Claude Code → MCP → OpenClaw → A2A → Skills → LMDeploy → InternVL-U → InternSVG → Intern-S1-Pro
+Claude Code → Skills → MCP → A2A → OpenClaw → LMDeploy → InternVL-U → InternSVG → Intern-S1-Pro
 ```
 
-先上手 AI 工具提升开发效率，再深入模型和部署。
+先建立 AI 编程和工具连接能力，再到协议协作和应用组装。
 
 ### 研究者路线（关注科学应用）
 
@@ -132,6 +140,7 @@ Intern-S1-Pro → InternVL-U → InternSVG → LMDeploy → MCP → Claude Code 
 - 会基本的 Python 编程（变量、函数、包管理）
 - 了解命令行操作（cd、ls、pip install）
 - 不需要深度学习基础，课程从零讲起
+- 如果 Python 和命令行还不太熟，可以先从 Claude Code 课开始，边用 AI 辅助边学
 
 ## 社区共建
 
