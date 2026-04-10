@@ -59,7 +59,7 @@ Intern-S1-Pro 是书生生态的主力科学多模态大模型，总参数量达
 1. 理解 Intern-S1-Pro 在书生模型家族中的定位
 2. 从零接入 API，写出可直接运行的代码
 3. 在数学、物理、化学、代码四个领域进行科学推理实战
-4. 掌握深度思考模式的使用方法
+4. 了解模型的深度分析能力及使用技巧
 5. 学会用 Harness 评测框架量化模型能力
 
 ## 你将学到
@@ -67,7 +67,7 @@ Intern-S1-Pro 是书生生态的主力科学多模态大模型，总参数量达
 - 书生模型家族的定位与 Intern-S1-Pro 的核心优势
 - 通过 Python OpenAI SDK 接入 Intern-S1-Pro API（含完整可运行代码）
 - 在数学、物理、化学、代码等领域进行科学推理
-- 深度思考模式的原理与使用方法
+- 深度分析能力的使用技巧
 - 使用 lm-evaluation-harness 框架评测模型能力
 - 常见问题排查与最佳实践
 
@@ -177,7 +177,7 @@ client = OpenAI(
 
 try:
     response = client.chat.completions.create(
-        model="internlm3-latest",
+        model="intern-s1-pro",
         messages=[
             {"role": "system", "content": "You are a helpful scientific assistant."},
             {"role": "user", "content": "请解释为什么水的比热容比大多数液体都大？"},
@@ -225,7 +225,7 @@ client = OpenAI(
 )
 
 stream = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[
         {"role": "user", "content": "推导薛定谔方程的时间无关形式"},
     ],
@@ -248,7 +248,7 @@ curl https://chat.intern-ai.org.cn/api/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $INTERN_API_KEY" \
   -d '{
-    "model": "internlm3-latest",
+    "model": "intern-s1-pro",
     "messages": [
       {"role": "user", "content": "证明根号 2 是无理数"}
     ],
@@ -303,7 +303,7 @@ math_problem = """
 """
 
 response = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[{"role": "user", "content": math_problem}],
     temperature=0.1,
     max_tokens=4096,
@@ -334,7 +334,7 @@ physics_problem = """
 """
 
 response = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[{"role": "user", "content": physics_problem}],
     temperature=0.1,
     max_tokens=4096,
@@ -361,7 +361,7 @@ chemistry_problem = """
 """
 
 response = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[{"role": "user", "content": chemistry_problem}],
     temperature=0.1,
     max_tokens=4096,
@@ -397,7 +397,7 @@ code_problem = """
 """
 
 response = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[{"role": "user", "content": code_problem}],
     temperature=0.1,
     max_tokens=4096,
@@ -425,7 +425,7 @@ bio_problem = """
 """
 
 response = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[{"role": "user", "content": bio_problem}],
     temperature=0.1,
     max_tokens=4096,
@@ -436,21 +436,21 @@ print(response.choices[0].message.content)
 
 ---
 
-## 深度思考模式
+## 深度分析能力
 
 ### 目标
 
-理解深度思考模式的本质，掌握其使用方法，知道何时该用、何时不该用。
+了解 Intern-S1-Pro 在复杂问题上的深度分析能力，掌握引导模型进行多步推理的技巧。
 
-### 什么是深度思考模式
+### 什么是深度分析能力
 
-Intern-S1-Pro 具备深度思考（Thinking）能力。在该模式下，模型会在正式回答之前进行内部推理链（chain-of-thought），自动分解复杂问题、验证中间步骤，最终生成更高质量的回答。
+Intern-S1-Pro 具备深度分析（Thinking）能力。在该模式下，模型会在正式回答之前进行内部推理链（chain-of-thought），自动分解复杂问题、验证中间步骤，最终生成更高质量的回答。
 
-关键点：深度思考是 Intern-S1-Pro 模型本身的内在能力，通过 API 参数控制开关，而非一个单独的模型。不存在 "intern-s1-pro-deep" 这样的模型 ID。
+关键点：深度分析是 Intern-S1-Pro 模型本身的内在能力，通过 API 参数控制开关，而非一个单独的模型。不存在 "intern-s1-pro-deep" 这样的模型 ID。
 
-默认情况下，Intern-S1-Pro 开启深度思考。你可以通过 `extra_body` 中的 `enable_thinking` 参数显式控制。
+Intern-S1-Pro 在面对复杂科学问题时，能够自动进行多步分析和推导。你可以通过 prompt 引导模型进行更深入的分析（如"请深入分析""请逐步推导"），也可以尝试通过 `extra_body` 参数控制分析深度（具体参数以平台 API 文档为准）。
 
-### 深度思考模式特别适合
+### 深度分析能力特别适合
 
 - 多步数学证明和竞赛题
 - 复杂物理问题的定量求解
@@ -458,7 +458,7 @@ Intern-S1-Pro 具备深度思考（Thinking）能力。在该模式下，模型�
 - 代码算法设计与复杂度分析
 - 跨学科综合推理
 
-### 普通模式 vs 深度思考模式：完整对比
+### 普通模式 vs 深度分析：完整对比
 
 以下脚本用同一道题分别测试两种模式，对比回答质量和响应时间：
 
@@ -489,10 +489,10 @@ question = """
 print(f"题目：{question.strip()}")
 print("=" * 60)
 
-# 模式一：关闭深度思考
+# 模式一：关闭深度分析
 start = time.time()
 response_normal = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[{"role": "user", "content": question}],
     temperature=0.1,
     max_tokens=4096,
@@ -505,10 +505,10 @@ time_normal = time.time() - start
 print(f"\n--- 普通模式（耗时 {time_normal:.1f}s）---")
 print(response_normal.choices[0].message.content)
 
-# 模式二：开启深度思考（默认行为）
+# 模式二：开启深度分析（默认行为）
 start = time.time()
 response_thinking = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[{"role": "user", "content": question}],
     temperature=0.1,
     max_tokens=4096,
@@ -518,13 +518,13 @@ response_thinking = client.chat.completions.create(
 )
 time_thinking = time.time() - start
 
-print(f"\n--- 深度思考模式（耗时 {time_thinking:.1f}s）---")
+print(f"\n--- 深度分析（耗时 {time_thinking:.1f}s）---")
 print(response_thinking.choices[0].message.content)
 
 # 输出对比总结
 print("\n" + "=" * 60)
 print(f"普通模式耗时：{time_normal:.1f}s")
-print(f"深度思考耗时：{time_thinking:.1f}s")
+print(f"深度分析耗时：{time_thinking:.1f}s")
 print(f"额外耗时：{time_thinking - time_normal:.1f}s")
 ```
 
@@ -533,7 +533,7 @@ print(f"额外耗时：{time_thinking - time_normal:.1f}s")
 通常你会观察到：
 
 - **普通模式**：给出正确的不等式证明，但可能跳过关键步骤，巴塞尔问题部分可能只给结论
-- **深度思考模式**：证明过程更完整（例如使用数学归纳法逐步展开），巴塞尔问题部分会介绍欧拉的经典证明方法，甚至可能提到傅里叶级数方法
+- **深度分析**：证明过程更完整（例如使用数学归纳法逐步展开），巴塞尔问题部分会介绍欧拉的经典证明方法，甚至可能提到傅里叶级数方法
 
 两种模式的差异在简单问题上不明显，但在需要多步推理的复杂问题上会很显著。
 
@@ -559,7 +559,7 @@ deep_analysis_prompt = """
 question = "为什么行星轨道是椭圆形的？从牛顿万有引力定律推导开普勒第一定律。"
 
 response = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=[
         {"role": "user", "content": deep_analysis_prompt.format(question=question)}
     ],
@@ -574,16 +574,16 @@ print(response.choices[0].message.content)
 
 | 场景 | 推荐模式 | 原因 |
 |------|---------|------|
-| 数学证明、竞赛题 | 深度思考 | 需要多步严格推理 |
-| 复杂物理求解 | 深度思考 | 需要建模 + 计算 + 验证 |
-| 科学论文推导 | 深度思考 | 需要完整逻辑链 |
-| 算法设计 + 复杂度分析 | 深度思考 | 需要方案对比和正确性论证 |
-| 日常对话、简单问答 | 普通模式 | 深度思考增加延迟但无质量提升 |
+| 数学证明、竞赛题 | 深度分析 | 需要多步严格推理 |
+| 复杂物理求解 | 深度分析 | 需要建模 + 计算 + 验证 |
+| 科学论文推导 | 深度分析 | 需要完整逻辑链 |
+| 算法设计 + 复杂度分析 | 深度分析 | 需要方案对比和正确性论证 |
+| 日常对话、简单问答 | 普通模式 | 深度分析增加延迟但无质量提升 |
 | 文本摘要、翻译 | 普通模式 | 不需要推理链 |
 | 知识问答（"XXX 是什么"） | 普通模式 | 检索性质的问题不需要推理 |
 | 代码补全、简单 Bug 修复 | 普通模式 | 模式匹配即可，不需要深度推理 |
 
-核心原则：如果问题的答案需要"推导"而非"检索"，就用深度思考模式。
+核心原则：如果问题的答案需要"推导"而非"检索"，就用深度分析。
 
 ---
 
@@ -628,7 +628,7 @@ pip install lm_eval
 export INTERN_API_KEY="your-api-key-here"
 
 lm_eval --model local-chat-completions \
-  --model_args model=internlm3-latest,base_url=https://chat.intern-ai.org.cn/api/v1/,tokenizer_backend=huggingface,num_concurrent=4 \
+  --model_args model=intern-s1-pro,base_url=https://chat.intern-ai.org.cn/api/v1/,tokenizer_backend=huggingface,num_concurrent=4 \
   --tasks gsm8k \
   --batch_size 1 \
   --output_path ./eval_results/
@@ -890,7 +890,7 @@ messages.append({
 })
 
 response1 = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=messages,
     temperature=0.1,
     max_tokens=4096,
@@ -908,7 +908,7 @@ messages.append({
 })
 
 response2 = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=messages,
     temperature=0.1,
     max_tokens=4096,
@@ -926,7 +926,7 @@ messages.append({
 })
 
 response3 = client.chat.completions.create(
-    model="internlm3-latest",
+    model="intern-s1-pro",
     messages=messages,
     temperature=0.1,
     max_tokens=4096,
@@ -948,15 +948,15 @@ A: 它们是书生生态中不同定位的产品。InternLM 是通用语言大�
 
 **Q: Intern-S1-Pro 是推理模型吗？**
 
-A: 不是。Intern-S1-Pro 是科学多模态大模型。虽然它具备强大的推理能力（通过深度思考模式），但它的定位是科学领域的深度理解和精确计算，而非像某些推理模型那样专注于推理链生成。
+A: 不是。Intern-S1-Pro 是科学多模态大模型。虽然它具备强大的推理能力（通过深度分析），但它的定位是科学领域的深度理解和精确计算，而非像某些推理模型那样专注于推理链生成。
 
 **Q: API 调用时模型 ID 填什么？**
 
-A: 使用 `internlm3-latest` 即可获取最新版本。你也可以通过 `client.models.list()` 查看所有可用模型。
+A: 使用 `intern-s1-pro` 即可获取最新版本。你也可以通过 `client.models.list()` 查看所有可用模型。
 
-**Q: 深度思考模式有单独的模型 ID 吗？**
+**Q: 深度分析有单独的模型 ID 吗？**
 
-A: 没有。深度思考是 Intern-S1-Pro 模型的内在能力，通过 `extra_body` 中的 `enable_thinking` 参数控制，不需要切换模型。
+A: 没有。深度分析是 Intern-S1-Pro 模型的内在能力，通过 `extra_body` 中的 `enable_thinking` 参数控制，不需要切换模型。
 
 ### API 相关
 
