@@ -140,7 +140,7 @@ ai:
       type: openai-compatible
       baseUrl: https://chat.intern-ai.org.cn/api/v1/
       apiKey: YOUR_API_KEY  # 替换为你的 Intern API Key
-      defaultModel: internlm3-latest
+      defaultModel: intern-s1-pro
 ```
 
 **获取 API Key 的方法：**
@@ -160,7 +160,7 @@ ai:
 models:
   default:
     provider: intern
-    model: internlm3-latest
+    model: intern-s1-pro
     temperature: 0.7
     maxTokens: 4096
 ```
