@@ -8,7 +8,7 @@
 
 **场景一：部署到生产环境**
 
-你在 Claude Code 里输入 `/deploy`，它自动帮你跑 lint、跑类型检查、构建项目、部署到 Vercel、检查线上是否正常。整个过程你只说了一个词。
+你在 Claude Code 里说"帮我部署"，它自动帮你跑 lint、跑类型检查、构建项目、部署到 Vercel、检查线上是否正常。整个过程你只说了一句话。
 
 **场景二：代码审查**
 
@@ -49,7 +49,7 @@ touch .claude/skills/deploy.md
 当用户说"部署"、"deploy"、"上线"、"发布到生产"时使用。
 
 ## 前置检查
-1. 确认当前在 main 分支
+1. 确认当前在目标发布分支
 2. 确认没有未提交的变更（git status 干净）
 3. 确认 lint 检查通过：npm run lint
 4. 确认类型检查通过：npx tsc --noEmit
@@ -77,17 +77,17 @@ touch .claude/skills/deploy.md
 启动 Claude Code，进入你的项目目录。然后用以下任意一种方式触发：
 
 ```
-# 方式一：直接输入 slash command
-/deploy
-
-# 方式二：用自然语言
+# 用自然语言触发
 帮我部署到生产环境
 
-# 方式三：更简洁
+# 或者更简洁
 部署
+
+# 也可以明确引用 Skill
+按照 deploy Skill 的流程执行
 ```
 
-Claude Code 启动时会自动加载 `.claude/skills/` 目录下的所有 `.md` 文件。当你的指令匹配了 Skill 中定义的触发条件，它就会按照文档中的流程执行。
+Claude Code 启动时会自动加载 `.claude/skills/` 目录下的所有 `.md` 文件。当你的指令匹配了 Skill 中定义的触发条件，AI 就会参照文档中的流程执行。触发方式以自然语言为主，AI 会根据你的意图匹配对应的 Skill。
 
 ### 第四步：观察执行过程
 
@@ -230,7 +230,7 @@ Skill 的每一步都应该有可验证的结果。不要写"确保代码质量�
 当用户说"部署"、"deploy"、"上线"、"发布到生产"、"推到线上"时使用。
 
 ## 前置检查
-1. 确认当前在 main 分支：
+1. 确认当前在目标发布分支：
    git branch --show-current
    如果不在 main，提示用户先切换分支或合并到 main
 2. 确认工作区干净：
@@ -562,7 +562,7 @@ Skill 的每一步都应该有可验证的结果。不要写"确保代码质量�
 
 ### Hooks 配合 Skills
 
-通过在 `.claude/settings.json` 中配置 Hooks，可以让某些操作自动触发，和 Skills 配合形成完整的质量保障链：
+通过在 `.claude/settings.json` 中配置 Hooks，可以让某些操作自动触发，和 Skills 配合形成完整的质量保障链。以下是一个示意配置，具体字段和语法以 [Claude Code Hooks 官方文档](https://docs.anthropic.com/en/docs/claude-code/hooks) 为准：
 
 ```json
 {
