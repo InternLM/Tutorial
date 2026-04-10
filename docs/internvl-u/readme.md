@@ -494,9 +494,9 @@ print("[编辑] 已保存 verify_edit_npu.png")
 | 文生图 512x512 | ~3.5 秒 | ~5.5 秒 | NPU 约慢 50% |
 | 图像理解 | ~2-4 秒 | ~10-13 秒 | SDPA fallback 开销 |
 | 显存占用 | 8.6 GB | 8.6 GB | 完全一致 |
-| Attention 实现 | FlashAttention2 原生 | SDPA Fallback | 功能等价 |
+| Attention 实现 | FlashAttention2 原生 | SDPA Fallback | 功能近似（实测可用） |
 
-> 通过 SDPA Patch，InternVL-U 的全部能力（文本生成、图像理解、图像生成、图像编辑）在华为昇腾 Atlas 800T A2 上全部可用。这是国产算力平台支持统一多模态模型的重要实践。
+> 通过 SDPA Patch，InternVL-U 的核心能力（文本生成、图像理解、图像生成、图像编辑）在华为昇腾 Atlas 800T A2 上实测可用。具体兼容性可能因环境版本而异，建议以实测结果为准。
 
 ---
 
@@ -1207,7 +1207,7 @@ pip install -e . --no-deps
 # 方式二：注释掉 setup.py 或 pyproject.toml 中的 flash_attn 依赖
 ```
 
-然后使用本教程提供的 SDPA Fallback Patch 替代 flash_attn。Patch 用 PyTorch 原生 `F.scaled_dot_product_attention` 实现完全等价的功能。
+然后使用本教程提供的 SDPA Fallback Patch 替代 flash_attn。Patch 用 PyTorch 原生 `F.scaled_dot_product_attention` 实现近似等价的功能，实测可用。
 
 ### Q4: 华为昇腾 Atlas 800T A2 首次推理很慢
 
