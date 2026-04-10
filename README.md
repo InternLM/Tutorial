@@ -1,6 +1,6 @@
 # 书生大模型实战营 · 第七季
 
-**共赴 AGI 时代浪潮**
+**与书小生共赴 AGI 时代浪潮**
 
 ![主海报](https://c.vansin.top/intern/posters/s7_poster_main.jpg)
 
