@@ -2,6 +2,18 @@
 
 > 适用于华为昇腾 Atlas 800T A2 服务器（aarch64 Linux）。
 
+## 昇腾算力平台（推荐给学员）
+
+书生社区提供免费/低成本的昇腾 Atlas 800T A2 开发环境：
+
+🔗 **https://internstudio-ascend.intern-ai.org.cn/**
+
+- 一站式开发机，预装 CANN / Python / PyTorch NPU 生态
+- 注册后可直接开机，省去自建环境的折腾
+- 本节教程所有命令都在这里亲测可跑
+
+如果你有自己的昇腾服务器，也可以按同样流程在本机操作。
+
 ## 前置
 
 - 操作系统：Ubuntu 22.04 aarch64 / openEuler / Kylin V10

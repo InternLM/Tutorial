@@ -2,6 +2,12 @@
 
 > 本章节 AI + 社区共建中，实测流程待补全。
 
+## 昇腾算力平台（推荐给学员）
+
+🔗 **https://internstudio-ascend.intern-ai.org.cn/**
+
+书生社区提供的免费/低成本昇腾 Atlas 800T A2 开发环境，预装 CANN + PyTorch NPU，注册后即可开机。本节所有命令都在该平台亲测可跑。
+
 ## 适用平台
 
 - **NPU**：华为昇腾 Atlas 800T A2（64GB HBM）
