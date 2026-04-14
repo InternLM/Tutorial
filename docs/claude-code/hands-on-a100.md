@@ -2,6 +2,14 @@
 
 > 适用于 NVIDIA A100 / A800 / H100 / H200 以及常规 x86_64 Linux / macOS 开发机。
 
+## A100 算力平台（推荐给学员）
+
+🔗 **https://studio.intern-ai.org.cn**
+
+书生社区提供的 InternStudio A100 开发环境，预装 CUDA / PyTorch / 常用数据科学包，注册后可直接开机。本节命令都在该平台亲测可跑。
+
+如果你有自己的 A100 / A800 / H 系列服务器，按同样流程在本机操作即可。
+
 ## 前置
 
 - 操作系统：Ubuntu 22.04+ / macOS 13+ / WSL2

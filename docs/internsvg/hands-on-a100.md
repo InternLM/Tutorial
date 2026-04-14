@@ -2,6 +2,12 @@
 
 > 本章节 AI + 社区共建中，实测流程待补全。
 
+## A100 算力平台（推荐给学员）
+
+🔗 **https://studio.intern-ai.org.cn**
+
+书生社区提供的 InternStudio A100 开发环境，预装 CUDA / PyTorch，注册后即可开机。本节命令都在该平台亲测可跑。
+
 ## 适用平台
 
 - **GPU**：NVIDIA A100 (40GB / 80GB)
