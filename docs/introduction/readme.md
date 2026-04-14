@@ -2,21 +2,22 @@
 
 > 本文档 AI + 社区共建中
 
-与书小生共赴 AGI 时代浪潮。
+与书小生共赴 AGI4S 时代浪潮。
 
 ## 欢迎
 
 欢迎来到书生大模型实战营第七季。这不是一门普通的在线课程——这是一次动手实践的旅程。
 
-在这里，你将亲手部署大模型、开发 AI 编程工具、构建多 Agent 协作系统、生成矢量图形，甚至让 AI 帮你做科学研究。每一门课都围绕「做出来」而不是「看完了」来设计。
+在这里，你将亲手部署大模型、开发 AI 编程工具、构建多 Agent 协作系统、生成矢量图形，让 AI 帮你做科学研究，**并学会如何让 Agent 在产业场景里安全落地**。每一门课都围绕「做出来」而不是「看完了」来设计。
 
 ## 你将做出什么
 
-学完这些课程，你能带走的不是证书上的分数，而是三个真正能用的东西：
+学完这些课程，你能带走的不是证书上的分数，而是四个真正能用的东西：
 
 1. **一个可调用的大模型 API 服务** — 用 LMDeploy 量化部署，4GB 显存跑 8B 模型，对外提供 OpenAI 兼容接口
 2. **一个能连接工具的 AI Agent** — 通过 MCP 协议让 AI 访问数据库、搜索引擎、文件系统，不再只能聊天
-3. **一个在微信/Telegram 里运行的 AI 助手** — 用 OpenClaw 搭建，接入 Intern-S1-Pro，数据在你自己手里
+3. **一个安全运行的智能体** — 接入书安 Intern-Shannon 的硬件级沙箱、监管协议、风险评估，Agent 跑在可审计、可管控的闭环里
+4. **一个在微信/Telegram 里运行的 AI 助手** — 用 OpenClaw 搭建，接入 Intern-S1-Pro 科学大模型，数据在你自己手里
 
 ## 为什么是第七季
 
@@ -33,8 +34,8 @@
 
 | 产品 | 定位 | 对应课程 |
 |------|------|---------|
-| **Intern-S1-Pro** | 科学多模态大模型，1T MoE 架构 | Intern-S1-Pro 科学大模型 |
-| **书安 Intern-Shannon** | 智能体安全操作系统，内生式安全基座 | 书安 Intern-Shannon 智能体安全 |
+| **Intern-S1-Pro** | 万亿参数科学多模态大模型 | Intern-S1-Pro 科学大模型 |
+| **书安 Intern-Shannon** | 智能体安全操作系统 | 书安 Intern-Shannon 智能体安全 |
 | **InternVL-U** | 统一多模态模型（理解+生成+编辑） | InternVL-U 统一多模态 |
 | **InternSVG** | 矢量图形 AI 生成系统 | InternSVG 矢量图形 AI |
 | **LMDeploy** | 高效推理部署工具 | LMDeploy 模型部署 |
@@ -50,7 +51,7 @@
 | **A2A** | 多智能体协作协议 | Agent2Agent |
 | **OpenClaw** | 多平台 AI 助手框架 | OpenClaw 多平台 AI 助手 |
 
-## 六大方向
+## 七大方向
 
 ### AI 编程
 
@@ -78,7 +79,7 @@
 
 ### 科学模型
 
-探索 AI 在科学研究中的应用。Intern-S1-Pro 是书生生态的旗舰科学大模型，1T 参数 MoE 架构，在数学、物理、化学推理上达到 IMO 金牌级水平。
+探索 AI 在科学研究中的应用。Intern-S1-Pro 是万亿参数 MoE 架构的科学多模态大模型，在数学、物理、化学推理上达到前沿水平。
 
 **课程：** Intern-S1-Pro
 
@@ -110,33 +111,41 @@
 
 完成 5 道考核题（60 分及格）。题目侧重理解和应用，不考死记硬背。不限重考次数，取最高分。
 
-**通关奖励：** 9 门课全部通关，颁发书生大模型实战营结业证书。
+**通关奖励：** 10 门课全部通关，颁发书生大模型实战营结业证书。
 
 ## 学习建议
 
 ### 新手路线（推荐零基础）
 
 ```
-Intern-S1-Pro → Claude Code → Skills → MCP → LMDeploy → InternVL-U → InternSVG → A2A → OpenClaw
+Intern-S1-Pro → Claude Code → Skills → MCP → LMDeploy → InternVL-U → InternSVG → A2A → 书安 → OpenClaw
 ```
 
-先认识书生大模型的核心能力，再学 AI 编程工具，逐步深入。
+先认识书生大模型核心能力，再学 AI 编程工具，最后学安全和应用落地。
 
 ### 工程师路线（有编程经验）
 
 ```
-Claude Code → Skills → MCP → A2A → OpenClaw → LMDeploy → InternVL-U → InternSVG → Intern-S1-Pro
+Claude Code → Skills → MCP → A2A → LMDeploy → 书安 → OpenClaw → InternVL-U → InternSVG → Intern-S1-Pro
 ```
 
-先建立 AI 编程和工具连接能力，再到协议协作和应用组装。
+先建立 AI 编程和工具连接能力，再学监管和应用，最后补齐多模态与科学模型。
 
 ### 研究者路线（关注科学应用）
 
 ```
-Intern-S1-Pro → InternVL-U → InternSVG → LMDeploy → MCP → Claude Code → Skills → A2A → OpenClaw
+Intern-S1-Pro → InternVL-U → InternSVG → LMDeploy → MCP → Claude Code → Skills → A2A → 书安 → OpenClaw
 ```
 
-先掌握科学模型能力，再学工程化工具。
+先掌握科学模型能力，再学工程化工具，最后学安全与应用落地。
+
+### 安全与合规路线（企业 / 合规岗位）
+
+```
+书安 → MCP → Claude Code → A2A → OpenClaw → LMDeploy → Skills → Intern-S1-Pro → InternVL-U → InternSVG
+```
+
+先建立 Agent 安全治理能力（沙箱 / 监管 / 风险评估），再理解 Agent 技术栈，最后补齐模型和多模态。
 
 ### 自由探索
 
@@ -157,18 +166,19 @@ Intern-S1-Pro → InternVL-U → InternSVG → LMDeploy → MCP → Claude Code 
 - **课程笔记**：记录你的实操过程和心得，沉淀为个人成长档案
 - **课程建议**：对内容结构、章节编排提出改进建议
 
-你的每一条反馈都会直接改进教材质量。参加实战营，和书小生一起共赴 AGI 时代浪潮。
+你的每一条反馈都会直接改进教材质量。参加实战营，与书小生共赴 AGI4S 时代浪潮。
 
 ## 开始学习
 
 准备好了吗？从下面选一门课开始你的旅程：
 
-1. [Intern-S1-Pro 科学大模型](../intern-s1-pro/readme.md) — 认识书生最强大脑
-2. [Claude Code AI 编程](../claude-code/readme.md) — 用 AI 终端写代码
-3. [MCP 工具集成](../mcp/readme.md) — 让 AI 连接万物
-4. [InternVL-U 统一多模态](../internvl-u/readme.md) — 一个模型搞定理解+生成+编辑
-5. [LMDeploy 模型部署](../lmdeploy/readme.md) — 让大模型走进生产线
-6. [Skills 技能编排](../skills/readme.md) — 让 AI 学会你的工作流
-7. [Agent2Agent 多智能体协作](../agent2agent/readme.md) — AI Agent 之间的协作
-8. [InternSVG 矢量图形 AI](../internsvg/readme.md) — 用 AI 画矢量图
-9. [OpenClaw 多平台 AI 助手](../openclaw/readme.md) — 在微信/Telegram 里用 AI
+1. [Intern-S1-Pro 科学大模型](../intern-s1-pro/readme.md) — 认识万亿参数科学大脑
+2. [书安 Intern-Shannon 智能体安全](../intern-shannon/readme.md) — Agent 安全基础设施
+3. [Claude Code AI 编程](../claude-code/readme.md) — 用 AI 终端写代码
+4. [MCP 工具集成](../mcp/readme.md) — 让 AI 连接万物
+5. [InternVL-U 统一多模态](../internvl-u/readme.md) — 一个模型搞定理解+生成+编辑
+6. [LMDeploy 模型部署](../lmdeploy/readme.md) — 让大模型走进生产线
+7. [Skills 技能编排](../skills/readme.md) — 让 AI 学会你的工作流
+8. [Agent2Agent 多智能体协作](../agent2agent/readme.md) — AI Agent 之间的协作
+9. [InternSVG 矢量图形 AI](../internsvg/readme.md) — 用 AI 画矢量图
+10. [OpenClaw 多平台 AI 助手](../openclaw/readme.md) — 在微信/Telegram 里用 AI
