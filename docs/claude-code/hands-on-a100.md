@@ -18,17 +18,10 @@
 
 ## 第一步：装 Node.js
 
+InternStudio A100 开发机默认已有 conda，一行搞定：
+
 ```bash
-# 方式 A：NodeSource 官方源（Ubuntu/Debian）
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# 方式 B：Homebrew（macOS）
-brew install node
-
-# 方式 C：conda（跨平台，推荐给已有 conda 的学员）
-conda create -n cc -c conda-forge nodejs=22 -y
-conda activate cc
+conda install -c conda-forge nodejs=22 -y
 
 node --version   # v22.x
 npm --version    # 10.x+

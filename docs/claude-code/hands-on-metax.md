@@ -18,19 +18,13 @@ Gitee AI 提供的曦云 MetaX C500 云上开发环境，预装 MACA + PyTorch�
 
 ## 第一步：装 Node.js
 
-曦云平台与标准 x86_64 一致，所有 Node.js 安装方式都适用：
+Gitee AI 曦云开发机默认已有 conda，一行搞定：
 
 ```bash
-# 方式 A：NodeSource 源
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs
+conda install -c conda-forge nodejs=22 -y
 
-# 方式 B：conda
-conda create -n cc -c conda-forge nodejs=22 -y
-conda activate cc
-
-node --version
-npm --version
+node --version   # v22.x
+npm --version    # 10.x+
 ```
 
 ## 第二步：装 Claude Code

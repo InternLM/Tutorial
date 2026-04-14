@@ -20,34 +20,18 @@
 - NPU：Atlas 800T A2（64GB HBM）
 - 架构：**aarch64**（用 `uname -m` 确认）
 
-## 第一步：装 Node.js（aarch64 版）
+## 第一步：装 Node.js
+
+昇腾算力平台默认已有 conda，直接一行搞定：
 
 ```bash
-# 确认架构
-uname -m    # 期望输出：aarch64
+conda install -c conda-forge nodejs=22 -y
 
-# 方式 A：NodeSource 源（官方支持 ARM64）
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# 方式 B：conda（稳妥）
-conda create -n cc -c conda-forge nodejs=22 -y
-conda activate cc
-
-# 方式 C：nvm（多版本切换）
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-source ~/.bashrc
-nvm install --lts
-nvm use --lts
-
-node --version
-npm --version
+node --version   # v22.x
+npm --version    # 10.x+
 ```
 
-**离线机器注意**：如果昇腾服务器无公网：
-- 先在有网机器上 `npm install -g @anthropic-ai/claude-code` 打包
-- 用 rsync 把 `$(npm root -g)/@anthropic-ai` 和全局 bin 软链过去
-- 或设国内镜像：`npm config set registry https://registry.npmmirror.com`
+> 版本建议 22（当前 LTS），如需其他版本：`conda install -c conda-forge nodejs=20`。
 
 ## 第二步：装 Claude Code
 
