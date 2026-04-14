@@ -43,11 +43,17 @@
 |:-----|:-----|:-----|:-----|
 | 第 8 关 | Intern-S1-Pro 科学大模型 | [任务](docs/intern-s1-pro/task.md)、[文档](docs/intern-s1-pro/readme.md) | 3-4h |
 
+### 智能体安全
+
+| 关卡 | 课程 | 资料 | 学时 |
+|:-----|:-----|:-----|:-----|
+| 第 9 关 | 书安 Intern-Shannon 智能体安全 | [任务](docs/intern-shannon/task.md)、[文档](docs/intern-shannon/readme.md) | 4-5h |
+
 ### AI 应用
 
 | 关卡 | 课程 | 资料 | 学时 |
 |:-----|:-----|:-----|:-----|
-| 第 9 关 | OpenClaw 多平台 AI 助手 | [任务](docs/openclaw/task.md)、[文档](docs/openclaw/readme.md) | 4-5h |
+| 第 10 关 | OpenClaw 多平台 AI 助手 | [任务](docs/openclaw/task.md)、[文档](docs/openclaw/readme.md) | 4-5h |
 
 ## 闯关机制
 
@@ -59,7 +65,7 @@
 
 - 所有课程全部开放，无需按顺序解锁
 - 考试不限重考次数，取最高分
-- 9 门课全部通关 → 颁发结业证书
+- 10 门课全部通关 → 颁发结业证书
 
 ## 适合谁
 
