@@ -116,51 +116,34 @@ npm --version
 - 如果机器没有公网：建议先在有网机器上用 `npm install -g @anthropic-ai/claude-code` 装，再把 `~/.npm/_npx` 和全局 bin 打包 rsync 过去，或用 `npm config set registry https://registry.npmmirror.com` 换国内镜像
 - Claude Code 在 aarch64 上和 x86_64 行为一致，教材里后续所有命令都适用
 
-### 第二步：配置 Intern-S1-Pro 模型
+### 第二步：启动 Claude Code
 
-Claude Code 原生连接 Anthropic 的 Claude 模型。在书生大模型实战营中，我们通过 OpenAI 兼容层接入 Intern-S1-Pro。这意味着 Claude Code 客户端本身不需要任何修改，只需要通过环境变量将 API 请求指向书生社区的端点。
+书生社区的 API 端点**原生兼容 Anthropic 协议**，Claude Code 客户端不需要任何修改，只需指向书生端点即可。
 
-将以下环境变量写入你的 shell 配置文件（`~/.bashrc` 或 `~/.zshrc`）：
-
-```bash
-# 书生大模型社区 API 端点（OpenAI 兼容层）
-export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn/api/v1"
-
-# 你的 API Key（在书生大模型社区个人中心获取）
-export ANTHROPIC_API_KEY="your-api-key-here"
-
-# 指定使用 Intern-S1-Pro 模型
-export ANTHROPIC_MODEL="intern-s1-pro"
-```
-
-写入后使配置生效：
+**推荐方式：每次启动时临时 export 环境变量**（不污染 `~/.bashrc`、便于多账号或多模型切换）：
 
 ```bash
-source ~/.bashrc  # 如果你用的是 bash
-# 或
-source ~/.zshrc   # 如果你用的是 zsh
-```
+# 1. 设置 API 基础地址
+export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn"
 
-**API Key 获取方式：**
+# 2. 设置 API Token（在 https://community.intern-ai.org.cn 个人中心获取）
+export ANTHROPIC_AUTH_TOKEN="your-internlm-api-token"
 
-1. 访问书生大模型社区 https://community.intern-ai.org.cn
-2. 登录后进入个人中心
-3. 在 API Key 管理页面创建或复制你的 Key
-4. 将 Key 替换上面配置中的 `your-api-key-here`
-
-**关于 OpenAI 兼容层的说明：** 书生社区的 API 端点实现了 OpenAI API 的标准接口格式。Claude Code 通过 `ANTHROPIC_BASE_URL` 环境变量支持自定义端点，因此可以无缝对接。你不需要安装额外的适配器或修改任何代码。
-
-### 第三步：启动 Claude Code 并完成第一次对话
-
-```bash
-# 进入你的项目目录（或任意目录）
+# 3. 进入项目目录并启动（显式指定模型）
 cd your-project
-
-# 启动 Claude Code（显式指定模型）
 claude --model intern-s1-pro
 ```
 
-> 也可以省略 `--model`：上一步设置了 `ANTHROPIC_MODEL=intern-s1-pro` 后 `claude` 默认就用它，命令行 `--model` 只是更显式。
+**如果你想固化到 shell 配置**（不想每次输 export），把上面前 2 行加到 `~/.bashrc` 或 `~/.zshrc`，再加一行 `export ANTHROPIC_MODEL=intern-s1-pro`，之后 `claude` 命令会默认用这些。
+
+**API Token 获取方式：**
+
+1. 访问书生大模型社区 https://community.intern-ai.org.cn
+2. 登录后进入个人中心
+3. 在 API Key 管理页面创建或复制你的 Token
+4. 将 Token 替换上面配置中的 `your-internlm-api-token`
+
+### 第三步：完成第一次对话
 
 启动后你会进入一个交互式终端界面。Claude Code 会自动扫描当前目录的文件结构，建立项目上下文。
 

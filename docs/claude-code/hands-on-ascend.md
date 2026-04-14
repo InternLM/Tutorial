@@ -42,29 +42,23 @@ claude --version
 
 Claude Code 在 aarch64 上的行为与 x86_64 完全一致，不需要任何特殊编译。
 
-## 第三步：配置模型端点
+## 第三步：启动 Claude Code
 
-昇腾版 Intern-S1-Pro 通过 OpenAI 兼容层对外提供服务。配置方式与其他平台一致：
-
-```bash
-cat >> ~/.bashrc <<'EOF'
-export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn/api/v1"
-export ANTHROPIC_API_KEY="your-api-key-here"
-export ANTHROPIC_MODEL="intern-s1-pro"
-EOF
-source ~/.bashrc
-```
-
-> Claude Code 只是客户端，不直接调 NPU。模型推理跑在服务端 Ascend NPU 上，对客户端完全透明。
-
-## 第四步：首次对话
+书生社区的 API 端点原生兼容 Anthropic 协议。**推荐每次启动时临时设环境变量**（不污染 `~/.bashrc`、便于多账号切换）：
 
 ```bash
+export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn"
+export ANTHROPIC_AUTH_TOKEN="your-internlm-api-token"
+
 cd your-project
 claude --model intern-s1-pro
 ```
 
-> 也可以省略 `--model`：第三步设置了 `ANTHROPIC_MODEL=intern-s1-pro` 后 `claude` 默认就用它。命令行 `--model` 只是更显式。
+> Token 在 https://community.intern-ai.org.cn 个人中心获取。
+>
+> 如果你想固化到 shell 配置（不再每次输），把上面 2 行 `export` 加到 `~/.bashrc` 即可。
+>
+> Claude Code 只是客户端，不直接调 NPU。模型推理跑在服务端 Ascend NPU 上，对客户端完全透明。
 
 ## 昇腾环境特殊点
 

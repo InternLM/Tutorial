@@ -34,27 +34,21 @@ npm install -g @anthropic-ai/claude-code
 claude --version
 ```
 
-## 第三步：配置 Intern-S1-Pro 模型（A100 线上端点）
+## 第三步：启动 Claude Code
+
+书生社区的 API 端点原生兼容 Anthropic 协议。**推荐每次启动时临时设环境变量**（不污染 `~/.bashrc`、便于多账号切换）：
 
 ```bash
-cat >> ~/.bashrc <<'EOF'
-export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn/api/v1"
-export ANTHROPIC_API_KEY="your-api-key-here"
-export ANTHROPIC_MODEL="intern-s1-pro"
-EOF
-source ~/.bashrc
-```
+export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn"
+export ANTHROPIC_AUTH_TOKEN="your-internlm-api-token"
 
-> API Key 从 https://community.intern-ai.org.cn 个人中心获取。
-
-## 第四步：首次对话
-
-```bash
 cd your-project
 claude --model intern-s1-pro
 ```
 
-> 也可以省略 `--model`：第三步设置了 `ANTHROPIC_MODEL=intern-s1-pro` 后 `claude` 默认就用它。
+> Token 在 https://community.intern-ai.org.cn 个人中心获取。
+>
+> 如果你想固化到 shell 配置（不再每次输），把上面 2 行 `export` 加到 `~/.bashrc` 即可。
 
 进入交互模式后输入：
 
