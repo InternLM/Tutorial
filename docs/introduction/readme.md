@@ -84,7 +84,7 @@
 
 ### 智能体安全
 
-让智能体在产业规模化落地时依然安全可控。书安 Intern-Shannon 是上海 AI 实验室的智能体安全操作系统，提供硬件级 MicroVM 沙箱（A3S Box）、统一 Agent 监管协议（AHP）、三层决策风控（ClawSentry）、自护航技能包（SentrySkills）和多智能体风险评估（TrinityGuard）。书生（智）+ 书安（安）双螺旋，承接 AGI4S 战略。
+让智能体在产业规模化落地时依然安全可控。书安 Intern-Shannon 是一套智能体安全基础设施：硬件级 MicroVM 沙箱（A3S Box）、通用 Agent 监管协议（AHP）、三层决策风控（ClawSentry）、自护航技能包（SentrySkills）、多智能体风险评估（TrinityGuard）。
 
 **课程：** 书安 Intern-Shannon
 
