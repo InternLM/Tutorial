@@ -52,69 +52,25 @@ Claude Code 是 Anthropic 官方推出的 AI 编程终端工具，将大语言�
 
 ### 第一步：安装 Claude Code
 
-Claude Code 以 npm 全局包的形式分发，需要 Node.js 18 或更高版本。
+Claude Code 以 npm 全局包的形式分发，需要 Node.js 22 LTS（InternStudio 昇腾 / A100 / Gitee AI 曦云 三个算力平台默认都有 conda，**一行安装**就够）：
 
 ```bash
-# 确认 Node.js 版本（需要 v18+）
-node --version
+# 装 Node.js（conda-forge 源，三平台通用）
+conda install -c conda-forge nodejs=22 -y
 
 # 全局安装 Claude Code
 npm install -g @anthropic-ai/claude-code
 
 # 验证安装成功
+node --version     # v22.x
+npm --version      # 10.x+
 claude --version
 ```
 
-如果你的系统没有 Node.js，按你的平台选一个方式安装：
-
-```bash
-# Ubuntu / Debian
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# macOS（使用 Homebrew）
-brew install node
-
-# 跨平台（用 conda，推荐给已有 conda 环境的学员）
-conda create -n cc -c conda-forge nodejs=22 -y
-conda activate cc
-
-# 安装完成后验证
-node --version   # v22.x
-npm --version    # 10.x+
-```
-
-#### 华为昇腾 Atlas 800T A2（aarch64）安装
-
-昇腾服务器通常是 aarch64（ARM64）Linux，NodeSource 的 deb 仓库也支持 ARM64，直接走官方脚本即可：
-
-```bash
-# 确认是 aarch64（返回 aarch64 即可）
-uname -m
-
-# 方式一：NodeSource 源（推荐，官方 LTS）
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# 方式二：conda（如果机器已有 miniconda / anaconda）
-conda create -n cc -c conda-forge nodejs=22 -y
-conda activate cc
-
-# 方式三：nvm（最灵活，多版本切换）
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-source ~/.bashrc
-nvm install --lts
-nvm use --lts
-
-# 验证
-node --version
-npm --version
-```
-
-**昇腾环境注意**：
-- Node.js 本身不依赖 GPU/NPU，和 CANN/torch_npu 互不干扰，可以和科学计算环境共存
-- 如果机器没有公网：建议先在有网机器上用 `npm install -g @anthropic-ai/claude-code` 装，再把 `~/.npm/_npx` 和全局 bin 打包 rsync 过去，或用 `npm config set registry https://registry.npmmirror.com` 换国内镜像
-- Claude Code 在 aarch64 上和 x86_64 行为一致，教材里后续所有命令都适用
+> **没有 conda？** 三个算力平台默认都有。如果你用的是自己的机器：
+> - macOS：`brew install node@22`
+> - Ubuntu/Debian：`curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs`
+> - 离线环境：用 npm 镜像 `npm config set registry https://registry.npmmirror.com`
 
 ### 第二步：启动 Claude Code
 

@@ -40,7 +40,7 @@ InternSVG 是书生生态推出的统一多模态 SVG 系统，首次将文本�
 
 ---
 
-## 第一部分：SVG 基础与矢量图形优势
+## SVG 基础与矢量图形优势
 
 ### 目标
 
@@ -95,7 +95,7 @@ SVG（Scalable Vector Graphics）是一种基于 XML 的二维矢量图形格式
 
 ---
 
-## 第二部分：InternSVG 架构与设计
+## InternSVG 架构与设计
 
 ### 目标
 
@@ -139,7 +139,7 @@ InternSVG 配套构建了 SAgoge，这是目前规模最大、覆盖最全的多
 
 ---
 
-## 第三部分：环境搭建与模型部署
+## 环境搭建与模型部署
 
 ### 目标
 
@@ -288,7 +288,7 @@ CUDA_VISIBLE_DEVICES=0,1 lmdeploy serve api_server ./models/InternSVG-8B \
 
 ---
 
-## 第四部分：文本生成 SVG
+## 文本生成 SVG
 
 ### 目标
 
@@ -303,7 +303,7 @@ InternSVG 支持通过自然语言描述生成对应的 SVG 代码。以下是�
 ```python
 """
 InternSVG 基础调用示例：生成一个闪电图标
-前提：已按第三部分启动 LMDeploy API 服务（端口 23333）
+前提：已按「环境搭建与模型部署」一节启动 LMDeploy API 服务（端口 23333）
 """
 
 from openai import OpenAI
@@ -474,7 +474,7 @@ print("Open any .svg file in browser to preview.")
 
 ---
 
-## 第五部分：图片转 SVG
+## 图片转 SVG
 
 ### 目标
 
@@ -708,7 +708,7 @@ print("Saved to market_share_pie.svg")
 
 ---
 
-## 第六部分：SVG 编辑与动画
+## SVG 编辑与动画
 
 ### 目标
 
@@ -982,7 +982,7 @@ print("  logo_dark.svg  -- dark mode variant")
 
 ---
 
-## 第七部分：AGI4S -- 科学可视化场景
+## AGI4S -- 科学可视化场景
 
 ### 目标
 
@@ -1133,7 +1133,7 @@ print("Saved to ml_pipeline.svg")
 
 ---
 
-## 第八部分：SArena 评测与多卡部署
+## SArena 评测与多卡部署
 
 ### 目标
 
