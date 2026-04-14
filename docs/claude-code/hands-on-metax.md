@@ -2,6 +2,14 @@
 
 > 适用于沐曦 MetaX C500 GPU（x86_64 Linux，MACA 3.3+）。
 
+## 沐曦算力平台（推荐给学员）
+
+🔗 **https://ai.gitee.com/compute**
+
+Gitee AI 提供的沐曦 MetaX C500 云上开发环境，预装 MACA + PyTorch，注册后可直接开机。本节命令都在该平台亲测可跑。
+
+如果你有自己的沐曦服务器，按同样流程在本机操作即可。
+
 ## 前置
 
 - 操作系统：Ubuntu 22.04 x86_64 / CentOS 7+

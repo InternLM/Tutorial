@@ -2,6 +2,12 @@
 
 > 本章节 AI + 社区共建中，实测流程待补全。
 
+## 沐曦算力平台（推荐给学员）
+
+🔗 **https://ai.gitee.com/compute**
+
+Gitee AI 提供的沐曦 MetaX C500 云上开发环境，预装 MACA + PyTorch，注册后即可开机。本节命令都在该平台亲测可跑。
+
 ## 适用平台
 
 - **GPU**：沐曦 MetaX C500（64GB VRAM）

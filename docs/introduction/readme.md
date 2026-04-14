@@ -159,6 +159,7 @@ Intern-S1-Pro → InternVL-U → InternSVG → LMDeploy → MCP → Claude Code 
 |------|------|---------|
 | **InternStudio A100** | https://studio.intern-ai.org.cn | NVIDIA A100 GPU，标准 CUDA 生态 |
 | **InternStudio 昇腾** | https://internstudio-ascend.intern-ai.org.cn | 华为昇腾 Atlas 800T A2，aarch64 + CANN 生态 |
+| **Gitee AI 沐曦** | https://ai.gitee.com/compute | 沐曦 MetaX C500，x86_64 + MACA 生态 |
 
 注册后直接开机，预装 PyTorch / 常用库。每门课的「实操」子 Tab 都会分 A100、昇腾 Atlas 800T A2、沐曦 MetaX C500 三个平台给出对应命令，你按自己手上的环境选。
 
