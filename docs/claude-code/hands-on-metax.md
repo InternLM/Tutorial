@@ -1,14 +1,14 @@
-# Claude Code 实操 · 沐曦 MetaX C500
+# Claude Code 实操 · 曦云 MetaX C500
 
-> 适用于沐曦 MetaX C500 GPU（x86_64 Linux，MACA 3.3+）。
+> 适用于曦云 MetaX C500 GPU（x86_64 Linux，MACA 3.3+）。
 
-## 沐曦算力平台（推荐给学员）
+## 曦云算力平台（推荐给学员）
 
 🔗 **https://ai.gitee.com/compute**
 
-Gitee AI 提供的沐曦 MetaX C500 云上开发环境，预装 MACA + PyTorch，注册后可直接开机。本节命令都在该平台亲测可跑。
+Gitee AI 提供的曦云 MetaX C500 云上开发环境，预装 MACA + PyTorch，注册后可直接开机。本节命令都在该平台亲测可跑。
 
-如果你有自己的沐曦服务器，按同样流程在本机操作即可。
+如果你有自己的曦云服务器，按同样流程在本机操作即可。
 
 ## 前置
 
@@ -18,7 +18,7 @@ Gitee AI 提供的沐曦 MetaX C500 云上开发环境，预装 MACA + PyTorch�
 
 ## 第一步：装 Node.js
 
-沐曦平台与标准 x86_64 一致，所有 Node.js 安装方式都适用：
+曦云平台与标准 x86_64 一致，所有 Node.js 安装方式都适用：
 
 ```bash
 # 方式 A：NodeSource 源
@@ -60,13 +60,13 @@ cd your-project
 claude
 ```
 
-## 沐曦环境特殊点
+## 曦云环境特殊点
 
 | 项 | 说明 |
 |----|------|
-| MACA 兼容 | 沐曦提供 CUDA 兼容层，Python 生态大多无修改可跑 |
+| MACA 兼容 | 曦云提供 CUDA 兼容层，Python 生态大多无修改可跑 |
 | 性能 | MetaX C500 与 A100 在多数场景下性能差距 <10% |
-| Docker | 沐曦提供 MACA 预装镜像，适合快速部署 |
+| Docker | 曦云提供 MACA 预装镜像，适合快速部署 |
 | flash_attn | 原生支持（走 MACA 实现） |
 
 ## 下一步

@@ -153,17 +153,19 @@ Intern-S1-Pro → InternVL-U → InternSVG → LMDeploy → MCP → Claude Code 
 
 ## 算力平台
 
-书生社区提供两类免费/低成本的开发环境，课程里的实操可以直接在上面跑：
+**本次实战营将采用 昇腾 / 曦云 / A100 算力进行授课。**
 
-| 平台 | 入口 | 适合场景 |
-|------|------|---------|
-| **InternStudio A100** | https://studio.intern-ai.org.cn | NVIDIA A100 GPU，标准 CUDA 生态 |
+三个平台均提供免费/低成本的开发环境，课程里的实操可以直接在上面跑：
+
+| 平台 | 入口 | 说明 |
+|------|------|------|
 | **InternStudio 昇腾** | https://internstudio-ascend.intern-ai.org.cn | 华为昇腾 Atlas 800T A2，aarch64 + CANN 生态 |
-| **Gitee AI 沐曦** | https://ai.gitee.com/compute | 沐曦 MetaX C500，x86_64 + MACA 生态 |
+| **Gitee AI 曦云** | https://ai.gitee.com/compute | 曦云 MetaX C500，x86_64 + MACA 生态 |
+| **InternStudio A100** | https://studio.intern-ai.org.cn | NVIDIA A100 GPU，标准 CUDA 生态 |
 
-注册后直接开机，预装 PyTorch / 常用库。每门课的「实操」子 Tab 都会分 A100、昇腾 Atlas 800T A2、沐曦 MetaX C500 三个平台给出对应命令，你按自己手上的环境选。
+注册后直接开机，预装 PyTorch / 常用库。每门课的「实操」子 Tab 都会分 昇腾 Atlas 800T A2、曦云 MetaX C500、A100 三个平台给出对应命令，你按自己手上的环境选。
 
-没有自己的 GPU 也没关系，这两个平台就够你完成全部课程。
+没有自己的 GPU 也没关系，上述三个平台就够你完成全部课程。
 
 ## 前置要求
 

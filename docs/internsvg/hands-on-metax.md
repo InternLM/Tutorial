@@ -1,16 +1,16 @@
-# InternSVG 实操 · 沐曦 MetaX C500
+# InternSVG 实操 · 曦云 MetaX C500
 
 > 本章节 AI + 社区共建中，实测流程待补全。
 
-## 沐曦算力平台（推荐给学员）
+## 曦云算力平台（推荐给学员）
 
 🔗 **https://ai.gitee.com/compute**
 
-Gitee AI 提供的沐曦 MetaX C500 云上开发环境，预装 MACA + PyTorch，注册后即可开机。本节命令都在该平台亲测可跑。
+Gitee AI 提供的曦云 MetaX C500 云上开发环境，预装 MACA + PyTorch，注册后即可开机。本节命令都在该平台亲测可跑。
 
 ## 适用平台
 
-- **GPU**：沐曦 MetaX C500（64GB VRAM）
+- **GPU**：曦云 MetaX C500（64GB VRAM）
 - **MACA**：3.3.0+
 - **Python**：3.10+
 - **操作系统**：x86_64 Linux
@@ -34,7 +34,7 @@ pip install internsvg
 
 ## 快速上手
 
-沐曦提供 CUDA 兼容层，API 与 A100 一致：
+曦云提供 CUDA 兼容层，API 与 A100 一致：
 
 ```python
 from internsvg import SVGGenerator
@@ -53,7 +53,7 @@ svg = gen.generate("一只戴着眼镜的橙色猫")
 
 ## 兼容性说明
 
-- 原生支持 flash_attn（走沐曦 MACA 实现）
+- 原生支持 flash_attn（走曦云 MACA 实现）
 - 与 A100 性能差距 <10%
 
 ## 常见问题
