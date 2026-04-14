@@ -2,8 +2,8 @@
   "sections": [
     { "slug": "readme",          "titleZh": "总览",                 "titleEn": "Overview" },
     { "slug": "theory",          "titleZh": "理论",                 "titleEn": "Theory" },
-    { "slug": "hands-on-a100",   "titleZh": "实操 · A100",          "titleEn": "Hands-on · A100" },
     { "slug": "hands-on-ascend", "titleZh": "实操 · 昇腾 Atlas 800T A2", "titleEn": "Hands-on · Ascend" },
-    { "slug": "hands-on-metax",  "titleZh": "实操 · 曦云 MetaX C500",    "titleEn": "Hands-on · MetaX" }
+    { "slug": "hands-on-metax",  "titleZh": "实操 · 曦云 MetaX C500",    "titleEn": "Hands-on · MetaX" },
+    { "slug": "hands-on-a100",   "titleZh": "实操 · A100",          "titleEn": "Hands-on · A100" }
   ]
 }
