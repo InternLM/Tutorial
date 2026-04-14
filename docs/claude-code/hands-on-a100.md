@@ -51,8 +51,10 @@ source ~/.bashrc
 
 ```bash
 cd your-project
-claude
+claude --model intern-s1-pro
 ```
+
+> 也可以省略 `--model`：第三步设置了 `ANTHROPIC_MODEL=intern-s1-pro` 后 `claude` 默认就用它。
 
 进入交互模式后输入：
 

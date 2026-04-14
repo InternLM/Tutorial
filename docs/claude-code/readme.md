@@ -145,9 +145,11 @@ source ~/.zshrc   # 如果你用的是 zsh
 # 进入你的项目目录（或任意目录）
 cd your-project
 
-# 启动 Claude Code
-claude
+# 启动 Claude Code（显式指定模型）
+claude --model intern-s1-pro
 ```
+
+> 也可以省略 `--model`：上一步设置了 `ANTHROPIC_MODEL=intern-s1-pro` 后 `claude` 默认就用它，命令行 `--model` 只是更显式。
 
 启动后你会进入一个交互式终端界面。Claude Code 会自动扫描当前目录的文件结构，建立项目上下文。
 
