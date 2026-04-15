@@ -61,12 +61,7 @@ npm install -g @anthropic-ai/claude-code
 claude --version
 ```
 
-> **还没有 Node.js？** 切到上方对应平台的「实操」子 Tab 查看一行安装方法：
-> - 「实操 · 昇腾 Atlas 800T A2」
-> - 「实操 · 曦云 MetaX C500」
-> - 「实操 · A100」
->
-> 三个平台都用 `conda install -c conda-forge nodejs=22` 一行搞定。
+> **还没有 Node.js？** 我们为 [昇腾 Atlas 800T A2](?section=hands-on-ascend) / [曦云 MetaX C500](?section=hands-on-metax) / [A100](?section=hands-on-a100) 三个平台准备了手把手教程，一行命令搞定。
 
 ### 第二步：启动 Claude Code
 
