@@ -52,25 +52,21 @@ Claude Code 是 Anthropic 官方推出的 AI 编程终端工具，将大语言�
 
 ### 第一步：安装 Claude Code
 
-Claude Code 以 npm 全局包的形式分发，需要 Node.js 22 LTS（InternStudio 昇腾 / A100 / Gitee AI 曦云 三个算力平台默认都有 conda，**一行安装**就够）：
+Claude Code 以 npm 全局包的形式分发，假设你已具备 Node.js 22 LTS：
 
 ```bash
-# 装 Node.js（conda-forge 源，三平台通用）
-conda install -c conda-forge nodejs=22 -y
-
-# 全局安装 Claude Code
 npm install -g @anthropic-ai/claude-code
 
-# 验证安装成功
-node --version     # v22.x
-npm --version      # 10.x+
+# 验证
 claude --version
 ```
 
-> **没有 conda？** 三个算力平台默认都有。如果你用的是自己的机器：
-> - macOS：`brew install node@22`
-> - Ubuntu/Debian：`curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs`
-> - 离线环境：用 npm 镜像 `npm config set registry https://registry.npmmirror.com`
+> **还没有 Node.js？** 切到上方对应平台的「实操」子 Tab 查看一行安装方法：
+> - 「实操 · 昇腾 Atlas 800T A2」
+> - 「实操 · 曦云 MetaX C500」
+> - 「实操 · A100」
+>
+> 三个平台都用 `conda install -c conda-forge nodejs=22` 一行搞定。
 
 ### 第二步：启动 Claude Code
 
