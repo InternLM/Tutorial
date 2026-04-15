@@ -4,7 +4,7 @@
 
 ## 为什么要学 Claude Code
 
-**到最原始的地方来。** Claude Code 是 Anthropic 官方推出的 AI 编程终端，而 **MCP（Model Context Protocol）** 和 **Skills** 这两套协议就是 Anthropic 提出并沉淀下来的 —— 它们已经成为大模型时代的事实标准（OpenAI、Codex、各家 IDE 插件、各类 Agent 框架都已适配）。
+**到最原始的地方来。** Claude Code 是 Anthropic 官方推出的 AI 编程终端，而 **MCP（Model Context Protocol）** 和 **Skills** 这两套协议就是 Anthropic 提出并沉淀下来的 —— 它们已经成为大模型时代的事实标准（OpenAI、Cursor、各家 IDE 插件与 Agent 框架都已适配）。
 
 学 Claude Code 不是学一个工具，是站在标准制定者的视角理解：
 - **AI 怎么调外部世界**（MCP）
