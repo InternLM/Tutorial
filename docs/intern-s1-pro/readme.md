@@ -125,12 +125,12 @@ Intern-S1-Pro 是书生生态的主力科学多模态大模型，总参数量达
 
 ### 前置准备
 
-**1. 获取 API Key**
+**1. 获取 API Token**
 
-1. 访问 https://internlm.intern-ai.org.cn
-2. 注册并登录账号
-3. 在 API 页面创建 API Key
-4. 复制 Key 并妥善保存（只显示一次）
+1. 访问 https://internlm.intern-ai.org.cn/api/tokens
+2. 登录（首次需要注册）
+3. 点击「创建 Token」
+4. 复制 Token 并妥善保存（只显示一次）
 
 **2. 安装依赖**
 

@@ -46,7 +46,7 @@ cd your-project
 claude --model intern-s1-pro
 ```
 
-> Token 在 https://community.intern-ai.org.cn 个人中心获取。
+> Token 在 https://internlm.intern-ai.org.cn/api/tokens 获取。
 >
 > 如果你想固化到 shell 配置（不再每次输），把上面 2 行 `export` 加到 `~/.bashrc` 即可。
 

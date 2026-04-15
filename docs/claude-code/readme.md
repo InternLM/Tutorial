@@ -73,7 +73,7 @@ claude --version
 # 1. 设置 API 基础地址
 export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn"
 
-# 2. 设置 API Token（在 https://community.intern-ai.org.cn 个人中心获取）
+# 2. 设置 API Token（在 https://internlm.intern-ai.org.cn/api/tokens 获取）
 export ANTHROPIC_AUTH_TOKEN="your-internlm-api-token"
 
 # 3. 进入项目目录并启动（显式指定模型）
@@ -85,9 +85,9 @@ claude --model intern-s1-pro
 
 **API Token 获取方式：**
 
-1. 访问书生大模型社区 https://community.intern-ai.org.cn
-2. 登录后进入个人中心
-3. 在 API Key 管理页面创建或复制你的 Token
+1. 访问 https://internlm.intern-ai.org.cn/api/tokens
+2. 登录（首次需要注册）
+3. 点击「创建 Token」并复制
 4. 将 Token 替换上面配置中的 `your-internlm-api-token`
 
 ### 第三步：完成第一次对话
@@ -812,7 +812,7 @@ curl -s https://chat.intern-ai.org.cn/api/v1/models \
   -H "Authorization: Bearer $ANTHROPIC_API_KEY"
 
 # 3. 如果 curl 能返回模型列表，说明网络和 Key 都没问题
-# 如果返回 401，说明 API Key 无效或已过期，去社区个人中心重新获取
+# 如果返回 401，说明 API Token 无效或已过期，去 https://internlm.intern-ai.org.cn/api/tokens 重新获取
 # 如果连接超时，检查网络环境（是否需要代理）
 ```
 
@@ -917,4 +917,5 @@ Hooks 的配置格式和支持的事件可能随 Claude Code 版本变化。如�
 - [Claude Code 官方文档](https://docs.anthropic.com/en/docs/claude-code) -- 安装、配置、命令参考
 - [MCP 协议规范](https://modelcontextprotocol.io) -- MCP Server 开发指南
 - [Anthropic Agent SDK](https://github.com/anthropics/agent-sdk) -- Agent 开发框架
-- [书生大模型社区](https://community.intern-ai.org.cn) -- API Key 获取、Intern-S1-Pro 文档
+- [书生大模型开放平台](https://internlm.intern-ai.org.cn/api/tokens) -- API Token 获取
+- [书生大模型社区](https://community.intern-ai.org.cn) -- 实战营、文档、积分商城
