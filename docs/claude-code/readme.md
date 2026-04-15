@@ -61,7 +61,7 @@ npm install -g @anthropic-ai/claude-code
 claude --version
 ```
 
-> **还没有 Node.js？** 我们为 [昇腾 Atlas 800T A2](?section=hands-on-ascend) / [曦云 MetaX C500](?section=hands-on-metax) / [A100](?section=hands-on-a100) 三个平台准备了手把手教程，一行命令搞定。
+> **关于 Node.js 环境**：我们将在 [昇腾 Atlas 800T A2](?section=hands-on-ascend) / [曦云 MetaX C500](?section=hands-on-metax) / [A100](?section=hands-on-a100) 三个平台上授课，并为每个平台准备了手把手的教程，点击对应平台名跳转。
 
 ### 第二步：启动 Claude Code
 
