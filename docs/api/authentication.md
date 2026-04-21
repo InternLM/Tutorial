@@ -1,5 +1,3 @@
-
-
 > 本文档 AI + 社区共建中
 # 认证鉴权
 
@@ -11,21 +9,21 @@
 
 **获取步骤：**
 
-1. 访问 [书生大模型开放平台](https://internlm.intern-ai.org.cn/api/document)
+1. 访问 [书生大模型开放平台](https://internlm.intern-ai.org.cn/api/tokens)
 2. 注册并登录
 3. 在平台中获取 API Key
 
 ### 使用方式
 
 ```bash
-Authorization: Bearer your-official-api-key
+Authorization: Bearer your-api-key
 ```
 
 ```python
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="your-official-api-key",
+    api_key="your-api-key",
     base_url="https://chat.intern-ai.org.cn/api/v1"
 )
 ```
@@ -55,13 +53,3 @@ client = OpenAI(
 - 使用环境变量或密钥管理服务存储
 - 定期轮换 API Key
 - 如果怀疑泄露，立即在对应平台撤销并重新创建
-
-## 速率限制
-
-| 计划 | RPM (请求/分钟) | TPM (Token/分钟) |
-|------|----------------|------------------|
-| 免费 | 10 | 100,000 |
-| 开发者 | 60 | 1,000,000 |
-| 企业 | 自定义 | 自定义 |
-
-超过速率限制时，API 将返回 `429 Too Many Requests` 状态码。
