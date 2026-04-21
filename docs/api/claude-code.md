@@ -1,5 +1,3 @@
-
-
 > 本文档 AI + 社区共建中
 # Claude Code 接入 Intern-S1-Pro
 
@@ -9,7 +7,7 @@
 
 前往书生大模型官方平台获取 API Token：
 
-**👉 [https://internlm.intern-ai.org.cn/api/document](https://internlm.intern-ai.org.cn/api/document?lang=zh)**
+**👉 [https://internlm.intern-ai.org.cn/api/tokens](https://internlm.intern-ai.org.cn/api/tokens)**
 
 1. 注册并登录书生大模型平台
 2. 进入 API 管理页面
@@ -57,18 +55,21 @@ export ANTHROPIC_AUTH_TOKEN="your-internlm-api-token"
 
 > **注意：** Claude Code 使用 Anthropic 协议（非 OpenAI 协议），因此环境变量为 `ANTHROPIC_BASE_URL` 和 `ANTHROPIC_AUTH_TOKEN`。
 
-### 持久化配置
+### 推荐：使用 alias 快捷启动
 
-将环境变量添加到 Shell 配置文件中（以 zsh 为例）：
+不建议将环境变量写入 Shell 配置文件。推荐创建一个 alias，每次启动时自动注入环境变量：
 
 ```bash
-# 编辑 ~/.zshrc（或 ~/.bashrc）
-echo 'export ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn"' >> ~/.zshrc
-echo 'export ANTHROPIC_AUTH_TOKEN="your-internlm-api-token"' >> ~/.zshrc
+# 在 ~/.zshrc 或 ~/.bashrc 中添加
+alias iclaude='ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn" ANTHROPIC_AUTH_TOKEN="your-internlm-api-token" claude --model intern-s1-pro'
+```
 
+```bash
 # 生效
 source ~/.zshrc
 ```
+
+之后只需输入 `iclaude` 即可启动接入 Intern-S1-Pro 的 Claude Code。
 
 ## 第四步：启动 Claude Code
 
@@ -89,14 +90,19 @@ claude --model intern-s1-pro
 ## 常用命令
 
 ```bash
-# 使用 Intern-S1-Pro 启动交互模式
+# 使用 alias 启动（推荐）
+iclaude
+
+# 或手动指定环境变量
+ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn" \
+ANTHROPIC_AUTH_TOKEN="your-token" \
 claude --model intern-s1-pro
 
 # 直接执行单次任务
-claude --model intern-s1-pro -p "帮我写一个 Python HTTP 服务器"
+iclaude -p "帮我写一个 Python HTTP 服务器"
 
 # 在指定目录下工作
-cd /path/to/your/project && claude --model intern-s1-pro
+cd /path/to/your/project && iclaude
 ```
 
 ## 配置文件方式
