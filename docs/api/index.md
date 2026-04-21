@@ -19,7 +19,6 @@
 - **多模态理解** — 图片理解、文档分析（`internvl-latest`）
 - **Function Calling** — 工具调用、Agent 场景
 
-此外，社区 [Playground](/playground) 提供 InternVL-U 在线体验（对话、AI 绘画、图片编辑），使用 Cookie 登录态而非 API Key。
 
 ## 快速导航
 
