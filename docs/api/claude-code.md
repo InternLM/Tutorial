@@ -69,10 +69,10 @@ alias iclaude='ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn" ANTHROPIC_AUTH
 source ~/.zshrc
 
 # 启动
-iclaude
+iclaude --model intern-s1-pro
 ```
 
-之后只需输入 `iclaude` 即可启动接入书生大模型的 Claude Code。
+之后只需输入 `iclaude --model intern-s1-pro` 即可启动接入书生大模型的 Claude Code。
 
 ## 第四步：启动 Claude Code
 
@@ -94,7 +94,7 @@ claude --model intern-s1-pro
 
 ```bash
 # 使用 alias 启动（推荐）
-iclaude
+iclaude --model intern-s1-pro
 
 # 或手动指定环境变量
 ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn" \
@@ -102,10 +102,10 @@ ANTHROPIC_AUTH_TOKEN="your-token" \
 claude --model intern-s1-pro
 
 # 直接执行单次任务
-iclaude -p "帮我写一个 Python HTTP 服务器"
+iclaude --model intern-s1-pro -p "帮我写一个 Python HTTP 服务器"
 
 # 在指定目录下工作
-cd /path/to/your/project && iclaude
+cd /path/to/your/project && iclaude --model intern-s1-pro
 ```
 
 ## 配置文件方式
