@@ -1,4 +1,5 @@
 > 本文档 AI + 社区共建中
+
 # 书生系列大模型 API 文档
 
 欢迎使用书生大模型 API！通过 API 你可以快速将书生大模型的能力集成到你的应用中。
@@ -36,6 +37,8 @@
 
 书生大模型 API 兼容 OpenAI SDK 和 Anthropic 协议，只需修改 `base_url` 和 `api_key` 即可使用：
 
+### OpenAI 协议
+
 ```python
 from openai import OpenAI
 
@@ -43,4 +46,28 @@ client = OpenAI(
     api_key="your-api-key",
     base_url="https://chat.intern-ai.org.cn/api/v1"
 )
+
+response = client.chat.completions.create(
+    model="intern-s1-pro",
+    messages=[{"role": "user", "content": "你好"}]
+)
+print(response.choices[0].message.content)
+```
+
+### Anthropic 协议
+
+```python
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key="your-api-key",
+    base_url="https://chat.intern-ai.org.cn"
+)
+
+message = client.messages.create(
+    model="intern-s1-pro",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "你好"}]
+)
+print(message.content[0].text)
 ```
