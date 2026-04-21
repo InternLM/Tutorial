@@ -67,9 +67,12 @@ alias iclaude='ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn" ANTHROPIC_AUTH
 ```bash
 # 生效
 source ~/.zshrc
+
+# 启动
+iclaude
 ```
 
-之后只需输入 `iclaude` 即可启动接入 Intern-S1-Pro 的 Claude Code。
+之后只需输入 `iclaude` 即可启动接入书生大模型的 Claude Code。
 
 ## 第四步：启动 Claude Code
 
