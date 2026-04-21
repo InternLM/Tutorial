@@ -61,7 +61,7 @@ export ANTHROPIC_AUTH_TOKEN="your-internlm-api-token"
 
 ```bash
 # 在 ~/.zshrc 或 ~/.bashrc 中添加
-alias iclaude='ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn" ANTHROPIC_AUTH_TOKEN="your-internlm-api-token" claude --model intern-s1-pro'
+alias iclaude='ANTHROPIC_BASE_URL="https://chat.intern-ai.org.cn" ANTHROPIC_AUTH_TOKEN="your-internlm-api-token" claude'
 ```
 
 ```bash
