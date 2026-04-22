@@ -27,8 +27,6 @@
 |------|------|
 | [快速开始](/docs/api/quickstart) | 5 分钟完成第一次 API 调用 |
 | [认证鉴权](/docs/api/authentication) | API Key 获取与管理 |
-| [InternLM3 模型](/docs/api/models/internlm3) | InternLM3 系列模型参数与用法 |
-| [InternVL 模型](/docs/api/models/internvl3) | InternVL 多模态模型参数与用法 |
 | [Claude Code 接入](/docs/api/claude-code) | 在 Claude Code 中使用 Intern-S1-Pro |
 | [OpenClaw 接入](/docs/api/openclaw) | 在 OpenClaw 中使用 Intern-S1-Pro |
 | [更多 AI 编程工具](/docs/api/coding-tools) | OpenCode 等其他工具配置 |
