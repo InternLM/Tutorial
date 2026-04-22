@@ -147,5 +147,5 @@ main();
 ## 下一步
 
 - 了解 [认证鉴权](/docs/api/authentication) 的详细配置
-- 查看 [InternLM3](/docs/api/models/internlm3) 和 [InternVL](/docs/api/models/internvl3) 的模型参数
+- 在 [Claude Code](/docs/api/claude-code) 中接入 Intern-S1-Pro 进行 AI 编程
 - 探索流式输出、Function Calling 等高级特性
