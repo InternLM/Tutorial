@@ -8,7 +8,6 @@
 
 | 配置项 | 说明 |
 |--------|------|
-| **提供方** | 上海 AI 实验室官方 |
 | **Base URL** | `https://chat.intern-ai.org.cn/api/v1` |
 | **获取方式** | 访问 [internlm.intern-ai.org.cn](https://internlm.intern-ai.org.cn/api/tokens) → 注册 → 获取 API Key |
 | **支持模型** | `intern-s1-pro`, `intern-s1`, `internvl-latest` 等 |
