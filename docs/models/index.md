@@ -1,5 +1,3 @@
-
-
 > 本文档 AI + 社区共建中
 # 模型与工具链文档
 
@@ -9,11 +7,13 @@
 
 | 产品 | 说明 | 文档 |
 |------|------|------|
-| **InternLM** | 书生大语言模型系列 | [查看文档](/docs/models/internlm) |
-| **InternVL** | 书生多模态大模型系列 | [查看文档](/docs/models/internvl) |
+| **Intern-S1-Pro** | 科学多模态旗舰模型 | [API 接入](/docs/api/quickstart) |
+| **Intern-S1** | 标准版，通用对话 | [API 接入](/docs/api/quickstart) |
 | **LMDeploy** | 大模型高效部署工具 | [查看文档](/docs/models/lmdeploy) |
 | **XTuner** | 大模型高效微调框架 | [查看文档](/docs/models/xtuner) |
 | **OpenCompass** | 大模型一站式评测平台 | [查看文档](/docs/models/opencompass) |
+| **InternLM** | 书生大语言模型系列 | [查看文档](/docs/models/internlm) |
+| **InternVL** | 书生多模态大模型系列 | [查看文档](/docs/models/internvl) |
 
 ## 快速选择
 
