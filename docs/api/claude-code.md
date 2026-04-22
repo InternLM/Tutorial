@@ -131,5 +131,5 @@ cd /path/to/your/project && iclaude --model intern-s1-pro
 ## 下一步
 
 - 查看 [OpenClaw 接入指南](/docs/api/openclaw) 了解具身智能开发
-- 了解 [InternLM3 模型](/docs/api/models/internlm3) 详细参数
+- 了解 [认证鉴权](/docs/api/authentication) 的详细配置
 - 查看 [快速开始](/docs/api/quickstart) 了解 API 基础用法
