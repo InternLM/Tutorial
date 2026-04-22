@@ -12,8 +12,8 @@
 | **LMDeploy** | 大模型高效部署工具 | [查看文档](/docs/models/lmdeploy) |
 | **XTuner** | 大模型高效微调框架 | [查看文档](/docs/models/xtuner) |
 | **OpenCompass** | 大模型一站式评测平台 | [查看文档](/docs/models/opencompass) |
-| **InternLM** | 书生大语言模型系列 | [查看文档](/docs/models/internlm) |
 | **InternVL** | 书生多模态大模型系列 | [查看文档](/docs/models/internvl) |
+| **InternLM** | 书生大语言模型系列 | [查看文档](/docs/models/internlm) |
 
 ## 快速选择
 
