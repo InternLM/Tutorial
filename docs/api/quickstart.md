@@ -26,7 +26,7 @@ npm install openai
 
 ## 步骤 2：发送第一条消息
 
-官方 API 由上海 AI 实验室提供，支持 Intern-S1、Intern-S1-Pro、InternVL3 等模型，适合生产环境和企业级场景。
+官方 API 由上海 AI 实验室提供，支持 Intern-S1、Intern-S1-Pro 等模型，适合生产环境和企业级场景。
 
 ### Python 示例
 
