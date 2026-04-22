@@ -11,7 +11,7 @@
 |--------|-----|
 | API Base URL | `https://chat.intern-ai.org.cn/api/v1` |
 | 协议 | OpenAI Chat Completions |
-| 推荐模型 | `intern-s1-pro`、`internvl-latest` |
+| 推荐模型 | `intern-s1-pro`、`intern-s1`、`internvl-latest` |
 | API Key | 在 [认证鉴权](/docs/api/authentication) 中获取 |
 
 ---
