@@ -10,7 +10,7 @@
 | 标签 | 产品线 | 代表产品 |
 |------|--------|---------|
 | 🟦 语言模型 | InternLM 系列 | InternLM → InternLM2 → InternLM2.5 → InternLM3 → InternThinker |
-| 🟩 多模态模型 | InternVL 系列 | InternVL → InternVL2 → InternVL2.5 → InternVL3 / XComposer / InternVideo / Intern-S1 |
+| 🟩 多模态模型 | InternVL 系列 | InternVL → InternVL2 → InternVL2.5 → InternVL3 / XComposer / InternVideo |
 | 🟧 工具链 | 部署/微调/评测 | LMDeploy / XTuner / OpenCompass / MindSearch |
 | 🟪 数据 | 训练数据 | 书生·万卷 / OREAL |
 
